@@ -4,11 +4,13 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.MediaScannerConnection;
 import android.media.effect.Effect;
 import android.media.effect.EffectContext;
 import android.media.effect.EffectFactory;
@@ -19,7 +21,9 @@ import android.opengl.GLUtils;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Layout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,12 +31,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.IntBuffer;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
+
+import static android.os.Environment.getExternalStorageState;
 
 public class EffectsFilterActivity extends Activity implements GLSurfaceView.Renderer {
 
@@ -48,6 +58,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     private volatile boolean saveFrame;
     private Uri uri;
     private int angle = 0;
+    private Bitmap image;
 
     public void setCurrentEffect(int effect) {
         mCurrentEffect = effect;
@@ -87,6 +98,23 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
 
             }
         });
+        LinearLayout test = new LinearLayout(this);
+        Button save = new Button(this);
+        save.setText("Save");
+        test.addView(save);
+        test.setGravity(Gravity.BOTTOM | Gravity.CENTER_VERTICAL);
+        this.addContentView(test,
+                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveBitmapNew(image);
+
+
+            }
+        });
+
     }
 
     private void loadTextures() {
@@ -276,6 +304,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
             applyEffect();
         }
         renderResult();
+        image = takeScreenshot(gl);
 //        if (saveFrame) {
 //            saveBitmap(takeScreenshot(gl));
 //        }
@@ -283,6 +312,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
 
     private void saveBitmap(Bitmap bitmap) {
         String root = Environment.getExternalStorageDirectory().toString();
+        System.out.println(root);
         File myDir = new File(root + "/saved_images");
         myDir.mkdirs();
         Random generator = new Random();
@@ -301,6 +331,49 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
             e.printStackTrace();
         }
 
+    }
+
+    public void saveBitmapNew(Bitmap bitmap){
+
+        File dir = getAlbumStorageDir();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+        Date now = new Date();
+        String filename = formatter.format(now) +".PNG";
+        File file = new File(dir, filename);
+        FileOutputStream out;
+        try {
+            out = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+                    // Tell the media scanner about the new file so that it is
+            // immediately available to the user.
+            MediaScannerConnection.scanFile(this, new String[] { file.toString() }, null,
+                    new MediaScannerConnection.OnScanCompletedListener() {
+                        public void onScanCompleted(String path, Uri uri) {
+                            Log.i("ExternalStorage", "Scanned " + path + ":");
+                            Log.i("ExternalStorage", "-> uri=" + uri);
+                        }
+                    });
+
+        }
+
+
+
+
+    public File getAlbumStorageDir() {
+        // Get the directory for the user's public pictures directory.
+        File file = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "Saved_Images");
+        if (!file.mkdirs()) {
+            Log.e("LOG_TAG", "Directory not created");
+        }
+        return file;
     }
 
     public Bitmap takeScreenshot(GL10 mGL) {
