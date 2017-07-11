@@ -109,7 +109,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveBitmapNew(image);
+                save(image);
 
 
             }
@@ -310,71 +310,12 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
 //        }
     }
 
-    private void saveBitmap(Bitmap bitmap) {
-        String root = Environment.getExternalStorageDirectory().toString();
-        System.out.println(root);
-        File myDir = new File(root + "/saved_images");
-        myDir.mkdirs();
-        Random generator = new Random();
-        int n = 10000;
-        n = generator.nextInt(n);
-        String fname = "Image-"+ n +".jpg";
-        File file = new File (myDir, fname);
-        if (file.exists ()) file.delete ();
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-            out.flush();
-            out.close();
-            Log.i("TAG", "Image SAVED=========="+file.getAbsolutePath());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void save(Bitmap bitmap){
+        FileManager fm = new FileManager(this);
+        fm.saveBitmap(bitmap);
 
     }
 
-    public void saveBitmapNew(Bitmap bitmap){
-
-        File dir = getAlbumStorageDir();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
-        Date now = new Date();
-        String filename = formatter.format(now) +".PNG";
-        File file = new File(dir, filename);
-        FileOutputStream out;
-        try {
-            out = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-
-            out.flush();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-                    // Tell the media scanner about the new file so that it is
-            // immediately available to the user.
-            MediaScannerConnection.scanFile(this, new String[] { file.toString() }, null,
-                    new MediaScannerConnection.OnScanCompletedListener() {
-                        public void onScanCompleted(String path, Uri uri) {
-                            Log.i("ExternalStorage", "Scanned " + path + ":");
-                            Log.i("ExternalStorage", "-> uri=" + uri);
-                        }
-                    });
-
-        }
-
-
-
-
-    public File getAlbumStorageDir() {
-        // Get the directory for the user's public pictures directory.
-        File file = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "Saved_Images");
-        if (!file.mkdirs()) {
-            Log.e("LOG_TAG", "Directory not created");
-        }
-        return file;
-    }
 
     public Bitmap takeScreenshot(GL10 mGL) {
         final int mWidth = mEffectView.getWidth();
