@@ -20,12 +20,12 @@
         "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication-NEW\\app\\src\\main\\res\\drawable\\splash_img_1080x1920.png"
     },
     {
-        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication-NEW\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
-        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
-    },
-    {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication-NEW\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
         "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication-NEW\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
     },
     {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication-NEW\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_tile_bg.xml",
@@ -96,6 +96,10 @@
         "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication-NEW\\app\\src\\main\\res\\drawable\\splash_img_960x1440.png"
     },
     {
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication-NEW\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\layers.png",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication-NEW\\app\\src\\main\\res\\drawable\\layers.png"
+    },
+    {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication-NEW\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_ab_back_material.xml",
         "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_ic_ab_back_material.xml"
     },
@@ -106,10 +110,6 @@
     {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication-NEW\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_internal_bg.xml",
         "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_cab_background_internal_bg.xml"
-    },
-    {
-        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication-NEW\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\layers.png",
-        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication-NEW\\app\\src\\main\\res\\drawable\\layers.png"
     },
     {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication-NEW\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
