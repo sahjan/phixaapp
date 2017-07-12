@@ -1,5 +1,13 @@
 [
     {
+        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\layout-v21\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\layout-v21\\notification_action_tombstone.xml"
+    },
+    {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication-NEW\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
         "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\layout-v21\\notification_template_custom_big.xml"
     },
@@ -8,8 +16,16 @@
         "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\layout-v21\\notification_action.xml"
     },
     {
+        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action.xml",
+        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\layout-v21\\notification_action.xml"
+    },
+    {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication-NEW\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
         "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\layout-v21\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
+        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\layout-v21\\notification_template_custom_big.xml"
     },
     {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication-NEW\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",

@@ -2347,7 +2347,7 @@ containing a value of this type.
         public static final int beginning=0x7f0b0022;
         public static final int bottom=0x7f0b002a;
         public static final int brightness=0x7f0b007e;
-        public static final int buttonOne=0x7f0b0061;
+        public static final int buttonOne=0x7f0b0060;
         public static final int buttonPanel=0x7f0b0036;
         public static final int buttonThree=0x7f0b0063;
         public static final int buttonTwo=0x7f0b0062;
@@ -2386,7 +2386,7 @@ containing a value of this type.
         public static final int ifRoom=0x7f0b0027;
         public static final int image=0x7f0b0031;
         public static final int info=0x7f0b0072;
-        public static final int launch=0x7f0b0060;
+        public static final int launch=0x7f0b0061;
         public static final int line1=0x7f0b0077;
         public static final int line3=0x7f0b0079;
         public static final int listMode=0x7f0b0012;

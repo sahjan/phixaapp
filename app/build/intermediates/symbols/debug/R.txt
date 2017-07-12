@@ -612,7 +612,7 @@ int id basic 0x7f0b000f
 int id beginning 0x7f0b0022
 int id bottom 0x7f0b002a
 int id brightness 0x7f0b007e
-int id buttonOne 0x7f0b0061
+int id buttonOne 0x7f0b0060
 int id buttonPanel 0x7f0b0036
 int id buttonThree 0x7f0b0063
 int id buttonTwo 0x7f0b0062
@@ -651,7 +651,7 @@ int id icon_group 0x7f0b0075
 int id ifRoom 0x7f0b0027
 int id image 0x7f0b0031
 int id info 0x7f0b0072
-int id launch 0x7f0b0060
+int id launch 0x7f0b0061
 int id line1 0x7f0b0077
 int id line3 0x7f0b0079
 int id listMode 0x7f0b0012
