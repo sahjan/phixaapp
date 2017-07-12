@@ -13,22 +13,48 @@
 
 
     <Button
-        android:text="load"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="32dp"
         android:id="@+id/load"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:text="load"
         android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@+id/launch" />
+        android:layout_alignEnd="@+id/buttonOne" />
 
     <Button
-        android:text="launch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/launch"
-        android:layout_alignBaseline="@+id/load"
-        android:layout_alignBottom="@+id/load"
-        android:layout_alignParentEnd="true" />
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="51dp"
+        android:layout_toEndOf="@+id/buttonOne"
+        android:text="launch" />
+
+    <ImageButton
+        android:id="@+id/buttonOne"
+        android:layout_width="110dp"
+        android:layout_height="98dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="85dp"
+        android:cropToPadding="false"
+        app:srcCompat="@drawable/open_file_1"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:id="@+id/buttonTwo"
+        android:layout_width="110dp"
+        android:layout_height="98dp"
+        app:srcCompat="@drawable/to_cam_1"
+        android:layout_alignTop="@+id/buttonOne"
+        android:layout_alignStart="@+id/launch" />
+
+    <ImageButton
+        android:id="@+id/buttonThree"
+        android:layout_width="110dp"
+        android:layout_height="98dp"
+        android:layout_below="@+id/buttonTwo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp"
+        app:srcCompat="@drawable/open_recent_1" />
 
 </RelativeLayout>
