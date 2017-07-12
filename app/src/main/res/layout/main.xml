@@ -6,9 +6,9 @@
 
     <ImageButton
         android:id="@+id/imageButton2"
+        app:srcCompat="@drawable/layers"
         android:layout_width="100dp"
-        android:layout_height="101dp"
-        app:srcCompat="@drawable/layers" />
+        android:layout_height="101dp" />
 
     <android.opengl.GLSurfaceView
         android:id="@+id/effectsview"
@@ -24,6 +24,7 @@
     <!--android:onClick="showPopup" />-->
 
     <TabHost
+        android:id="@+id/editBar"
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
@@ -40,7 +41,7 @@
                 <TabWidget
                     android:id="@android:id/tabs"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp" />
+                    android:layout_height="match_parent" />
 
                 <LinearLayout
                     android:id="@+id/tab1"
@@ -65,6 +66,7 @@
                     android:orientation="vertical">
 
                 </LinearLayout>
+
             </FrameLayout>
 
         </LinearLayout>
