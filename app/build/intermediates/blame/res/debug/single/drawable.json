@@ -12,6 +12,10 @@
         "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\26.0.0-alpha1\\res\\drawable\\abc_ic_search_api_material.xml"
     },
     {
+        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\splash_img_960x1440.png",
+        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\src\\main\\res\\drawable\\splash_img_960x1440.png"
+    },
+    {
         "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_ab_back_material.xml",
         "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhotoApplication\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\26.0.0-alpha1\\res\\drawable\\abc_ic_ab_back_material.xml"
     },
@@ -20,12 +24,12 @@
         "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\26.0.0-alpha1\\res\\drawable\\abc_btn_borderless_material.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_voice_search_api_material.xml",
-        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\26.0.0-alpha1\\res\\drawable\\abc_ic_voice_search_api_material.xml"
-    },
-    {
         "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml",
         "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhotoApplication\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\26.0.0-alpha1\\res\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_voice_search_api_material.xml",
+        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\26.0.0-alpha1\\res\\drawable\\abc_ic_voice_search_api_material.xml"
     },
     {
         "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_default_mtrl_shape.xml",
@@ -46,6 +50,10 @@
     {
         "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_indicator_material.xml",
         "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\26.0.0-alpha1\\res\\drawable\\abc_ratingbar_indicator_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\splash_img_480x960.png",
+        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\src\\main\\res\\drawable\\splash_img_480x960.png"
     },
     {
         "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_go_search_api_material.xml",
@@ -152,6 +160,10 @@
         "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\26.0.0-alpha1\\res\\drawable\\abc_ratingbar_material.xml"
     },
     {
+        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bin.png",
+        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\src\\main\\res\\drawable\\bin.png"
+    },
+    {
         "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_default_mtrl_shape.xml",
         "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\26.0.0-alpha1\\res\\drawable\\abc_btn_default_mtrl_shape.xml"
     },
@@ -224,6 +236,14 @@
         "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\26.0.0-alpha1\\res\\drawable\\notification_bg_low.xml"
     },
     {
+        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\splash_img_720x1280.png",
+        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\src\\main\\res\\drawable\\splash_img_720x1280.png"
+    },
+    {
+        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\layers.png",
+        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\src\\main\\res\\drawable\\layers.png"
+    },
+    {
         "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_radio_material.xml",
         "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhotoApplication\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\26.0.0-alpha1\\res\\drawable\\abc_btn_radio_material.xml"
     },
@@ -258,6 +278,10 @@
     {
         "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
         "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\26.0.0-alpha1\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\splash_img_1080x1920.png",
+        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\src\\main\\res\\drawable\\splash_img_1080x1920.png"
     },
     {
         "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",

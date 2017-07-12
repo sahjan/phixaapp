@@ -3,9 +3,18 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
+
     <android.opengl.GLSurfaceView
         android:id="@+id/effectsview"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="0.93" />
+
+    <!--<Button-->
+        <!--android:text="Button"-->
+        <!--android:layout_width="78dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/button"-->
+        <!--android:onClick="showPopup" />-->
+
 </LinearLayout>
