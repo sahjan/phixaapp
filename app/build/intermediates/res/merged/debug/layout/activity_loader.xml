@@ -12,22 +12,7 @@
     tools:context="com.example.project.photoapplication.Loader">
 
 
-    <Button
-        android:id="@+id/load"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
-        android:text="load"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/openButton" />
 
-    <Button
-        android:id="@+id/launch"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="51dp"
-        android:layout_toEndOf="@+id/openButton"
-        android:text="launch" />
 
     <ImageButton
         android:id="@+id/openButton"
@@ -37,7 +22,6 @@
         android:layout_marginTop="33dp"
         android:cropToPadding="false"
         app:srcCompat="@drawable/open_file_1"
-        android:layout_below="@+id/exitButton"
         android:layout_alignParentStart="true" />
 
     <ImageButton
@@ -45,8 +29,7 @@
         android:layout_width="110dp"
         android:layout_height="98dp"
         app:srcCompat="@drawable/to_cam_1"
-        android:layout_alignTop="@+id/openButton"
-        android:layout_alignStart="@+id/launch" />
+        android:layout_alignTop="@+id/openButton" />
 
     <ImageButton
         android:id="@+id/recentButton"
