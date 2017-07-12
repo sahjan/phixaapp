@@ -2,19 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <ImageButton
         android:id="@+id/imageButton2"
         app:srcCompat="@drawable/layers"
-        android:layout_width="100dp"
-        android:layout_height="90dp" />
-
-    <android.opengl.GLSurfaceView
-        android:id="@+id/effectsview"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.93" />
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
 
     <!--<Button-->
     <!--android:text="Button"-->
@@ -22,6 +17,12 @@
     <!--android:layout_height="wrap_content"-->
     <!--android:id="@+id/button"-->
     <!--android:onClick="showPopup" />-->
+
+    <android.opengl.GLSurfaceView
+        android:id="@+id/effectsview"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.93" />
 
     <TabHost
         android:id="@+id/editBar"

@@ -82,36 +82,36 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         mEffectView.setRenderer(this);
         mEffectView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
         mCurrentEffect = R.id.none;
-        Button effect = new Button(this);
-        effect.setText("effect");
-        this.addContentView(effect,
-                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-        effect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPopup(view);
-
-            }
-        });
-
-
-        LinearLayout test = new LinearLayout(this);
-        Button save = new Button(this);
-        save.setText("Save");
-        test.addView(save);
-        test.setGravity(Gravity.BOTTOM | Gravity.CENTER_VERTICAL);
-        this.addContentView(test,
-                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
-
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                save(image);
-
-
-            }
-        });
+//        Button effect = new Button(this);
+//        effect.setText("effect");
+//        this.addContentView(effect,
+//                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+//
+//        effect.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showPopup(view);
+//
+//            }
+//        });
+//
+//
+//        LinearLayout test = new LinearLayout(this);
+//        Button save = new Button(this);
+//        save.setText("Save");
+//        test.addView(save);
+//        test.setGravity(Gravity.BOTTOM | Gravity.CENTER_VERTICAL);
+//        this.addContentView(test,
+//                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
+//
+//        save.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                save(image);
+//
+//
+//            }
+//        });
 
     }
     public void showPopup(View v) {
