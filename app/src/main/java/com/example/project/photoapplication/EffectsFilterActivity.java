@@ -3,6 +3,7 @@ package com.example.project.photoapplication;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -33,6 +34,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.TabHost;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -60,6 +62,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     private Uri uri;
     private int angle = 0;
     private Bitmap image;
+    private boolean secondRender = false;
 
     public void setCurrentEffect(int effect) {
         mCurrentEffect = effect;
@@ -82,6 +85,14 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         mEffectView.setRenderer(this);
         mEffectView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
         mCurrentEffect = R.id.none;
+        try {
+            image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
 //        Button effect = new Button(this);
 //        effect.setText("effect");
 //        this.addContentView(effect,
@@ -112,21 +123,21 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
 //
 //            }
 //        });
-
-    }
-    public void showPopup(View v) {
-        PopupMenu popup = new PopupMenu(this, v);
-        popup.inflate(R.menu.main);
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                setCurrentEffect(menuItem.getItemId());
-                mEffectView.requestRender();
-                return true;
-            }
-        });
-        popup.show();
-
+//
+//    }
+//    public void showPopup(View v) {
+//        PopupMenu popup = new PopupMenu(this, v);
+//        popup.inflate(R.menu.main);
+//        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem menuItem) {
+//                setCurrentEffect(menuItem.getItemId());
+//                mEffectView.requestRender();
+//                return true;
+//            }
+//        });
+//        popup.show();
+//
     }
 
 
@@ -135,21 +146,13 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         // Generate textures
         GLES20.glGenTextures(2, mTextures, 0);
 
-        // Load input bitmap
-
-        Bitmap bitmap = null;
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mImageWidth = bitmap.getWidth();
-        mImageHeight = bitmap.getHeight();
+        mImageWidth = image.getWidth();
+        mImageHeight = image.getHeight();
         mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
 
         // Upload to texture
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
-        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, image, 0);
 
         // Set texture parameters
         GLToolbox.initTexParams();
@@ -302,13 +305,13 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
 
     @Override
     public void onDrawFrame(GL10 gl) {
-        if (!mInitialized) {
+//        if (!mInitialized) {
             // Only need to do this once
             mEffectContext = EffectContext.createWithCurrentGlContext();
             mTexRenderer.init();
             loadTextures();
             mInitialized = true;
-        }
+//        }
 
 
         if (mCurrentEffect != R.id.none) {
@@ -361,24 +364,6 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        setCurrentEffect(item.getItemId());
-        mEffectView.requestRender();
-        return true;
-    }
-
-    public void rotate() {
-        EffectFactory effectFactory = mEffectContext.getFactory();
-        mEffect = effectFactory.createEffect(EffectFactory.EFFECT_ROTATE);
-        mEffect.setParameter("angle", angle);
-    }
 }
 
