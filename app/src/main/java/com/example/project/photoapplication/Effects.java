@@ -26,7 +26,7 @@ public class Effects {
      * @param chosenEffect the chosen effect
      * @return the initialised effect
      */
-    public Effect initEffect(EffectContext effectContext, int chosenEffect, int sliderProgress) {
+    public Effect initEffect(EffectContext effectContext, int chosenEffect, float sliderProgress) {
 
         EffectFactory effectFactory = effectContext.getFactory();
         if (effect != null) {
@@ -52,7 +52,7 @@ public class Effects {
             case R.id.brightness:
                 effect = effectFactory.createEffect(
                         EffectFactory.EFFECT_BRIGHTNESS);
-                effect.setParameter("brightness", 2.0f);
+                effect.setParameter("brightness", sliderProgress); //2.0f
                 break;
             case R.id.contrast:
                 effect = effectFactory.createEffect(
