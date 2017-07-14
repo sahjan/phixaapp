@@ -52,7 +52,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     private GLSurfaceView mEffectView;
     private int[] mTextures = new int[2];
     private EffectContext mEffectContext;
-    private Effect mEffect;
+    //private Effect mEffect;
     private TextureRenderer mTexRenderer = new TextureRenderer();
     private int mImageWidth;
     private int mImageHeight;
@@ -63,6 +63,8 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     private int angle = 0;
     private Bitmap image;
     private boolean secondRender = false;
+
+    private Effects effectHandler;
 
     public void setCurrentEffect(int effect) {
         mCurrentEffect = effect;
@@ -91,55 +93,58 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
             e.printStackTrace();
         }
 
+        effectHandler = new Effects();
+
+//
+        Button effect = new Button(this);
+        effect.setText("effect");
+        this.addContentView(effect,
+                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        effect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopup(view);
+
+            }
+        });
 
 
-//        Button effect = new Button(this);
-//        effect.setText("effect");
-//        this.addContentView(effect,
-//                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-//
-//        effect.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                showPopup(view);
-//
-//            }
-//        });
-//
-//
-//        LinearLayout test = new LinearLayout(this);
-//        Button save = new Button(this);
-//        save.setText("Save");
-//        test.addView(save);
-//        test.setGravity(Gravity.BOTTOM | Gravity.CENTER_VERTICAL);
-//        this.addContentView(test,
-//                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
-//
-//        save.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                save(image);
-//
-//
-//            }
-//        });
-//
-//    }
-//    public void showPopup(View v) {
-//        PopupMenu popup = new PopupMenu(this, v);
-//        popup.inflate(R.menu.main);
-//        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem menuItem) {
-//                setCurrentEffect(menuItem.getItemId());
-//                mEffectView.requestRender();
-//                return true;
-//            }
-//        });
-//        popup.show();
-//
+        LinearLayout test = new LinearLayout(this);
+        Button save = new Button(this);
+        save.setText("Save");
+        test.addView(save);
+        test.setGravity(Gravity.BOTTOM | Gravity.CENTER_VERTICAL);
+        this.addContentView(test,
+                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                save(image);
+
+
+            }
+        });
+
     }
 
+
+    public void showPopup(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.inflate(R.menu.main);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                setCurrentEffect(menuItem.getItemId());
+                mEffectView.requestRender();
+                return true;
+            }
+        });
+        popup.show();
+
+    }
+//
 
 
     private void loadTextures() {
@@ -158,6 +163,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         GLToolbox.initTexParams();
     }
 
+    /*
     private void initEffect() {
         EffectFactory effectFactory = mEffectContext.getFactory();
         if (mEffect != null) {
@@ -165,7 +171,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         }
         /**
          * Initialize the correct effect based on the selected menu/action item
-         */
+         *
         switch (mCurrentEffect) {
             case R.id.none:
                 break;
@@ -281,7 +287,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
             default:
                 break;
         }
-    }
+    } */
 
 
 
@@ -289,7 +295,8 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
 
 
     private void applyEffect() {
-        mEffect.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
+        Effect effect = effectHandler.initEffect(mEffectContext, mCurrentEffect);
+        effect.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
     }
 
     private void renderResult() {
@@ -316,7 +323,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
 
         if (mCurrentEffect != R.id.none) {
             // if an effect is chosen initialize it and apply it to the texture
-            initEffect();
+            effectHandler.initEffect(mEffectContext, mCurrentEffect);
             applyEffect();
         }
         renderResult();
