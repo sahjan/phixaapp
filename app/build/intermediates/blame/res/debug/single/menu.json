@@ -1,6 +1,18 @@
 [
     {
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\menu\\brush.xml",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\menu\\brush.xml"
+    },
+    {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\menu\\main.xml",
         "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\menu\\main.xml"
+    },
+    {
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\menu\\transform.xml",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\menu\\transform.xml"
+    },
+    {
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\menu\\adjust.xml",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\menu\\adjust.xml"
     }
 ]

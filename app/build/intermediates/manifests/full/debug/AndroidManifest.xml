@@ -26,10 +26,10 @@
             parent="@style/Theme.AppCompat.Light.NoActionBar" >
             ...
             <item name="windowNoTitle">
-true
+                true
             </item>
             <item name="android:windowNoTitle">
-true
+                true
             </item>
         </style>
 
@@ -42,6 +42,7 @@ true
             </intent-filter>
         </activity>
         <activity android:name="com.example.project.photoapplication.Loader" />
+        <activity android:name="com.example.project.photoapplication.RecentImages" />
     </application>
 
 </manifest>

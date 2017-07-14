@@ -10,13 +10,20 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <style android:name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+
+        <style
+            android:name="AppTheme"
+            parent="@style/Theme.AppCompat.Light.NoActionBar">
             ...
-            <item name="windowNoTitle">true</item>
-            <item name="android:windowNoTitle">true</item>
+            <item name="windowNoTitle">
+                true
+            </item>
+            <item name="android:windowNoTitle">
+                true
+            </item>
         </style>
 
-        <activity android:name=".EffectsFilterActivity"></activity>
+        <activity android:name=".EffectsFilterActivity" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +31,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Loader"></activity>
+        <activity android:name=".Loader" />
+        <activity android:name=".RecentImages"></activity>
     </application>
 
 </manifest>
