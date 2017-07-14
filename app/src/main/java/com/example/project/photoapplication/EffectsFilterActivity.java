@@ -109,7 +109,23 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         findViewById(R.id.but1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopup(view);
+                showPopupTransform(view);
+
+            }
+        });
+
+        findViewById(R.id.but2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopupAdjust(view);
+
+            }
+        });
+
+        findViewById(R.id.but3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopupBrush(view);
 
             }
         });
@@ -135,9 +151,9 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     }
 
 
-    public void showPopup(View v) {
+    public void showPopupTransform(View v) {
         PopupMenu popup = new PopupMenu(this, v);
-        popup.inflate(R.menu.main);
+        popup.inflate(R.menu.transform);
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
@@ -148,14 +164,59 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
                 mEffectView.requestRender();
 
                 //show the slider when an effect is chosen
-                slider.setVisibility(View.VISIBLE);
+                if(mCurrentEffect == R.id.brightness) {
+                    slider.setVisibility(View.VISIBLE);
+                }
                 return true;
             }
         });
         popup.show();
 
     }
-//
+    public void showPopupAdjust(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.inflate(R.menu.adjust);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                setCurrentEffect(menuItem.getItemId());
+                if(undo == false){
+                    history.push(mCurrentEffect);
+                }
+                mEffectView.requestRender();
+
+                //show the slider when an effect is chosen
+                if(mCurrentEffect == R.id.brightness) {
+                    slider.setVisibility(View.VISIBLE);
+                }
+                return true;
+            }
+        });
+        popup.show();
+    }
+
+    public void showPopupBrush(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.inflate(R.menu.brush);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                setCurrentEffect(menuItem.getItemId());
+                if(undo == false){
+                    history.push(mCurrentEffect);
+                }
+                mEffectView.requestRender();
+
+                //show the slider when an effect is chosen
+                if(mCurrentEffect == R.id.brightness) {
+                    slider.setVisibility(View.VISIBLE);
+                }
+                return true;
+            }
+        });
+        popup.show();
+    }
+
 
 
     private void loadTextures() {
