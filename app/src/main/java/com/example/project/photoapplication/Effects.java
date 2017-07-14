@@ -10,7 +10,7 @@ import android.media.effect.EffectFactory;
  *
  * This class is responsible for initialising the chosen
  * effect and passing it back to the main activity to
- * render and apply.
+ * apply and render.
  */
 
 public class Effects {
@@ -26,7 +26,7 @@ public class Effects {
      * @param chosenEffect the chosen effect
      * @return the initialised effect
      */
-    public Effect initEffect(EffectContext effectContext, int chosenEffect) {
+    public Effect initEffect(EffectContext effectContext, int chosenEffect, int sliderProgress) {
 
         EffectFactory effectFactory = effectContext.getFactory();
         if (effect != null) {

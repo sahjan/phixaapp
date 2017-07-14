@@ -34,6 +34,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.SeekBar;
 import android.widget.TabHost;
 
 import java.io.File;
@@ -65,6 +66,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     private Stack<Integer> history;
 
     private Effects effectHandler;
+    private SeekBar slider;
 
     public void setCurrentEffect(int effect) {
         mCurrentEffect = effect;
@@ -96,6 +98,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         }
 
         effectHandler = new Effects();
+        slider = (SeekBar) findViewById(R.id.slider);
 
 
         //Button effect = new Button(this);
@@ -143,6 +146,9 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
                     history.push(mCurrentEffect);
                 }
                 mEffectView.requestRender();
+
+                //show the slider when an effect is chosen
+                slider.setVisibility(View.VISIBLE);
                 return true;
             }
         });
@@ -169,7 +175,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     }
 
     private void applyEffect() {
-        Effect effect = effectHandler.initEffect(mEffectContext, mCurrentEffect);
+        Effect effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, slider.getProgress());
         effect.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
     }
 
@@ -197,7 +203,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
 
         if (mCurrentEffect != R.id.none) {
             // if an effect is chosen initialize it and apply it to the texture
-            effectHandler.initEffect(mEffectContext, mCurrentEffect);
+            effectHandler.initEffect(mEffectContext, mCurrentEffect, slider.getProgress());
             applyEffect();
         }
         renderResult();
