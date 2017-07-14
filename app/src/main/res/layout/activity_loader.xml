@@ -18,18 +18,21 @@
         android:id="@+id/openButton"
         android:layout_width="110dp"
         android:layout_height="98dp"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="36dp"
         android:cropToPadding="false"
         app:srcCompat="@drawable/open_file_1"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="35dp" />
 
     <ImageButton
         android:id="@+id/camButton"
         android:layout_width="110dp"
         android:layout_height="98dp"
         app:srcCompat="@drawable/to_cam_1"
-        android:layout_alignTop="@+id/openButton" />
+        android:layout_alignTop="@+id/openButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="24dp" />
 
     <ImageButton
         android:id="@+id/recentButton"

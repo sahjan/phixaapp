@@ -1,186 +1,190 @@
 [
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\exit_0.png",
-        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\src\\main\\res\\drawable\\exit_0.png"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_go_search_api_material.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_ic_go_search_api_material.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_text_cursor_material.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_text_cursor_material.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\layers.png",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\drawable\\layers.png"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\open_file_1.png",
-        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\src\\main\\res\\drawable\\open_file_1.png"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_material.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_tab_indicator_material.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_search_api_material.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_ic_search_api_material.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_voice_search_api_material.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_ic_voice_search_api_material.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\splash_img_960x1440.png",
-        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\src\\main\\res\\drawable\\splash_img_960x1440.png"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\splash_img_1080x1920.png",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\drawable\\splash_img_1080x1920.png"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_material.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_ratingbar_material.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_borderless_material.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_btn_borderless_material.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bin.png",
-        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\src\\main\\res\\drawable\\bin.png"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_item_background_holo_light.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_default_mtrl_shape.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_btn_default_mtrl_shape.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_text_cursor_material.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_text_cursor_material.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_tile_bg.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\notification_tile_bg.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_go_search_api_material.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_ic_go_search_api_material.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_borderless_material.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_btn_borderless_material.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\bin.png",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\drawable\\bin.png"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_voice_search_api_material.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_ic_voice_search_api_material.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_indicator_material.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_ratingbar_indicator_material.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_track_material.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_seekbar_track_material.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\exit_0.png",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\drawable\\exit_0.png"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_search_material.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_textfield_search_material.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\splash_img_480x960.png",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\drawable\\splash_img_480x960.png"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_item_background_holo_light.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_vector_test.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_vector_test.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_small_material.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_ratingbar_small_material.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\to_cam_1.png",
-        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\src\\main\\res\\drawable\\to_cam_1.png"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_search_material.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_textfield_search_material.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_radio_material.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_btn_radio_material.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_material.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_ratingbar_material.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_top_material.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_cab_background_top_material.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_thumb_material.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_seekbar_thumb_material.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_switch_thumb_material.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_switch_thumb_material.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_bg_low.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\notification_bg_low.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_item_background_holo_dark.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\splash_img_720x1280.png",
-        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\src\\main\\res\\drawable\\splash_img_720x1280.png"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_switch_thumb_material.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_switch_thumb_material.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\layers.png",
-        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\src\\main\\res\\drawable\\layers.png"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_radio_material.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_btn_radio_material.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_dialog_material_background.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\splash_img_960x1440.png",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\drawable\\splash_img_960x1440.png"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_list_selector_holo_dark.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_material.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_ic_clear_material.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_bg.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\notification_bg.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_small_material.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_ratingbar_small_material.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_indicator_material.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_ratingbar_indicator_material.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_dialog_material_background.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\splash_img_480x960.png",
-        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\src\\main\\res\\drawable\\splash_img_480x960.png"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_default_mtrl_shape.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_btn_default_mtrl_shape.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_tile_bg.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\notification_tile_bg.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_list_selector_holo_dark.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_ab_back_material.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_ic_ab_back_material.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\open_recent_1.png",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\drawable\\open_recent_1.png"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_material.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_ic_clear_material.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_bg.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\notification_bg.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\splash_img_720x1280.png",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\drawable\\splash_img_720x1280.png"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_material.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_tab_indicator_material.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_ab_back_material.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_ic_ab_back_material.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\splash_img_1080x1920.png",
-        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\src\\main\\res\\drawable\\splash_img_1080x1920.png"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_top_material.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_cab_background_top_material.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_internal_bg.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_cab_background_internal_bg.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_search_api_material.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_ic_search_api_material.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_item_background_holo_dark.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_light.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_list_selector_holo_light.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\layers_1.png",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\drawable\\layers_1.png"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_icon_background.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\notification_icon_background.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\open_file_1.png",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\drawable\\open_file_1.png"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_thumb_material.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_seekbar_thumb_material.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_internal_bg.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_cab_background_internal_bg.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\open_recent_1.png",
-        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\src\\main\\res\\drawable\\open_recent_1.png"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_icon_background.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\notification_icon_background.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_menu_overflow_material.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_ic_menu_overflow_material.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_textfield_background_material.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_spinner_textfield_background_material.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_btn_check_material.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\to_cam_1.png",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\drawable\\to_cam_1.png"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_light.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_list_selector_holo_light.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_track_material.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_seekbar_track_material.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_tick_mark_material.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_seekbar_tick_mark_material.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_btn_check_material.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_textfield_background_material.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_spinner_textfield_background_material.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_tick_mark_material.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_seekbar_tick_mark_material.xml"
     },
     {
-        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\PhoFix\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_vector_test.xml",
-        "source": "C:\\Users\\Ed\\.android\\build-cache\\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\\output\\res\\drawable\\abc_vector_test.xml"
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_bg_low.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\notification_bg_low.xml"
+    },
+    {
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_menu_overflow_material.xml",
+        "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\drawable\\abc_ic_menu_overflow_material.xml"
     }
 ]

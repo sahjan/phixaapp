@@ -98,12 +98,12 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         effectHandler = new Effects();
 
 
-        Button effect = new Button(this);
-        effect.setText("effect");
-        this.addContentView(effect,
-                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        //Button effect = new Button(this);
+       // effect.setText("effect");
+       // this.addContentView(effect,
+               // new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        effect.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.tab1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showPopup(view);
@@ -112,23 +112,23 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         });
 
 
-        LinearLayout test = new LinearLayout(this);
-        Button save = new Button(this);
-        save.setText("Save");
-        test.addView(save);
-        test.setGravity(Gravity.BOTTOM | Gravity.CENTER_VERTICAL);
-        this.addContentView(test,
-                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
-
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                save(image);
-
-
-            }
-        });
-
+//        LinearLayout test = new LinearLayout(this);
+//        Button save = new Button(this);
+//        save.setText("Save");
+//        test.addView(save);
+//        test.setGravity(Gravity.BOTTOM | Gravity.CENTER_VERTICAL);
+//        this.addContentView(test,
+//                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
+//
+//        save.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                save(image);
+//
+//
+//            }
+//        });
+//
     }
 
 

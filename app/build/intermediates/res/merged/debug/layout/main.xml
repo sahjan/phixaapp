@@ -7,18 +7,11 @@
 
     <ImageButton
         android:id="@+id/imageButton2"
-        app:srcCompat="@drawable/layers"
         android:layout_width="60dp"
-        android:layout_height="60dp" />
+        android:layout_height="60dp"
+        app:srcCompat="@drawable/layers_1" />
 
-    <!--<Button-->
-    <!--android:text="Button"-->
-    <!--android:layout_width="78dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/button"-->
-    <!--android:onClick="showPopup" />-->
-
-    <android.opengl.GLSurfaceView
+     <android.opengl.GLSurfaceView
         android:id="@+id/effectsview"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
@@ -47,7 +40,7 @@
                 <LinearLayout
                     android:id="@+id/tab1"
                     android:layout_width="match_parent"
-                    android:layout_height="92dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                 </LinearLayout>
