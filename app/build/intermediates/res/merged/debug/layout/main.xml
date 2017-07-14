@@ -11,60 +11,42 @@
         android:layout_height="60dp"
         app:srcCompat="@drawable/layers_1" />
 
-     <android.opengl.GLSurfaceView
+
+    <android.opengl.GLSurfaceView
         android:id="@+id/effectsview"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="0.93" />
 
-    <TabHost
-        android:id="@+id/editBar"
+    <SeekBar
+        android:id="@+id/slider"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="30dp"
+        android:max="5"
+        android:min="0"
+        android:visibility="invisible" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
 
-                <TabWidget
-                    android:id="@android:id/tabs"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <LinearLayout
-                    android:id="@+id/tab1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/tab2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/tab3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-
-            </FrameLayout>
-
-        </LinearLayout>
-    </TabHost>
+        <Button
+            android:id="@+id/but1"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="Transf" />
+        <Button
+            android:id="@+id/but2"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="Adjust" />
+        <Button
+            android:id="@+id/but3"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="Brush" />
+    </LinearLayout>
 
 
 </LinearLayout>

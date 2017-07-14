@@ -106,7 +106,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
        // this.addContentView(effect,
                // new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        findViewById(R.id.tab1).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.but1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showPopup(view);
