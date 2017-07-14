@@ -3,6 +3,7 @@ package com.example.project.photoapplication;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -33,6 +34,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.TabHost;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -42,6 +44,7 @@ import java.nio.IntBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
+import java.util.Stack;
 
 import static android.os.Environment.getExternalStorageState;
 
@@ -50,16 +53,18 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     private GLSurfaceView mEffectView;
     private int[] mTextures = new int[2];
     private EffectContext mEffectContext;
-    private Effect mEffect;
     private TextureRenderer mTexRenderer = new TextureRenderer();
     private int mImageWidth;
     private int mImageHeight;
     private boolean mInitialized = false;
-    int mCurrentEffect;
-    private volatile boolean saveFrame;
+    private int mCurrentEffect;
+    private boolean undo = false;
     private Uri uri;
-    private int angle = 0;
     private Bitmap image;
+    private Bitmap originalImage;
+    private Stack<Integer> history;
+
+    private Effects effectHandler;
 
     public void setCurrentEffect(int effect) {
         mCurrentEffect = effect;
@@ -82,38 +87,51 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         mEffectView.setRenderer(this);
         mEffectView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
         mCurrentEffect = R.id.none;
-//        Button effect = new Button(this);
-//        effect.setText("effect");
-//        this.addContentView(effect,
-//                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-//
-//        effect.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                showPopup(view);
-//
-//            }
-//        });
-//
-//
-//        LinearLayout test = new LinearLayout(this);
-//        Button save = new Button(this);
-//        save.setText("Save");
-//        test.addView(save);
-//        test.setGravity(Gravity.BOTTOM | Gravity.CENTER_VERTICAL);
-//        this.addContentView(test,
-//                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
-//
-//        save.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                save(image);
-//
-//
-//            }
-//        });
+        history = new Stack<>();
+        try {
+            image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+            originalImage = image;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        effectHandler = new Effects();
+
+
+        Button effect = new Button(this);
+        effect.setText("effect");
+        this.addContentView(effect,
+                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        effect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopup(view);
+
+            }
+        });
+
+
+        LinearLayout test = new LinearLayout(this);
+        Button save = new Button(this);
+        save.setText("Save");
+        test.addView(save);
+        test.setGravity(Gravity.BOTTOM | Gravity.CENTER_VERTICAL);
+        this.addContentView(test,
+                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                save(image);
+
+
+            }
+        });
 
     }
+
+
     public void showPopup(View v) {
         PopupMenu popup = new PopupMenu(this, v);
         popup.inflate(R.menu.main);
@@ -121,6 +139,9 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 setCurrentEffect(menuItem.getItemId());
+                if(undo == false){
+                    history.push(mCurrentEffect);
+                }
                 mEffectView.requestRender();
                 return true;
             }
@@ -128,165 +149,28 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         popup.show();
 
     }
-
+//
 
 
     private void loadTextures() {
         // Generate textures
         GLES20.glGenTextures(2, mTextures, 0);
 
-        // Load input bitmap
-
-        Bitmap bitmap = null;
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mImageWidth = bitmap.getWidth();
-        mImageHeight = bitmap.getHeight();
+        mImageWidth = image.getWidth();
+        mImageHeight = image.getHeight();
         mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
 
         // Upload to texture
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
-        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, image, 0);
 
         // Set texture parameters
         GLToolbox.initTexParams();
     }
 
-    private void initEffect() {
-        EffectFactory effectFactory = mEffectContext.getFactory();
-        if (mEffect != null) {
-            mEffect.release();
-        }
-        /**
-         * Initialize the correct effect based on the selected menu/action item
-         */
-        switch (mCurrentEffect) {
-            case R.id.none:
-                break;
-            case R.id.autofix:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_AUTOFIX);
-                mEffect.setParameter("scale", 0.5f);
-                break;
-            case R.id.bw:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_BLACKWHITE);
-                mEffect.setParameter("black", .1f);
-                mEffect.setParameter("white", .7f);
-                break;
-            case R.id.brightness:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_BRIGHTNESS);
-                mEffect.setParameter("brightness", 2.0f);
-                break;
-            case R.id.contrast:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_CONTRAST);
-                mEffect.setParameter("contrast", 1.4f);
-                break;
-            case R.id.crossprocess:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_CROSSPROCESS);
-                break;
-            case R.id.documentary:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_DOCUMENTARY);
-                break;
-            case R.id.duotone:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_DUOTONE);
-                mEffect.setParameter("first_color", Color.YELLOW);
-                mEffect.setParameter("second_color", Color.DKGRAY);
-                break;
-            case R.id.filllight:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_FILLLIGHT);
-                mEffect.setParameter("strength", .8f);
-                break;
-            case R.id.fisheye:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_FISHEYE);
-                mEffect.setParameter("scale", .5f);
-                break;
-            case R.id.flipvert:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_FLIP);
-                mEffect.setParameter("vertical", true);
-                break;
-            case R.id.fliphor:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_FLIP);
-                mEffect.setParameter("horizontal", true);
-                break;
-            case R.id.grain:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_GRAIN);
-                mEffect.setParameter("strength", 1.0f);
-                break;
-            case R.id.grayscale:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_GRAYSCALE);
-                break;
-            case R.id.lomoish:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_LOMOISH);
-                break;
-            case R.id.negative:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_NEGATIVE);
-                break;
-            case R.id.posterize:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_POSTERIZE);
-                break;
-            case R.id.rotate:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_ROTATE);
-                mEffect.setParameter("angle", 180);
-                break;
-            case R.id.saturate:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_SATURATE);
-                mEffect.setParameter("scale", .5f);
-                break;
-            case R.id.sepia:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_SEPIA);
-                break;
-            case R.id.sharpen:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_SHARPEN);
-                break;
-            case R.id.temperature:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_TEMPERATURE);
-                mEffect.setParameter("scale", .9f);
-                break;
-            case R.id.tint:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_TINT);
-                mEffect.setParameter("tint", Color.MAGENTA);
-                break;
-            case R.id.vignette:
-                mEffect = effectFactory.createEffect(
-                        EffectFactory.EFFECT_VIGNETTE);
-                mEffect.setParameter("scale", .5f);
-                break;
-            default:
-                break;
-        }
-    }
-
-
-
-
-
-
     private void applyEffect() {
-        mEffect.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
+        Effect effect = effectHandler.initEffect(mEffectContext, mCurrentEffect);
+        effect.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
     }
 
     private void renderResult() {
@@ -294,7 +178,6 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
             // if no effect is chosen, just render the original bitmap
             mTexRenderer.renderTexture(mTextures[1]);
         } else {
-            saveFrame=true;
             // render the result of applyEffect()
             mTexRenderer.renderTexture(mTextures[0]);
         }
@@ -303,24 +186,22 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     @Override
     public void onDrawFrame(GL10 gl) {
         if (!mInitialized) {
-            // Only need to do this once
+//            Only need to do this once
             mEffectContext = EffectContext.createWithCurrentGlContext();
             mTexRenderer.init();
+        }
             loadTextures();
             mInitialized = true;
-        }
+//        }
 
 
         if (mCurrentEffect != R.id.none) {
             // if an effect is chosen initialize it and apply it to the texture
-            initEffect();
+            effectHandler.initEffect(mEffectContext, mCurrentEffect);
             applyEffect();
         }
         renderResult();
         image = takeScreenshot(gl);
-//        if (saveFrame) {
-//            saveBitmap(takeScreenshot(gl));
-//        }
     }
 
     public void save(Bitmap bitmap){
@@ -361,24 +242,24 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
-        return true;
+    public void undo() {
+        undo = true;
+        if(!history.empty()) {
+            history.pop();
+        }
+        image = originalImage;
+        if (!history.empty()) {
+            for (int i = 0; i <= history.size() - 1; i++) {
+                mCurrentEffect = history.get(i);
+                mEffectView.requestRender();
+            }
+        } else {
+            mCurrentEffect = R.id.none;
+            mEffectView.requestRender();
+        }
+        undo = false;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        setCurrentEffect(item.getItemId());
-        mEffectView.requestRender();
-        return true;
-    }
 
-    public void rotate() {
-        EffectFactory effectFactory = mEffectContext.getFactory();
-        mEffect = effectFactory.createEffect(EffectFactory.EFFECT_ROTATE);
-        mEffect.setParameter("angle", angle);
-    }
 }
 
