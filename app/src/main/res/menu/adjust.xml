@@ -41,7 +41,6 @@
         android:id="@+id/fisheye"
         compat:showAsAction="never"
         android:title="fisheye"/>
-
     <item
         android:id="@+id/grain"
         compat:showAsAction="never"
