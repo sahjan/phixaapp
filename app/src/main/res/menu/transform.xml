@@ -6,6 +6,14 @@
         compat:showAsAction="never"
         android:title="none"/>
     <item
+        android:id="@+id/flipvert"
+        compat:showAsAction="never"
+        android:title="flipvert"/>
+    <item
+        android:id="@+id/fliphor"
+        compat:showAsAction="never"
+        android:title="fliphor"/>
+    <item
         android:id="@+id/rotate"
         compat:showAsAction="never"
         android:title="rotate"/>

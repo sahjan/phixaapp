@@ -15,26 +15,27 @@
             android:id="@+id/topBut"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            app:srcCompat="@drawable/layers_1" />
+            android:background="@drawable/layers_1" />
 
         <ImageButton
             android:id="@+id/topBut"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="60dp"
+            android:background="@drawable/file_open_1"
             app:srcCompat="@drawable/file_open_1" />
 
         <ImageButton
             android:id="@+id/topBut"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="60dp"
+            android:background="@drawable/file_save_1"
             app:srcCompat="@drawable/file_save_1" />
 
         <ImageButton
             android:id="@+id/topBut"
-            android:layout_width="match_parent"
+            android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/more_options_1" />
+            android:background="@drawable/more_options_1" />
 
     </LinearLayout>
 
