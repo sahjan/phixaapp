@@ -166,6 +166,8 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
                 //show the slider when an effect is chosen
                 if(mCurrentEffect == R.id.brightness) {
                     slider.setVisibility(View.VISIBLE);
+                } else {
+                    slider.setVisibility(View.GONE);
                 }
                 return true;
             }
@@ -188,6 +190,8 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
                 //show the slider when an effect is chosen
                 if(mCurrentEffect == R.id.brightness) {
                     slider.setVisibility(View.VISIBLE);
+                } else {
+                    slider.setVisibility(View.GONE);
                 }
                 return true;
             }
@@ -210,6 +214,8 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
                 //show the slider when an effect is chosen
                 if(mCurrentEffect == R.id.brightness) {
                     slider.setVisibility(View.VISIBLE);
+                } else {
+                    slider.setVisibility(View.GONE);
                 }
                 return true;
             }
@@ -217,7 +223,53 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         popup.show();
     }
 
+    public void showPopupOverlay(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.inflate(R.menu.overlay);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                setCurrentEffect(menuItem.getItemId());
+                if(undo == false){
+                    history.push(mCurrentEffect);
+                }
+                mEffectView.requestRender();
 
+                //show the slider when an effect is chosen
+                if(mCurrentEffect == R.id.brightness) {
+                    slider.setVisibility(View.VISIBLE);
+                } else {
+                    slider.setVisibility(View.GONE);
+                }
+                return true;
+            }
+        });
+        popup.show();
+    }
+
+    public void showPopupMoreFX(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.inflate(R.menu.other_fx);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                setCurrentEffect(menuItem.getItemId());
+                if(undo == false){
+                    history.push(mCurrentEffect);
+                }
+                mEffectView.requestRender();
+
+                //show the slider when an effect is chosen
+                if(mCurrentEffect == R.id.brightness) {
+                    slider.setVisibility(View.VISIBLE);
+                } else {
+                    slider.setVisibility(View.GONE);
+                }
+                return true;
+            }
+        });
+        popup.show();
+    }
 
     private void loadTextures() {
         // Generate textures
