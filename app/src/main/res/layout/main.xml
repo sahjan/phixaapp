@@ -5,11 +5,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="60dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="60dp"
-        app:srcCompat="@drawable/layers_1" />
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/topBut"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/layers_1" />
+
+        <ImageButton
+            android:id="@+id/topBut"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/file_open_1" />
+
+        <ImageButton
+            android:id="@+id/topBut"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/file_save_1" />
+
+        <ImageButton
+            android:id="@+id/imageButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/more_options_1" />
+    </LinearLayout>
 
 
     <android.opengl.GLSurfaceView
@@ -46,6 +71,20 @@
             android:layout_width="80dp"
             android:layout_height="40dp"
             android:text="Brush" />
+
+        <Button
+            android:id="@+id/but4"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:text="Overl" />
+
+        <Button
+            android:id="@+id/but5"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:text="More" />
     </LinearLayout>
 
 
