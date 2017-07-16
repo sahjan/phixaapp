@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,63 +30,77 @@
             app:srcCompat="@drawable/file_save_1" />
 
         <ImageButton
-            android:id="@+id/imageButton4"
-            android:layout_width="wrap_content"
+            android:id="@+id/topBut"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_weight="1"
             app:srcCompat="@drawable/more_options_1" />
+
     </LinearLayout>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="371dp"
+        android:layout_weight="0.33">
 
-    <android.opengl.GLSurfaceView
-        android:id="@+id/effectsview"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.93" />
+        <android.opengl.GLSurfaceView
+            android:id="@+id/effectsview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </FrameLayout>
 
     <SeekBar
         android:id="@+id/slider"
         android:layout_width="match_parent"
         android:layout_height="30dp"
+        android:layout_weight="0.06"
         android:max="5"
         android:min="0"
         android:visibility="invisible" />
 
-
-    <LinearLayout
+    <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/but1"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:text="Transf" />
-        <Button
-            android:id="@+id/but2"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:text="Adjust" />
-        <Button
-            android:id="@+id/but3"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:text="Brush" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/but4"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:text="Overl" />
+            <Button
+                android:id="@+id/but1"
+                android:layout_width="76dp"
+                android:layout_height="40dp"
+                android:text="Trans" />
 
-        <Button
-            android:id="@+id/but5"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:text="More" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/but2"
+                android:layout_width="78dp"
+                android:layout_height="40dp"
+                android:text="Adjust" />
+
+            <Button
+                android:id="@+id/but3"
+                android:layout_width="76dp"
+                android:layout_height="40dp"
+                android:text="Brush" />
+
+            <Button
+                android:id="@+id/but4"
+                android:layout_width="76dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Overl" />
+
+            <Button
+                android:id="@+id/but5"
+                android:layout_width="78dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="More" />
+        </LinearLayout>
+    </HorizontalScrollView>
 
 
 </LinearLayout>
