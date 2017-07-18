@@ -70,6 +70,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
 
     private Effects effectHandler;
     private SeekBar slider;
+    private boolean isSliderVisible = false;
 
     public void setCurrentEffect(int effect) {
         mCurrentEffect = effect;
@@ -180,6 +181,10 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     }
 
 
+    /**
+     * Transform menu
+     * @param v
+     */
     public void showPopupTransform(View v) {
         PopupMenu popup = new PopupMenu(this, v);
         popup.inflate(R.menu.transform);
@@ -192,12 +197,22 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
                 }
                 mEffectView.requestRender();
 
+                //hide the slider upon choosing an option from here
+                if (isSliderVisible) {
+                    slider.setVisibility(View.GONE);
+                    isSliderVisible = false;
+                }
+
                 return true;
             }
         });
         popup.show();
-
     }
+
+    /**
+     * Adjust menu
+     * @param v
+     */
     public void showPopupAdjust(View v) {
         PopupMenu popup = new PopupMenu(this, v);
         popup.inflate(R.menu.adjust);
@@ -210,16 +225,33 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
                 }
                 mEffectView.requestRender();
 
-                //show the slider when an effect is chosen
-                if(mCurrentEffect == R.id.brightness) {
+                /* //show the slider when an effect is chosen. Only
+                //do this once.
+                //if(mCurrentEffect != R.id.none && !isSliderVisible) { */
+
+                //show slider only when brightness chosen.
+                if (mCurrentEffect == R.id.brightness) {
                     slider.setVisibility(View.VISIBLE);
+                    isSliderVisible = true;
                 }
+
+                /* TEMPORARY */
+                //hide slider when another effect chosen
+                if (mCurrentEffect != R.id.brightness) {
+                    slider.setVisibility(View.GONE);
+                    isSliderVisible = false;
+                }
+
                 return true;
             }
         });
         popup.show();
     }
 
+    /**
+     * Brush menu
+     * @param v
+     */
     public void showPopupBrush(View v) {
         PopupMenu popup = new PopupMenu(this, v);
         popup.inflate(R.menu.brush);
@@ -232,6 +264,12 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
                 }
                 mEffectView.requestRender();
 
+                //hide the slider upon choosing an option from here
+                if (isSliderVisible) {
+                    slider.setVisibility(View.GONE);
+                    isSliderVisible = false;
+                }
+
                 return true;
             }
         });
@@ -239,10 +277,11 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     }
 
     /**
-     * this method loads the preview texture as well
-     * as updating it back to the original image when
-     * the effect parameter is changed and needs to be
-     * applied.
+     * this method is for loading the preview texture as
+     * well as updating it back to the original image
+     * when the effect parameter is changed and needs
+     * to be applied.
+     * Prevents slider from additively applying the effect.
      */
     private void loadPreviewTexture() {
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[2]);
