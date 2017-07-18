@@ -117,7 +117,7 @@ public class Effects {
             case R.id.rotate:
                 effect = effectFactory.createEffect(
                         EffectFactory.EFFECT_ROTATE);
-                effect.setParameter("angle", 180);
+                effect.setParameter("angle", 90);
                 break;
             case R.id.saturate:
                 effect = effectFactory.createEffect(

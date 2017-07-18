@@ -1,127 +1,111 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:2:1-47:12
+ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:2:1-38:12
 	package
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:3:5-51
-		INJECTED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:3:5-51
+		INJECTED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml
 	android:versionName
-		INJECTED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:2:11-69
+		ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:2:11-69
 	android:versionCode
-		INJECTED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:5:5-81
+ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:5:5-81
 	android:name
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:5:22-78
+		ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:5:22-78
 application
-ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:7:5-45:19
-MERGED from [com.android.support:appcompat-v7:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\output\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:support-v4:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\b5e5ca605db44c46a52e391d9402836d197bfc7a\output\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:support-media-compat:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\e64f56d1129778044a1bfdf423004ecf7d36d51a\output\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:support-fragment:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\e513743d685e952e10a614eeb27ea6d62b5c0a17\output\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\33c3069aac6bfafd0cd52d3d32d05da17117fa70\output\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\3eb2c0be4263334a4436a0f5f0f289728940e10e\output\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\b5e7cf1bc7b0a600731d4cb791a3240a33c8f553\output\AndroidManifest.xml:26:5-20
-MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\207a7f35d73315a5b6d77563881f0ebb039f7680\output\AndroidManifest.xml:26:5-20
-MERGED from [com.android.support:support-compat:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\7f261d5d32263fce9e1cbf0b9ee814bea88754d3\output\AndroidManifest.xml:29:5-20
-MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\Ed\.android\build-cache\67fd240aa3aabdbfef157234fa398aec0ff61396\output\AndroidManifest.xml:9:5-20
+ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:7:5-36:19
+MERGED from [com.android.support:appcompat-v7:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\baf03d2dedb59c973f6933cd7b72c419c794fe2c\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-v4:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\9d47627599ccb84493d645c95dd9c083f527b826\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\315794410e307525dc21627791991bf070839d43\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\045ac3424244da51f135d50bf78168dceae21081\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\66c58f239e13cd2d0afdfd15a0f9fdd216d7ec19\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\53f82b89ceefceed2dc63ad03ed0e0adfaae2447\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\bdcea07533ab0bf1c231b9adb1ca4566e971d42e\output\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\ffe7ad6a24b141f412ffb3b3280df6373b45f4e5\output\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-compat:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\58d1abfb6316eeb64aef5193d32638ba00836ff3\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\Sahjan\.android\build-cache\8dec5bec329573d5b2edd913715916152cf24c3f\output\AndroidManifest.xml:9:5-20
 	android:label
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:10:9-41
+		ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:10:9-41
 	android:supportsRtl
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:11:9-35
+		ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:11:9-35
 	android:allowBackup
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:8:9-35
+		ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:8:9-35
 	android:icon
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:9:9-43
+		ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:9:9-43
 	android:theme
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:12:9-40
+		ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:12:9-40
 style
-ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:14:9-24:17
+ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:14:9-24:17
 	parent
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:16:13-62
+		ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:16:13-62
 	android:name
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:15:13-36
+		ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:15:13-36
 item
-ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:18:13-20:20
+ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:18:13-20:20
 	name
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:18:19-39
+		ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:18:19-39
 activity#com.example.project.photoapplication.EffectsFilterActivity
-ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:26:9-59
+ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:26:9-59
 	android:name
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:26:19-56
+		ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:26:19-56
 activity#com.example.project.photoapplication.SplashScreen
-ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:27:9-33:20
+ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:27:9-33:20
 	android:name
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:27:19-47
+		ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:27:19-47
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:28:13-32:29
+ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:28:13-32:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:29:17-69
+ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:29:17-69
 	android:name
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:29:25-66
+		ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:29:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:31:17-77
+ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:31:17-77
 	android:name
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:31:27-74
+		ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:31:27-74
 activity#com.example.project.photoapplication.Loader
-ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:34:9-44
+ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:34:9-44
 	android:name
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:34:19-41
+		ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:34:19-41
 activity#com.example.project.photoapplication.RecentImages
-ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:35:9-59
+ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:35:9-59
 	android:name
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:35:19-47
-provider#android.support.v4.content.FileProvider
-ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:36:9-44:20
-	android:authorities
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:38:13-67
-	android:grantUriPermissions
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:40:13-47
-	android:exported
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:39:13-37
-	android:name
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:37:13-67
-meta-data#android.support.FILE_PROVIDER_PATHS
-ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:41:13-43:64
-	android:resource
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:43:17-51
-	android:name
-		ADDED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml:42:17-67
+		ADDED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml:35:19-47
 uses-sdk
-INJECTED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
-MERGED from [com.android.support:appcompat-v7:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\output\AndroidManifest.xml:21:5-23:78
-MERGED from [com.android.support:support-v4:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\b5e5ca605db44c46a52e391d9402836d197bfc7a\output\AndroidManifest.xml:21:5-23:54
-MERGED from [com.android.support:support-media-compat:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\e64f56d1129778044a1bfdf423004ecf7d36d51a\output\AndroidManifest.xml:21:5-23:63
-MERGED from [com.android.support:support-fragment:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\e513743d685e952e10a614eeb27ea6d62b5c0a17\output\AndroidManifest.xml:21:5-23:60
-MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\33c3069aac6bfafd0cd52d3d32d05da17117fa70\output\AndroidManifest.xml:21:5-23:58
-MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\3eb2c0be4263334a4436a0f5f0f289728940e10e\output\AndroidManifest.xml:21:5-23:61
-MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\b5e7cf1bc7b0a600731d4cb791a3240a33c8f553\output\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\207a7f35d73315a5b6d77563881f0ebb039f7680\output\AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-compat:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\7f261d5d32263fce9e1cbf0b9ee814bea88754d3\output\AndroidManifest.xml:21:5-23:58
-MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\Ed\.android\build-cache\67fd240aa3aabdbfef157234fa398aec0ff61396\output\AndroidManifest.xml:5:5-7:41
+INJECTED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:appcompat-v7:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\baf03d2dedb59c973f6933cd7b72c419c794fe2c\output\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:support-v4:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\9d47627599ccb84493d645c95dd9c083f527b826\output\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-media-compat:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\315794410e307525dc21627791991bf070839d43\output\AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-fragment:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\045ac3424244da51f135d50bf78168dceae21081\output\AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\66c58f239e13cd2d0afdfd15a0f9fdd216d7ec19\output\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\53f82b89ceefceed2dc63ad03ed0e0adfaae2447\output\AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\bdcea07533ab0bf1c231b9adb1ca4566e971d42e\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\ffe7ad6a24b141f412ffb3b3280df6373b45f4e5\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\58d1abfb6316eeb64aef5193d32638ba00836ff3\output\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\Sahjan\.android\build-cache\8dec5bec329573d5b2edd913715916152cf24c3f\output\AndroidManifest.xml:5:5-7:41
 	tools:overrideLibrary
-		ADDED from [com.android.support:appcompat-v7:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\output\AndroidManifest.xml:23:9-75
+		ADDED from [com.android.support:appcompat-v7:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\baf03d2dedb59c973f6933cd7b72c419c794fe2c\output\AndroidManifest.xml:23:9-75
 	android:targetSdkVersion
-		INJECTED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Ed\Documents\Uni\Project\Phixa\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Sahjan\Desktop\desktop\Projects\PhotoApplication\app\src\main\AndroidManifest.xml
 meta-data#android.support.VERSION
-ADDED from [com.android.support:appcompat-v7:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\output\AndroidManifest.xml:25:5-27:41
-MERGED from [com.android.support:support-v4:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\b5e5ca605db44c46a52e391d9402836d197bfc7a\output\AndroidManifest.xml:25:5-27:41
-MERGED from [com.android.support:support-media-compat:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\e64f56d1129778044a1bfdf423004ecf7d36d51a\output\AndroidManifest.xml:25:5-27:41
-MERGED from [com.android.support:support-fragment:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\e513743d685e952e10a614eeb27ea6d62b5c0a17\output\AndroidManifest.xml:25:5-27:41
-MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\33c3069aac6bfafd0cd52d3d32d05da17117fa70\output\AndroidManifest.xml:25:5-27:41
-MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\3eb2c0be4263334a4436a0f5f0f289728940e10e\output\AndroidManifest.xml:25:5-27:41
-MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\b5e7cf1bc7b0a600731d4cb791a3240a33c8f553\output\AndroidManifest.xml:22:5-24:41
-MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\207a7f35d73315a5b6d77563881f0ebb039f7680\output\AndroidManifest.xml:22:5-24:41
-MERGED from [com.android.support:support-compat:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\7f261d5d32263fce9e1cbf0b9ee814bea88754d3\output\AndroidManifest.xml:25:5-27:41
+ADDED from [com.android.support:appcompat-v7:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\baf03d2dedb59c973f6933cd7b72c419c794fe2c\output\AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-v4:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\9d47627599ccb84493d645c95dd9c083f527b826\output\AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-media-compat:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\315794410e307525dc21627791991bf070839d43\output\AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-fragment:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\045ac3424244da51f135d50bf78168dceae21081\output\AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\66c58f239e13cd2d0afdfd15a0f9fdd216d7ec19\output\AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\53f82b89ceefceed2dc63ad03ed0e0adfaae2447\output\AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\bdcea07533ab0bf1c231b9adb1ca4566e971d42e\output\AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\ffe7ad6a24b141f412ffb3b3280df6373b45f4e5\output\AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.support:support-compat:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\58d1abfb6316eeb64aef5193d32638ba00836ff3\output\AndroidManifest.xml:25:5-27:41
 	android:value
-		ADDED from [com.android.support:appcompat-v7:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\output\AndroidManifest.xml:27:9-38
+		ADDED from [com.android.support:appcompat-v7:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\baf03d2dedb59c973f6933cd7b72c419c794fe2c\output\AndroidManifest.xml:27:9-38
 	android:name
-		ADDED from [com.android.support:appcompat-v7:26.0.0-alpha1] C:\Users\Ed\.android\build-cache\e138bbc89e38f2a90281d2c011e6c35fc93d6aa3\output\AndroidManifest.xml:26:9-47
+		ADDED from [com.android.support:appcompat-v7:26.0.0-alpha1] C:\Users\Sahjan\.android\build-cache\baf03d2dedb59c973f6933cd7b72c419c794fe2c\output\AndroidManifest.xml:26:9-47

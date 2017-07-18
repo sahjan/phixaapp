@@ -208,14 +208,14 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
                 //if(mCurrentEffect != R.id.none && !isSliderVisible) { */
 
                 //show slider only when brightness chosen.
-                if (mCurrentEffect == R.id.brightness) {
+                if (mCurrentEffect == R.id.brightness && !isSliderVisible) {
                     slider.setVisibility(View.VISIBLE);
                     isSliderVisible = true;
                 }
 
                 /* TEMPORARY */
                 //hide slider when another effect chosen
-                if (mCurrentEffect != R.id.brightness) {
+                if (mCurrentEffect != R.id.brightness && isSliderVisible) {
                     slider.setVisibility(View.GONE);
                     isSliderVisible = false;
                 }

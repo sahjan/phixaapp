@@ -65,7 +65,8 @@
         android:background="@android:color/transparent"
         android:max="5"
         android:min="0"
-        android:visibility="invisible" />
+        android:progress="2"
+        android:visibility="gone" />
 
     <HorizontalScrollView
         android:layout_width="match_parent"
