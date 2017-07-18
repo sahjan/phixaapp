@@ -295,6 +295,12 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         effect.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
     }
 
+    //this method applies a filter by looping
+    //thru its components.
+    private void applyFilter() {
+
+    }
+
     private void renderResult() {
         if (mCurrentEffect != R.id.none && mCurrentEffect != R.id.brightness) {
             // render the result of applyEffect()

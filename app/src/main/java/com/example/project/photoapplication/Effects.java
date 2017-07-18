@@ -43,7 +43,7 @@ public class Effects {
                         EffectFactory.EFFECT_AUTOFIX);
                 effect.setParameter("scale", 0.5f);
                 break;
-            case R.id.bw:
+            case R.id.bw: //this effect is not black & white, it only enhances the shadows and highlights
                 effect = effectFactory.createEffect(
                         EffectFactory.EFFECT_BLACKWHITE);
                 effect.setParameter("black", .1f);
@@ -154,5 +154,113 @@ public class Effects {
     }
 
 
+    /* The following methods initialise individual effects depending on a
+     * specified parameter. Used to create filters in the Filters class. */
+
+    /**
+     * Initialise autofix Effect.
+     * @param effectContext the EffectContext being used
+     * @param parameter specified intensity of the effect.
+     * @return the initialised effect.
+     */
+    public Effect initAutofix(EffectContext effectContext, float parameter) {
+        Effect autofix;
+        EffectFactory effectFactory = effectContext.getFactory();
+
+        autofix = effectFactory.createEffect(
+                EffectFactory.EFFECT_AUTOFIX);
+        autofix.setParameter("scale", 0.5f);
+        return autofix;
+    }
+
+    public Effect initSH(EffectContext effectContext, float shadowsParam, float highlightsParam) {
+        Effect sH;
+        EffectFactory effectFactory = effectContext.getFactory();
+
+        sH = effectFactory.createEffect(
+                EffectFactory.EFFECT_BLACKWHITE);
+        sH.setParameter("black", shadowsParam);
+        sH.setParameter("white", highlightsParam);
+        return sH;
+    }
+
+    public Effect initBrightness(EffectContext effectContext, float parameter) {
+        Effect brightness;
+        EffectFactory effectFactory = effectContext.getFactory();
+
+        brightness = effectFactory.createEffect(
+                EffectFactory.EFFECT_BRIGHTNESS);
+        brightness.setParameter("brightness", parameter);
+        return brightness;
+    }
+
+    public Effect initContrast(EffectContext effectContext, float parameter) {
+        Effect contrast;
+        EffectFactory effectFactory = effectContext.getFactory();
+
+        contrast = effectFactory.createEffect(
+                EffectFactory.EFFECT_CONTRAST);
+        contrast.setParameter("contrast", parameter);
+        return contrast;
+    }
+
+    public Effect initFillLight(EffectContext effectContext, float parameter) {
+        Effect fillLight;
+        EffectFactory effectFactory = effectContext.getFactory();
+
+        fillLight = effectFactory.createEffect(
+                EffectFactory.EFFECT_FILLLIGHT);
+        fillLight.setParameter("strength", parameter);
+        return fillLight;
+    }
+
+    public Effect initGrain(EffectContext effectContext, float parameter) {
+        Effect grain;
+        EffectFactory effectFactory = effectContext.getFactory();
+
+        grain = effectFactory.createEffect(
+                EffectFactory.EFFECT_GRAIN);
+        grain.setParameter("strength", parameter);
+        return grain;
+    }
+
+    public Effect initGrayscale(EffectContext effectContext) {
+        Effect grayscale;
+        EffectFactory effectFactory = effectContext.getFactory();
+
+        grayscale = effectFactory.createEffect(
+                EffectFactory.EFFECT_GRAYSCALE);
+        return grayscale;
+    }
+
+    public Effect initSaturate(EffectContext effectContext, float parameter) {
+        Effect saturate;
+        EffectFactory effectFactory = effectContext.getFactory();
+
+        saturate = effectFactory.createEffect(
+                EffectFactory.EFFECT_SATURATE);
+        saturate.setParameter("scale", parameter);
+        return saturate;
+    }
+
+    public Effect initTemperature(EffectContext effectContext, float parameter) {
+        Effect temperature;
+        EffectFactory effectFactory = effectContext.getFactory();
+
+        temperature = effectFactory.createEffect(
+                EffectFactory.EFFECT_TEMPERATURE);
+        temperature.setParameter("scale", parameter);
+        return temperature;
+    }
+
+    public Effect initVignette(EffectContext effectContext, float parameter) {
+        Effect vignette;
+        EffectFactory effectFactory = effectContext.getFactory();
+
+        vignette = effectFactory.createEffect(
+                EffectFactory.EFFECT_VIGNETTE);
+        vignette.setParameter("scale", parameter);
+        return vignette;
+    }
 
 }
