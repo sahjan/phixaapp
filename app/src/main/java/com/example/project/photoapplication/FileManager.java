@@ -110,6 +110,16 @@ import java.util.Date;
 
         }
 
+        public File[] getFileList(){
+            String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/Saved_Images";
+            File directory = new File(path);
+            File[] files = directory.listFiles();
+            return files;
+        }
+
+
+
+
 
     }
 
