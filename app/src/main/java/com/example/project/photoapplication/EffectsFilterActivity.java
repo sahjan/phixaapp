@@ -43,6 +43,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.IntBuffer;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import java.util.Stack;
@@ -68,12 +69,14 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     private boolean effectApplied = false;
     private Bitmap previousImage;
 
+    private Filter filterInitialiser;
+    private boolean filterLoopFinished = false;
     private Effects effectHandler;
     private SeekBar slider;
     private boolean isSliderVisible = false;
 
-    public void setCurrentEffect(int effect) {
-        mCurrentEffect = effect;
+    public void setCurrentEffect(int menuID) {
+        mCurrentEffect = menuID;
     }
 
     @Override
@@ -104,6 +107,8 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         if (!effectApplied) {
             previousImage = image;
         }
+
+        filterInitialiser = new Filter();
 
         effectHandler = new Effects();
         slider = findViewById(R.id.slider);
@@ -295,12 +300,6 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         effect.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
     }
 
-    //this method applies a filter by looping
-    //thru its components.
-    private void applyFilter() {
-
-    }
-
     private void renderResult() {
         if (mCurrentEffect != R.id.none && mCurrentEffect != R.id.brightness) {
             // render the result of applyEffect()
@@ -310,6 +309,10 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         //on the current image
         else if (mCurrentEffect == R.id.brightness) {
             mTexRenderer.renderTexture(mTextures[3]);
+        }
+        else if (mCurrentEffect == R.id.oldFilm && filterLoopFinished) {
+            //render the filter applied
+            mTexRenderer.renderTexture(mTextures[1]);
         }
         else {
             // if no effect is chosen, just render the original bitmap
@@ -328,10 +331,19 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
             loadTextures();
             mInitialized = true;
 
-        if (mCurrentEffect != R.id.none && mCurrentEffect != R.id.brightness) {
+        if (mCurrentEffect != R.id.none && mCurrentEffect != R.id.brightness && mCurrentEffect != R.id.oldFilm) {
             //if an effect is chosen apply it to the texture
             applyEffect(0, 1);
             effectApplied = true;
+        }
+        else if (mCurrentEffect == R.id.oldFilm) {
+            //if filter chosen, apply the filter.
+            ArrayList<Effect> oldFilm = filterInitialiser.getOldFilmFilter(mEffectContext);
+            for (Effect component : oldFilm) {
+                component.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
+            }
+            effectApplied = true;
+            filterLoopFinished = true;
         }
         else if (mCurrentEffect == R.id.brightness) {
             //apply the effect on the current image.

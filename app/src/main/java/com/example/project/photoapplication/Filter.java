@@ -16,30 +16,45 @@ import java.util.ArrayList;
 
 public class Filter extends Effects {
 
-    private EffectContext eContext;
+    /**
+     * Creates 'Old Film' filter. Uses 4 effects.
+     * @return the arraylist of the effects that make this filter.
+     */
+    public ArrayList<Effect> getOldFilmFilter(EffectContext effectContext) {
+        ArrayList filterComponents = new ArrayList<Effect>();
 
-    public Filter(EffectContext effectContext) {
-        eContext = effectContext;
+        Effect contrast = initContrast(effectContext, 1.5f);
+        Effect brightness = initBrightness(effectContext, 1.2f);
+        Effect grain = initGrain(effectContext, 0.7f);
+        Effect grayscale = initGrayscale(effectContext);
+
+        //put initialised effects in an array list
+        filterComponents.add(contrast);
+        filterComponents.add(brightness);
+        filterComponents.add(grain);
+        filterComponents.add(grayscale);
+
+        // then loop thru this array list in the main
+        //activity, applying each one in turn to the
+        //texture, before rendering.
+        return filterComponents;
     }
 
     /**
-     * Creates 'Old Film' filter. Uses 5 effects.
+     * Creates 'Intense Colours' filter. Uses 3 effects.
+     * @return the arraylist of the effects that make this filter.
      */
-    public ArrayList oldFilmFilter() {
+    public ArrayList<Effect> getIntenseColoursFilter(EffectContext effectContext) {
         ArrayList filterComponents = new ArrayList<Effect>();
 
-        Effect contrast = initContrast(eContext, 1.5f);
-        Effect saturation = initSaturate(eContext, 0.3f);
-        Effect grain = initGrain(eContext, 0.7f);
-        Effect brightness = initBrightness(eContext, 1.2f);
-        Effect grayscale = initGrayscale(eContext);
+        Effect contrast = initContrast(effectContext, 1.5f);
+        Effect saturation = initSaturate(effectContext, 0.3f);
+        Effect brightness = initBrightness(effectContext, 1.2f);
 
         //put initialised effects in an array list
         filterComponents.add(contrast);
         filterComponents.add(saturation);
-        filterComponents.add(grain);
         filterComponents.add(brightness);
-        filterComponents.add(grayscale);
 
         // then loop thru this array list in the main
         //activity, applying each one in turn to the
