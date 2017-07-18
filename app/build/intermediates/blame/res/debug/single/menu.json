@@ -1,18 +1,30 @@
 [
     {
-        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\menu\\brush.xml",
-        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\menu\\brush.xml"
+        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\Phixa\\app\\build\\intermediates\\res\\merged\\debug\\menu\\adjust.xml",
+        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\Phixa\\app\\src\\main\\res\\menu\\adjust.xml"
     },
     {
-        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\menu\\main.xml",
-        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\menu\\main.xml"
+        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\Phixa\\app\\build\\intermediates\\res\\merged\\debug\\menu\\more_options.xml",
+        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\Phixa\\app\\src\\main\\res\\menu\\more_options.xml"
     },
     {
-        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\menu\\transform.xml",
-        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\menu\\transform.xml"
+        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\Phixa\\app\\build\\intermediates\\res\\merged\\debug\\menu\\brush.xml",
+        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\Phixa\\app\\src\\main\\res\\menu\\brush.xml"
     },
     {
-        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\menu\\adjust.xml",
-        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\menu\\adjust.xml"
+        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\Phixa\\app\\build\\intermediates\\res\\merged\\debug\\menu\\transform.xml",
+        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\Phixa\\app\\src\\main\\res\\menu\\transform.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\Phixa\\app\\build\\intermediates\\res\\merged\\debug\\menu\\overlay.xml",
+        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\Phixa\\app\\src\\main\\res\\menu\\overlay.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\Phixa\\app\\build\\intermediates\\res\\merged\\debug\\menu\\other_fx.xml",
+        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\Phixa\\app\\src\\main\\res\\menu\\other_fx.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ed\\Documents\\Uni\\Project\\Phixa\\app\\build\\intermediates\\res\\merged\\debug\\menu\\main.xml",
+        "source": "C:\\Users\\Ed\\Documents\\Uni\\Project\\Phixa\\app\\src\\main\\res\\menu\\main.xml"
     }
 ]

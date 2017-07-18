@@ -12,27 +12,27 @@
     tools:context="com.example.project.photoapplication.Loader">
 
 
-
-
     <ImageButton
         android:id="@+id/openButton"
         android:layout_width="110dp"
         android:layout_height="98dp"
-        android:layout_marginTop="36dp"
-        android:cropToPadding="false"
-        app:srcCompat="@drawable/open_file_1"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="35dp" />
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="35dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/open_file_1"
+        android:cropToPadding="false"
+        app:srcCompat="@drawable/open_file_1" />
 
     <ImageButton
         android:id="@+id/camButton"
         android:layout_width="110dp"
         android:layout_height="98dp"
-        app:srcCompat="@drawable/to_cam_1"
-        android:layout_alignTop="@+id/openButton"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="24dp" />
+        android:layout_alignTop="@+id/openButton"
+        android:layout_marginStart="24dp"
+        android:background="@drawable/to_cam_1"
+        app:srcCompat="@drawable/to_cam_1" />
 
     <ImageButton
         android:id="@+id/recentButton"
@@ -41,6 +41,7 @@
         android:layout_below="@+id/camButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="37dp"
+        android:background="@drawable/open_recent_1"
         app:srcCompat="@drawable/open_recent_1" />
 
 </RelativeLayout>

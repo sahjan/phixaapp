@@ -131,10 +131,6 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
             }
         });
 
-        //Button effect = new Button(this);
-       // effect.setText("effect");
-       // this.addContentView(effect,
-               // new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         findViewById(R.id.but1).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,25 +155,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
 
             }
         });
-
-
-//        LinearLayout test = new LinearLayout(this);
-//        Button save = new Button(this);
-//        save.setText("Save");
-//        test.addView(save);
-//        test.setGravity(Gravity.BOTTOM | Gravity.CENTER_VERTICAL);
-//        this.addContentView(test,
-//                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
-//
-//        save.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                save(image);
-//
-//
-//            }
-//        });
-//
+        
     }
 
 
