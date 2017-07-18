@@ -52,7 +52,7 @@ import static android.os.Environment.getExternalStorageState;
 public class EffectsFilterActivity extends Activity implements GLSurfaceView.Renderer {
 
     private GLSurfaceView mEffectView;
-    private int[] mTextures = new int[2];
+    private int[] mTextures = new int[4];
     private EffectContext mEffectContext;
     private TextureRenderer mTexRenderer = new TextureRenderer();
     private int mImageWidth;
@@ -64,6 +64,10 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     private Bitmap image;
     private Bitmap originalImage;
     private Stack<Integer> history;
+
+    private boolean progressChanged;
+    private boolean effectApplied = false;
+    private Bitmap previousImage;
 
     private Effects effectHandler;
     private SeekBar slider;
@@ -97,9 +101,38 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
             e.printStackTrace();
         }
 
-        effectHandler = new Effects();
-        slider = (SeekBar) findViewById(R.id.slider);
+        if (!effectApplied) {
+            previousImage = image;
+        }
 
+        effectHandler = new Effects();
+        slider = findViewById(R.id.slider);
+        slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int sliderProgress, boolean b) {
+                progressChanged = true;
+                //queueEvent ensures this occurs in the Renderer thread.
+                /*mEffectView.queueEvent(new Runnable() {
+                    public void run() {
+                        applyEffect(2,3);
+                        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[3]);
+                        mTexRenderer.renderTexture(mTextures[3]);
+                        //mEffectView.requestRender();
+                        updateTexture();
+                    }
+                }); */
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
         //Button effect = new Button(this);
        // effect.setText("effect");
@@ -163,12 +196,6 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
                 }
                 mEffectView.requestRender();
 
-                //show the slider when an effect is chosen
-                if(mCurrentEffect == R.id.brightness) {
-                    slider.setVisibility(View.VISIBLE);
-                } else {
-                    slider.setVisibility(View.GONE);
-                }
                 return true;
             }
         });
@@ -190,8 +217,6 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
                 //show the slider when an effect is chosen
                 if(mCurrentEffect == R.id.brightness) {
                     slider.setVisibility(View.VISIBLE);
-                } else {
-                    slider.setVisibility(View.GONE);
                 }
                 return true;
             }
@@ -206,120 +231,101 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 setCurrentEffect(menuItem.getItemId());
-                if(undo == false){
+                if(!undo){
                     history.push(mCurrentEffect);
                 }
                 mEffectView.requestRender();
 
-                //show the slider when an effect is chosen
-                if(mCurrentEffect == R.id.brightness) {
-                    slider.setVisibility(View.VISIBLE);
-                } else {
-                    slider.setVisibility(View.GONE);
-                }
                 return true;
             }
         });
         popup.show();
     }
 
-    public void showPopupOverlay(View v) {
-        PopupMenu popup = new PopupMenu(this, v);
-        popup.inflate(R.menu.overlay);
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                setCurrentEffect(menuItem.getItemId());
-                if(undo == false){
-                    history.push(mCurrentEffect);
-                }
-                mEffectView.requestRender();
-
-                //show the slider when an effect is chosen
-                if(mCurrentEffect == R.id.brightness) {
-                    slider.setVisibility(View.VISIBLE);
-                } else {
-                    slider.setVisibility(View.GONE);
-                }
-                return true;
-            }
-        });
-        popup.show();
+    /**
+     * this method loads the preview texture as well
+     * as updating it back to the original image when
+     * the effect parameter is changed and needs to be
+     * applied.
+     */
+    private void loadPreviewTexture() {
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[2]);
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, previousImage, 0);
+        GLToolbox.initTexParams();
+        // don't know the parameters for this
+        // method but it is recommended when updating a texture
+        //GLES20.glTexSubImage2D();
     }
 
-    public void showPopupMoreFX(View v) {
-        PopupMenu popup = new PopupMenu(this, v);
-        popup.inflate(R.menu.other_fx);
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                setCurrentEffect(menuItem.getItemId());
-                if(undo == false){
-                    history.push(mCurrentEffect);
-                }
-                mEffectView.requestRender();
-
-                //show the slider when an effect is chosen
-                if(mCurrentEffect == R.id.brightness) {
-                    slider.setVisibility(View.VISIBLE);
-                } else {
-                    slider.setVisibility(View.GONE);
-                }
-                return true;
-            }
-        });
-        popup.show();
-    }
 
     private void loadTextures() {
         // Generate textures
-        GLES20.glGenTextures(2, mTextures, 0);
+        GLES20.glGenTextures(4, mTextures, 0);
 
         mImageWidth = image.getWidth();
         mImageHeight = image.getHeight();
         mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
 
-        // Upload to texture
+        // Bind to texture - tells OpenGL that subsequent
+        // OpenGL calls should affect this texture.
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
+        //load the bitmap into the bound texture
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, image, 0);
 
         // Set texture parameters
         GLToolbox.initTexParams();
     }
 
-    private void applyEffect() {
+    private void applyEffect(int inputTexture, int outputTexture) {
+        //side note: for onDrawFrame method, inputTexture = 0, outputTexture = 1
         Effect effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, slider.getProgress());
-        effect.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
+        effect.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
     }
 
     private void renderResult() {
-        if (mCurrentEffect != R.id.none) {
-            // if no effect is chosen, just render the original bitmap
-            mTexRenderer.renderTexture(mTextures[1]);
-        } else {
+        if (mCurrentEffect != R.id.none && mCurrentEffect != R.id.brightness) {
             // render the result of applyEffect()
+            mTexRenderer.renderTexture(mTextures[1]);
+        }
+        //render the result of brightness applied
+        //on the current image
+        else if (mCurrentEffect == R.id.brightness) {
+            mTexRenderer.renderTexture(mTextures[3]);
+        }
+        else {
+            // if no effect is chosen, just render the original bitmap
             mTexRenderer.renderTexture(mTextures[0]);
         }
     }
 
+    //Renderer override
     @Override
     public void onDrawFrame(GL10 gl) {
         if (!mInitialized) {
-//            Only need to do this once
+            //Only need to do this once
             mEffectContext = EffectContext.createWithCurrentGlContext();
             mTexRenderer.init();
         }
             loadTextures();
             mInitialized = true;
-//        }
 
-
-        if (mCurrentEffect != R.id.none) {
-            // if an effect is chosen initialize it and apply it to the texture
-            effectHandler.initEffect(mEffectContext, mCurrentEffect, slider.getProgress());
-            applyEffect();
+        if (mCurrentEffect != R.id.none && mCurrentEffect != R.id.brightness) {
+            //if an effect is chosen apply it to the texture
+            applyEffect(0, 1);
+            effectApplied = true;
         }
-        renderResult();
+        else if (mCurrentEffect == R.id.brightness) {
+            //apply the effect on the current image.
+            loadPreviewTexture();
+            applyEffect(2, 3);
+        }
+            renderResult();
+
+        if (effectApplied) {
+            previousImage = takeScreenshot(gl);
+        }
+        effectApplied = false;
+
         image = takeScreenshot(gl);
     }
 
@@ -328,7 +334,6 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         fm.saveBitmap(bitmap);
 
     }
-
 
     public Bitmap takeScreenshot(GL10 mGL) {
         final int mWidth = mEffectView.getWidth();
@@ -350,6 +355,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         return mBitmap;
     }
 
+    //Renderer override
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         if (mTexRenderer != null) {
@@ -357,6 +363,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         }
     }
 
+    //Renderer override
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
     }
