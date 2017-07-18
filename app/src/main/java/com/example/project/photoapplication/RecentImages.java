@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class RecentImages extends AppCompatActivity {
     private FileManager fm = new FileManager(this);
@@ -47,12 +48,15 @@ public class RecentImages extends AppCompatActivity {
     }
     public ArrayList<Uri> convertToUri(){
         ArrayList<Uri> f = new ArrayList<>();
+        // iterate through all files in the array and convert the file to an official URI
         if(files != null){
             for (int i = 0; i < files.length; i++){
                 Uri uri = Uri.parse(files[i].toURI().toString());
                 f.add(uri);
             }
         }
+        // Reverse the list so that the most recent images are first in the list
+        Collections.reverse(f);
         return f;
     }
 

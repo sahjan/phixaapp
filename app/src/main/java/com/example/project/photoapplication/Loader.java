@@ -126,7 +126,7 @@ public class Loader extends AppCompatActivity {
             startActivity(intent);
         }
     }
-
+        // Get permissions that are required if they are not in place already
         public  boolean isStoragePermissionGranted() {
             if (Build.VERSION.SDK_INT >= 23) {
                 if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)
