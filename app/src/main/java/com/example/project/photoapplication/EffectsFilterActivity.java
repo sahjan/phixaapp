@@ -65,7 +65,6 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     private Bitmap originalImage;
     private Stack<Integer> history;
 
-    private boolean progressChanged;
     private boolean effectApplied = false;
     private Bitmap previousImage;
 
@@ -110,27 +109,24 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int sliderProgress, boolean b) {
-                progressChanged = true;
                 //queueEvent ensures this occurs in the Renderer thread.
-                /*mEffectView.queueEvent(new Runnable() {
+                mEffectView.queueEvent(new Runnable() {
                     public void run() {
                         applyEffect(2,3);
                         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[3]);
-                        mTexRenderer.renderTexture(mTextures[3]);
-                        //mEffectView.requestRender();
-                        updateTexture();
+                        mEffectView.requestRender();
+                        //restore the original image so the effect
+                        //is not additively applied
+                        loadPreviewTexture();
                     }
-                }); */
+                });
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
             }
-
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
             }
         });
 
