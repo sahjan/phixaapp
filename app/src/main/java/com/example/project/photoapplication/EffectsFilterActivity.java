@@ -114,7 +114,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         //filterInitialiser = new Filter();
 
         effectHandler = new Effects();
-        slider = findViewById(R.id.slider);
+        slider = findViewById(R.id.adjustSlider);
         slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int sliderProgress, boolean b) {
