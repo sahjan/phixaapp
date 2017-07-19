@@ -117,8 +117,7 @@
                     android:layout_width="90dp"
                     android:layout_height="40dp"
                     android:text="ClipArt"
-                    android:textColor="#000000"
-                    android:textStyle="bold" />
+                    android:textColor="#000000" />
 
                 <Button
                     android:id="@+id/but33c"

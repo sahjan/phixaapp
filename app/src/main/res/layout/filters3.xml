@@ -22,14 +22,14 @@
             android:layout_width="110dp"
             android:layout_height="match_parent"
             android:layout_gravity="right"
-            android:paddingBottom="40dp"
+            android:paddingBottom="70dp"
             android:paddingRight="8dp"
             android:paddingTop="60dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
+                android:layout_gravity="center_vertical"
                 android:orientation="vertical">
 
                 <Button
@@ -61,6 +61,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Filter 5" />
+
+                <Button
+                    android:id="@+id/filterButton6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Filter 6" />
+
+                <Button
+                    android:id="@+id/filterButton7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Filter 7" />
+
+                <Button
+                    android:id="@+id/filterButton8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Filter 8" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
 
