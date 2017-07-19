@@ -97,5 +97,9 @@
         android:id="@+id/vignette"
         compat:showAsAction="never"
         android:title="vignette"/>
+    <item
+        android:id="@+id/oldFilm"
+        compat:showAsAction="never"
+        android:title="vignette"/>
 
 </menu>

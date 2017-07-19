@@ -29,7 +29,7 @@ public class RecentImages extends AppCompatActivity {
 
         files = fm.getFileList();
         ArrayList<Uri> uris = convertToUri();
-        if(uris != null) {
+        if(uris.size() > 0) {
             try {
                 recent1.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(0)));
                 recent2.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(1)));
