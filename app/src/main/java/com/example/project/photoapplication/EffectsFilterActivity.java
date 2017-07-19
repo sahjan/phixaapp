@@ -68,6 +68,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     private Bitmap image;
     private Bitmap originalImage;
     private Stack<Integer> history;
+    private int previousEffect = 0;
 
     private boolean effectApplied = false;
     private Bitmap previousImage;
@@ -129,6 +130,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                previousEffect = mCurrentEffect;
             }
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -213,19 +215,14 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
                 }
                 mEffectView.requestRender();
 
-                /* //show the slider when an effect is chosen. Only
-                //do this once.
-                //if(mCurrentEffect != R.id.none && !isSliderVisible) { */
-
-                //show slider only when brightness chosen.
-                if (mCurrentEffect == R.id.brightness && !isSliderVisible) {
+                //show slider only when an adjustable effect chosen.
+                if (isAdjustableEffect(mCurrentEffect) && !isSliderVisible) {
                     slider.setVisibility(View.VISIBLE);
                     isSliderVisible = true;
                 }
-
-                /* TEMPORARY */
-                //hide slider when another effect chosen
-                if (mCurrentEffect != R.id.brightness && isSliderVisible) {
+                //else hide slider
+                else if (!isAdjustableEffect(mCurrentEffect) && isSliderVisible)
+                {
                     slider.setVisibility(View.GONE);
                     isSliderVisible = false;
                 }
@@ -263,14 +260,6 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         });
         popup.show();
     }
-
-    /**
-     * this method is for loading the preview texture as
-     * well as updating it back to the original image
-     * when the effect parameter is changed and needs
-     * to be applied.
-     * Prevents slider from additively applying the effect.
-     */
 
     public void showOptions(View v){
             PopupMenu popup = new PopupMenu(this, v);
@@ -315,15 +304,12 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     });
     popup.show();
     }
-
-
     
     private void loadPreviewTexture() {
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, previousImage, 0);
         GLToolbox.initTexParams();
     }
-
 
     private void loadTextures() {
         // Generate textures
@@ -350,19 +336,14 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     }
 
     private void renderResult() {
-        if (mCurrentEffect != R.id.none && mCurrentEffect != R.id.brightness) {
+        if (mCurrentEffect != R.id.none) {
             // render the result of applyEffect()
             mTexRenderer.renderTexture(mTextures[1]);
         }
-        //render the result of brightness applied
-        //on the current image
-        else if (mCurrentEffect == R.id.brightness) {
-            mTexRenderer.renderTexture(mTextures[1]);
-        }
-        else if (mCurrentEffect == R.id.oldFilm) {
+        /* else if (mCurrentEffect == R.id.oldFilm) {
             //render the filter applied
             mTexRenderer.renderTexture(mTextures[1]);
-        }
+        } */
         else {
             // if no effect is chosen, just render the original bitmap
             mTexRenderer.renderTexture(mTextures[0]);
@@ -380,24 +361,32 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
             loadTextures();
             mInitialized = true;
 
-        if (mCurrentEffect != R.id.none && mCurrentEffect != R.id.brightness && mCurrentEffect != R.id.oldFilm) {
-            //if an effect is chosen apply it to the texture
+        //do this if the effect chosen is an adjustable one
+        if (isAdjustableEffect(mCurrentEffect)) {
+
+            loadPreviewTexture();
+            applyEffect(0, 1);
+
+            if(previousEffect != mCurrentEffect && previousEffect != 0){
+                previousImage = takeScreenshot(gl);
+            }
+        }
+        //else if the effect is non-adjustable, and not 'none'
+        else if (mCurrentEffect != R.id.none) {
             applyEffect(0, 1);
             effectApplied = true;
         }
-        else if (mCurrentEffect == R.id.oldFilm) {
+
+        //filter. Unfinished
+        /* else if (mCurrentEffect == R.id.oldFilm) {
             //if filter chosen, apply the filter.
             ArrayList<Effect> oldFilm = filterInitialiser.getOldFilmFilter(mEffectContext);
             for (Effect component : oldFilm) {
                 component.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
             }
             effectApplied = true;
-        }
-        else if (mCurrentEffect == R.id.brightness) {
-            //apply the effect on the current image.
-            loadPreviewTexture();
-            applyEffect(0, 1);
-        }
+        } */
+
             renderResult();
 
         if (effectApplied) {
@@ -472,6 +461,21 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         undo = false;
     }
 
+    private boolean isAdjustableEffect(int chosenEffect) {
+        if (chosenEffect == R.id.brightness ||
+            chosenEffect == R.id.contrast ||
+            chosenEffect == R.id.filllight ||
+            chosenEffect == R.id.fisheye ||
+            chosenEffect == R.id.grain ||
+            chosenEffect == R.id.saturate ||
+            chosenEffect == R.id.temperature ||
+            chosenEffect == R.id.vignette) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     private void open(){
         Intent intent = new Intent(this, Loader.class);

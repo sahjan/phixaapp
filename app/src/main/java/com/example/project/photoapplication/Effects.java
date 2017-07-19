@@ -43,7 +43,7 @@ public class Effects {
                         EffectFactory.EFFECT_AUTOFIX);
                 effect.setParameter("scale", 0.5f);
                 break;
-            case R.id.bw: //this effect is not black & white, it only enhances the shadows and highlights
+            case R.id.bw: //this effect is not black & white, it only adjusts the shadows and highlights
                 effect = effectFactory.createEffect(
                         EffectFactory.EFFECT_BLACKWHITE);
                 effect.setParameter("black", .1f);
@@ -52,12 +52,12 @@ public class Effects {
             case R.id.brightness:
                 effect = effectFactory.createEffect(
                         EffectFactory.EFFECT_BRIGHTNESS);
-                effect.setParameter("brightness", sliderProgress); //2.0f
+                effect.setParameter("brightness", sliderProgress);
                 break;
             case R.id.contrast:
                 effect = effectFactory.createEffect(
                         EffectFactory.EFFECT_CONTRAST);
-                effect.setParameter("contrast", 1.5f);
+                effect.setParameter("contrast", sliderProgress);
                 break;
             case R.id.crossprocess:
                 effect = effectFactory.createEffect(
@@ -96,7 +96,7 @@ public class Effects {
             case R.id.grain:
                 effect = effectFactory.createEffect(
                         EffectFactory.EFFECT_GRAIN);
-                effect.setParameter("strength", 1.0f);
+                effect.setParameter("strength", sliderProgress);
                 break;
             case R.id.grayscale:
                 effect = effectFactory.createEffect(
