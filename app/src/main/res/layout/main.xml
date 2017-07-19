@@ -100,6 +100,7 @@
                 android:layout_height="match_parent"
                 android:gravity="right"
                 android:orientation="horizontal"
+                android:paddingRight="5dp"
                 android:weightSum="1">
 
                 <ImageButton
@@ -107,9 +108,8 @@
                     android:layout_width="45dp"
                     android:layout_height="60dp"
                     android:layout_gravity="end"
-                    android:background="@drawable/more_options_1"
-                    android:paddingRight="10dp"
-                    android:layout_weight="0.04" />
+                    android:layout_weight="0.04"
+                    android:background="@drawable/more_options_1" />
             </LinearLayout>
 
         </LinearLayout>
