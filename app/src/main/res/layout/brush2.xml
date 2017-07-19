@@ -17,6 +17,41 @@
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
+        <LinearLayout
+            android:id="@+id/brushBench"
+            android:layout_width="100dp"
+            android:layout_height="405dp"
+            android:layout_gravity="right|center_vertical"
+            android:orientation="vertical"
+            android:paddingBottom="70dp"
+            android:paddingTop="70dp">
+
+            <ImageView
+                android:id="@+id/pencilView"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/pencil" />
+
+            <ImageView
+                android:id="@+id/brush1View"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/brush" />
+
+            <ImageView
+                android:id="@+id/brus2View"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/brush2" />
+
+            <ImageView
+                android:id="@+id/eraserView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/eraser"
+                android:paddingTop="10dp" />
+        </LinearLayout>
+
         <HorizontalScrollView
             android:id="@+id/brushBar"
             android:layout_width="match_parent"
@@ -138,8 +173,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="right"
+                    android:layout_height="60dp"
+                    android:gravity="right|center_vertical"
                     android:orientation="horizontal"
                     android:paddingRight="5dp"
                     android:weightSum="1">
@@ -151,6 +186,7 @@
                         android:layout_gravity="end"
                         android:layout_weight="0.04"
                         android:background="@drawable/more_options_1" />
+
                 </LinearLayout>
 
             </LinearLayout>
