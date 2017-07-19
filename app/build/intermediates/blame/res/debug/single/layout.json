@@ -16,12 +16,20 @@
         "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\layout\\abc_alert_dialog_title_material.xml"
     },
     {
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout\\adjustments1.xml",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\layout\\adjustments1.xml"
+    },
+    {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_multichoice_material.xml",
         "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\layout\\select_dialog_multichoice_material.xml"
     },
     {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_icon.xml",
         "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\layout\\abc_list_menu_item_icon.xml"
+    },
+    {
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout\\brush2.xml",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\layout\\brush2.xml"
     },
     {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_button_bar_material.xml",
@@ -38,6 +46,10 @@
     {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media.xml",
         "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\layout\\notification_template_media.xml"
+    },
+    {
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout\\clipart3.xml",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\layout\\clipart3.xml"
     },
     {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_dropdown_item_icons_2line.xml",
@@ -58,6 +70,10 @@
     {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_select_dialog_material.xml",
         "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\layout\\abc_select_dialog_material.xml"
+    },
+    {
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout\\text3.xml",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\layout\\text3.xml"
     },
     {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_bar.xml",
@@ -132,8 +148,16 @@
         "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\layout\\support_simple_spinner_dropdown_item.xml"
     },
     {
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout\\transform0.xml",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\layout\\transform0.xml"
+    },
+    {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view.xml",
         "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\layout\\abc_activity_chooser_view.xml"
+    },
+    {
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout\\filters3.xml",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\layout\\filters3.xml"
     },
     {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_content_include.xml",
@@ -150,6 +174,10 @@
     {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_dialog_title_material.xml",
         "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\layout\\abc_dialog_title_material.xml"
+    },
+    {
+        "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout\\overlay3.xml",
+        "source": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\src\\main\\res\\layout\\overlay3.xml"
     },
     {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_item_material.xml",
