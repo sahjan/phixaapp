@@ -6,122 +6,152 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@android:color/transparent"
-        android:orientation="horizontal"
-        android:visibility="visible"
-        android:weightSum="1">
-
-        <ImageButton
-            android:id="@+id/topBut"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/layers_1"
-            app:srcCompat="@drawable/layers_1" />
-
-        <ImageButton
-            android:id="@+id/moreOpt"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
-            android:background="@drawable/more_options_1"
-            app:srcCompat="@drawable/more_options_1" />
-
-    </LinearLayout>
-
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="371dp"
-        android:layout_weight="0.33">
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom">
 
         <android.opengl.GLSurfaceView
             android:id="@+id/effectsview"
-            android:layout_width="269dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
         <android.support.v4.widget.NestedScrollView
-            android:layout_width="115dp"
+            android:id="@+id/filtersList"
+            android:layout_width="110dp"
             android:layout_height="match_parent"
-            android:layout_gravity="right">
+            android:layout_gravity="right"
+            android:paddingBottom="40dp"
+            android:paddingRight="8dp"
+            android:paddingTop="60dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:layout_gravity="bottom"
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/filterButton1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Button" />
+                    android:text="Filter 1" />
 
                 <Button
                     android:id="@+id/filterButton2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Button" />
+                    android:text="Filter 2" />
 
                 <Button
                     android:id="@+id/filterButton3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Button" />
+                    android:text="Filter 3" />
 
                 <Button
                     android:id="@+id/filterButton4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Button" />
+                    android:text="Filter 4" />
 
                 <Button
                     android:id="@+id/filterButton5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Button" />
+                    android:text="Filter 5" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
 
-    </FrameLayout>
+        <HorizontalScrollView
+            android:id="@+id/overlayBar"
+            android:layout_width="364dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@android:color/transparent">
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/but31f"
+                    android:layout_width="90dp"
+                    android:layout_height="40dp"
+                    android:text="Text" />
+
+                <Button
+                    android:id="@+id/but32f"
+                    android:layout_width="90dp"
+                    android:layout_height="40dp"
+                    android:text="ClipArt" />
+
+                <Button
+                    android:id="@+id/but33f"
+                    android:layout_width="90dp"
+                    android:layout_height="40dp"
+                    android:text="Image" />
+
+                <Button
+                    android:id="@+id/but34"
+                    android:layout_width="90dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="Filters"
+                    android:textColor="#000000" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:id="@+id/slidersBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:paddingBottom="40dp">
 
-            <Button
-                android:id="@+id/but31"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="Text" />
-
-            <Button
-                android:id="@+id/but32"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="ClipArt" />
-
-            <Button
-                android:id="@+id/but33"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:text="Image" />
-
-            <Button
-                android:id="@+id/but34"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="Filters"
-                android:textColor="#000000" />
+            <SeekBar
+                android:id="@+id/adjustSlider"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="0.02"
+                android:background="@android:color/transparent"
+                android:max="5"
+                android:min="0"
+                android:visibility="invisible" />
 
         </LinearLayout>
-    </HorizontalScrollView>
+
+        <LinearLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:weightSum="1">
+
+            <ImageButton
+                android:id="@+id/topBut"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/layers_1"
+                app:srcCompat="@drawable/layers_1" />
+
+            <ImageButton
+                android:id="@+id/moreOpt"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:background="@drawable/more_options_1"
+                app:srcCompat="@drawable/more_options_1" />
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 
 </LinearLayout>

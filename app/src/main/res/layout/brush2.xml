@@ -6,34 +6,10 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@android:color/transparent"
-        android:orientation="horizontal"
-        android:visibility="visible"
-        android:weightSum="1">
-
-        <ImageButton
-            android:id="@+id/topBut"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/layers_1"
-            app:srcCompat="@drawable/layers_1" />
-
-        <ImageButton
-            android:id="@+id/moreOpt"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
-            android:background="@drawable/more_options_1"
-            app:srcCompat="@drawable/more_options_1" />
-
-    </LinearLayout>
-
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="371dp"
-        android:layout_weight="0.33">
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom">
 
         <android.opengl.GLSurfaceView
             android:id="@+id/effectsview"
@@ -41,84 +17,124 @@
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
-    </FrameLayout>
+        <HorizontalScrollView
+            android:id="@+id/brushBar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom"
+            android:background="@android:color/transparent">
 
-    <SeekBar
-        android:id="@+id/slider"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_weight="0.06"
-        android:background="@android:color/transparent"
-        android:max="5"
-        android:min="0"
-        android:visibility="invisible" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
 
-    <SeekBar
-        android:id="@+id/seekBar"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_weight="0.06"
-        android:background="@android:color/transparent"
-        android:max="5"
-        android:min="0"
-        android:visibility="invisible" />
+                <Button
+                    android:id="@+id/but21"
+                    android:layout_width="76dp"
+                    android:layout_height="40dp"
+                    android:text="Draw" />
 
-    <HorizontalScrollView
-        android:layout_width="844dp"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent">
+                <Button
+                    android:id="@+id/but22"
+                    android:layout_width="78dp"
+                    android:layout_height="40dp"
+                    android:text="Dodge" />
+
+                <Button
+                    android:id="@+id/but23"
+                    android:layout_width="76dp"
+                    android:layout_height="40dp"
+                    android:text="Burn" />
+
+                <Button
+                    android:id="@+id/but24"
+                    android:layout_width="76dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="Heal" />
+
+                <Button
+                    android:id="@+id/but26"
+                    android:layout_width="78dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="Sharp" />
+
+                <Button
+                    android:id="@+id/but27"
+                    android:layout_width="78dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="Blur" />
+
+                <Button
+                    android:id="@+id/but28"
+                    android:layout_width="78dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="Warp" />
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:id="@+id/slidersBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:paddingBottom="40dp">
 
-            <Button
-                android:id="@+id/but21"
-                android:layout_width="76dp"
-                android:layout_height="40dp"
-                android:text="Draw" />
+            <SeekBar
+                android:id="@+id/softnessSlider"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="0.03"
+                android:background="@android:color/transparent"
+                android:max="5"
+                android:min="0"
+                android:visibility="invisible" />
 
-            <Button
-                android:id="@+id/but22"
-                android:layout_width="78dp"
-                android:layout_height="40dp"
-                android:text="Dodge" />
+            <SeekBar
+                android:id="@+id/opacitySlider"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="0.02"
+                android:background="@android:color/transparent"
+                android:max="5"
+                android:min="0"
+                android:visibility="invisible" />
 
-            <Button
-                android:id="@+id/but23"
-                android:layout_width="76dp"
-                android:layout_height="40dp"
-                android:text="Burn" />
-
-            <Button
-                android:id="@+id/but24"
-                android:layout_width="76dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="Heal" />
-
-            <Button
-                android:id="@+id/but26"
-                android:layout_width="78dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="Sharp" />
-
-            <Button
-                android:id="@+id/but27"
-                android:layout_width="78dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="Blur" />
-
-            <Button
-                android:id="@+id/but28"
-                android:layout_width="78dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="Warp" />
         </LinearLayout>
-    </HorizontalScrollView>
+
+        <LinearLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:weightSum="1">
+
+            <ImageButton
+                android:id="@+id/topBut"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/layers_1"
+                app:srcCompat="@drawable/layers_1" />
+
+            <ImageButton
+                android:id="@+id/moreOpt"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:background="@drawable/more_options_1"
+                app:srcCompat="@drawable/more_options_1" />
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 
 </LinearLayout>

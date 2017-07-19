@@ -6,34 +6,10 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@android:color/transparent"
-        android:orientation="horizontal"
-        android:visibility="visible"
-        android:weightSum="1">
-
-        <ImageButton
-            android:id="@+id/topBut"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/layers_1"
-            app:srcCompat="@drawable/layers_1" />
-
-        <ImageButton
-            android:id="@+id/moreOpt"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
-            android:background="@drawable/more_options_1"
-            app:srcCompat="@drawable/more_options_1" />
-
-    </LinearLayout>
-
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="371dp"
-        android:layout_weight="0.33">
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom">
 
         <android.opengl.GLSurfaceView
             android:id="@+id/effectsview"
@@ -41,81 +17,129 @@
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
-    </FrameLayout>
+        <HorizontalScrollView
+            android:id="@+id/adjustBar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom|fill_horizontal"
+            android:background="@android:color/transparent">
 
-    <SeekBar
-        android:id="@+id/slider"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_weight="0.06"
-        android:background="@android:color/transparent"
-        android:max="5"
-        android:min="0"
-        android:visibility="invisible" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom">
 
-    <HorizontalScrollView
-        android:layout_width="703dp"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent">
+                <Button
+                    android:id="@+id/but11"
+                    android:layout_width="76dp"
+                    android:layout_height="40dp"
+                    android:autoText="false"
+                    android:text="Brightness" />
+
+                <Button
+                    android:id="@+id/but12"
+                    android:layout_width="78dp"
+                    android:layout_height="40dp"
+                    android:text="Contrast"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/but13"
+                    android:layout_width="76dp"
+                    android:layout_height="40dp"
+                    android:text="Saturation"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/but14"
+                    android:layout_width="76dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="Hue"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/but15"
+                    android:layout_width="78dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="Warmth"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/but16"
+                    android:layout_width="78dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="Highlights"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/but17"
+                    android:layout_width="78dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="Midtones"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/but18"
+                    android:layout_width="78dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="Shadows"
+                    android:textAlignment="center" />
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:id="@+id/slidersBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:paddingBottom="40dp">
 
-            <Button
-                android:id="@+id/but11"
-                android:layout_width="76dp"
-                android:layout_height="40dp"
-                android:text="Brightness" />
+            <SeekBar
+                android:id="@+id/adjustSlider"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="0.02"
+                android:background="@android:color/transparent"
+                android:max="5"
+                android:min="0"
+                android:visibility="invisible" />
 
-            <Button
-                android:id="@+id/but12"
-                android:layout_width="78dp"
-                android:layout_height="40dp"
-                android:text="Contrast" />
-
-            <Button
-                android:id="@+id/but13"
-                android:layout_width="76dp"
-                android:layout_height="40dp"
-                android:text="Saturation" />
-
-            <Button
-                android:id="@+id/but14"
-                android:layout_width="76dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="Hue" />
-
-            <Button
-                android:id="@+id/but15"
-                android:layout_width="78dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="Warmth" />
-
-            <Button
-                android:id="@+id/but16"
-                android:layout_width="78dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="Highlights" />
-
-            <Button
-                android:id="@+id/but17"
-                android:layout_width="78dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="Midtones" />
-
-            <Button
-                android:id="@+id/but18"
-                android:layout_width="78dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="Shadows" />
         </LinearLayout>
-    </HorizontalScrollView>
+
+        <LinearLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:weightSum="1">
+
+            <ImageButton
+                android:id="@+id/topBut"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/layers_1"
+                app:srcCompat="@drawable/layers_1" />
+
+            <ImageButton
+                android:id="@+id/moreOpt"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:background="@drawable/more_options_1"
+                app:srcCompat="@drawable/more_options_1" />
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 
 </LinearLayout>
