@@ -57,7 +57,7 @@ public class Effects {
             case R.id.contrast:
                 effect = effectFactory.createEffect(
                         EffectFactory.EFFECT_CONTRAST);
-                effect.setParameter("contrast", sliderProgress);
+                effect.setParameter("contrast", 1.5f);
                 break;
             case R.id.crossprocess:
                 effect = effectFactory.createEffect(

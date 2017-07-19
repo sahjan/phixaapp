@@ -53,7 +53,7 @@ import static android.os.Environment.getExternalStorageState;
 public class EffectsFilterActivity extends Activity implements GLSurfaceView.Renderer {
 
     private GLSurfaceView mEffectView;
-    private int[] mTextures = new int[4];
+    private int[] mTextures = new int[2];
     private EffectContext mEffectContext;
     private TextureRenderer mTexRenderer = new TextureRenderer();
     private int mImageWidth;
@@ -70,7 +70,6 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     private Bitmap previousImage;
 
     private Filter filterInitialiser;
-    private boolean filterLoopFinished = false;
     private Effects effectHandler;
     private SeekBar slider;
     private boolean isSliderVisible = false;
@@ -118,12 +117,9 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
                 //queueEvent ensures this occurs in the Renderer thread.
                 mEffectView.queueEvent(new Runnable() {
                     public void run() {
-                        applyEffect(2,3);
-                        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[3]);
+                        applyEffect(0,1);
+                        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[1]);
                         mEffectView.requestRender();
-                        //restore the original image so the effect
-                        //is not additively applied
-                        loadPreviewTexture();
                     }
                 });
             }
@@ -267,18 +263,15 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
      * Prevents slider from additively applying the effect.
      */
     private void loadPreviewTexture() {
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[2]);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, previousImage, 0);
         GLToolbox.initTexParams();
-        // don't know the parameters for this
-        // method but it is recommended when updating a texture
-        //GLES20.glTexSubImage2D();
     }
 
 
     private void loadTextures() {
         // Generate textures
-        GLES20.glGenTextures(4, mTextures, 0);
+        GLES20.glGenTextures(2, mTextures, 0);
 
         mImageWidth = image.getWidth();
         mImageHeight = image.getHeight();
@@ -308,9 +301,9 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         //render the result of brightness applied
         //on the current image
         else if (mCurrentEffect == R.id.brightness) {
-            mTexRenderer.renderTexture(mTextures[3]);
+            mTexRenderer.renderTexture(mTextures[1]);
         }
-        else if (mCurrentEffect == R.id.oldFilm && filterLoopFinished) {
+        else if (mCurrentEffect == R.id.oldFilm) {
             //render the filter applied
             mTexRenderer.renderTexture(mTextures[1]);
         }
@@ -343,12 +336,11 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
                 component.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
             }
             effectApplied = true;
-            filterLoopFinished = true;
         }
         else if (mCurrentEffect == R.id.brightness) {
             //apply the effect on the current image.
             loadPreviewTexture();
-            applyEffect(2, 3);
+            applyEffect(0, 1);
         }
             renderResult();
 
