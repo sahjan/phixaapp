@@ -296,7 +296,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
 
     private void applyEffect(int inputTexture, int outputTexture) {
         //side note: for onDrawFrame method, inputTexture = 0, outputTexture = 1
-        Effect effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, slider.getProgress());
+        Effect effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, calculateSliderValue(slider.getProgress()));
         effect.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
     }
 
@@ -415,6 +415,12 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
             mEffectView.requestRender();
         }
         undo = false;
+    }
+
+
+    private float calculateSliderValue(int sliderValue){
+        float effectValue = (float) sliderValue/50;
+        return effectValue;
     }
 
 
