@@ -1,57 +1,32 @@
 package com.example.project.photoapplication;
 
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
-
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.media.MediaScannerConnection;
 import android.media.effect.Effect;
 import android.media.effect.EffectContext;
-import android.media.effect.EffectFactory;
 import android.net.Uri;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLUtils;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
-import android.text.Layout;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
-import android.widget.TabHost;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.IntBuffer;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
 import java.util.Stack;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import static android.os.Environment.getExternalStorageState;
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
 
 public class EffectsFilterActivity extends Activity implements GLSurfaceView.Renderer {
 
@@ -69,6 +44,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     private Bitmap originalImage;
     private Stack<Integer> history;
     private int previousEffect = 0;
+    private Handler mHandler = new Handler();
 
     private boolean effectApplied = false;
     private Bitmap previousImage;
@@ -77,6 +53,8 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     private Effects effectHandler;
     private SeekBar slider;
     private boolean isSliderVisible = false;
+
+    private Context context;
 
     public void setCurrentEffect(int menuID) {
         mCurrentEffect = menuID;
@@ -99,6 +77,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         mEffectView.setRenderer(this);
         mEffectView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
         mCurrentEffect = R.id.none;
+        context = this;
         history = new Stack<>();
         try {
             image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
@@ -219,6 +198,24 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
                 if (isAdjustableEffect(mCurrentEffect) && !isSliderVisible) {
                     slider.setVisibility(View.VISIBLE);
                     isSliderVisible = true;
+                    slider.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            slider.setProgress(50);
+                        }
+                    });
+
+//Make sure you update Seekbar on UI thread
+//                    EffectsFilterActivity.this.runOnUiThread(new Runnable() {
+//
+//                        @Override
+//                        public void run() {
+//                                slider.setProgress(50);
+//
+//                            mHandler.post(this);
+//                        }
+//                    });
+
                 }
                 //else hide slider
                 else if (!isAdjustableEffect(mCurrentEffect) && isSliderVisible)
@@ -269,26 +266,9 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
                 public boolean onMenuItemClick(MenuItem menuItem) {
                     switch (menuItem.getItemId()){
                         case R.id.save:
-                            save(image);
-                            save(image);
+                            save(image, context);
 
-                            //disable the button to prevent multiple accidental saves which can crash the app
-                            findViewById(R.id.moreOpt).setEnabled(false);
 
-                            Timer buttonTimer = new Timer();
-                            buttonTimer.schedule(new TimerTask() {
-
-                                @Override
-                                public void run() {
-                                    runOnUiThread(new Runnable() {
-
-                                        @Override
-                                        public void run() {
-                                            findViewById(R.id.moreOpt).setEnabled(true);
-                                        }
-                                    });
-                                }
-                            }, 5000);
                             break;
 
 //                        case R.id.undo:
@@ -397,15 +377,15 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         image = takeScreenshot(gl);
     }
 
-    public void save(Bitmap bitmap){
-        FileManager fm = new FileManager(this);
-        fm.saveBitmap(bitmap);
-        Context context = getApplicationContext();
-        CharSequence text = "File Saved!";
-        int duration = Toast.LENGTH_SHORT;
+    public void save( Bitmap bitmap,  Context context){
+        SaveThread saver = new SaveThread(context, bitmap);
+        saver.execute();
+        EffectsFilterActivity.this.runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(EffectsFilterActivity.this, "File Saved!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
 
 
     }
@@ -484,6 +464,24 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     private float calculateSliderValue(int sliderValue){
         float effectValue = (float) sliderValue/50;
         return effectValue;
+    }
+
+    private class SaveThread extends AsyncTask<String, Void, Boolean>{
+
+        Context context;
+        Bitmap image;
+
+        public SaveThread(Context context, Bitmap image){
+            this.context = context;
+            this.image = image;
+        }
+
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            FileManager fm = new FileManager(context);
+            fm.saveBitmap(image);
+            return null;
+        }
     }
 
 

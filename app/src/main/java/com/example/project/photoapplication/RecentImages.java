@@ -37,9 +37,6 @@ public class RecentImages extends AppCompatActivity {
                 recent4.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(3)));
                 recent5.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(4)));
                 recent6.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(5)));
-                Double d = 0.2;
-                recent1.setScaleX(d.floatValue());
-                recent1.setScaleY(d.floatValue());
 
             } catch (IOException e) {
                 e.printStackTrace();
