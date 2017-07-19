@@ -29,19 +29,21 @@ public class RecentImages extends AppCompatActivity {
 
         files = fm.getFileList();
         ArrayList<Uri> uris = convertToUri();
-        try {
-            recent1.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(0)));
-            recent2.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(1)));
-            recent3.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(2)));
-            recent4.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(3)));
-            recent5.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(4)));
-            recent6.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(5)));
-            Double d = 0.2;
-            recent1.setScaleX(d.floatValue());
-            recent1.setScaleY(d.floatValue());
+        if(uris != null) {
+            try {
+                recent1.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(0)));
+                recent2.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(1)));
+                recent3.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(2)));
+                recent4.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(3)));
+                recent5.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(4)));
+                recent6.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(5)));
+                Double d = 0.2;
+                recent1.setScaleX(d.floatValue());
+                recent1.setScaleY(d.floatValue());
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
 
