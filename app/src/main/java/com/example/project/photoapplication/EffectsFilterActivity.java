@@ -73,7 +73,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     private boolean effectApplied = false;
     private Bitmap previousImage;
 
-    private Filter filterInitialiser;
+    //private Filter filterInitialiser;
     private Effects effectHandler;
     private SeekBar slider;
     private boolean isSliderVisible = false;
@@ -111,7 +111,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
             previousImage = image;
         }
 
-        filterInitialiser = new Filter();
+        //filterInitialiser = new Filter();
 
         effectHandler = new Effects();
         slider = findViewById(R.id.slider);
