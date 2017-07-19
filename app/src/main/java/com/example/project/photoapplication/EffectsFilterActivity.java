@@ -36,6 +36,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -47,6 +48,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import java.util.Stack;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static android.os.Environment.getExternalStorageState;
 
@@ -156,6 +159,12 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
 
             }
         });
+        findViewById(R.id.moreOpt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showOptions(view);
+            }
+        });
         
     }
 
@@ -262,6 +271,53 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
      * to be applied.
      * Prevents slider from additively applying the effect.
      */
+
+    public void showOptions(View v){
+            PopupMenu popup = new PopupMenu(this, v);
+            popup.inflate(R.menu.more_options);
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    switch (menuItem.getItemId()){
+                        case R.id.save:
+                            save(image);
+                            save(image);
+
+                            //disable the button to prevent multiple accidental saves which can crash the app
+                            findViewById(R.id.moreOpt).setEnabled(false);
+
+                            Timer buttonTimer = new Timer();
+                            buttonTimer.schedule(new TimerTask() {
+
+                                @Override
+                                public void run() {
+                                    runOnUiThread(new Runnable() {
+
+                                        @Override
+                                        public void run() {
+                                            findViewById(R.id.moreOpt).setEnabled(true);
+                                        }
+                                    });
+                                }
+                            }, 5000);
+                            break;
+
+//                        case R.id.undo:
+//                            undo();
+//                            break;
+
+                        case R.id.open:
+                            open();
+
+                    }
+                    return true;
+                }
+    });
+    popup.show();
+    }
+
+
+    
     private void loadPreviewTexture() {
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, previousImage, 0);
@@ -355,6 +411,13 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     public void save(Bitmap bitmap){
         FileManager fm = new FileManager(this);
         fm.saveBitmap(bitmap);
+        Context context = getApplicationContext();
+        CharSequence text = "File Saved!";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
 
     }
 
@@ -410,6 +473,10 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     }
 
 
+    private void open(){
+        Intent intent = new Intent(this, Loader.class);
+        startActivity(intent);
+    }
     private float calculateSliderValue(int sliderValue){
         float effectValue = (float) sliderValue/50;
         return effectValue;
