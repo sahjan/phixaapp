@@ -36,6 +36,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,9 +44,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.IntBuffer;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import java.util.Stack;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static android.os.Environment.getExternalStorageState;
 
@@ -64,12 +68,18 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     private Bitmap image;
     private Bitmap originalImage;
     private Stack<Integer> history;
+    private int previousEffect = 0;
 
+    private boolean effectApplied = false;
+    private Bitmap previousImage;
+
+    //private Filter filterInitialiser;
     private Effects effectHandler;
     private SeekBar slider;
+    private boolean isSliderVisible = false;
 
-    public void setCurrentEffect(int effect) {
-        mCurrentEffect = effect;
+    public void setCurrentEffect(int menuID) {
+        mCurrentEffect = menuID;
     }
 
     @Override
@@ -97,14 +107,36 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
             e.printStackTrace();
         }
 
+        if (!effectApplied) {
+            previousImage = image;
+        }
+
+        //filterInitialiser = new Filter();
+
         effectHandler = new Effects();
-        slider = (SeekBar) findViewById(R.id.slider);
+        slider = findViewById(R.id.slider);
+        slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int sliderProgress, boolean b) {
+                //queueEvent ensures this occurs in the Renderer thread.
+                mEffectView.queueEvent(new Runnable() {
+                    public void run() {
+                        applyEffect(0,1);
+                        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[1]);
+                        mEffectView.requestRender();
+                    }
+                });
+            }
 
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                previousEffect = mCurrentEffect;
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
 
-        //Button effect = new Button(this);
-       // effect.setText("effect");
-       // this.addContentView(effect,
-               // new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         findViewById(R.id.but1).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,28 +161,20 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
 
             }
         });
-
-
-//        LinearLayout test = new LinearLayout(this);
-//        Button save = new Button(this);
-//        save.setText("Save");
-//        test.addView(save);
-//        test.setGravity(Gravity.BOTTOM | Gravity.CENTER_VERTICAL);
-//        this.addContentView(test,
-//                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
-//
-//        save.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                save(image);
-//
-//
-//            }
-//        });
-//
+        findViewById(R.id.moreOpt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showOptions(view);
+            }
+        });
+        
     }
 
 
+    /**
+     * Transform menu
+     * @param v
+     */
     public void showPopupTransform(View v) {
         PopupMenu popup = new PopupMenu(this, v);
         popup.inflate(R.menu.transform);
@@ -163,18 +187,22 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
                 }
                 mEffectView.requestRender();
 
-                //show the slider when an effect is chosen
-                if(mCurrentEffect == R.id.brightness) {
-                    slider.setVisibility(View.VISIBLE);
-                } else {
+                //hide the slider upon choosing an option from here
+                if (isSliderVisible) {
                     slider.setVisibility(View.GONE);
+                    isSliderVisible = false;
                 }
+
                 return true;
             }
         });
         popup.show();
-
     }
+
+    /**
+     * Adjust menu
+     * @param v
+     */
     public void showPopupAdjust(View v) {
         PopupMenu popup = new PopupMenu(this, v);
         popup.inflate(R.menu.adjust);
@@ -187,18 +215,28 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
                 }
                 mEffectView.requestRender();
 
-                //show the slider when an effect is chosen
-                if(mCurrentEffect == R.id.brightness) {
+                //show slider only when an adjustable effect chosen.
+                if (isAdjustableEffect(mCurrentEffect) && !isSliderVisible) {
                     slider.setVisibility(View.VISIBLE);
-                } else {
-                    slider.setVisibility(View.GONE);
+                    isSliderVisible = true;
                 }
+                //else hide slider
+                else if (!isAdjustableEffect(mCurrentEffect) && isSliderVisible)
+                {
+                    slider.setVisibility(View.GONE);
+                    isSliderVisible = false;
+                }
+
                 return true;
             }
         });
         popup.show();
     }
 
+    /**
+     * Brush menu
+     * @param v
+     */
     public void showPopupBrush(View v) {
         PopupMenu popup = new PopupMenu(this, v);
         popup.inflate(R.menu.brush);
@@ -206,69 +244,71 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 setCurrentEffect(menuItem.getItemId());
-                if(undo == false){
+                if(!undo){
                     history.push(mCurrentEffect);
                 }
                 mEffectView.requestRender();
 
-                //show the slider when an effect is chosen
-                if(mCurrentEffect == R.id.brightness) {
-                    slider.setVisibility(View.VISIBLE);
-                } else {
+                //hide the slider upon choosing an option from here
+                if (isSliderVisible) {
                     slider.setVisibility(View.GONE);
+                    isSliderVisible = false;
                 }
+
                 return true;
             }
         });
         popup.show();
     }
 
-    public void showPopupOverlay(View v) {
-        PopupMenu popup = new PopupMenu(this, v);
-        popup.inflate(R.menu.overlay);
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                setCurrentEffect(menuItem.getItemId());
-                if(undo == false){
-                    history.push(mCurrentEffect);
-                }
-                mEffectView.requestRender();
+    public void showOptions(View v){
+            PopupMenu popup = new PopupMenu(this, v);
+            popup.inflate(R.menu.more_options);
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    switch (menuItem.getItemId()){
+                        case R.id.save:
+                            save(image);
+                            save(image);
 
-                //show the slider when an effect is chosen
-                if(mCurrentEffect == R.id.brightness) {
-                    slider.setVisibility(View.VISIBLE);
-                } else {
-                    slider.setVisibility(View.GONE);
+                            //disable the button to prevent multiple accidental saves which can crash the app
+                            findViewById(R.id.moreOpt).setEnabled(false);
+
+                            Timer buttonTimer = new Timer();
+                            buttonTimer.schedule(new TimerTask() {
+
+                                @Override
+                                public void run() {
+                                    runOnUiThread(new Runnable() {
+
+                                        @Override
+                                        public void run() {
+                                            findViewById(R.id.moreOpt).setEnabled(true);
+                                        }
+                                    });
+                                }
+                            }, 5000);
+                            break;
+
+//                        case R.id.undo:
+//                            undo();
+//                            break;
+
+                        case R.id.open:
+                            open();
+
+                    }
+                    return true;
                 }
-                return true;
-            }
-        });
-        popup.show();
+    });
+    popup.show();
     }
-
-    public void showPopupMoreFX(View v) {
-        PopupMenu popup = new PopupMenu(this, v);
-        popup.inflate(R.menu.other_fx);
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                setCurrentEffect(menuItem.getItemId());
-                if(undo == false){
-                    history.push(mCurrentEffect);
-                }
-                mEffectView.requestRender();
-
-                //show the slider when an effect is chosen
-                if(mCurrentEffect == R.id.brightness) {
-                    slider.setVisibility(View.VISIBLE);
-                } else {
-                    slider.setVisibility(View.GONE);
-                }
-                return true;
-            }
-        });
-        popup.show();
+    
+    private void loadPreviewTexture() {
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, previousImage, 0);
+        GLToolbox.initTexParams();
     }
 
     private void loadTextures() {
@@ -279,56 +319,96 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         mImageHeight = image.getHeight();
         mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
 
-        // Upload to texture
+        // Bind to texture - tells OpenGL that subsequent
+        // OpenGL calls should affect this texture.
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
+        //load the bitmap into the bound texture
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, image, 0);
 
         // Set texture parameters
         GLToolbox.initTexParams();
     }
 
-    private void applyEffect() {
-        Effect effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, slider.getProgress());
-        effect.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
+    private void applyEffect(int inputTexture, int outputTexture) {
+        //side note: for onDrawFrame method, inputTexture = 0, outputTexture = 1
+        Effect effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, calculateSliderValue(slider.getProgress()));
+        effect.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
     }
 
     private void renderResult() {
         if (mCurrentEffect != R.id.none) {
-            // if no effect is chosen, just render the original bitmap
-            mTexRenderer.renderTexture(mTextures[1]);
-        } else {
             // render the result of applyEffect()
+            mTexRenderer.renderTexture(mTextures[1]);
+        }
+        /* else if (mCurrentEffect == R.id.oldFilm) {
+            //render the filter applied
+            mTexRenderer.renderTexture(mTextures[1]);
+        } */
+        else {
+            // if no effect is chosen, just render the original bitmap
             mTexRenderer.renderTexture(mTextures[0]);
         }
     }
 
+    //Renderer override
     @Override
     public void onDrawFrame(GL10 gl) {
         if (!mInitialized) {
-//            Only need to do this once
+            //Only need to do this once
             mEffectContext = EffectContext.createWithCurrentGlContext();
             mTexRenderer.init();
         }
             loadTextures();
             mInitialized = true;
-//        }
 
+        //do this if the effect chosen is an adjustable one
+        if (isAdjustableEffect(mCurrentEffect)) {
 
-        if (mCurrentEffect != R.id.none) {
-            // if an effect is chosen initialize it and apply it to the texture
-            effectHandler.initEffect(mEffectContext, mCurrentEffect, slider.getProgress());
-            applyEffect();
+            loadPreviewTexture();
+            applyEffect(0, 1);
+
+            if(previousEffect != mCurrentEffect && previousEffect != 0){
+                previousImage = takeScreenshot(gl);
+            }
         }
-        renderResult();
+        //else if the effect is non-adjustable, and not 'none'
+        else if (mCurrentEffect != R.id.none) {
+            applyEffect(0, 1);
+            effectApplied = true;
+        }
+
+        //filter. Unfinished
+        /* else if (mCurrentEffect == R.id.oldFilm) {
+            //if filter chosen, apply the filter.
+            ArrayList<Effect> oldFilm = filterInitialiser.getOldFilmFilter(mEffectContext);
+            for (Effect component : oldFilm) {
+                component.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
+            }
+            effectApplied = true;
+        } */
+
+            renderResult();
+
+        if (effectApplied) {
+            previousImage = takeScreenshot(gl);
+        }
+        effectApplied = false;
+
         image = takeScreenshot(gl);
     }
 
     public void save(Bitmap bitmap){
         FileManager fm = new FileManager(this);
         fm.saveBitmap(bitmap);
+        Context context = getApplicationContext();
+        CharSequence text = "File Saved!";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
 
     }
-
 
     public Bitmap takeScreenshot(GL10 mGL) {
         final int mWidth = mEffectView.getWidth();
@@ -350,6 +430,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         return mBitmap;
     }
 
+    //Renderer override
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         if (mTexRenderer != null) {
@@ -357,6 +438,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         }
     }
 
+    //Renderer override
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
     }
@@ -377,6 +459,31 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
             mEffectView.requestRender();
         }
         undo = false;
+    }
+
+    private boolean isAdjustableEffect(int chosenEffect) {
+        if (chosenEffect == R.id.brightness ||
+            chosenEffect == R.id.contrast ||
+            chosenEffect == R.id.filllight ||
+            chosenEffect == R.id.fisheye ||
+            chosenEffect == R.id.grain ||
+            chosenEffect == R.id.saturate ||
+            chosenEffect == R.id.temperature ||
+            chosenEffect == R.id.vignette) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    private void open(){
+        Intent intent = new Intent(this, Loader.class);
+        startActivity(intent);
+    }
+    private float calculateSliderValue(int sliderValue){
+        float effectValue = (float) sliderValue/50;
+        return effectValue;
     }
 
 

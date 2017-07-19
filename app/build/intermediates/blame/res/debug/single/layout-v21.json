@@ -1,5 +1,13 @@
 [
     {
+        "merged": "C:\\Users\\Sahjan\\Desktop\\desktop\\Projects\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\Sahjan\\.android\\build-cache\\baf03d2dedb59c973f6933cd7b72c419c794fe2c\\output\\res\\layout-v21\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "C:\\Users\\Sahjan\\Desktop\\desktop\\Projects\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
+        "source": "C:\\Users\\Sahjan\\.android\\build-cache\\baf03d2dedb59c973f6933cd7b72c419c794fe2c\\output\\res\\layout-v21\\notification_template_custom_big.xml"
+    },
+    {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
         "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\layout-v21\\notification_action_tombstone.xml"
     },
@@ -10,6 +18,14 @@
     {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
         "source": "C:\\Users\\Asus\\.android\\build-cache\\aa0e5703a1b960369bad24f65c775e509f7d213d\\output\\res\\layout-v21\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "C:\\Users\\Sahjan\\Desktop\\desktop\\Projects\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action.xml",
+        "source": "C:\\Users\\Sahjan\\.android\\build-cache\\baf03d2dedb59c973f6933cd7b72c419c794fe2c\\output\\res\\layout-v21\\notification_action.xml"
+    },
+    {
+        "merged": "C:\\Users\\Sahjan\\Desktop\\desktop\\Projects\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\Sahjan\\.android\\build-cache\\baf03d2dedb59c973f6933cd7b72c419c794fe2c\\output\\res\\layout-v21\\notification_action_tombstone.xml"
     },
     {
         "merged": "D:\\MSC COMPUTER SCIENCE\\7) PROJECT AND DISSERTATION\\APP\\PhotoApplication\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action.xml",

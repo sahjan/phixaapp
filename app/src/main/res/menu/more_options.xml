@@ -2,7 +2,15 @@
     xmlns:compat="http://schemas.android.com/apk/res-auto" >
 
     <item
-        android:id="@+id/none"
+        android:id="@+id/save"
         compat:showAsAction="never"
-        android:title="none"/>
+        android:title="Save"/>
+    <item
+        android:id="@+id/undo"
+        compat:showAsAction="never"
+        android:title="Undo"/>
+    <item
+        android:id="@+id/open"
+        compat:showAsAction="never"
+        android:title="Open"/>
 </menu>
