@@ -57,7 +57,7 @@ public class Effects {
             case R.id.contrast:
                 effect = effectFactory.createEffect(
                         EffectFactory.EFFECT_CONTRAST);
-                effect.setParameter("contrast", 1.4f);
+                effect.setParameter("contrast", sliderProgress);
                 break;
             case R.id.crossprocess:
                 effect = effectFactory.createEffect(
@@ -76,12 +76,12 @@ public class Effects {
             case R.id.filllight:
                 effect = effectFactory.createEffect(
                         EffectFactory.EFFECT_FILLLIGHT);
-                effect.setParameter("strength", .8f);
+                effect.setParameter("strength", sliderProgress);
                 break;
             case R.id.fisheye:
                 effect = effectFactory.createEffect(
                         EffectFactory.EFFECT_FISHEYE);
-                effect.setParameter("scale", .5f);
+                effect.setParameter("scale", sliderProgress);
                 break;
             case R.id.flipvert:
                 effect = effectFactory.createEffect(
@@ -122,7 +122,7 @@ public class Effects {
             case R.id.saturate:
                 effect = effectFactory.createEffect(
                         EffectFactory.EFFECT_SATURATE);
-                effect.setParameter("scale", .5f);
+                effect.setParameter("scale", sliderProgress);
                 break;
             case R.id.sepia:
                 effect = effectFactory.createEffect(
@@ -135,7 +135,7 @@ public class Effects {
             case R.id.temperature:
                 effect = effectFactory.createEffect(
                         EffectFactory.EFFECT_TEMPERATURE);
-                effect.setParameter("scale", .9f);
+                effect.setParameter("scale", sliderProgress);
                 break;
             case R.id.tint:
                 effect = effectFactory.createEffect(
@@ -145,7 +145,7 @@ public class Effects {
             case R.id.vignette:
                 effect = effectFactory.createEffect(
                         EffectFactory.EFFECT_VIGNETTE);
-                effect.setParameter("scale", .5f);
+                effect.setParameter("scale", sliderProgress);
                 break;
             default:
                 break;
