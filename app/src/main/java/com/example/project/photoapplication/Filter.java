@@ -1,5 +1,6 @@
 package com.example.project.photoapplication;
 
+import android.graphics.Color;
 import android.media.effect.Effect;
 import android.media.effect.EffectContext;
 
@@ -57,5 +58,37 @@ public class Filter extends Effects {
 
         return filterComponents;
     }
+
+    /* Filters
+        else if (mCurrentEffect == R.id.oldFilm) {
+        //if filter chosen, apply the filter.
+        Effect grain = effectHandler.initGrain(mEffectContext, 1.6f);
+        grain.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
+        Effect vignette = effectHandler.initVignette(mEffectContext, 1.2f);
+        vignette.apply(mTextures[1], mImageWidth, mImageHeight, mTextures[0]);
+        Effect grayscale = effectHandler.initGrayscale(mEffectContext);
+        grayscale.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
+        effectApplied = true;
+    }
+        else if (mCurrentEffect == R.id.intenseColours) {
+        Effect contrast = effectHandler.initContrast(mEffectContext, 1.5f);
+        contrast.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
+        Effect saturation = effectHandler.initSaturate(mEffectContext, 0.3f);
+        saturation.apply(mTextures[1], mImageWidth, mImageHeight, mTextures[0]);
+        Effect brightness = effectHandler.initBrightness(mEffectContext, 1.2f);
+        brightness.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
+        effectApplied = true;
+    }
+        else if (mCurrentEffect == R.id.alien) {
+        Effect tint = effectHandler.initTint(mEffectContext, Color.GREEN);
+        tint.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
+        Effect fisheye = effectHandler.initFisheye(mEffectContext, 1.2f);
+        fisheye.apply(mTextures[1], mImageWidth, mImageHeight, mTextures[0]);
+        Effect contrast = effectHandler.initAutofix(mEffectContext, 1.2f);
+        contrast.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
+        effectApplied = true;
+    }
+      end filters
+     */
 
 }
