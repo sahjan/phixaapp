@@ -169,7 +169,7 @@ public class Effects {
 
         autofix = effectFactory.createEffect(
                 EffectFactory.EFFECT_AUTOFIX);
-        autofix.setParameter("scale", 0.5f);
+        autofix.setParameter("scale", parameter);
         return autofix;
     }
 
@@ -261,6 +261,26 @@ public class Effects {
                 EffectFactory.EFFECT_VIGNETTE);
         vignette.setParameter("scale", parameter);
         return vignette;
+    }
+
+    public Effect initTint(EffectContext effectContext, int color) {
+        Effect tint;
+        EffectFactory effectFactory = effectContext.getFactory();
+
+        tint = effectFactory.createEffect(
+                EffectFactory.EFFECT_TINT);
+        tint.setParameter("tint", color);
+        return tint;
+    }
+
+    public Effect initFisheye(EffectContext effectContext, float parameter) {
+        Effect fisheye;
+        EffectFactory effectFactory = effectContext.getFactory();
+
+        fisheye = effectFactory.createEffect(
+                EffectFactory.EFFECT_FISHEYE);
+        fisheye.setParameter("scale", parameter);
+        return fisheye;
     }
 
 }

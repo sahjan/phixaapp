@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.media.effect.Effect;
 import android.media.effect.EffectContext;
 import android.net.Uri;
@@ -49,7 +50,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     private boolean effectApplied = false;
     private Bitmap previousImage;
 
-    //private Filter filterInitialiser;
+    private Filter filterInitialiser;
     private Effects effectHandler;
     private SeekBar slider;
     private boolean isSliderVisible = false;
@@ -90,7 +91,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
             previousImage = image;
         }
 
-        //filterInitialiser = new Filter();
+        filterInitialiser = new Filter();
 
         effectHandler = new Effects();
         slider = findViewById(R.id.adjustSlider);
@@ -320,10 +321,10 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
             // render the result of applyEffect()
             mTexRenderer.renderTexture(mTextures[1]);
         }
-        /* else if (mCurrentEffect == R.id.oldFilm) {
+        else if (mCurrentEffect == R.id.oldFilm || mCurrentEffect == R.id.intenseColours || mCurrentEffect == R.id.alien) {
             //render the filter applied
             mTexRenderer.renderTexture(mTextures[1]);
-        } */
+        }
         else {
             // if no effect is chosen, just render the original bitmap
             mTexRenderer.renderTexture(mTextures[0]);
@@ -343,29 +344,49 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
 
         //do this if the effect chosen is an adjustable one
         if (isAdjustableEffect(mCurrentEffect)) {
-
             loadPreviewTexture();
             applyEffect(0, 1);
-
             if(previousEffect != mCurrentEffect && previousEffect != 0){
                 previousImage = takeScreenshot(gl);
             }
         }
+
+        /* Filters. Temporary if-statements just to get working filters for now */
+        else if (mCurrentEffect == R.id.oldFilm) {
+            //if filter chosen, apply the filter.
+            Effect grain = effectHandler.initGrain(mEffectContext, 1.6f);
+            grain.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
+            Effect vignette = effectHandler.initVignette(mEffectContext, 1.2f);
+            vignette.apply(mTextures[1], mImageWidth, mImageHeight, mTextures[0]);
+            Effect grayscale = effectHandler.initGrayscale(mEffectContext);
+            grayscale.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
+            effectApplied = true;
+        }
+        else if (mCurrentEffect == R.id.intenseColours) {
+            Effect contrast = effectHandler.initContrast(mEffectContext, 1.5f);
+            contrast.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
+            Effect saturation = effectHandler.initSaturate(mEffectContext, 0.3f);
+            saturation.apply(mTextures[1], mImageWidth, mImageHeight, mTextures[0]);
+            Effect brightness = effectHandler.initBrightness(mEffectContext, 1.2f);
+            brightness.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
+            effectApplied = true;
+        }
+        else if (mCurrentEffect == R.id.alien) {
+            Effect tint = effectHandler.initTint(mEffectContext, Color.GREEN);
+            tint.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
+            Effect fisheye = effectHandler.initFisheye(mEffectContext, 1.2f);
+            fisheye.apply(mTextures[1], mImageWidth, mImageHeight, mTextures[0]);
+            Effect contrast = effectHandler.initAutofix(mEffectContext, 1.2f);
+            contrast.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
+            effectApplied = true;
+        }
+        /*end filters*/
+
         //else if the effect is non-adjustable, and not 'none'
         else if (mCurrentEffect != R.id.none) {
             applyEffect(0, 1);
             effectApplied = true;
         }
-
-        //filter. Unfinished
-        /* else if (mCurrentEffect == R.id.oldFilm) {
-            //if filter chosen, apply the filter.
-            ArrayList<Effect> oldFilm = filterInitialiser.getOldFilmFilter(mEffectContext);
-            for (Effect component : oldFilm) {
-                component.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
-            }
-            effectApplied = true;
-        } */
 
             renderResult();
 

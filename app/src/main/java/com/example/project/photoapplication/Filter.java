@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class Filter extends Effects {
 
     /**
-     * Creates 'Old Film' filter. Uses 4 effects.
+     * Creates 'Old Film' filter. Uses 5 effects.
      * @return the arraylist of the effects that make this filter.
      */
     public ArrayList<Effect> getOldFilmFilter(EffectContext effectContext) {
@@ -26,17 +26,16 @@ public class Filter extends Effects {
         Effect contrast = initContrast(effectContext, 1.5f);
         Effect brightness = initBrightness(effectContext, 1.2f);
         Effect grain = initGrain(effectContext, 0.7f);
+        Effect vignette = initVignette(effectContext, 0.5f);
         Effect grayscale = initGrayscale(effectContext);
 
         //put initialised effects in an array list
         filterComponents.add(contrast);
         filterComponents.add(brightness);
         filterComponents.add(grain);
+        filterComponents.add(vignette);
         filterComponents.add(grayscale);
 
-        // then loop thru this array list in the main
-        //activity, applying each one in turn to the
-        //texture, before rendering.
         return filterComponents;
     }
 
@@ -56,9 +55,6 @@ public class Filter extends Effects {
         filterComponents.add(saturation);
         filterComponents.add(brightness);
 
-        // then loop thru this array list in the main
-        //activity, applying each one in turn to the
-        //texture, before rendering.
         return filterComponents;
     }
 
