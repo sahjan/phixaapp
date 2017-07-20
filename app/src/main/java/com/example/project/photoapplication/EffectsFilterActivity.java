@@ -50,7 +50,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     private boolean effectApplied = false;
     private Bitmap previousImage;
 
-    private Filter filterInitialiser;
+    //private Filter filterInitialiser;
     private Effects effectHandler;
     private SeekBar slider;
     private boolean isSliderVisible = false;
@@ -91,7 +91,7 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
             previousImage = image;
         }
 
-        filterInitialiser = new Filter();
+        //filterInitialiser = new Filter();
 
         effectHandler = new Effects();
         slider = findViewById(R.id.adjustSlider);
@@ -319,10 +319,6 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     private void renderResult() {
         if (mCurrentEffect != R.id.none) {
             // render the result of applyEffect()
-            mTexRenderer.renderTexture(mTextures[1]);
-        }
-        else if (mCurrentEffect == R.id.oldFilm || mCurrentEffect == R.id.intenseColours || mCurrentEffect == R.id.alien) {
-            //render the filter applied
             mTexRenderer.renderTexture(mTextures[1]);
         }
         else {
