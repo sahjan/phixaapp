@@ -85,6 +85,15 @@
         android:id="@+id/vignette"
         compat:showAsAction="never"
         android:title="vignette"/>
+    <item
+        android:id="@+id/alien"
+        compat:showAsAction="never"
+        android:title="Alien"/>
+    <item
+        android:id="@+id/intenseColours"
+        compat:showAsAction="never"
+        android:title="Intense Colours"/>
+
 
 
 </menu>

@@ -44,8 +44,6 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
     private Bitmap image;
     private Bitmap originalImage;
     private Stack<Integer> history;
-    private int previousEffect = 0;
-    private Handler mHandler = new Handler();
 
     private boolean effectApplied = false;
     private Bitmap previousImage;
@@ -110,7 +108,6 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                previousEffect = mCurrentEffect;
             }
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -190,6 +187,8 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 setCurrentEffect(menuItem.getItemId());
+                previousImage = image;
+
                 if(undo == false){
                     history.push(mCurrentEffect);
                 }
@@ -331,10 +330,8 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
         if (isAdjustableEffect(mCurrentEffect)) {
             loadPreviewTexture();
             applyEffect(0, 1);
-            if (previousEffect != mCurrentEffect && previousEffect != 0) {
-                previousImage = takeScreenshot(gl);
             }
-        }
+
 
         //else if the effect is non-adjustable, and not 'none'
         else if (mCurrentEffect != R.id.none && mCurrentEffect != R.id.alien && mCurrentEffect != R.id.oldFilm && mCurrentEffect != R.id.intenseColours) {
@@ -344,10 +341,10 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
 
             renderResult();
 
-        if (effectApplied) {
-            previousImage = takeScreenshot(gl);
-        }
-        effectApplied = false;
+//        if (effectApplied) {
+//            previousImage = takeScreenshot(gl);
+//        }
+//        effectApplied = false;
 
         image = takeScreenshot(gl);
     }
