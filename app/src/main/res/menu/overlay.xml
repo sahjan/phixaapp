@@ -5,11 +5,6 @@
         android:id="@+id/none"
         compat:showAsAction="never"
         android:title="none"/>
-
-    <item
-        android:id="@+id/vignette"
-        compat:showAsAction="never"
-        android:title="vignette"/>
     <item
         android:id="@+id/alien"
         compat:showAsAction="never"
@@ -18,5 +13,9 @@
         android:id="@+id/intenseColours"
         compat:showAsAction="never"
         android:title="Intense Colours"/>
+    <item
+        android:id="@+id/oldFilm"
+        compat:showAsAction="never"
+        android:title="Old Film"/>
 
 </menu>

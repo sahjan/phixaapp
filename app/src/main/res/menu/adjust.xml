@@ -22,14 +22,6 @@
         compat:showAsAction="never"
         android:title="contrast"/>
     <item
-        android:id="@+id/crossprocess"
-        compat:showAsAction="never"
-        android:title="crossprocess"/>
-    <item
-        android:id="@+id/documentary"
-        compat:showAsAction="never"
-        android:title="documentary"/>
-    <item
         android:id="@+id/duotone"
         compat:showAsAction="never"
         android:title="duotone"/>
@@ -46,29 +38,9 @@
         compat:showAsAction="never"
         android:title="grain"/>
     <item
-        android:id="@+id/grayscale"
-        compat:showAsAction="never"
-        android:title="grayscale"/>
-    <item
-        android:id="@+id/lomoish"
-        compat:showAsAction="never"
-        android:title="lomoish"/>
-    <item
-        android:id="@+id/negative"
-        compat:showAsAction="never"
-        android:title="negative"/>
-    <item
-        android:id="@+id/posterize"
-        compat:showAsAction="never"
-        android:title="posterize"/>
-    <item
         android:id="@+id/saturate"
         compat:showAsAction="never"
         android:title="saturate"/>
-    <item
-        android:id="@+id/sepia"
-        compat:showAsAction="never"
-        android:title="sepia"/>
     <item
         android:id="@+id/sharpen"
         compat:showAsAction="never"
@@ -81,5 +53,37 @@
         android:id="@+id/tint"
         compat:showAsAction="never"
         android:title="tint"/>
+    <item
+        android:id="@+id/lomoish"
+        compat:showAsAction="never"
+        android:title="Lomoish"/>
+    <item
+        android:id="@+id/negative"
+        compat:showAsAction="never"
+        android:title="Negative"/>
+    <item
+        android:id="@+id/posterize"
+        compat:showAsAction="never"
+        android:title="Posterize"/>
+    <item
+        android:id="@+id/sepia"
+        compat:showAsAction="never"
+        android:title="Sepia"/>
+    <item
+        android:id="@+id/vignette"
+        compat:showAsAction="never"
+        android:title="Vignette"/>
+    <item
+        android:id="@+id/crossprocess"
+        compat:showAsAction="never"
+        android:title="Crossprocess"/>
+    <item
+        android:id="@+id/documentary"
+        compat:showAsAction="never"
+        android:title="Documentary"/>
+    <item
+        android:id="@+id/grayscale"
+        compat:showAsAction="never"
+        android:title="Grayscale"/>
 
 </menu>
