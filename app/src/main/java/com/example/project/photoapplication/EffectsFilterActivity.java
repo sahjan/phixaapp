@@ -196,26 +196,15 @@ public class EffectsFilterActivity extends Activity implements GLSurfaceView.Ren
                 mEffectView.requestRender();
 
                 //show slider only when an adjustable effect chosen.
-                if (isAdjustableEffect(mCurrentEffect) && !isSliderVisible) {
+                if (isAdjustableEffect(mCurrentEffect)) {
                     slider.setVisibility(View.VISIBLE);
                     isSliderVisible = true;
-                    slider.post(new Runnable() {
+                    EffectsFilterActivity.this.mEffectView.post(new Runnable() {
                         @Override
                         public void run() {
                             slider.setProgress(50);
                         }
                     });
-
-//Make sure you update Seekbar on UI thread
-//                    EffectsFilterActivity.this.runOnUiThread(new Runnable() {
-//
-//                        @Override
-//                        public void run() {
-//                                slider.setProgress(50);
-//
-//                            mHandler.post(this);
-//                        }
-//                    });
 
                 }
                 //else hide slider
