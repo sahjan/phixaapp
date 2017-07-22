@@ -28,7 +28,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
-        /**
+        /*
          * Initialise the renderer and tell it to only render when Explicit
          * requested with the RENDERMODE_WHEN_DIRTY option
          */
