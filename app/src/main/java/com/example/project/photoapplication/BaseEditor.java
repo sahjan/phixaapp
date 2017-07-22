@@ -257,15 +257,19 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         loadTextures();
         mInitialized = true;
 
-        //do this if the effect chosen is an adjustable one
+        //if adjustable effect
         if (isAdjustableEffect(mCurrentEffect)) {
             loadPreviewTexture();
             applyEffect(0, 1);
         }
 
+        //else if filter
+        if (isFilter(mCurrentEffect)) {
+            //nothing yet
+        }
 
-        //else if the effect is non-adjustable, and not 'none'
-        else if (mCurrentEffect != R.id.none && mCurrentEffect != R.id.alien && mCurrentEffect != R.id.oldFilm && mCurrentEffect != R.id.intenseColours) {
+        //else if the effect is not 'none'
+        else if (mCurrentEffect != R.id.none) {
             applyEffect(0, 1);
             effectApplied = true;
         }
@@ -336,18 +340,27 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
 
     public boolean isAdjustableEffect(int chosenEffect) {
         if (chosenEffect == R.id.brightness ||
-                chosenEffect == R.id.contrast ||
-                chosenEffect == R.id.filllight ||
-                chosenEffect == R.id.fisheye ||
-                chosenEffect == R.id.grain ||
-                chosenEffect == R.id.saturate ||
-                chosenEffect == R.id.temperature ||
-                chosenEffect == R.id.vignette) {
+            chosenEffect == R.id.contrast ||
+            chosenEffect == R.id.filllight ||
+            chosenEffect == R.id.fisheye ||
+            chosenEffect == R.id.grain ||
+            chosenEffect == R.id.saturate ||
+            chosenEffect == R.id.temperature ||
+            chosenEffect == R.id.vignette) {
             return true;
         }
         else {
             return false;
         }
+    }
+
+    public boolean isFilter (int chosenEffect) {
+        if (chosenEffect == R.id.alien ||
+            chosenEffect == R.id.intenseColours ||
+            chosenEffect == R.id.oldFilm) {
+            return true;
+        }
+        return false;
     }
 
     public void open(){
