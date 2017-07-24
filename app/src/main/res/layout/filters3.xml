@@ -11,11 +11,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="bottom">
 
-        <android.opengl.GLSurfaceView
-            android:id="@+id/effectsview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+        <include layout="@layout/gl_view"/>
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/filtersList"

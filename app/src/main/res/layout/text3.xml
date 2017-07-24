@@ -10,12 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.opengl.GLSurfaceView
-            android:id="@+id/effectsview"
-            android:layout_width="match_parent"
-            android:layout_height="570dp"
-            android:layout_gravity="right"
-            android:layout_weight="0.33" />
+        <include layout="@layout/gl_view"/>
 
         <LinearLayout
             android:id="@+id/slidersBar"
