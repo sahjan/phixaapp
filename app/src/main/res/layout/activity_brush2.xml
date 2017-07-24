@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context="com.example.project.photoapplication.Brush2">>
+    tools:context="com.example.project.photoapplication.Brush2">
 
 <FrameLayout
     android:layout_width="match_parent"
