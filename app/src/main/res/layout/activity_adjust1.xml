@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context="com.example.project.photoapplication.Adjust1">
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom">
+
+    <android.opengl.GLSurfaceView
+        android:id="@+id/effectsview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <HorizontalScrollView
+        android:id="@+id/adjustBar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|fill_horizontal"
+        android:background="@android:color/transparent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom">
+
+            <Button
+                android:id="@+id/but11"
+                android:layout_width="76dp"
+                android:layout_height="40dp"
+                android:text="Brightness" />
+
+            <Button
+                android:id="@+id/but12"
+                android:layout_width="78dp"
+                android:layout_height="40dp"
+                android:text="Contrast"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/but13"
+                android:layout_width="76dp"
+                android:layout_height="40dp"
+                android:text="Saturation"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/but14"
+                android:layout_width="76dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Hue"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/but15"
+                android:layout_width="78dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Warmth"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/but16"
+                android:layout_width="78dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Highlights"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/but17"
+                android:layout_width="78dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Midtones"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/but18"
+                android:layout_width="78dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Shadows"
+                android:textAlignment="center" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:id="@+id/slidersBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:paddingBottom="40dp">
+
+        <SeekBar
+            android:id="@+id/adjustSlider"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="0.02"
+            android:background="@android:color/transparent"
+            android:max="5"
+            android:min="0"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.02"
+        android:background="@android:color/transparent"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:weightSum="1">
+
+            <ImageButton
+                android:id="@+id/topBut"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="start"
+                android:background="@drawable/layers_1"
+                app:srcCompat="@drawable/layers_1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:paddingRight="5dp"
+                android:weightSum="1">
+
+                <ImageButton
+                    android:id="@+id/moreOpt"
+                    android:layout_width="45dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="end"
+                    android:layout_weight="0.04"
+                    android:background="@drawable/more_options_1" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/topBut"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="start"
+            android:background="@drawable/layers_1"
+            app:srcCompat="@drawable/layers_1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <ImageButton
+                android:id="@+id/moreOpt"
+                android:layout_width="45dp"
+                android:layout_height="60dp"
+                android:layout_gravity="end"
+                android:layout_weight="0.04"
+                android:background="@drawable/more_options_1"
+                android:paddingRight="10dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
+
+
+</LinearLayout>
