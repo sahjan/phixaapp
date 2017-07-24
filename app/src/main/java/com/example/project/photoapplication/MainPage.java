@@ -53,7 +53,6 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             setPreviousImage(getImage());
         }
 
-        setFilterInitialiser(new Filter());
         setEffectHandler(new Effects());
         setSlider((SeekBar) findViewById(R.id.adjustSlider));
         getSlider().setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -140,6 +139,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
 //
 //    }
 
+    // Shows Drop Down Menu upon clicking '...' button in top right of page
     public void showOptions(View v) {
         PopupMenu popup = new PopupMenu(this, v);
         popup.inflate(R.menu.more_options);
