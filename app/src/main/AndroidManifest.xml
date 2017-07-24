@@ -23,8 +23,9 @@
                 true
             </item>
         </style>
-
+        <!-- FX Filter Activity-->
         <activity android:name=".EffectsFilterActivity" />
+        <!-- Splash Screen Activity-->
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <!-- Main Page Activity-->
@@ -33,14 +34,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <!-- Loader Page Activity-->
         <activity android:name=".Loader" />
         <!-- Recent Images Gallery Activity-->
         <activity android:name=".RecentImages" />
+        <!-- Base Editor Activity-->
+        <activity android:name=".BaseEditor" />
         <!-- Transform Tools Activity-->
         <activity android:name=".Transform" />
-        <!-- Base Editor Activity-->
-        <activity android:name=".BaseEditor"></activity>
+        <!-- Adjust Tools Activity
+        <activity android:name=".Adjust" />-->
+        <!-- Brush Tools Activity
+        <activity android:name=".Brush" />-->
+        <!-- Overlay Tools Activity
+        <activity android:name=".Overlay" />-->
 
         <provider
             android:name="android.support.v4.content.FileProvider"
