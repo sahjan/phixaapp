@@ -28,7 +28,6 @@
         <!-- Splash Screen Activity -->
         <activity android:name=".SplashScreen">
             <intent-filter>
-
                 <!-- Main Page Activity -->
                 <action android:name="android.intent.action.MAIN" />
                 <!-- Launcher Activity -->
@@ -49,7 +48,8 @@
         <!-- Brush Tools Activity-->
         <activity android:name=".Brush2" />
         <!-- Overlay Tools Activity-->
-        <activity android:name=".Overlay3"></activity>
+        <activity android:name=".Overlay3">
+        </activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

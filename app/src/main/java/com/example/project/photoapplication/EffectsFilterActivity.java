@@ -62,7 +62,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                 //queueEvent ensures this occurs in the Renderer thread.
                 getmEffectView().queueEvent(new Runnable() {
                     public void run() {
-                        applyEffect(0,1);
+                        applyEffect(0, 1);
                         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, getmTextures()[1]);
                         getmEffectView().requestRender();
                     }
@@ -72,42 +72,80 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
+
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
 
-
+        // Transform Button, when clicked, moves to Transform Activity
         findViewById(R.id.but1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopupTransform(view);
-
+                Intent intent = new Intent(EffectsFilterActivity.this, Transform.class);
+                intent.putExtra("Image", getUri());
+                startActivity(intent);
+                finish();
             }
         });
 
+        // Transform Button, when clicked, moves to Adjust Activity
         findViewById(R.id.but2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopupAdjust(view);
-
+                Intent intent = new Intent(EffectsFilterActivity.this, Adjust1.class);
+                intent.putExtra("Image", getUri());
+                startActivity(intent);
+                finish();
             }
         });
 
+        // Transform Button, when clicked, moves to Brush Activity
         findViewById(R.id.but3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopupBrush(view);
-
+                Intent intent = new Intent(EffectsFilterActivity.this, Brush2.class);
+                intent.putExtra("Image", getUri());
+                startActivity(intent);
+                finish();
             }
         });
+
+        // Transform Button, when clicked, moves to Overlay Activity
         findViewById(R.id.but4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopupOverlay(view);
-
+                Intent intent = new Intent(EffectsFilterActivity.this, Overlay3.class);
+                intent.putExtra("Image", getUri());
+                startActivity(intent);
+                finish();
             }
         });
+
+//        findViewById(R.id.but2).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showPopupAdjust(view);
+//
+//            }
+//        });
+//
+//        findViewById(R.id.but3).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showPopupBrush(view);
+//
+//            }
+//        });
+//        findViewById(R.id.but4).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showPopupOverlay(view);
+//      }
+//         });
+
+
+
         findViewById(R.id.moreOpt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
