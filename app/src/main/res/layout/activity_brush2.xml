@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context="com.example.project.photoapplication.Adjust1">
+    tools:context="com.example.project.photoapplication.Brush2">>
 
 <FrameLayout
     android:layout_width="match_parent"
@@ -19,77 +19,110 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_height="match_parent"
         android:layout_weight="1" />
 
+    <LinearLayout
+        android:id="@+id/brushTools"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:orientation="vertical"
+        android:paddingBottom="80dp"
+        android:paddingTop="80dp">
+
+        <ImageButton
+            android:id="@+id/brush1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            app:srcCompat="@drawable/brush" />
+
+        <ImageButton
+            android:id="@+id/brush2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="5dp"
+            android:paddingTop="5dp"
+            app:srcCompat="@drawable/brush2" />
+
+        <ImageButton
+            android:id="@+id/pencil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="5dp"
+            android:paddingTop="5dp"
+            app:srcCompat="@drawable/pencil" />
+
+        <ImageButton
+            android:id="@+id/eraser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="5dp"
+            android:paddingTop="5dp"
+            app:srcCompat="@drawable/eraser" />
+    </LinearLayout>
+
     <HorizontalScrollView
-        android:id="@+id/adjustBar"
+        android:id="@+id/brushBarDraw"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_gravity="bottom|fill_horizontal"
+        android:layout_gravity="bottom"
         android:background="@android:color/transparent">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="bottom">
+            android:background="@android:color/transparent">
 
             <Button
-                android:id="@+id/but11"
+                android:id="@+id/but21"
                 android:layout_width="76dp"
                 android:layout_height="40dp"
-                android:text="Brightness" />
+                android:text="Draw"
+                android:textColor="#000000" />
 
             <Button
-                android:id="@+id/but12"
+                android:id="@+id/but22"
                 android:layout_width="78dp"
                 android:layout_height="40dp"
-                android:text="Contrast"
-                android:textAlignment="center" />
+                android:text="Dodge" />
 
             <Button
-                android:id="@+id/but13"
+                android:id="@+id/but23"
                 android:layout_width="76dp"
                 android:layout_height="40dp"
-                android:text="Saturation"
-                android:textAlignment="center" />
+                android:text="Burn" />
 
             <Button
-                android:id="@+id/but14"
+                android:id="@+id/but24"
                 android:layout_width="76dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
-                android:text="Hue"
-                android:textAlignment="center" />
+                android:text="Heal" />
 
             <Button
-                android:id="@+id/but15"
+                android:id="@+id/but26"
                 android:layout_width="78dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
-                android:text="Warmth"
-                android:textAlignment="center" />
+                android:text="Sharp" />
 
             <Button
-                android:id="@+id/but16"
+                android:id="@+id/but27"
                 android:layout_width="78dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
-                android:text="Highlights"
-                android:textAlignment="center" />
+                android:text="Blur" />
 
             <Button
-                android:id="@+id/but17"
+                android:id="@+id/but28"
                 android:layout_width="78dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
-                android:text="Midtones"
-                android:textAlignment="center" />
-
-            <Button
-                android:id="@+id/but18"
-                android:layout_width="78dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="Shadows"
-                android:textAlignment="center" />
+                android:text="Warp" />
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -103,7 +136,18 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         android:paddingBottom="40dp">
 
         <SeekBar
-            android:id="@+id/adjustSlider"
+            android:id="@+id/softnessSlider"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="0.03"
+            android:background="@android:color/transparent"
+            android:max="5"
+            android:min="0"
+            android:visibility="invisible" />
+
+        <SeekBar
+            android:id="@+id/opacitySlider"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_gravity="bottom"
@@ -118,7 +162,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="67dp"
         android:background="@android:color/transparent"
         android:orientation="horizontal"
         android:visibility="visible"
@@ -134,8 +178,8 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="right"
+            android:layout_height="60dp"
+            android:gravity="right|center_vertical"
             android:orientation="horizontal"
             android:paddingRight="5dp"
             android:weightSum="1">
@@ -147,6 +191,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_gravity="end"
                 android:layout_weight="0.04"
                 android:background="@drawable/more_options_1" />
+
         </LinearLayout>
 
     </LinearLayout>
