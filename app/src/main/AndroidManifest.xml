@@ -24,34 +24,23 @@
             </item>
         </style>
 
-        <!-- Splash Screen Activity-->
+        <activity android:name=".EffectsFilterActivity" />
         <activity android:name=".SplashScreen">
             <intent-filter>
-
-                <!-- Main Editor Page Activity-->
+                <!-- Main Page Activity-->
                 <action android:name="android.intent.action.MAIN" />
-
                 <!-- Launcher Activity-->
                 <category android:name="android.intent.category.LAUNCHER" />
-
             </intent-filter>
-
-        <!-- Load Image Page Activity-->
-        <activity android:name=".Loader" />
-
-        <!-- Recent Image Gallery Activity-->
-        <activity android:name=".RecentImages" />
-
-        <!-- FX Filter Activity-->
-        <activity android:name=".EffectsFilterActivity" />
-
-        <!-- Transform tools Activity-->
-        <activity android:name=".Transform" />
-
-        <!-- Base Editor Class Activity-->
-        <activity android:name=".BaseEditor" />
-
         </activity>
+        <!-- Loader Page Activity-->
+        <activity android:name=".Loader" />
+        <!-- Recent Images Gallery Activity-->
+        <activity android:name=".RecentImages" />
+        <!-- Transform Tools Activity-->
+        <activity android:name=".Transform" />
+        <!-- Base Editor Activity-->
+        <activity android:name=".BaseEditor"></activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
