@@ -51,7 +51,6 @@ public class Overlay3 extends BaseEditor implements GLSurfaceView.Renderer{
             setPreviousImage(getImage());
         }
 
-        setFilterInitialiser(new Filter());
         setEffectHandler(new Effects());
         setSlider((SeekBar) findViewById(R.id.adjustSlider));
         getSlider().setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -85,7 +84,6 @@ public class Overlay3 extends BaseEditor implements GLSurfaceView.Renderer{
         });
 
     }
-
 
     /**
      * Overlay menu

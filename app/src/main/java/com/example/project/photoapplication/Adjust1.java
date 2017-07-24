@@ -51,7 +51,6 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
             setPreviousImage(getImage());
         }
 
-        setFilterInitialiser(new Filter());
         setEffectHandler(new Effects());
         setSlider((SeekBar) findViewById(R.id.adjustSlider));
         getSlider().setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -88,7 +87,7 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
 
     /**
      * Adjust menu
-     * @param v
+//     * @param v
      */
     public void showPopupAdjust(View v) {
         PopupMenu popup = new PopupMenu(this, v);

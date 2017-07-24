@@ -41,7 +41,7 @@ public class Effects {
             case R.id.autofix:
                 effect = effectFactory.createEffect(
                         EffectFactory.EFFECT_AUTOFIX);
-                effect.setParameter("scale", 0.5f);
+                effect.setParameter("scale", sliderProgress);
                 break;
             case R.id.bw: //this effect is not black & white, it only adjusts the shadows and highlights
                 effect = effectFactory.createEffect(

@@ -16,7 +16,6 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.nio.IntBuffer;
-import java.util.ArrayList;
 import java.util.Stack;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -37,11 +36,14 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     private Bitmap image;
     private Bitmap originalImage;
     private Stack<Integer> history;
+    private Stack<Float> historyValues;
+    private float sliderValue;
+    private float effectParameter;
 
     private boolean effectApplied = false;
     private Bitmap previousImage;
 
-    private Filter filterInitialiser;
+    //private Filter filterInitialiser;
     private Effects effectHandler;
     private SeekBar slider;
     private boolean isSliderVisible = false;
@@ -51,6 +53,219 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    public void loadPreviewTexture() {
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, previousImage, 0);
+        GLToolbox.initTexParams();
+    }
+
+    public void loadTextures() {
+        // Generate textures
+        GLES20.glGenTextures(2, mTextures, 0);
+
+        mImageWidth = image.getWidth();
+        mImageHeight = image.getHeight();
+        mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
+
+        // Bind to texture - tells OpenGL that subsequent
+        // OpenGL calls should affect this texture.
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
+        //load the bitmap into the bound texture
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, image, 0);
+
+        // Set texture parameters
+        GLToolbox.initTexParams();
+    }
+
+    public void applyEffect(int inputTexture, int outputTexture) {
+        //side note: for onDrawFrame method, inputTexture = 0, outputTexture = 1
+        Effect effect;
+        if(!undo) {
+            effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, calculateSliderValue(slider.getProgress()));
+            if(isAdjustableEffect(mCurrentEffect)) {
+                if (history.size() > historyValues.size()) {
+                    historyValues.push(calculateSliderValue(slider.getProgress()));
+                } else {
+                    historyValues.pop();
+                    historyValues.push(calculateSliderValue(slider.getProgress()));
+                }
+            }
+        }
+        else {
+            effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, effectParameter);
+        }
+        effect.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
+
+
+    }
+
+    public void renderResult() {
+        if (mCurrentEffect != R.id.none) {
+            // render the result of applyEffect()
+            mTexRenderer.renderTexture(mTextures[1]);
+        }
+        else {
+            // if no effect is chosen, just render the original bitmap
+            mTexRenderer.renderTexture(mTextures[0]);
+        }
+    }
+
+    //Renderer override
+    @Override
+    public void onDrawFrame(GL10 gl) {
+        if (!mInitialized) {
+            //Only need to do this once
+            mEffectContext = EffectContext.createWithCurrentGlContext();
+            mTexRenderer.init();
+        }
+        loadTextures();
+        mInitialized = true;
+
+
+            //if adjustable effect
+            if (isAdjustableEffect(mCurrentEffect)) {
+                loadPreviewTexture();
+                applyEffect(0, 1);
+            }
+
+            //else if filter
+            if (isFilter(mCurrentEffect)) {
+                //nothing yet
+            }
+
+            //else if the effect is not 'none'
+            else if (mCurrentEffect != R.id.none) {
+                applyEffect(0, 1);
+                effectApplied = true;
+            }
+
+
+
+        renderResult();
+
+
+        image = takeScreenshot(gl);
+    }
+
+    public abstract void save( Bitmap bitmap,  Context context);
+
+
+    public Bitmap takeScreenshot(GL10 mGL) {
+        final int mWidth = mEffectView.getWidth();
+        final int mHeight = mEffectView.getHeight();
+        IntBuffer ib = IntBuffer.allocate(mWidth * mHeight);
+        IntBuffer ibt = IntBuffer.allocate(mWidth * mHeight);
+        mGL.glReadPixels(0, 0, mWidth, mHeight, GL10.GL_RGBA, GL10.GL_UNSIGNED_BYTE, ib);
+
+        // Convert upside down mirror-reversed image to right-side up normal
+        // image.
+        for (int i = 0; i < mHeight; i++) {
+            for (int j = 0; j < mWidth; j++) {
+                ibt.put((mHeight - i - 1) * mWidth + j, ib.get(i * mWidth + j));
+            }
+        }
+
+        Bitmap mBitmap = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_8888);
+        mBitmap.copyPixelsFromBuffer(ibt);
+        return mBitmap;
+    }
+
+    //Renderer override
+    @Override
+    public void onSurfaceChanged(GL10 gl, int width, int height) {
+        if (mTexRenderer != null) {
+            mTexRenderer.updateViewSize(width, height);
+        }
+    }
+
+    //Renderer override
+    @Override
+    public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+    }
+
+    public void undo() {
+        undo = true;
+        if(!history.empty() && !historyValues.empty()) {
+            history.pop();
+            historyValues.pop();
+        }
+        image = originalImage;
+        previousImage = originalImage;
+        if (!history.empty()) {
+            for (int i = 0; i <= history.size() - 1; i++) {
+                mCurrentEffect = history.get(i);
+                effectParameter = historyValues.get(i);
+                mEffectView.requestRender();
+                android.os.SystemClock.sleep(200);
+            }
+        } else {
+            mCurrentEffect = R.id.none;
+            mEffectView.requestRender();
+        }
+        mCurrentEffect = R.id.none;
+        undo = false;
+    }
+
+    public boolean isAdjustableEffect(int chosenEffect) {
+        if (chosenEffect == R.id.brightness ||
+            chosenEffect == R.id.contrast ||
+            chosenEffect == R.id.filllight ||
+            chosenEffect == R.id.fisheye ||
+            chosenEffect == R.id.grain ||
+            chosenEffect == R.id.saturate ||
+            chosenEffect == R.id.temperature ||
+            chosenEffect == R.id.vignette) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public boolean isFilter (int chosenEffect) {
+        if (chosenEffect == R.id.alien ||
+            chosenEffect == R.id.intenseColours ||
+            chosenEffect == R.id.oldFilm) {
+            return true;
+        }
+        return false;
+    }
+
+    public void open(){
+        Intent intent = new Intent(this, Loader.class);
+        startActivity(intent);
+    }
+    public float calculateSliderValue(int sliderValue){
+        float effectValue = (float) sliderValue/50;
+        return effectValue;
+    }
+
+    protected class SaveThread extends AsyncTask<String, Void, Boolean> {
+
+        Context context;
+        Bitmap image;
+
+        public SaveThread(Context context, Bitmap image){
+            this.context = context;
+            this.image = image;
+        }
+
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            FileManager fm = new FileManager(context);
+            fm.saveBitmap(image);
+            return null;
+        }
+    }
+
+    public float getSliderValue() {
+        return sliderValue;
+    }
+
+    public void setSliderValue(float sliderValue) {
+        this.sliderValue = sliderValue;
     }
 
     public void setCurrentEffect(int menuID) {
@@ -181,10 +396,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         this.effectHandler = effectHandler;
     }
 
-    public void setFilterInitialiser(Filter filterInitialiser) {
-        this.filterInitialiser = filterInitialiser;
-    }
-
     public SeekBar getSlider() {
         return slider;
     }
@@ -201,233 +412,20 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         isSliderVisible = sliderVisible;
     }
 
+    public Stack<Float> getHistoryValues() {
+        return historyValues;
+    }
+
+    public void setHistoryValues(Stack<Float> historyValues) {
+        this.historyValues = historyValues;
+    }
+
     public Context getContext() {
         return context;
     }
 
     public void setContext(Context context) {
         this.context = context;
-    }
-
-
-    public void loadPreviewTexture() {
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
-        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, previousImage, 0);
-        GLToolbox.initTexParams();
-    }
-
-    public void loadTextures() {
-        // Generate textures
-        GLES20.glGenTextures(2, mTextures, 0);
-
-        mImageWidth = image.getWidth();
-        mImageHeight = image.getHeight();
-        mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
-
-        // Bind to texture - tells OpenGL that subsequent
-        // OpenGL calls should affect this texture.
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
-        //load the bitmap into the bound texture
-        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, image, 0);
-
-        // Set texture parameters
-        GLToolbox.initTexParams();
-    }
-
-    public void applyEffect(int inputTexture, int outputTexture) {
-        //side note: for onDrawFrame method, inputTexture = 0, outputTexture = 1
-        Effect effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, calculateSliderValue(slider.getProgress()));
-        effect.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
-    }
-
-    public void renderResult() {
-        if (mCurrentEffect != R.id.none) {
-            // render the result of applyEffect()
-            mTexRenderer.renderTexture(mTextures[1]);
-        }
-        else {
-            // if no effect is chosen, just render the original bitmap
-            mTexRenderer.renderTexture(mTextures[0]);
-        }
-    }
-
-    //Renderer override
-    @Override
-    public void onDrawFrame(GL10 gl) {
-        if (!mInitialized) {
-            //Only need to do this once
-            mEffectContext = EffectContext.createWithCurrentGlContext();
-            mTexRenderer.init();
-        }
-        loadTextures();
-        mInitialized = true;
-
-        //if adjustable effect
-        if (isAdjustableEffect(mCurrentEffect)) {
-            loadPreviewTexture();
-            applyEffect(0, 1);
-        }
-        //else if filter
-        if (isFilter(mCurrentEffect)) {
-            applyFilter(0, 1);
-        }
-        //else if the effect is not 'none'
-        else if (mCurrentEffect != R.id.none) {
-            applyEffect(0, 1);
-            effectApplied = true;
-        }
-
-        renderResult();
-
-//        if (effectApplied) {
-//            previousImage = takeScreenshot(gl);
-//        }
-//        effectApplied = false;
-
-        image = takeScreenshot(gl);
-    }
-
-    public abstract void save( Bitmap bitmap,  Context context);
-
-
-    public Bitmap takeScreenshot(GL10 mGL) {
-        final int mWidth = mEffectView.getWidth();
-        final int mHeight = mEffectView.getHeight();
-        IntBuffer ib = IntBuffer.allocate(mWidth * mHeight);
-        IntBuffer ibt = IntBuffer.allocate(mWidth * mHeight);
-        mGL.glReadPixels(0, 0, mWidth, mHeight, GL10.GL_RGBA, GL10.GL_UNSIGNED_BYTE, ib);
-
-        // Convert upside down mirror-reversed image to right-side up normal
-        // image.
-        for (int i = 0; i < mHeight; i++) {
-            for (int j = 0; j < mWidth; j++) {
-                ibt.put((mHeight - i - 1) * mWidth + j, ib.get(i * mWidth + j));
-            }
-        }
-
-        Bitmap mBitmap = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_8888);
-        mBitmap.copyPixelsFromBuffer(ibt);
-        return mBitmap;
-    }
-
-    //Renderer override
-    @Override
-    public void onSurfaceChanged(GL10 gl, int width, int height) {
-        if (mTexRenderer != null) {
-            mTexRenderer.updateViewSize(width, height);
-        }
-    }
-
-    //Renderer override
-    @Override
-    public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-    }
-
-    public void undo() {
-        undo = true;
-        if(!history.empty()) {
-            history.pop();
-        }
-        image = originalImage;
-        if (!history.empty()) {
-            for (int i = 0; i <= history.size() - 1; i++) {
-                mCurrentEffect = history.get(i);
-                mEffectView.requestRender();
-            }
-        } else {
-            mCurrentEffect = R.id.none;
-            mEffectView.requestRender();
-        }
-        undo = false;
-    }
-
-    public boolean isAdjustableEffect(int chosenEffect) {
-        if (chosenEffect == R.id.brightness ||
-            chosenEffect == R.id.contrast ||
-            chosenEffect == R.id.filllight ||
-            chosenEffect == R.id.fisheye ||
-            chosenEffect == R.id.grain ||
-            chosenEffect == R.id.saturate ||
-            chosenEffect == R.id.temperature ||
-            chosenEffect == R.id.vignette) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    public boolean isFilter (int chosenEffect) {
-        if (chosenEffect == R.id.alien ||
-            chosenEffect == R.id.intenseColours ||
-            chosenEffect == R.id.oldFilm) {
-            return true;
-        }
-        return false;
-    }
-
-    public void applyFilter(int inputTexture, int outputTexture) {
-        //last effect in the filter has to write to outputTexture
-        if (mCurrentEffect == R.id.oldFilm) {
-            ArrayList<Effect> oldFilmFilter = filterInitialiser.getOldFilmFilter(mEffectContext);
-            Effect grain = oldFilmFilter.get(0);
-            grain.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
-            Effect vignette = oldFilmFilter.get(1);
-            vignette.apply(mTextures[outputTexture], mImageWidth, mImageHeight, mTextures[inputTexture]);
-            Effect grayscale = oldFilmFilter.get(2);
-            grayscale.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
-            //not sure if need this??:
-            effectApplied = true;
-        }
-        else if (mCurrentEffect == R.id.intenseColours) {
-            ArrayList<Effect> intenseColoursFilter = filterInitialiser.getIntenseColoursFilter(mEffectContext);
-            Effect contrast = intenseColoursFilter.get(0);
-            contrast.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
-            Effect saturation = intenseColoursFilter.get(1);
-            saturation.apply(mTextures[outputTexture], mImageWidth, mImageHeight, mTextures[inputTexture]);
-            Effect brightness = intenseColoursFilter.get(2);
-            brightness.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
-            //not sure if need this??:
-            effectApplied = true;
-        }
-        else if (mCurrentEffect == R.id.alien) {
-            ArrayList<Effect> alienFilter = filterInitialiser.getAlienFilter(mEffectContext);
-            Effect tint = alienFilter.get(0);
-            tint.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
-            Effect fisheye = alienFilter.get(1);
-            fisheye.apply(mTextures[outputTexture], mImageWidth, mImageHeight, mTextures[inputTexture]);
-            Effect contrast = alienFilter.get(2);
-            contrast.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
-            //not sure if need this??:
-            effectApplied = true;
-        }
-    }
-
-    public void open(){
-        Intent intent = new Intent(this, Loader.class);
-        startActivity(intent);
-    }
-    public float calculateSliderValue(int sliderValue){
-        float effectValue = (float) sliderValue/50;
-        return effectValue;
-    }
-
-    protected class SaveThread extends AsyncTask<String, Void, Boolean> {
-
-        Context context;
-        Bitmap image;
-
-        public SaveThread(Context context, Bitmap image){
-            this.context = context;
-            this.image = image;
-        }
-
-        @Override
-        protected Boolean doInBackground(String... strings) {
-            FileManager fm = new FileManager(context);
-            fm.saveBitmap(image);
-            return null;
-        }
     }
 
 }

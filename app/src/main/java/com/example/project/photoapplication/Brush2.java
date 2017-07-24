@@ -51,7 +51,6 @@ public class Brush2 extends BaseEditor implements GLSurfaceView.Renderer{
             setPreviousImage(getImage());
         }
 
-        setFilterInitialiser(new Filter());
         setEffectHandler(new Effects());
         setSlider((SeekBar) findViewById(R.id.opacitySlider));
         setSlider((SeekBar) findViewById(R.id.softnessSlider));
