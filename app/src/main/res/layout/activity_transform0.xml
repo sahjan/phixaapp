@@ -65,43 +65,6 @@
             </HorizontalScrollView>
 
             <LinearLayout
-                android:id="@+id/topBar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.02"
-                android:background="@android:color/transparent"
-                android:orientation="horizontal"
-                android:visibility="visible"
-                android:weightSum="1">
-
-                <ImageButton
-                    android:id="@+id/topBut"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="start"
-                    android:background="@drawable/layers_1"
-                    app:srcCompat="@drawable/layers_1" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:gravity="right"
-                    android:orientation="horizontal"
-                    android:padding="5dp"
-                    android:weightSum="1">
-
-                    <ImageButton
-                        android:id="@+id/moreOpt"
-                        android:layout_width="40dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="end"
-                        android:layout_weight="0.04"
-                        android:background="@drawable/more_options_1" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/slidersBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -122,6 +85,8 @@
                     android:visibility="invisible" />
 
             </LinearLayout>
+
+            <include layout="@layout/top_bar"/>
 
         </FrameLayout>
 
