@@ -53,8 +53,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
             setPreviousImage(getImage());
         }
 
-        //filterInitialiser = new Filter();
-
+        setFilterInitialiser(new Filter());
         setEffectHandler(new Effects());
         setSlider((SeekBar) findViewById(R.id.adjustSlider));
         getSlider().setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -99,6 +98,13 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
             @Override
             public void onClick(View view) {
                 showPopupBrush(view);
+
+            }
+        });
+        findViewById(R.id.but4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopupOverlay(view);
 
             }
         });
@@ -190,6 +196,34 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
     public void showPopupBrush(View v) {
         PopupMenu popup = new PopupMenu(this, v);
         popup.inflate(R.menu.brush);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                setCurrentEffect(menuItem.getItemId());
+                if(!isUndo()){
+                    getHistory().push(getmCurrentEffect());
+                }
+                getmEffectView().requestRender();
+
+                //hide the slider upon choosing an option from here
+                if (isSliderVisible()) {
+                    getSlider().setVisibility(View.GONE);
+                    setSliderVisible(false);
+                }
+
+                return true;
+            }
+        });
+        popup.show();
+    }
+
+    /**
+     * Overlay menu
+     * @param v
+     */
+    public void showPopupOverlay(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.inflate(R.menu.overlay);
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {

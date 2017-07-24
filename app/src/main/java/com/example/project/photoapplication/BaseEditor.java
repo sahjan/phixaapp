@@ -16,6 +16,7 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.nio.IntBuffer;
+import java.util.ArrayList;
 import java.util.Stack;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -40,7 +41,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     private boolean effectApplied = false;
     private Bitmap previousImage;
 
-    //private Filter filterInitialiser;
+    private Filter filterInitialiser;
     private Effects effectHandler;
     private SeekBar slider;
     private boolean isSliderVisible = false;
@@ -180,6 +181,10 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         this.effectHandler = effectHandler;
     }
 
+    public void setFilterInitialiser(Filter filterInitialiser) {
+        this.filterInitialiser = filterInitialiser;
+    }
+
     public SeekBar getSlider() {
         return slider;
     }
@@ -262,12 +267,10 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             loadPreviewTexture();
             applyEffect(0, 1);
         }
-
         //else if filter
         if (isFilter(mCurrentEffect)) {
-            //nothing yet
+            applyFilter(0, 1);
         }
-
         //else if the effect is not 'none'
         else if (mCurrentEffect != R.id.none) {
             applyEffect(0, 1);
@@ -361,6 +364,43 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             return true;
         }
         return false;
+    }
+
+    public void applyFilter(int inputTexture, int outputTexture) {
+        //last effect in the filter has to write to outputTexture
+        if (mCurrentEffect == R.id.oldFilm) {
+            ArrayList<Effect> oldFilmFilter = filterInitialiser.getOldFilmFilter(mEffectContext);
+            Effect grain = oldFilmFilter.get(0);
+            grain.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
+            Effect vignette = oldFilmFilter.get(1);
+            vignette.apply(mTextures[outputTexture], mImageWidth, mImageHeight, mTextures[inputTexture]);
+            Effect grayscale = oldFilmFilter.get(2);
+            grayscale.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
+            //not sure if need this??:
+            effectApplied = true;
+        }
+        else if (mCurrentEffect == R.id.intenseColours) {
+            ArrayList<Effect> intenseColoursFilter = filterInitialiser.getIntenseColoursFilter(mEffectContext);
+            Effect contrast = intenseColoursFilter.get(0);
+            contrast.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
+            Effect saturation = intenseColoursFilter.get(1);
+            saturation.apply(mTextures[outputTexture], mImageWidth, mImageHeight, mTextures[inputTexture]);
+            Effect brightness = intenseColoursFilter.get(2);
+            brightness.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
+            //not sure if need this??:
+            effectApplied = true;
+        }
+        else if (mCurrentEffect == R.id.alien) {
+            ArrayList<Effect> alienFilter = filterInitialiser.getAlienFilter(mEffectContext);
+            Effect tint = alienFilter.get(0);
+            tint.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
+            Effect fisheye = alienFilter.get(1);
+            fisheye.apply(mTextures[outputTexture], mImageWidth, mImageHeight, mTextures[inputTexture]);
+            Effect contrast = alienFilter.get(2);
+            contrast.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
+            //not sure if need this??:
+            effectApplied = true;
+        }
     }
 
     public void open(){
