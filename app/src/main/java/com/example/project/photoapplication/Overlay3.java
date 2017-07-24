@@ -79,40 +79,41 @@ public class Overlay3 extends BaseEditor implements GLSurfaceView.Renderer{
             @Override
             public void onClick(View view) {
 
-                //showPopupOverlay(view);
+                showPopupOverlay(view);
 
             }
         });
 
     }
 
+
     /**
      * Overlay menu
      * @param v
      */
-//    public void showPopupOverlay(View v) {
-//        PopupMenu popup = new PopupMenu(this, v);
-//        popup.inflate(R.menu.overlay);
-//        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem menuItem) {
-//                setCurrentEffect(menuItem.getItemId());
-//                if(!isUndo()){
-//                    getHistory().push(getmCurrentEffect());
-//                }
-//                getmEffectView().requestRender();
-//
-//                //hide the slider upon choosing an option from here
-//                if (isSliderVisible()) {
-//                    getSlider().setVisibility(View.GONE);
-//                    setSliderVisible(false);
-//                }
-//
-//                return true;
-//            }
-//        });
-//        popup.show();
-//    }
+    public void showPopupOverlay(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.inflate(R.menu.overlay);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                setCurrentEffect(menuItem.getItemId());
+                if(!isUndo()){
+                    getHistory().push(getmCurrentEffect());
+                }
+                getmEffectView().requestRender();
+
+                //hide the slider upon choosing an option from here
+                if (isSliderVisible()) {
+                    getSlider().setVisibility(View.GONE);
+                    setSliderVisible(false);
+                }
+
+                return true;
+            }
+        });
+        popup.show();
+    }
 
 
 

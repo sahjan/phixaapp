@@ -24,7 +24,7 @@
             </item>
         </style>
         <!-- FX Filter Activity -->
-        <activity android:name=".EffectsFilterActivity" />
+        <activity android:name=".MainPage" />
         <!-- Splash Screen Activity -->
         <activity android:name=".SplashScreen">
             <intent-filter>
@@ -41,8 +41,8 @@
         <activity android:name=".RecentImages" />
         <!-- Base Editor Activity -->
         <activity android:name=".BaseEditor" />
-        <!-- Transform Tools Activity -->
-        <activity android:name=".Transform" />
+        <!-- Transform0 Tools Activity -->
+        <activity android:name=".Transform0" />
         <!-- Adjust Tools Activity-->
         <activity android:name=".Adjust1" />
         <!-- Brush Tools Activity-->

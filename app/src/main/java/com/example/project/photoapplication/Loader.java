@@ -116,12 +116,12 @@ public class Loader extends AppCompatActivity {
 
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
             Uri imageUri = data.getData();
-            Intent intent = new Intent(getApplicationContext(), EffectsFilterActivity.class);
+            Intent intent = new Intent(getApplicationContext(), MainPage.class);
             intent.putExtra("Image", imageUri);
             startActivity(intent);
 
         } else if (resultCode == RESULT_OK && requestCode == REQUEST_TAKE_PHOTO) {
-            Intent intent = new Intent(getApplicationContext(), EffectsFilterActivity.class);
+            Intent intent = new Intent(getApplicationContext(), MainPage.class);
             intent.putExtra("Image", cameraPath);
             startActivity(intent);
         }

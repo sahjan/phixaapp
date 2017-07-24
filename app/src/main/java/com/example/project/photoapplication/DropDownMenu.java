@@ -36,7 +36,7 @@ class DropDownMenu extends Activity {
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                //EffectsFilterActivity.setCurrentEffect(menuItem.getItemId());
+                //MainPage.setCurrentEffect(menuItem.getItemId());
                 return true;
             }
         });

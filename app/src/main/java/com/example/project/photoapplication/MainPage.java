@@ -6,9 +6,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -19,13 +18,16 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.Stack;
 
-public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
+public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
+
+
+// CREATE CANVAS
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_adjust1);
+        setContentView(R.layout.main);
         /*
          * Initialise the renderer and tell it to only render when Explicit
          * requested with the RENDERMODE_WHEN_DIRTY option
@@ -60,7 +62,7 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
                 //queueEvent ensures this occurs in the Renderer thread.
                 getmEffectView().queueEvent(new Runnable() {
                     public void run() {
-                        applyEffect(0,1);
+                        applyEffect(0, 1);
                         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, getmTextures()[1]);
                         getmEffectView().requestRender();
                     }
@@ -70,75 +72,111 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
+
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
 
-        findViewById(R.id.but11).setOnClickListener(new View.OnClickListener() {
+
+        // BUTTONS...
+
+
+        // Transform0 Button, when clicked, moves to Transform0 Activity
+        findViewById(R.id.but1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(MainPage.this, Transform0.class);
+                intent.putExtra("Image", getUri());
+                startActivity(intent);
+                finish();
+            }
+        });
 
-                showPopupAdjust(view);
+        // Adjust Button, when clicked, moves to Adjust Activity
+        findViewById(R.id.but2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainPage.this, Adjust1.class);
+                intent.putExtra("Image", getUri());
+                startActivity(intent);
+                finish();
+            }
+        });
 
+        // Brush Button, when clicked, moves to Brush Activity
+        findViewById(R.id.but3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainPage.this, Brush2.class);
+                intent.putExtra("Image", getUri());
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        // Overlay Button, when clicked, moves to Overlay Activity
+        findViewById(R.id.but4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainPage.this, Overlay3.class);
+                intent.putExtra("Image", getUri());
+                startActivity(intent);
+                finish();
             }
         });
 
     }
 
-    /**
-     * Adjust menu
-     * @param v
-     */
-    public void showPopupAdjust(View v) {
+//        // More FX Button, when clicked, shows More FX Options PopUp
+//        findViewById(R.id.but5).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                showPopup*OTHERFX*(view);
+//
+//            }
+//        });
+//
+//    }
+
+    public void showOptions(View v) {
         PopupMenu popup = new PopupMenu(this, v);
-        popup.inflate(R.menu.adjust);
+        popup.inflate(R.menu.more_options);
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                setCurrentEffect(menuItem.getItemId());
-                setPreviousImage(getImage());
+                switch (menuItem.getItemId()) {
+                    case R.id.save:
+                        save(getImage(), getContext());
 
-                if(isUndo() == false){
-                    getHistory().push(getmCurrentEffect());
-                }
-                getmEffectView().requestRender();
 
-                //show slider only when an adjustable effect chosen.
-                if (isAdjustableEffect(getmCurrentEffect())) {
-                    getSlider().setVisibility(View.VISIBLE);
-                    setSliderVisible(true);
-                    getmEffectView().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            getSlider().setProgress(50);
-                        }
-                    });
+                        break;
+
+//                        case R.id.undo:
+//                            undo();
+//                            break;
+
+                    case R.id.open:
+                        open();
 
                 }
-                //else hide slider
-                else if (!isAdjustableEffect(getmCurrentEffect()) && isSliderVisible())
-                {
-                    getSlider().setVisibility(View.GONE);
-                    setSliderVisible(false);
-                }
-
                 return true;
             }
         });
         popup.show();
     }
 
-
-
-    public void save(Bitmap bitmap, Context context){
+    public void save(Bitmap bitmap, Context context) {
         SaveThread saver = new SaveThread(context, bitmap);
         saver.execute();
-        Adjust1.this.runOnUiThread(new Runnable() {
+        MainPage.this.runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(Adjust1.this, "File Saved!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainPage.this, "File Saved!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
 }
+
+

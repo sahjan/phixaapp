@@ -53,7 +53,8 @@ public class Brush2 extends BaseEditor implements GLSurfaceView.Renderer{
 
         setFilterInitialiser(new Filter());
         setEffectHandler(new Effects());
-        setSlider((SeekBar) findViewById(R.id.adjustSlider));
+        setSlider((SeekBar) findViewById(R.id.opacitySlider));
+        setSlider((SeekBar) findViewById(R.id.softnessSlider));
         getSlider().setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int sliderProgress, boolean b) {
@@ -79,7 +80,7 @@ public class Brush2 extends BaseEditor implements GLSurfaceView.Renderer{
             @Override
             public void onClick(View view) {
 
-                //showPopupBrush(view);
+                showPopupBrush(view);
 
             }
         });
@@ -90,31 +91,29 @@ public class Brush2 extends BaseEditor implements GLSurfaceView.Renderer{
      * Brush menu
      * @param v
      */
-//    public void showPopupBrush(View v) {
-//        PopupMenu popup = new PopupMenu(this, v);
-//        popup.inflate(R.menu.brush);
-//        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem menuItem) {
-//                setCurrentEffect(menuItem.getItemId());
-//                if(!isUndo()){
-//                    getHistory().push(getmCurrentEffect());
-//                }
-//                getmEffectView().requestRender();
-//
-//                //hide the slider upon choosing an option from here
-//                if (isSliderVisible()) {
-//                    getSlider().setVisibility(View.GONE);
-//                    setSliderVisible(false);
-//                }
-//
-//                return true;
-//            }
-//        });
-//        popup.show();
-//  }
+    public void showPopupBrush(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.inflate(R.menu.brush);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                setCurrentEffect(menuItem.getItemId());
+                if(!isUndo()){
+                    getHistory().push(getmCurrentEffect());
+                }
+                getmEffectView().requestRender();
 
+                //hide the slider upon choosing an option from here
+                if (isSliderVisible()) {
+                    getSlider().setVisibility(View.GONE);
+                    setSliderVisible(false);
+                }
 
+                return true;
+            }
+        });
+        popup.show();
+    }
 
 
     public void save(Bitmap bitmap, Context context){

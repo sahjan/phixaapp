@@ -24,6 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="right"
+        android:elevation="2dp"
         android:orientation="vertical"
         android:paddingBottom="80dp"
         android:paddingTop="80dp">
@@ -81,8 +82,7 @@
                 android:id="@+id/but21"
                 android:layout_width="76dp"
                 android:layout_height="40dp"
-                android:text="Draw"
-                android:textColor="#000000" />
+                android:text="Draw" />
 
             <Button
                 android:id="@+id/but22"
@@ -162,7 +162,7 @@
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="67dp"
+        android:layout_height="61dp"
         android:background="@android:color/transparent"
         android:orientation="horizontal"
         android:visibility="visible"

@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +18,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.Stack;
 
-public class Transform extends BaseEditor implements GLSurfaceView.Renderer{
+public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,47 +78,47 @@ public class Transform extends BaseEditor implements GLSurfaceView.Renderer{
             @Override
             public void onClick(View view) {
 
-            //showPopupTransform(view);
+                showPopupTransform(view);
 
             }
         });
 
     }
 
-//    /**
-//     * Transform menu
-//     * @param v
-//     */
-//    public void showPopupTransform(View v) {
-//        PopupMenu popup = new PopupMenu(this, v);
-//        popup.inflate(R.menu.transform);
-//        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem menuItem) {
-//                setCurrentEffect(menuItem.getItemId());
-//                if(isUndo() == false){
-//                    getHistory().push(getmCurrentEffect());
-//                }
-//                getmEffectView().requestRender();
-//
-//                //hide the slider upon choosing an option from here
-//                if (isSliderVisible()) {
-//                    getSlider().setVisibility(View.GONE);
-//                    setSliderVisible(false);
-//                }
-//
-//                return true;
-//            }
-//        });
-//        popup.show();
-//    }
+    /**
+     * Transform0 menu
+     * @param v
+     */
+    public void showPopupTransform(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.inflate(R.menu.transform);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                setCurrentEffect(menuItem.getItemId());
+                if(isUndo() == false){
+                    getHistory().push(getmCurrentEffect());
+                }
+                getmEffectView().requestRender();
+
+                //hide the slider upon choosing an option from here
+                if (isSliderVisible()) {
+                    getSlider().setVisibility(View.GONE);
+                    setSliderVisible(false);
+                }
+
+                return true;
+            }
+        });
+        popup.show();
+    }
 
     public void save(Bitmap bitmap, Context context){
         SaveThread saver = new SaveThread(context, bitmap);
         saver.execute();
-        Transform.this.runOnUiThread(new Runnable() {
+        Transform0.this.runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(Transform.this, "File Saved!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Transform0.this, "File Saved!", Toast.LENGTH_SHORT).show();
             }
         });
     }
