@@ -51,7 +51,7 @@ public class Transform extends BaseEditor implements GLSurfaceView.Renderer{
             setPreviousImage(getImage());
         }
 
-        setFilterInitialiser(new Filter());
+
         setEffectHandler(new Effects());
         setSlider((SeekBar) findViewById(R.id.adjustSlider));
         getSlider().setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {

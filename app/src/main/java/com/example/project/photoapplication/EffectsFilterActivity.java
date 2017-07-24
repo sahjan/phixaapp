@@ -23,12 +23,13 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
 
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
-        /*
+        /**
          * Initialise the renderer and tell it to only render when Explicit
          * requested with the RENDERMODE_WHEN_DIRTY option
          */
@@ -42,6 +43,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         setCurrentEffect(R.id.none);
         setContext(this);
         setHistory(new Stack<Integer>());
+        setHistoryValues(new Stack<Float>());
         try {
             setImage(MediaStore.Images.Media.getBitmap(this.getContentResolver(), getUri()));
             setOriginalImage(getImage());
@@ -53,99 +55,56 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
             setPreviousImage(getImage());
         }
 
-        setFilterInitialiser(new Filter());
+        //filterInitialiser = new Filter();
+
         setEffectHandler(new Effects());
         setSlider((SeekBar) findViewById(R.id.adjustSlider));
         getSlider().setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int sliderProgress, boolean b) {
-                //queueEvent ensures this occurs in the Renderer thread.
-                getmEffectView().queueEvent(new Runnable() {
-                    public void run() {
-                        applyEffect(0, 1);
-                        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, getmTextures()[1]);
-                        getmEffectView().requestRender();
-                    }
-                });
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
-
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                //queueEvent ensures this occurs in the Renderer thread.
+                getmEffectView().queueEvent(new Runnable() {
+                    public void run() {
+                        applyEffect(0,1);
+                        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, getmTextures()[1]);
+                        getmEffectView().requestRender();
+                        setSliderValue(calculateSliderValue(getSlider().getProgress()));
+                    }
+                });
             }
         });
 
-        // Transform Button, when clicked, moves to Transform Activity
+
         findViewById(R.id.but1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(EffectsFilterActivity.this, Transform.class);
-                intent.putExtra("Image", getUri());
-                startActivity(intent);
-                finish();
+                showPopupTransform(view);
+
             }
         });
 
-        // Transform Button, when clicked, moves to Adjust Activity
         findViewById(R.id.but2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(EffectsFilterActivity.this, Adjust1.class);
-                intent.putExtra("Image", getUri());
-                startActivity(intent);
-                finish();
+                showPopupAdjust(view);
+
             }
         });
 
-        // Transform Button, when clicked, moves to Brush Activity
         findViewById(R.id.but3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(EffectsFilterActivity.this, Brush2.class);
-                intent.putExtra("Image", getUri());
-                startActivity(intent);
-                finish();
+                showPopupBrush(view);
+
             }
         });
-
-        // Transform Button, when clicked, moves to Overlay Activity
-        findViewById(R.id.but4).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(EffectsFilterActivity.this, Overlay3.class);
-                intent.putExtra("Image", getUri());
-                startActivity(intent);
-                finish();
-            }
-        });
-
-//        findViewById(R.id.but2).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                showPopupAdjust(view);
-//
-//            }
-//        });
-//
-//        findViewById(R.id.but3).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                showPopupBrush(view);
-//
-//            }
-//        });
-//        findViewById(R.id.but4).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                showPopupOverlay(view);
-//      }
-//         });
-
-
-
         findViewById(R.id.moreOpt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -166,8 +125,14 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
+                if(!isUndo()) {
+                    if (!isAdjustableEffect(menuItem.getItemId())) {
+                        getHistoryValues().push(0.0f);
+                    }
+                }
                 setCurrentEffect(menuItem.getItemId());
                 if(isUndo() == false){
+
                     getHistory().push(getmCurrentEffect());
                 }
                 getmEffectView().requestRender();
@@ -194,6 +159,9 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
+                if (!isAdjustableEffect(menuItem.getItemId())) {
+                    getHistoryValues().push(0.0f);
+                }
                 setCurrentEffect(menuItem.getItemId());
                 setPreviousImage(getImage());
 
@@ -206,13 +174,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                 if (isAdjustableEffect(getmCurrentEffect())) {
                     getSlider().setVisibility(View.VISIBLE);
                     setSliderVisible(true);
-                    EffectsFilterActivity.this.getmEffectView().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            getSlider().setProgress(50);
-                        }
-                    });
-
+                    setSliderProgress();
                 }
                 //else hide slider
                 else if (!isAdjustableEffect(getmCurrentEffect()) && isSliderVisible())
@@ -237,34 +199,11 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                setCurrentEffect(menuItem.getItemId());
-                if(!isUndo()){
-                    getHistory().push(getmCurrentEffect());
-                }
-                getmEffectView().requestRender();
 
-                //hide the slider upon choosing an option from here
-                if (isSliderVisible()) {
-                    getSlider().setVisibility(View.GONE);
-                    setSliderVisible(false);
+                if (!isAdjustableEffect(menuItem.getItemId())) {
+                    getHistoryValues().push(0.0f);
                 }
 
-                return true;
-            }
-        });
-        popup.show();
-    }
-
-    /**
-     * Overlay menu
-     * @param v
-     */
-    public void showPopupOverlay(View v) {
-        PopupMenu popup = new PopupMenu(this, v);
-        popup.inflate(R.menu.overlay);
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
                 setCurrentEffect(menuItem.getItemId());
                 if(!isUndo()){
                     getHistory().push(getmCurrentEffect());
@@ -292,13 +231,13 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                     switch (menuItem.getItemId()){
                         case R.id.save:
                             save(getImage(), getContext());
-
-
                             break;
 
-//                        case R.id.undo:
-//                            undo();
-//                            break;
+                        case R.id.undo:
+                            undo();
+                            getSlider().setVisibility(View.INVISIBLE);
+                            setSliderProgress();
+                            break;
 
                         case R.id.open:
                             open();
@@ -316,6 +255,15 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         EffectsFilterActivity.this.runOnUiThread(new Runnable() {
             public void run() {
                 Toast.makeText(EffectsFilterActivity.this, "File Saved!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void setSliderProgress(){
+        EffectsFilterActivity.this.getmEffectView().post(new Runnable() {
+            @Override
+            public void run() {
+                getSlider().setProgress(50);
             }
         });
     }
