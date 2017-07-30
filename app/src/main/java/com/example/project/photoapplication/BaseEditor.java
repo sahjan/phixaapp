@@ -59,10 +59,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected Bitmap originalImage;
     // The previous image to be rendered
     protected Bitmap previousImage;
-    // The list of effects that have been applied to the image
-    protected Stack<Integer> history;
-    // The list of parameters that have been used in effects
-    protected Stack<Float> historyValues;
     // The current value the slider is set to.
     protected float sliderValue;
     // The effect parameter to use in the undo method
@@ -74,6 +70,8 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected SeekBar slider;
     // The current activity context
     protected Context context;
+    // The edit history
+    protected EditHistory history;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,13 +128,13 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             // Only add to the stack if its an adjustable effect.
             if(isAdjustableEffect(mCurrentEffect)) {
                 // Check that there are the same amount of effects as parameters
-                if (history.size() > historyValues.size()) {
-                    historyValues.push(calculateSliderValue(slider.getProgress()));
+                if (history.getEffects().size() > history.getParam().size()) {
+                    history.pushParam(calculateSliderValue(slider.getProgress()));
                     // If they aren't equal then we have changed the slider multiple times in the same effect.
                     // In this case remove the most recent value and replace it with the current value.
                 } else {
-                    historyValues.pop();
-                    historyValues.push(calculateSliderValue(slider.getProgress()));
+                    history.popParam();
+                    history.pushParam(calculateSliderValue(slider.getProgress()));
                 }
             }
         }
@@ -264,20 +262,20 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         // Set undo to true so effects applied in the re-render process aren't added to the stack
         undo = true;
         // If both the effect and parameters stack have items within them pop an effect and its corresponding parameter.
-        if(!history.empty() && !historyValues.empty()) {
-            history.pop();
-            historyValues.pop();
+        if(!history.checkEmpty()) {
+            history.popEffect();
+            history.popParam();
         }
         // Return the images to their original state so that effects will be applied to an unaltered image.
         image = originalImage;
         previousImage = originalImage;
         // If the stack is empty then there are no effects to render so just render the original image.
-        if (!history.empty()) {
+        if (!history.getEffects().empty()) {
             // Iterate across the stack for the amount of objects within it.
-            for (int i = 0; i <= history.size() - 1; i++) {
+            for (int i = 0; i <= history.getEffects().size() - 1; i++) {
                 // Set the current effect and corresponding parameter to their values at the current index.
-                mCurrentEffect = history.get(i);
-                effectParameter = historyValues.get(i);
+                mCurrentEffect = history.getEffects().get(i);
+                effectParameter = history.getParam().get(i);
                 // Call a render
                 mEffectView.requestRender();
                 // Set the previous image to the most recent image.
@@ -369,7 +367,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
 
                     case R.id.undo:
                         // tell the user when there are no effects to undo.
-                        if(history.empty() && historyValues.empty()) {
+                        if(history.checkEmpty()) {
                             showToast("Nothing to Undo!");
 
                         }
@@ -501,13 +499,13 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         this.originalImage = originalImage;
     }
 
-    public Stack<Integer> getHistory() {
-        return history;
-    }
-
-    public void setHistory(Stack<Integer> history) {
-        this.history = history;
-    }
+//    public Stack<Integer> getHistory() {
+//        return history;
+//    }
+//
+//    public void setHistory(Stack<Integer> history) {
+//        this.history = history;
+//    }
 
     public boolean isEffectApplied() {
         return effectApplied;
@@ -549,13 +547,13 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         isSliderVisible = sliderVisible;
     }
 
-    public Stack<Float> getHistoryValues() {
-        return historyValues;
-    }
-
-    public void setHistoryValues(Stack<Float> historyValues) {
-        this.historyValues = historyValues;
-    }
+//    public Stack<Float> getHistoryValues() {
+//        return historyValues;
+//    }
+//
+//    public void setHistoryValues(Stack<Float> historyValues) {
+//        this.historyValues = historyValues;
+//    }
 
     public Context getContext() {
         return context;

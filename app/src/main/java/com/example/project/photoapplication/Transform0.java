@@ -38,8 +38,7 @@ public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
         uri = intent.getParcelableExtra("Image");
         mCurrentEffect = R.id.none;
         context = this;
-        history = new Stack<Integer>();
-        historyValues = new Stack<Float>();
+        history = new EditHistory();
         try {
             image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), getUri());
             originalImage = image;
@@ -111,13 +110,13 @@ public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
                     // If its not an adjustable effect just push a no value float to the stack so that
                     // the parameters line up with the effect in the history
                     if (!isAdjustableEffect(menuItem.getItemId())) {
-                        historyValues.push(0.0f);
+                        history.pushParam(0.0f);
                     }
                 }
                 setCurrentEffect(menuItem.getItemId());
                 if(!undo){
                     // Push the selected effect to the history stack
-                    history.push(mCurrentEffect);
+                    history.pushEffect(mCurrentEffect);
                 }
                 // render the requested effect.
                 mEffectView.requestRender();

@@ -49,10 +49,10 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         uri = intent.getParcelableExtra("Image");
         mCurrentEffect = R.id.none;
         context = this;
-        history = new Stack<Integer>();
-        historyValues = new Stack<Float>();
+        history = new EditHistory();
+
         try {
-            image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), getUri());
+            image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
             originalImage = image;
         } catch (IOException e) {
             e.printStackTrace();
@@ -140,13 +140,13 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                     // If its not an adjustable effect just push a no value float to the stack so that
                     // the parameters line up with the effect in the history
                     if (!isAdjustableEffect(menuItem.getItemId())) {
-                        historyValues.push(0.0f);
+                        history.pushParam(0.0f);
                     }
                 }
                 setCurrentEffect(menuItem.getItemId());
                 if(!undo){
                     // Push the selected effect to the history stack
-                    history.push(mCurrentEffect);
+                    history.pushEffect(mCurrentEffect);
                 }
                 // render the requested effect.
                 mEffectView.requestRender();
@@ -174,7 +174,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 if (!isAdjustableEffect(menuItem.getItemId())) {
-                    historyValues.push(0.0f);
+                    history.pushParam(0.0f);
                 }
                 setCurrentEffect(menuItem.getItemId());
                 // Set the previous image to the current image to ensure that multiple changes to the slider
@@ -182,7 +182,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                 previousImage = image;
 
                 if(!undo){
-                    history.push(mCurrentEffect);
+                    history.pushEffect(mCurrentEffect);
                 }
                 mEffectView.requestRender();
 
@@ -217,12 +217,12 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
             public boolean onMenuItemClick(MenuItem menuItem) {
 
                 if (!isAdjustableEffect(menuItem.getItemId())) {
-                    historyValues.push(0.0f);
+                    history.pushParam(0.0f);
                 }
 
                 setCurrentEffect(menuItem.getItemId());
                 if(!undo){
-                    history.push(getmCurrentEffect());
+                    history.pushEffect(getmCurrentEffect());
                 }
                 mEffectView.requestRender();
 

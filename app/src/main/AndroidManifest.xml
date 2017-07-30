@@ -39,7 +39,7 @@
         <activity android:name=".Loader" />
         <!-- Recent Images Gallery Activity -->
         <activity android:name=".RecentImages" />
-        <!-- Transform0 Tools Activity -->
+         <!--Transform0 Tools Activity -->
         <activity android:name=".Transform0" />
         <!-- Adjust Tools Activity-->
         <activity android:name=".Adjust1" />
@@ -47,6 +47,7 @@
         <activity android:name=".Brush2" />
         <!-- Overlay Tools Activity-->
         <activity android:name=".Overlay3"/>
+        <!--Below left in for testing new functionality-->
         <activity android:name=".EffectsFilterActivity">
 
         </activity>

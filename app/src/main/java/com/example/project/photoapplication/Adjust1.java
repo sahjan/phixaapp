@@ -39,8 +39,8 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
         uri = intent.getParcelableExtra("Image");
         mCurrentEffect = R.id.none;
         context = this;
-        history = new Stack<Integer>();
-        historyValues = new Stack<Float>();
+        history = new EditHistory();
+
         try {
             image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), getUri());
             originalImage = image;
@@ -109,7 +109,7 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 if (!isAdjustableEffect(menuItem.getItemId())) {
-                    historyValues.push(0.0f);
+                    history.pushParam(0.0f);
                 }
                 setCurrentEffect(menuItem.getItemId());
                 // Set the previous image to the current image to ensure that multiple changes to the slider
@@ -117,7 +117,7 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
                 previousImage = image;
 
                 if(!undo){
-                    history.push(mCurrentEffect);
+                    history.pushEffect(mCurrentEffect);
                 }
                 mEffectView.requestRender();
 

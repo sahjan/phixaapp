@@ -10,18 +10,41 @@ import java.util.Stack;
 
 public class EditHistory {
 
-    private Stack<Effect> history;
+    private Stack<Integer> history;
+    private Stack<Float> historyValues;
 
     public EditHistory(){
         history = new Stack<>();
+        historyValues = new Stack<>();
 
     }
 
-    public void push(Effect effect){
-        history.push(effect);
+    public void pushEffect(Integer effectID){
+        history.push(effectID);
     }
 
-    public void pop(){
+    public void pushParam(Float param){
+        historyValues.push(param);
+    }
+
+    public void popEffect(){
         history.pop();
     }
+
+    public void popParam(){
+        historyValues.pop();
+    }
+
+    public boolean checkEmpty(){
+        if (history.empty() && historyValues.empty()){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public Stack<Integer> getEffects(){ return history; }
+
+    public Stack<Float> getParam(){ return historyValues;}
 }
