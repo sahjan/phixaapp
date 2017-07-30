@@ -19,6 +19,7 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.nio.IntBuffer;
+import java.util.ArrayList;
 import java.util.Stack;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -63,7 +64,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected float sliderValue;
     // The effect parameter to use in the undo method
     protected float effectParameter;
-    //private Filter filterInitialiser;
+    private Filter filterInitialiser = new Filter();
     // All available effects are initialised from here
     protected Effects effectHandler;
     // The slider
@@ -173,29 +174,21 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         }
         loadTextures();
         mInitialized = true;
-
-
             //if adjustable effect
             if (isAdjustableEffect(mCurrentEffect)) {
                 loadPreviewTexture();
                 applyEffect(0, 1);
             }
-
             //else if filter
-            if (isFilter(mCurrentEffect)) {
-                //nothing yet
+            else if (isFilter(mCurrentEffect)) {
+                filterInitialiser.applyFilter(mTextures, 0, 1, mCurrentEffect, mEffectContext, mImageWidth, mImageHeight);
             }
-
             //else if the effect is not 'none'
             else if (mCurrentEffect != R.id.none) {
                 applyEffect(0, 1);
                 effectApplied = true;
             }
-
-
-
         renderResult();
-
         // Set the image to whatever has been rendered to the screen
         image = takeScreenshot(gl);
 
@@ -293,7 +286,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         undo = false;
     }
 
-    /*
+    /**
     Check whether the effect passed to the method is an adjustable effect.
     @param chosenEffect - the id of the effect to be checked.
      */
@@ -353,7 +346,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         }
     }
 
-
     public void showOptions(View v){
         PopupMenu popup = new PopupMenu(this, v);
         popup.inflate(R.menu.more_options);
@@ -387,11 +379,9 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         popup.show();
     }
 
-
     public abstract void showToast(String toastSting);
 
     public abstract void setSliderProgress();
-
 
     // Getters and setters:
 

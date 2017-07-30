@@ -10,15 +10,14 @@ import java.util.ArrayList;
  * Created by Sahjan on 18/07/2017.
  *
  * This class is responsible for creating the
- * filters and passing them back to the main activity
- * to apply and render.
+ * filters and allowing the Base Editor to apply them.
  *
  */
 
 public class Filter extends Effects {
 
     /**
-     * Creates 'Old Film' filter. Uses 5 effects.
+     * Creates 'Old Film' filter. Uses 3 effects.
      * @return the arraylist of the effects that make this filter.
      */
     public ArrayList<Effect> getOldFilmFilter(EffectContext effectContext) {
@@ -56,7 +55,7 @@ public class Filter extends Effects {
     }
 
     /**
-     * Creates 'Alien' filter. Uses 2 effects.
+     * Creates 'Alien' filter. Uses 3 effects.
      * @return the arraylist of the effects that make this filter.
      */
     public ArrayList<Effect> getAlienFilter(EffectContext effectContext) {
@@ -73,5 +72,80 @@ public class Filter extends Effects {
 
         return filterComponents;
     }
+
+    /**
+     * Apply the filter.
+     * @param textures the array of textures from BaseEditor
+     * @param inputTexture texture 0
+     * @param outputTexture texture 1. A filter must always end with
+     *                      the output texture because this is the
+     *                      texture that is rendered.
+     * @param chosenFilter the chosen filter.
+     * @param effectContext Effect Context being used.
+     * @param imgWidth width of img.
+     * @param imgHeight height of img.
+     */
+    public void applyFilter(int[] textures, int inputTexture, int outputTexture, int chosenFilter, EffectContext effectContext, int imgWidth, int imgHeight) {
+        if (chosenFilter == R.id.alien) {
+            ArrayList<Effect> alien = getAlienFilter(effectContext);
+            Effect tint = alien.get(0);
+            tint.apply(textures[inputTexture], imgWidth, imgHeight, textures[outputTexture]);
+            Effect fisheye = alien.get(1);
+            fisheye.apply(textures[outputTexture], imgWidth, imgHeight, textures[inputTexture]);
+            Effect contrast = alien.get(2);
+            contrast.apply(textures[inputTexture], imgWidth, imgHeight, textures[outputTexture]);
+        }
+        else if (chosenFilter == R.id.intenseColours) {
+            ArrayList<Effect> intenseColours = getIntenseColoursFilter(effectContext);
+            Effect contrast = intenseColours.get(0);
+            contrast.apply(textures[inputTexture], imgWidth, imgHeight, textures[outputTexture]);
+            Effect saturation = intenseColours.get(1);
+            saturation.apply(textures[outputTexture], imgWidth, imgHeight, textures[inputTexture]);
+            Effect brightness = intenseColours.get(2);
+            brightness.apply(textures[inputTexture], imgWidth, imgHeight, textures[outputTexture]);
+        }
+        else if (chosenFilter == R.id.oldFilm) {
+            ArrayList<Effect> oldFilm = getOldFilmFilter(effectContext);
+            Effect grain = oldFilm.get(0);
+            grain.apply(textures[inputTexture], imgWidth, imgHeight, textures[outputTexture]);
+            Effect vignette = oldFilm.get(1);
+            vignette.apply(textures[outputTexture], imgWidth, imgHeight, textures[inputTexture]);
+            Effect grayscale = oldFilm.get(2);
+            grayscale.apply(textures[inputTexture], imgWidth, imgHeight, textures[outputTexture]);
+        }
+    }
+
+    //this was in baseEditor. taken out for now.
+    /*
+    private void applyFilter(int inputTexture, int outputTexture) {
+        if (mCurrentEffect == R.id.alien) {
+            ArrayList<Effect> alien = filterInitialiser.getAlienFilter(mEffectContext);
+            Effect tint = alien.get(0);
+            tint.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
+            Effect fisheye = alien.get(1);
+            fisheye.apply(mTextures[outputTexture], mImageWidth, mImageHeight, mTextures[inputTexture]);
+            Effect contrast = alien.get(2);
+            contrast.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
+        }
+        else if (mCurrentEffect == R.id.intenseColours) {
+            ArrayList<Effect> intenseColours = filterInitialiser.getIntenseColoursFilter(mEffectContext);
+            Effect contrast = intenseColours.get(0);
+            contrast.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
+            Effect saturation = intenseColours.get(1);
+            saturation.apply(mTextures[outputTexture], mImageWidth, mImageHeight, mTextures[inputTexture]);
+            Effect brightness = intenseColours.get(2);
+            brightness.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
+        }
+        else if (mCurrentEffect == R.id.oldFilm) {
+            ArrayList<Effect> oldFilm = filterInitialiser.getOldFilmFilter(mEffectContext);
+            Effect grain = oldFilm.get(0);
+            grain.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
+            Effect vignette = oldFilm.get(1);
+            vignette.apply(mTextures[outputTexture], mImageWidth, mImageHeight, mTextures[inputTexture]);
+            Effect grayscale = oldFilm.get(2);
+            grayscale.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
+        }
+    }
+     */
 
 }
