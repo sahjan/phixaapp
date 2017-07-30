@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by Ed on 11/07/2017.
+ * The FileManager handles the saving of all images that the application creates.
  */
 
     public class FileManager {
@@ -30,46 +30,51 @@ import java.util.Date;
 
         }
 
+        /*
+        Saves a bitmap to a file and then send it in an outputstream.
+        Scan the system so that the image is available to the gallery
+         */
         public void saveBitmap(Bitmap bitmap) {
-
+            // Create a file with the correct file path for the directory.
             File dir = getAlbumStorageDir();
+            // Get a unique filename
             String filename = createName() + ".jpg";
+            // Create a new file with the correct parent directory and filename
             File file = new File(dir, filename);
             FileOutputStream out;
             try {
+                // Attach our file to an outputstream and compress it.
                 out = new FileOutputStream(file);
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-
+                // Send the file to storage and close the stream.
                 out.flush();
                 out.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            // Scan the system to ensure the image is available to everyone.
             scanSystem(file);
 
         }
 
-
+        /*
+        Generates a file with the correct directory to save to. If the directory does not exist then create it.
+         */
         public File getAlbumStorageDir() {
             // Get the directory for the user's public pictures directory.
             File file = new File(Environment.getExternalStoragePublicDirectory(
                     Environment.DIRECTORY_PICTURES), "Saved_Images");
+            // If it doesn't exist, make it
             if (!file.mkdirs()) {
                 Log.e("LOG_TAG", "Directory not created");
             }
             return file;
         }
 
-//    public File saveCameraFile() {
-//        File storageDir = getAlbumStorageDir();
-//        String name = createName();
-//        File image = new File(storageDir, name);
-//
-//        mostRecentPath = image.getAbsolutePath();
-//        return image;
-//
-//    }
-
+        /*
+        Method used for loading an image via the camera
+        @return File - The image file saved from the camera.
+         */
         public File createImageFile() throws IOException {
             // Create an image file name
             String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -86,6 +91,10 @@ import java.util.Date;
             return image;
         }
 
+        /*
+        Create a unique name for a file based on the time.
+        @return filename - the string that will form the unique filename for a file.
+         */
         public String createName() {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
             Date now = new Date();
@@ -97,6 +106,10 @@ import java.util.Date;
             return mostRecentPath;
         }
 
+        /*
+        Scan the system so the image is available.
+        @param file - the file to scan for
+         */
         public void scanSystem(File file) {
             // Tell the media scanner about the new file so that it is
             // immediately available to the user.
@@ -110,10 +123,16 @@ import java.util.Date;
 
         }
 
+        /*
+        Get a list of files in the apps saved images public folder.
+        @return File[] - return an array of all files in the folder.
+         */
         public File[] getFileList(){
+            // Create a string with the path of the apps saved images folder
             String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/Saved_Images";
             File directory = new File(path);
             directory.mkdirs();
+            // Create an array of all the files in the directory
             File[] files = directory.listFiles();
             return files;
         }

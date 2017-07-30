@@ -98,6 +98,7 @@ public class Loader extends AppCompatActivity {
                         "com.example.android.fileprovider",
                         photoFile);
                 cameraPath = photoURI;
+                // Output the result of the camera to the file at this URI
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
