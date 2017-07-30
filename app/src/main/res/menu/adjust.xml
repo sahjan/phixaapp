@@ -8,82 +8,49 @@
     <item
         android:id="@+id/autofix"
         compat:showAsAction="never"
-        android:title="autofix"/>
+        android:title="Autofix"/>
     <item
         android:id="@+id/bw"
         compat:showAsAction="never"
-        android:title="bw"/>
+        android:title="BW"/>
     <item
         android:id="@+id/brightness"
         compat:showAsAction="never"
-        android:title="brightness"/>
+        android:title="Brightness"/>
     <item
         android:id="@+id/contrast"
         compat:showAsAction="never"
-        android:title="contrast"/>
+        android:title="Contrast"/>
     <item
         android:id="@+id/duotone"
         compat:showAsAction="never"
-        android:title="duotone"/>
+        android:title="Duotone"/>
     <item
         android:id="@+id/filllight"
         compat:showAsAction="never"
-        android:title="filllight"/>
+        android:title="Fill light"/>
     <item
         android:id="@+id/fisheye"
         compat:showAsAction="never"
-        android:title="fisheye"/>
+        android:title="Fisheye"/>
     <item
         android:id="@+id/grain"
         compat:showAsAction="never"
-        android:title="grain"/>
+        android:title="Grain"/>
     <item
         android:id="@+id/saturate"
         compat:showAsAction="never"
-        android:title="saturate"/>
+        android:title="Saturate"/>
     <item
         android:id="@+id/sharpen"
         compat:showAsAction="never"
-        android:title="sharpen"/>
+        android:title="Sharpen"/>
     <item
         android:id="@+id/temperature"
         compat:showAsAction="never"
-        android:title="temperature"/>
+        android:title="Temperature"/>
     <item
         android:id="@+id/tint"
         compat:showAsAction="never"
-        android:title="tint"/>
-    <item
-        android:id="@+id/lomoish"
-        compat:showAsAction="never"
-        android:title="Lomoish"/>
-    <item
-        android:id="@+id/negative"
-        compat:showAsAction="never"
-        android:title="Negative"/>
-    <item
-        android:id="@+id/posterize"
-        compat:showAsAction="never"
-        android:title="Posterize"/>
-    <item
-        android:id="@+id/sepia"
-        compat:showAsAction="never"
-        android:title="Sepia"/>
-    <item
-        android:id="@+id/vignette"
-        compat:showAsAction="never"
-        android:title="Vignette"/>
-    <item
-        android:id="@+id/crossprocess"
-        compat:showAsAction="never"
-        android:title="Crossprocess"/>
-    <item
-        android:id="@+id/documentary"
-        compat:showAsAction="never"
-        android:title="Documentary"/>
-    <item
-        android:id="@+id/grayscale"
-        compat:showAsAction="never"
-        android:title="Grayscale"/>
-
+        android:title="Tint"/>
 </menu>

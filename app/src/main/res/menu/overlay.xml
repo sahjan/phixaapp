@@ -2,20 +2,48 @@
     xmlns:compat="http://schemas.android.com/apk/res-auto" >
 
     <item
-        android:id="@+id/none"
-        compat:showAsAction="never"
-        android:title="none"/>
-    <item
         android:id="@+id/alien"
         compat:showAsAction="never"
         android:title="Alien"/>
+    <item
+        android:id="@+id/crossprocess"
+        compat:showAsAction="never"
+        android:title="Crossprocess"/>
+    <item
+        android:id="@+id/documentary"
+        compat:showAsAction="never"
+        android:title="Documentary"/>
+    <item
+        android:id="@+id/grayscale"
+        compat:showAsAction="never"
+        android:title="Grayscale"/>
     <item
         android:id="@+id/intenseColours"
         compat:showAsAction="never"
         android:title="Intense Colours"/>
     <item
+        android:id="@+id/lomoish"
+        compat:showAsAction="never"
+        android:title="Lomoish"/>
+    <item
+        android:id="@+id/negative"
+        compat:showAsAction="never"
+        android:title="Negative"/>
+    <item
         android:id="@+id/oldFilm"
         compat:showAsAction="never"
         android:title="Old Film"/>
+    <item
+        android:id="@+id/posterize"
+        compat:showAsAction="never"
+        android:title="Posterize"/>
+    <item
+        android:id="@+id/sepia"
+        compat:showAsAction="never"
+        android:title="Sepia"/>
+    <item
+        android:id="@+id/vignette"
+        compat:showAsAction="never"
+        android:title="Vignette"/>
 
 </menu>
