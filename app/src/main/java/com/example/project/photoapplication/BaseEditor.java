@@ -74,6 +74,10 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     // The edit history
     protected EditHistory history;
 
+    protected boolean redo = false;
+    protected boolean redoInit;
+    protected int redoIndex;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -284,6 +288,11 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         mCurrentEffect = R.id.none;
         // Done undoing so return undo to false
         undo = false;
+    }
+
+    public void redo(){
+        redo = true;
+
     }
 
     /**

@@ -12,10 +12,30 @@ public class EditHistory {
 
     private Stack<Integer> history;
     private Stack<Float> historyValues;
+    private Stack<Integer> redoEffects;
+    private Stack<Float> redoParams;
 
     public EditHistory(){
         history = new Stack<>();
         historyValues = new Stack<>();
+        redoEffects = new Stack<>();
+        redoParams = new Stack<>();
+
+    }
+
+    public void initRedo(){
+        redoEffects = (Stack<Integer>) history.clone();
+        redoParams = (Stack<Float>) historyValues.clone();
+    }
+
+    public void clearRedo(){
+        redoEffects.clear();
+        redoParams.clear();
+    }
+
+    public void pushRedo(Integer effectID, Float param){
+        history.push(effectID);
+        historyValues.push(param);
 
     }
 
@@ -36,7 +56,7 @@ public class EditHistory {
     }
 
     public boolean checkEmpty(){
-        if (history.empty() && historyValues.empty()){
+        if (history.empty() || historyValues.empty()){
             return true;
         }
         else {
