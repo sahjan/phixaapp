@@ -13,4 +13,8 @@
         android:id="@+id/open"
         compat:showAsAction="never"
         android:title="Open"/>
+    <item
+        android:id="@+id/Redo"
+        compat:showAsAction="never"
+        android:title="Redo"/>
 </menu>

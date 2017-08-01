@@ -75,7 +75,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected EditHistory history;
 
     protected boolean redo = false;
-    protected boolean redoInit;
+    protected boolean redoInit = false;
     protected int redoIndex;
 
     @Override
@@ -260,8 +260,13 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         undo = true;
         // If both the effect and parameters stack have items within them pop an effect and its corresponding parameter.
         if(!history.checkEmpty()) {
+            if(!redoInit){
+                history.initRedo();
+                redoInit = true;
+            }
             history.popEffect();
             history.popParam();
+            redoIndex = history.getEffects().size();
         }
         // Return the images to their original state so that effects will be applied to an unaltered image.
         image = originalImage;
@@ -278,7 +283,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                 // Set the previous image to the most recent image.
                 previousImage = image;
                 // temporary fix for race condition
-                android.os.SystemClock.sleep(800);
+                android.os.SystemClock.sleep(600);
 
             }
         } else {
@@ -292,6 +297,16 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
 
     public void redo(){
         redo = true;
+        mCurrentEffect = history.getRedoEffects().get(redoIndex);
+        effectParameter = history.getRedoParams().get(redoIndex);
+        mEffectView.requestRender();
+        previousImage = image;
+        redoIndex++;
+        history.pushRedo(mCurrentEffect, effectParameter);
+        redo = false;
+
+
+
 
     }
 
@@ -380,6 +395,16 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
 
                     case R.id.open:
                         open();
+                        break;
+
+                    case R.id.Redo:
+                        if(history.getRedoEffects().empty() || history.getRedoEffects().size() == history.getEffects().size()){
+                            showToast("Nothing to redo!");
+                        }
+                        else {
+                            redo();
+                        }
+                        break;
 
                 }
                 return true;

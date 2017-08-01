@@ -39,6 +39,14 @@ public class EditHistory {
 
     }
 
+    public Stack<Integer> getRedoEffects(){
+        return redoEffects;
+    }
+
+    public Stack<Float> getRedoParams(){
+        return redoParams;
+    }
+
     public void pushEffect(Integer effectID){
         history.push(effectID);
     }
