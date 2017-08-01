@@ -108,6 +108,7 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
+                resetRedo();
                 if (!isAdjustableEffect(menuItem.getItemId())) {
                     history.pushParam(0.0f);
                 }

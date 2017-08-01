@@ -9,6 +9,7 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -136,6 +137,8 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
+                history.clearRedo();
+                redoInit = false;
                 if(!undo) {
                     // If its not an adjustable effect just push a no value float to the stack so that
                     // the parameters line up with the effect in the history
@@ -173,6 +176,11 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
+                history.clearRedo();
+                redoInit = false;
+                if(history.getRedoEffects().empty()){
+                    Log.e("Tag", "empty");
+                }
                 if (!isAdjustableEffect(menuItem.getItemId())) {
                     history.pushParam(0.0f);
                 }

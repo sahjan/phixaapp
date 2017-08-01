@@ -108,6 +108,7 @@ public class Overlay3 extends BaseEditor implements GLSurfaceView.Renderer{
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
+                resetRedo();
                 if(!undo) {
                     // If its not an adjustable effect just push a no value float to the stack so that
                     // the parameters line up with the effect in the history

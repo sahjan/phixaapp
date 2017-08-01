@@ -12,6 +12,7 @@ import android.opengl.GLUtils;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
@@ -78,6 +79,8 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected boolean redoInit = false;
     protected int redoIndex;
 
+    protected static final String TAG = "RedoTag";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,8 +91,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     upon each change of value instead of applying different multipliers sequentially.
      */
     public void loadPreviewTexture() {
-        mImageWidth = previousImage.getWidth();
-        mImageHeight = previousImage.getHeight();
         mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, previousImage, 0);
@@ -117,6 +118,15 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         GLToolbox.initTexParams();
     }
 
+    public void updateTexture(Bitmap image){
+        // Bind to texture - tells OpenGL that subsequent
+        // OpenGL calls should affect this texture.
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
+        //load the bitmap into the bound texture
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, image, 0);
+
+    }
+
     /*
     This method creates an effect, initialises it to the desired effect and then applies it to the input texture.
     The output is then given in the output texture in mTextures
@@ -128,7 +138,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
 
         // If we aren't undoing we can init the effect using the current slider value and also add the parameter
         // to the stack of parameters.
-        if(!undo) {
+        if(!undo && !redo) {
             effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, calculateSliderValue(slider.getProgress()));
             // Only add to the stack if its an adjustable effect.
             if(isAdjustableEffect(mCurrentEffect)) {
@@ -156,6 +166,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     Render a texture to the screen.
      */
     public void renderResult() {
+        Log.e(TAG, Integer.toString(mCurrentEffect));
         if (mCurrentEffect != R.id.none) {
             // render the result of applyEffect()
             mTexRenderer.renderTexture(mTextures[1]);
@@ -175,26 +186,44 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             //Only need to do this once
             mEffectContext = EffectContext.createWithCurrentGlContext();
             mTexRenderer.init();
+            loadTextures();
+            mInitialized = true;
         }
-        loadTextures();
-        mInitialized = true;
+
             //if adjustable effect
+        if(!redo) {
             if (isAdjustableEffect(mCurrentEffect)) {
                 loadPreviewTexture();
                 applyEffect(0, 1);
             }
             //else if filter
             else if (isFilter(mCurrentEffect)) {
+                loadTextures();
                 filterInitialiser.applyFilter(mTextures, 0, 1, mCurrentEffect, mEffectContext, mImageWidth, mImageHeight);
             }
             //else if the effect is not 'none'
             else if (mCurrentEffect != R.id.none) {
+                loadTextures();
                 applyEffect(0, 1);
                 effectApplied = true;
             }
+        }
+        else {
+            loadTextures();
+            applyEffect(0,1);
+        }
+
         renderResult();
         // Set the image to whatever has been rendered to the screen
         image = takeScreenshot(gl);
+
+        // These two effects produce results inconsistent with the rest of the effects when using redo
+        // Because of this we have to make sure redo is set to false at the end of the rendering cycle
+        // when these two effects are in use.
+        if(mCurrentEffect == R.id.brightness || mCurrentEffect == R.id.contrast){
+            redo = false;
+
+        }
 
     }
 
@@ -296,19 +325,29 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     }
 
     public void redo(){
-        redo = true;
-        mCurrentEffect = history.getRedoEffects().get(redoIndex);
-        effectParameter = history.getRedoParams().get(redoIndex);
-        mEffectView.requestRender();
-        previousImage = image;
-        redoIndex++;
-        history.pushRedo(mCurrentEffect, effectParameter);
-        redo = false;
+
+                redo = true;
+                mCurrentEffect = history.getRedoEffects().get(redoIndex);
+                effectParameter = history.getRedoParams().get(redoIndex);
+                history.pushRedo(mCurrentEffect, effectParameter);
+                mEffectView.requestRender();
+                previousImage = image;
+                redoIndex++;
+
+                // For this method not to cause potential crashes or for it to actually work when used with the below two effects
+                // We have to set redo to false only in the ondraw frame method.
+                // However if you do that with other effects the redo doesn't work
+                // so for other effects redo has to be set to false here
+                if(mCurrentEffect == R.id.brightness || mCurrentEffect == R.id.contrast){
+                    //do nothing
+                }
+                else {
+                    redo = false;
+                }
+            }
 
 
 
-
-    }
 
     /**
     Check whether the effect passed to the method is an adjustable effect.
@@ -411,6 +450,11 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             }
         });
         popup.show();
+    }
+
+    public void resetRedo(){
+        history.clearRedo();
+        redoInit = false;
     }
 
     public abstract void showToast(String toastSting);
