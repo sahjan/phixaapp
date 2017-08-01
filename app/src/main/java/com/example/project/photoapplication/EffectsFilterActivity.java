@@ -28,9 +28,6 @@ Will be broken apart into seperate activities in the future.
 
 public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.Renderer {
 
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,16 +60,14 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
             previousImage = image;
         }
 
-        //filterInitialiser = new Filter();
         effectHandler = new Effects();
 
-        // Assign the slider to its XML counterpart and set its relevant listeners
+        // Assign the slider to its XML counterpart and set its listener
         slider = (SeekBar) findViewById(R.id.adjustSlider);
         slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int sliderProgress, boolean b) {
             }
-
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
@@ -91,6 +86,25 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
             }
         });
 
+        //assign hue slider and set its listener
+        hueSlider = (SeekBar) findViewById(R.id.hueSlider);
+        hueSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+             @Override
+             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+             }
+
+             @Override
+             public void onStartTrackingTouch(SeekBar seekBar) {
+
+             }
+
+             @Override
+             public void onStopTrackingTouch(SeekBar seekBar) {
+
+             }
+         }
+        );
 
         // Set the onclick listeners for all the buttons in the activity.
         // All show the popups with relevant functionalities.
@@ -155,9 +169,13 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                 mEffectView.requestRender();
 
                 //hide the slider upon choosing an option from here as it is not required.
-                if (isSliderVisible()) {
+                if (isSliderVisible) {
                     slider.setVisibility(View.GONE);
                     isSliderVisible = false;
+                }
+                if (isHueSliderVisible) {
+                    hueSlider.setVisibility(View.GONE);
+                    isHueSliderVisible = false;
                 }
 
                 return true;
@@ -197,14 +215,23 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                 //show slider only when an adjustable effect chosen.
                 if (isAdjustableEffect(mCurrentEffect)) {
                     slider.setVisibility(View.VISIBLE);
-                    isSliderVisible = true;
                     setSliderProgress();
+                    //only need to do this once if 2 adjustable effects chosen consecutively
+                    if (!isSliderVisible) {
+                        isSliderVisible = true;
+                    }
                 }
+                /* else if (mCurrentEffect == R.id.hue) {
+                        hueSlider.setVisibility(View.VISIBLE);
+                        isHueSliderVisible = true;
+                } */
                 //else hide slider
-                else if (!isAdjustableEffect(mCurrentEffect) && isSliderVisible)
+                else if (!isAdjustableEffect(mCurrentEffect) && (isSliderVisible || isHueSliderVisible))
                 {
                     slider.setVisibility(View.GONE);
                     isSliderVisible = false;
+                    hueSlider.setVisibility(View.GONE);
+                    isHueSliderVisible = false;
                 }
 
                 return true;
@@ -238,6 +265,10 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                 if (isSliderVisible) {
                     slider.setVisibility(View.GONE);
                     isSliderVisible = false;
+                }
+                if (isHueSliderVisible) {
+                    hueSlider.setVisibility(View.GONE);
+                    isHueSliderVisible = false;
                 }
 
                 return true;

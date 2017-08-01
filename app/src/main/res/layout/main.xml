@@ -120,8 +120,22 @@
                 android:progress="50"
                 android:visibility="invisible" />
 
+            <SeekBar
+                android:id="@+id/hueSlider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="360"
+                android:min="0"
+                android:progress="0"
+                android:visibility="invisible" />
+
         </LinearLayout>
     </FrameLayout>
 
+    <ImageView
+        android:id="@+id/hueView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
 </LinearLayout>

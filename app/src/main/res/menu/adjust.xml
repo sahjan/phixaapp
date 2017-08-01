@@ -14,6 +14,14 @@
         compat:showAsAction="never"
         android:title="BW"/>
     <item
+        android:id="@+id/highlights"
+        compat:showAsAction="never"
+        android:title="Highlights"/>
+    <item
+        android:id="@+id/shadows"
+        compat:showAsAction="never"
+        android:title="Shadows"/>
+    <item
         android:id="@+id/brightness"
         compat:showAsAction="never"
         android:title="Brightness"/>
@@ -37,6 +45,10 @@
         android:id="@+id/grain"
         compat:showAsAction="never"
         android:title="Grain"/>
+    <!-- <item
+        android:id="@+id/hue"
+        compat:showAsAction="never"
+        android:title="Hue"/> -->
     <item
         android:id="@+id/saturate"
         compat:showAsAction="never"

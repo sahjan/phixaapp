@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -53,6 +54,8 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected boolean effectApplied = false;
     // Whether the adjustment slider is visible
     protected boolean isSliderVisible = false;
+    // Whether the hue slider is visible
+    protected boolean isHueSliderVisible = false;
     // The URI of the loaded image
     protected Uri uri;
     // The most recently rendered image, may have an effect applied to it.
@@ -65,15 +68,20 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected float sliderValue;
     // The effect parameter to use in the undo method
     protected float effectParameter;
-    private Filter filterInitialiser = new Filter();
+    //class for filters.
+    protected Filter filterInitialiser = new Filter();
     // All available effects are initialised from here
     protected Effects effectHandler;
     // The slider
     protected SeekBar slider;
+    //Hue slider
+    protected SeekBar hueSlider;
     // The current activity context
     protected Context context;
     // The edit history
     protected EditHistory history;
+    //imageview to update hue of image
+    //protected ImageView hueView = (ImageView) findViewById(R.id.hueView);
 
     protected boolean redo = false;
     protected boolean redoInit = false;
@@ -87,8 +95,9 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     }
 
     /*
-    Load the textures using the previous image. This method is for use with adjustable effects so that the same image is edited
-    upon each change of value instead of applying different multipliers sequentially.
+    Load the textures using the previous image. This method is for use with adjustable
+    effects so that the same image is edited upon each change of value instead of applying
+    different multipliers sequentially.
      */
     public void loadPreviewTexture() {
         mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
@@ -117,6 +126,16 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         // Set texture parameters
         GLToolbox.initTexParams();
     }
+
+    /*private void setHueView() {
+        hueView.clearColorFilter();
+        hueView.setImageBitmap(image);
+    }
+
+    private void applyHue() {
+        setHueView();
+        hueView.setColorFilter(effectHandler.adjustHue(hueSlider.getProgress()));
+    } */
 
     public void updateTexture(Bitmap image){
         // Bind to texture - tells OpenGL that subsequent
@@ -193,8 +212,13 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             //if adjustable effect
         if(!redo) {
             if (isAdjustableEffect(mCurrentEffect)) {
-                loadPreviewTexture();
-                applyEffect(0, 1);
+                //if (mCurrentEffect == R.id.hue) {
+                    //applyHue();
+                //}
+                //else {
+                    loadPreviewTexture();
+                    applyEffect(0, 1);
+                //}
             }
             //else if filter
             else if (isFilter(mCurrentEffect)) {
@@ -361,14 +385,18 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             chosenEffect == R.id.grain ||
             chosenEffect == R.id.saturate ||
             chosenEffect == R.id.temperature ||
+            chosenEffect == R.id.shadows ||
+            chosenEffect == R.id.highlights ||
             chosenEffect == R.id.vignette) {
             return true;
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
+    /**
+     Check whether the effect passed to the method is a filter.
+     @param chosenEffect - the id of the effect to be checked.
+     */
     public boolean isFilter (int chosenEffect) {
         if (chosenEffect == R.id.alien ||
             chosenEffect == R.id.intenseColours ||
