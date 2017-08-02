@@ -1,10 +1,14 @@
 package com.example.project.photoapplication;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +18,7 @@ import java.util.Collections;
 public class RecentImages extends AppCompatActivity {
     private FileManager fm = new FileManager(this);
     private File[] files;
+    ArrayList<Uri> uris;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,20 +33,68 @@ public class RecentImages extends AppCompatActivity {
         ImageButton recent6 = (ImageButton) findViewById(R.id.recent6);
 
         files = fm.getFileList();
-        ArrayList<Uri> uris = convertToUri();
-        if(uris.size() > 0) {
-            try {
+        uris = convertToUri();
+        
+        try {
+            if (checkSize(0)) {
                 recent1.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(0)));
+                recent1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startMainPage(uris.get(0));
+                    }
+                });
+            }
+            if (checkSize(1)) {
                 recent2.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(1)));
+                recent2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startMainPage(uris.get(1));
+                    }
+                });
+            }
+            if (checkSize(2)) {
                 recent3.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(2)));
+                recent3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startMainPage(uris.get(2));
+                    }
+                });
+            }
+            if (checkSize(3)) {
                 recent4.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(3)));
+                recent4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startMainPage(uris.get(3));
+                    }
+                });
+            }
+            if (checkSize(4)) {
                 recent5.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(4)));
+                recent5.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startMainPage(uris.get(4));
+                    }
+                });
+            }
+            if (checkSize(5)) {
                 recent6.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uris.get(5)));
-
-            } catch (IOException e) {
-                e.printStackTrace();
+                recent6.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startMainPage(uris.get(5));
+                    }
+                });
             }
         }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+
 
 
     }
@@ -60,6 +113,20 @@ public class RecentImages extends AppCompatActivity {
     }
 
 
+    public void startMainPage(Uri image){
+        Intent intent = new Intent(getApplicationContext(), MainPage.class);
+        intent.putExtra("Image", image);
+        startActivity(intent);
+    }
+
+    public Boolean checkSize(int index){
+        if(uris.size() > index) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
 
 }

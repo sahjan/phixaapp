@@ -100,7 +100,7 @@ public class Overlay3 extends BaseEditor implements GLSurfaceView.Renderer{
 
     /**
      * Overlay menu
-     * @param v
+     * @param v - The view to pass
      */
     public void showPopupOverlay(View v) {
         PopupMenu popup = new PopupMenu(this, v);

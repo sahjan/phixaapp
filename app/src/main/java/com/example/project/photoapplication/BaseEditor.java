@@ -1,6 +1,9 @@
 package com.example.project.photoapplication;
 
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.effect.Effect;
@@ -10,6 +13,8 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLUtils;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -461,7 +466,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                         break;
 
                     case R.id.open:
-                        open();
+                        createOpenAlert();
                         break;
 
                     case R.id.Redo:
@@ -489,15 +494,31 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
 
     public abstract void setSliderProgress();
 
+    public void createOpenAlert(){
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(context);
+        }
+        builder.setTitle("Open")
+                .setMessage("Opening a new image will discard all unsaved progress \n Do you want to continue?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        open();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+
     // Getters and setters:
-
-    public float getSliderValue() {
-        return sliderValue;
-    }
-
-    public void setSliderValue(float sliderValue) {
-        this.sliderValue = sliderValue;
-    }
 
     public void setCurrentEffect(int menuID) {
         mCurrentEffect = menuID;
@@ -507,77 +528,16 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         return mEffectView;
     }
 
-    public void setmEffectView(GLSurfaceView mEffectView) {
-        this.mEffectView = mEffectView;
-    }
-
-    public int[] getmTextures() {
-        return mTextures;
-    }
-
-    public void setmTextures(int[] mTextures) {
-        this.mTextures = mTextures;
-    }
-
-    public EffectContext getmEffectContext() {
-        return mEffectContext;
-    }
-
-    public void setmEffectContext(EffectContext mEffectContext) {
-        this.mEffectContext = mEffectContext;
-    }
-
-    public TextureRenderer getmTexRenderer() {
-        return mTexRenderer;
-    }
-
-    public void setmTexRenderer(TextureRenderer mTexRenderer) {
-        this.mTexRenderer = mTexRenderer;
-    }
-
-    public int getmImageWidth() {
-        return mImageWidth;
-    }
-
-    public void setmImageWidth(int mImageWidth) {
-        this.mImageWidth = mImageWidth;
-    }
-
-    public int getmImageHeight() {
-        return mImageHeight;
-    }
-
-    public void setmImageHeight(int mImageHeight) {
-        this.mImageHeight = mImageHeight;
-    }
-
-    public boolean ismInitialized() {
-        return mInitialized;
-    }
-
-    public void setmInitialized(boolean mInitialized) {
-        this.mInitialized = mInitialized;
-    }
 
     public int getmCurrentEffect() {
         return mCurrentEffect;
     }
 
-    public boolean isUndo() {
-        return undo;
-    }
-
-    public void setUndo(boolean undo) {
-        this.undo = undo;
-    }
 
     public Uri getUri() {
         return uri;
     }
 
-    public void setUri(Uri uri) {
-        this.uri = uri;
-    }
 
     public Bitmap getImage() {
         return image;
@@ -587,69 +547,14 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         this.image = image;
     }
 
-    public Bitmap getOriginalImage() {
-        return originalImage;
-    }
-
-    public void setOriginalImage(Bitmap originalImage) {
-        this.originalImage = originalImage;
-    }
-
-//    public Stack<Integer> getHistory() {
-//        return history;
-//    }
-//
-//    public void setHistory(Stack<Integer> history) {
-//        this.history = history;
-//    }
 
     public boolean isEffectApplied() {
         return effectApplied;
     }
 
-    public void setEffectApplied(boolean effectApplied) {
-        this.effectApplied = effectApplied;
-    }
-
-    public Bitmap getPreviousImage() {
-        return previousImage;
-    }
-
-    public void setPreviousImage(Bitmap previousImage) {
-        this.previousImage = previousImage;
-    }
-
-    public Effects getEffectHandler() {
-        return effectHandler;
-    }
-
-    public void setEffectHandler(Effects effectHandler) {
-        this.effectHandler = effectHandler;
-    }
-
-    public SeekBar getSlider() {
-        return slider;
-    }
-
-    public void setSlider(SeekBar slider) {
-        this.slider = slider;
-    }
-
     public boolean isSliderVisible() {
         return isSliderVisible;
     }
-
-    public void setSliderVisible(boolean sliderVisible) {
-        isSliderVisible = sliderVisible;
-    }
-
-//    public Stack<Float> getHistoryValues() {
-//        return historyValues;
-//    }
-//
-//    public void setHistoryValues(Stack<Float> historyValues) {
-//        this.historyValues = historyValues;
-//    }
 
     public Context getContext() {
         return context;
