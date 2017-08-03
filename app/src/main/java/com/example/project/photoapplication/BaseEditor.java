@@ -105,6 +105,8 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     different multipliers sequentially.
      */
     public void loadPreviewTexture() {
+        mImageWidth = previousImage.getWidth();
+        mImageHeight = previousImage.getHeight();
         mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, previousImage, 0);
