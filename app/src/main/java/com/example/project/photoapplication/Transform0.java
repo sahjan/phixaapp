@@ -39,15 +39,10 @@ public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
         mCurrentEffect = R.id.none;
         context = this;
         history = new EditHistory();
-        try {
-            image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), getUri());
-            originalImage = image;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        images = new Image(uri, context);
 
         if (!isEffectApplied()) {
-            previousImage = image;
+            images.setPreviousImage();
         }
 
         //filterInitialiser = new Filter();

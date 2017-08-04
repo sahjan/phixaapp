@@ -1,7 +1,5 @@
 package com.example.project.photoapplication;
 
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,20 +12,16 @@ import android.opengl.GLSurfaceView;
 import android.opengl.GLUtils;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import java.nio.IntBuffer;
-import java.util.ArrayList;
-import java.util.Stack;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -64,12 +58,12 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     // The URI of the loaded image
     protected Uri uri;
     // The most recently rendered image, may have an effect applied to it.
-    protected Bitmap image;
-    // Will always contain the original image loaded
-    protected Bitmap originalImage;
-    // The previous image to be rendered
-    protected Bitmap previousImage;
-    // The current value the slider is set to.
+//    protected Bitmap image;
+//    // Will always contain the original image loaded
+//    protected Bitmap originalImage;
+//    // The previous image to be rendered
+//    protected Bitmap previousImage;
+//    // The current value the slider is set to.
     protected float sliderValue;
     // The effect parameter to use in the undo method
     protected float effectParameter;
@@ -88,6 +82,8 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     //imageview to update hue of image
     //protected ImageView hueView = (ImageView) findViewById(R.id.hueView);
 
+    protected Image images;
+
     protected boolean redo = false;
     protected boolean redoInit = false;
     protected int redoIndex;
@@ -105,11 +101,11 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     different multipliers sequentially.
      */
     public void loadPreviewTexture() {
-        mImageWidth = previousImage.getWidth();
-        mImageHeight = previousImage.getHeight();
-        mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
+//        mImageWidth = images.getPreviousImage().getWidth();
+//        mImageHeight = images.getPreviousImage().getHeight();
+//        mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
-        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, previousImage, 0);
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, images.getPreviousImage(), 0);
         GLToolbox.initTexParams();
     }
 
@@ -119,16 +115,14 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     public void loadTextures() {
         // Generate textures
         GLES20.glGenTextures(2, mTextures, 0);
-
-        mImageWidth = image.getWidth();
-        mImageHeight = image.getHeight();
+        mImageWidth = images.getImage().getWidth();
+        mImageHeight = images.getImage().getHeight();
         mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
-
         // Bind to texture - tells OpenGL that subsequent
         // OpenGL calls should affect this texture.
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
         //load the bitmap into the bound texture
-        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, image, 0);
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, images.getImage(), 0);
 
         // Set texture parameters
         GLToolbox.initTexParams();
@@ -144,14 +138,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         hueView.setColorFilter(effectHandler.adjustHue(hueSlider.getProgress()));
     } */
 
-    public void updateTexture(Bitmap image){
-        // Bind to texture - tells OpenGL that subsequent
-        // OpenGL calls should affect this texture.
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
-        //load the bitmap into the bound texture
-        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, image, 0);
-
-    }
 
     /*
     This method creates an effect, initialises it to the desired effect and then applies it to the input texture.
@@ -246,7 +232,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
 
         renderResult();
         // Set the image to whatever has been rendered to the screen
-        image = takeScreenshot(gl);
+        images.setImage(takeScreenshot(gl));
 
         // These two effects produce results inconsistent with the rest of the effects when using redo
         // Because of this we have to make sure redo is set to false at the end of the rendering cycle
@@ -329,8 +315,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             redoIndex = history.getEffects().size();
         }
         // Return the images to their original state so that effects will be applied to an unaltered image.
-        image = originalImage;
-        previousImage = originalImage;
+        images.initImages();
         // If the stack is empty then there are no effects to render so just render the original image.
         if (!history.getEffects().empty()) {
             // Iterate across the stack for the amount of objects within it.
@@ -341,7 +326,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                 // Call a render
                 mEffectView.requestRender();
                 // Set the previous image to the most recent image.
-                previousImage = image;
+                images.setPreviousImage();
                 // temporary fix for race condition
                 android.os.SystemClock.sleep(600);
 
@@ -362,7 +347,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                 effectParameter = history.getRedoParams().get(redoIndex);
                 history.pushRedo(mCurrentEffect, effectParameter);
                 mEffectView.requestRender();
-                previousImage = image;
+                images.setPreviousImage();
                 redoIndex++;
 
                 // For this method not to cause potential crashes or for it to actually work when used with the below two effects
@@ -452,7 +437,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.save:
-                        save(getImage(), getContext());
+                        save(images.getImage(), context);
                         break;
 
                     case R.id.undo:
@@ -539,16 +524,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     public Uri getUri() {
         return uri;
     }
-
-
-    public Bitmap getImage() {
-        return image;
-    }
-
-    public void setImage(Bitmap image) {
-        this.image = image;
-    }
-
 
     public boolean isEffectApplied() {
         return effectApplied;
