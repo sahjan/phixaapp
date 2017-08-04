@@ -89,6 +89,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                 Intent intent = new Intent(MainPage.this, Transform0.class);
                 intent.putExtra("Image", uri);
                 startActivity(intent);
+                images.recycle();
                 finish();
             }
         });
@@ -100,6 +101,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                 Intent intent = new Intent(MainPage.this, Adjust1.class);
                 intent.putExtra("Image", uri);
                 startActivity(intent);
+                images.recycle();
                 finish();
             }
         });
@@ -111,6 +113,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                 Intent intent = new Intent(MainPage.this, Brush2.class);
                 intent.putExtra("Image", uri);
                 startActivity(intent);
+                images.recycle();
                 finish();
             }
         });
@@ -122,6 +125,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                 Intent intent = new Intent(MainPage.this, Overlay3.class);
                 intent.putExtra("Image", uri);
                 startActivity(intent);
+                images.recycle();
                 finish();
             }
         });
@@ -171,6 +175,12 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             }
         });
     }
+
+
+//    @Override
+//    protected void onStop(){
+//        super.onStop();
+//    }
 
 }
 

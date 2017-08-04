@@ -95,6 +95,13 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         super.onCreate(savedInstanceState);
     }
 
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        images.recycle();
+    }
+
     /*
     Load the textures using the previous image. This method is for use with adjustable
     effects so that the same image is edited upon each change of value instead of applying
@@ -103,7 +110,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     public void loadPreviewTexture() {
 //        mImageWidth = images.getPreviousImage().getWidth();
 //        mImageHeight = images.getPreviousImage().getHeight();
-//        mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
+        mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, images.getPreviousImage(), 0);
         GLToolbox.initTexParams();
@@ -198,9 +205,10 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             //Only need to do this once
             mEffectContext = EffectContext.createWithCurrentGlContext();
             mTexRenderer.init();
-            loadTextures();
+
             mInitialized = true;
         }
+        loadTextures();
 
             //if adjustable effect
         if(!redo) {

@@ -55,4 +55,10 @@ public class Image {
     public void setPreviousImage() {
         previousImage = image;
     }
+
+    public void recycle(){
+        image.recycle();
+        previousImage.recycle();
+        originalImage.recycle();
+    }
 }
