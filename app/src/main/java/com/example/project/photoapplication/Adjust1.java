@@ -41,17 +41,11 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
         context = this;
         history = new EditHistory();
 
-        try {
-            image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), getUri());
-            originalImage = image;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        images = new Image(uri, context);
 
         if (!isEffectApplied()) {
-            previousImage = image;
+            images.setPreviousImage();
         }
-
         //filterInitialiser = new Filter();
         effectHandler = new Effects();
 
@@ -115,7 +109,7 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
                 setCurrentEffect(menuItem.getItemId());
                 // Set the previous image to the current image to ensure that multiple changes to the slider
                 // without changing effects only ever edit the last image from before selecting this effect.
-                previousImage = image;
+                images.setPreviousImage();
 
                 if(!undo){
                     history.pushEffect(mCurrentEffect);

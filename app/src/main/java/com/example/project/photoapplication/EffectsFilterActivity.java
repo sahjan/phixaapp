@@ -48,16 +48,18 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         mCurrentEffect = R.id.none;
         context = this;
         history = new EditHistory();
+//
+//        try {
+//            image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+//            originalImage = image;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
-        try {
-            image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-            originalImage = image;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        images = new Image(uri, context);
 
         if (!isEffectApplied()) {
-            previousImage = image;
+            images.setPreviousImage();
         }
 
         effectHandler = new Effects();
@@ -205,7 +207,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                 setCurrentEffect(menuItem.getItemId());
                 // Set the previous image to the current image to ensure that multiple changes to the slider
                 // without changing effects only ever edit the last image from before selecting this effect.
-                previousImage = image;
+                images.setPreviousImage();
 
                 if(!undo){
                     history.pushEffect(mCurrentEffect);

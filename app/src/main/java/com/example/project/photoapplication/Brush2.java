@@ -41,15 +41,10 @@ public class Brush2 extends BaseEditor implements GLSurfaceView.Renderer{
         context = this;
         history = new EditHistory();
 
-        try {
-            image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), getUri());
-            originalImage = image;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        images = new Image(uri, context);
 
         if (!isEffectApplied()) {
-            previousImage = image;
+            images.setPreviousImage();
         }
 
         //filterInitialiser = new Filter();
