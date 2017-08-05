@@ -10,22 +10,22 @@ import java.util.Stack;
 
 public class EditHistory {
 
-    private Stack<Integer> history;
-    private Stack<Float> historyValues;
-    private Stack<Integer> redoEffects;
-    private Stack<Float> redoParams;
+    private EditStack<Integer> history;
+    private EditStack<Float> historyValues;
+    private EditStack<Integer> redoEffects;
+    private EditStack<Float> redoParams;
 
     public EditHistory(){
-        history = new Stack<>();
-        historyValues = new Stack<>();
-        redoEffects = new Stack<>();
-        redoParams = new Stack<>();
+        history = new EditStack<>();
+        historyValues = new EditStack<>();
+        redoEffects = new EditStack<>();
+        redoParams = new EditStack<>();
 
     }
 
     public void initRedo(){
-        redoEffects = (Stack<Integer>) history.clone();
-        redoParams = (Stack<Float>) historyValues.clone();
+        redoEffects = (EditStack<Integer>) history.clone();
+        redoParams = (EditStack<Float>) historyValues.clone();
     }
 
     public void clearRedo(){
@@ -39,11 +39,11 @@ public class EditHistory {
 
     }
 
-    public Stack<Integer> getRedoEffects(){
+    public EditStack<Integer> getRedoEffects(){
         return redoEffects;
     }
 
-    public Stack<Float> getRedoParams(){
+    public EditStack<Float> getRedoParams(){
         return redoParams;
     }
 
@@ -72,7 +72,7 @@ public class EditHistory {
         }
     }
 
-    public Stack<Integer> getEffects(){ return history; }
+    public EditStack<Integer> getEffects(){ return history; }
 
-    public Stack<Float> getParam(){ return historyValues;}
+    public EditStack<Float> getParam(){ return historyValues;}
 }
