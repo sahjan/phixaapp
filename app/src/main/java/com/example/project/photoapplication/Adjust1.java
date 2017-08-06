@@ -163,6 +163,10 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
                     isHueSliderVisible = true;
                 }
                 else if (isAdjustableEffect(mCurrentEffect)) {
+                    if (isHueSliderVisible) {
+                        hueSlider.setVisibility(View.GONE);
+                        isHueSliderVisible = false;
+                    }
                     slider.setVisibility(View.VISIBLE);
                     setSliderProgress();
                     //only need to do this once if 2 adjustable effects chosen consecutively
