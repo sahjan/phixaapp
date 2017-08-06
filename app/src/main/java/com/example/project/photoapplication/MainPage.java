@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -28,7 +29,6 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
-
 
         //Initialise the renderer and tell it to only render when Explicit
         //requested with the RENDERMODE_WHEN_DIRTY option
@@ -50,7 +50,6 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             images.setPreviousImage();
         }
 
-        //filterInitialiser = new Filter();
         effectHandler = new Effects();
 
         // Assign the slider to its XML counterpart and set its relevant listeners
@@ -78,6 +77,28 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             }
         });
 
+        //assign the hue slider and set its listener. Does nothing yet.
+        hueSlider = (SeekBar) findViewById(R.id.hueSlider);
+        hueSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        //hue image view
+        hueView = (ImageView) findViewById(R.id.hueView);
+        hueView.setImageBitmap(images.getImage());
 
         // BUTTONS...
 

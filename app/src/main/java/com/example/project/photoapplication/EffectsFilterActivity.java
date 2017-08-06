@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -33,7 +34,6 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
-
 
          //Initialise the renderer and tell it to only render when Explicit
          //requested with the RENDERMODE_WHEN_DIRTY option
@@ -88,25 +88,28 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
             }
         });
 
-        //assign hue slider and set its listener
+        //assign the hue slider and set its listener. Does nothing yet.
         hueSlider = (SeekBar) findViewById(R.id.hueSlider);
         hueSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-             @Override
-             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
-             }
+            }
 
-             @Override
-             public void onStartTrackingTouch(SeekBar seekBar) {
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
 
-             }
+            }
 
-             @Override
-             public void onStopTrackingTouch(SeekBar seekBar) {
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
 
-             }
-         }
-        );
+            }
+        });
+
+        //hue image view
+        hueView = (ImageView) findViewById(R.id.hueView);
+        hueView.setImageBitmap(images.getImage());
 
         // Set the onclick listeners for all the buttons in the activity.
         // All show the popups with relevant functionalities.
@@ -215,7 +218,15 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                 mEffectView.requestRender();
 
                 //show slider only when an adjustable effect chosen.
-                if (isAdjustableEffect(mCurrentEffect)) {
+                if (mCurrentEffect == R.id.hue) {
+                    if(isSliderVisible) {
+                        slider.setVisibility(View.GONE);
+                        isSliderVisible = false;
+                    }
+                    hueSlider.setVisibility(View.VISIBLE);
+                    isHueSliderVisible = true;
+                }
+                else if (isAdjustableEffect(mCurrentEffect)) {
                     slider.setVisibility(View.VISIBLE);
                     setSliderProgress();
                     //only need to do this once if 2 adjustable effects chosen consecutively
@@ -223,12 +234,8 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                         isSliderVisible = true;
                     }
                 }
-                /* else if (mCurrentEffect == R.id.hue) {
-                        hueSlider.setVisibility(View.VISIBLE);
-                        isHueSliderVisible = true;
-                } */
                 //else hide slider
-                else if (!isAdjustableEffect(mCurrentEffect) && (isSliderVisible || isHueSliderVisible))
+                else if (!isAdjustableEffect(mCurrentEffect))
                 {
                     slider.setVisibility(View.GONE);
                     isSliderVisible = false;

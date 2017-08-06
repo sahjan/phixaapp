@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -46,7 +47,7 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
         if (!isEffectApplied()) {
             images.setPreviousImage();
         }
-        //filterInitialiser = new Filter();
+
         effectHandler = new Effects();
 
         // Assign the slider to its XML counterpart and set its relevant listeners
@@ -73,6 +74,29 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
                 });
             }
             });
+
+        //assign the hue slider and set its listener. Does nothing yet.
+        hueSlider = (SeekBar) findViewById(R.id.hueSlider);
+        hueSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        //hue image view
+        hueView = (ImageView) findViewById(R.id.hueView);
+        hueView.setImageBitmap(images.getImage());
 
         findViewById(R.id.but11).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +140,7 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
                 }
                 mEffectView.requestRender();
 
-                //show slider only when an adjustable effect chosen.
+                /*//show slider only when an adjustable effect chosen.
                 if (isAdjustableEffect(mCurrentEffect)) {
                     slider.setVisibility(View.VISIBLE);
                     isSliderVisible = true;
@@ -127,6 +151,32 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
                 {
                     slider.setVisibility(View.GONE);
                     isSliderVisible = false;
+                } */
+
+                //show slider only when an adjustable effect chosen.
+                if (mCurrentEffect == R.id.hue) {
+                    if(isSliderVisible) {
+                        slider.setVisibility(View.GONE);
+                        isSliderVisible = false;
+                    }
+                    hueSlider.setVisibility(View.VISIBLE);
+                    isHueSliderVisible = true;
+                }
+                else if (isAdjustableEffect(mCurrentEffect)) {
+                    slider.setVisibility(View.VISIBLE);
+                    setSliderProgress();
+                    //only need to do this once if 2 adjustable effects chosen consecutively
+                    if (!isSliderVisible) {
+                        isSliderVisible = true;
+                    }
+                }
+                //else hide slider
+                else if (!isAdjustableEffect(mCurrentEffect))
+                {
+                    slider.setVisibility(View.GONE);
+                    isSliderVisible = false;
+                    hueSlider.setVisibility(View.GONE);
+                    isHueSliderVisible = false;
                 }
 
                 return true;

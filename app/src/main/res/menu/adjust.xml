@@ -45,10 +45,10 @@
         android:id="@+id/grain"
         compat:showAsAction="never"
         android:title="Grain"/>
-    <!-- <item
+    <item
         android:id="@+id/hue"
         compat:showAsAction="never"
-        android:title="Hue"/> -->
+        android:title="Hue"/>
     <item
         android:id="@+id/saturate"
         compat:showAsAction="never"

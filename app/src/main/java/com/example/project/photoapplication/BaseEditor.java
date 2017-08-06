@@ -18,10 +18,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import java.nio.IntBuffer;
+import java.util.ArrayList;
+import java.util.Stack;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -75,12 +79,12 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected SeekBar slider;
     //Hue slider
     protected SeekBar hueSlider;
+    //hue imageview
+    protected ImageView hueView;
     // The current activity context
     protected Context context;
     // The edit history
     protected EditHistory history;
-    //imageview to update hue of image
-    //protected ImageView hueView = (ImageView) findViewById(R.id.hueView);
 
     protected Image images;
 
@@ -134,17 +138,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         // Set texture parameters
         GLToolbox.initTexParams();
     }
-
-    /*private void setHueView() {
-        hueView.clearColorFilter();
-        hueView.setImageBitmap(image);
-    }
-
-    private void applyHue() {
-        setHueView();
-        hueView.setColorFilter(effectHandler.adjustHue(hueSlider.getProgress()));
-    } */
-
 
     /*
     This method creates an effect, initialises it to the desired effect and then applies it to the input texture.
@@ -213,13 +206,13 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             //if adjustable effect
         if(!redo) {
             if (isAdjustableEffect(mCurrentEffect)) {
-                //if (mCurrentEffect == R.id.hue) {
-                    //applyHue();
-                //}
-                //else {
+                if (mCurrentEffect == R.id.hue) {
+                    applyHue();
+                }
+                else {
                     loadPreviewTexture();
                     applyEffect(0, 1);
-                //}
+                }
             }
             //else if filter
             else if (isFilter(mCurrentEffect)) {
@@ -371,7 +364,14 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             }
 
 
+    /* private void initHueEditor() {
+        hueView = (ImageView) findViewById(R.id.hueView);
+        hueView.setImageBitmap(images.getImage());
+    } */
 
+    private void applyHue() {
+        hueView.setColorFilter(effectHandler.adjustHue(177));
+    }
 
     /**
     Check whether the effect passed to the method is an adjustable effect.
@@ -383,6 +383,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             chosenEffect == R.id.filllight ||
             chosenEffect == R.id.fisheye ||
             chosenEffect == R.id.grain ||
+            chosenEffect == R.id.hue ||
             chosenEffect == R.id.saturate ||
             chosenEffect == R.id.temperature ||
             chosenEffect == R.id.shadows ||

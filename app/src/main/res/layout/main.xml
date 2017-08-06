@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:max="360"
                 android:min="0"
-                android:progress="0"
+                android:progress="180"
                 android:visibility="invisible" />
 
         </LinearLayout>
