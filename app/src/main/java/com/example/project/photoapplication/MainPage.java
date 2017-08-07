@@ -173,11 +173,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
 //    }
 
 
-    public void save(Bitmap bitmap, Context context) {
-        SaveThread saver = new SaveThread(context, bitmap);
-        saver.execute();
-        showToast("File Saved");
-    }
+
 
 
     public void setSliderProgress(){
@@ -197,11 +193,6 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
         });
     }
 
-
-//    @Override
-//    protected void onStop(){
-//        super.onStop();
-//    }
 
 }
 

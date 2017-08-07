@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -124,17 +125,34 @@ import java.util.Date;
         }
 
         /*
-        Get a list of files in the apps saved images public folder.
+        Get a list of files in the directory represented by the string path
         @return File[] - return an array of all files in the folder.
          */
-        public File[] getFileList(){
-            // Create a string with the path of the apps saved images folder
-            String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/Saved_Images";
+        public File[] getFileList(String path){
+
             File directory = new File(path);
             directory.mkdirs();
             // Create an array of all the files in the directory
             File[] files = directory.listFiles();
             return files;
+        }
+
+
+
+
+        public void saveLayer(int index, Bitmap image){
+            String filename = "Layer" + index;
+            File file = new File(context.getFilesDir(), filename);
+            FileOutputStream out = null;
+            try {
+            out = new FileOutputStream(file);
+                image.compress(Bitmap.CompressFormat.JPEG, 50, out);
+                out.flush();
+                out.close();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
         }
 
 

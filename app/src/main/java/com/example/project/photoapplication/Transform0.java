@@ -129,14 +129,6 @@ public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
         popup.show();
     }
 
-    public void save(Bitmap bitmap, Context context){
-        SaveThread saver = new SaveThread(context, bitmap);
-        saver.execute();
-        showToast("File Saved!");
-
-
-    }
-
     public void setSliderProgress(){
         Transform0.this.getmEffectView().post(new Runnable() {
             @Override

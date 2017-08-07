@@ -14,7 +14,7 @@ public class EditStack<T> implements Cloneable {
     public EditStack(){
         items = new ArrayList<>();
     }
-    
+
 
     public void push(T item){
         items.add(item);

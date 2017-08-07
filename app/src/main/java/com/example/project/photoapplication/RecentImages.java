@@ -3,6 +3,7 @@ package com.example.project.photoapplication;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,7 +33,7 @@ public class RecentImages extends AppCompatActivity {
         ImageButton recent5 = (ImageButton) findViewById(R.id.recent5);
         ImageButton recent6 = (ImageButton) findViewById(R.id.recent6);
 
-        files = fm.getFileList();
+        files = fm.getFileList(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/Saved_Images");
         uris = convertToUri();
         
         try {

@@ -23,6 +23,7 @@ import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import java.io.File;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.Stack;
@@ -61,12 +62,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected boolean isHueSliderVisible = false;
     // The URI of the loaded image
     protected Uri uri;
-    // The most recently rendered image, may have an effect applied to it.
-//    protected Bitmap image;
-//    // Will always contain the original image loaded
-//    protected Bitmap originalImage;
-//    // The previous image to be rendered
-//    protected Bitmap previousImage;
 //    // The current value the slider is set to.
     protected float sliderValue;
     // The effect parameter to use in the undo method
@@ -250,7 +245,13 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     @param bitmap - The image to save as a file
     @param context - the context of the activity calling the method
      */
-    public abstract void save( Bitmap bitmap,  Context context);
+    public void save( Bitmap bitmap,  Context context, int index, String type) {
+        SaveThread saver = new SaveThread(context, bitmap, index, type);
+        saver.execute();
+        if(type.equals("normal")) {
+            showToast("File Saved");
+        }
+    }
 
 
     /*
@@ -424,17 +425,29 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
 
         Context context;
         Bitmap image;
+        int layerIndex;
+        String type;
 
-        public SaveThread(Context context, Bitmap image){
+        public SaveThread(Context context, Bitmap image, int layerIndex, String type){
             this.context = context;
             this.image = image;
+            this.layerIndex = layerIndex;
+            this.type = type;
         }
 
         @Override
         protected Boolean doInBackground(String... strings) {
             FileManager fm = new FileManager(context);
-            fm.saveBitmap(image);
-            return null;
+            switch (type) {
+                case "normal":
+                    fm.saveBitmap(image);
+                    break;
+
+                case "layer":
+                    fm.saveLayer(layerIndex, image);
+                    break;
+            }
+            return true;
         }
     }
 
@@ -446,7 +459,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.save:
-                        save(images.getImage(), context);
+                        save(images.getImage(), context, 1, "normal");
                         break;
 
                     case R.id.undo:
@@ -473,6 +486,10 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                             redo();
                         }
                         break;
+                    case R.id.layer:
+                        prepLayers();
+                        Intent intent = new Intent(context, Layers.class);
+                        startActivity(intent);
 
                 }
                 return true;
@@ -512,6 +529,43 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
+
+
+    public void prepLayers(){
+        FileManager fm = new FileManager(this);
+        File[] files = fm.getFileList(getFilesDir().toString());
+        for (File file: files){
+            file.delete();
+        }
+        // Set undo to true so effects applied in the re-render process aren't added to the stack
+        undo = true;
+        // Return the images to their original state so that effects will be applied to an unaltered image.
+        images.initImages();
+        // If the stack is empty then there are no effects to render so just render the original image.
+        if (!history.getEffects().empty()) {
+            // Iterate across the stack for the amount of objects within it.
+            for (int i = 0; i <= history.getEffects().size() - 1; i++) {
+                // Set the current effect and corresponding parameter to their values at the current index.
+                mCurrentEffect = history.getEffects().get(i);
+                effectParameter = history.getParam().get(i);
+                // Call a render
+                mEffectView.requestRender();
+                // Set the previous image to the most recent image.
+                images.setPreviousImage();
+                // temporary fix for race condition
+                android.os.SystemClock.sleep(600);
+                save(images.getImage(), context, i, "layer");
+            }
+        }
+
+
+        mCurrentEffect = R.id.none;
+        // Done undoing so return undo to false
+        undo = false;
+    }
+
+
+
 
 
     // Getters and setters:

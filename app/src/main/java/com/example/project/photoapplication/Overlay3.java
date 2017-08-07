@@ -131,11 +131,6 @@ public class Overlay3 extends BaseEditor implements GLSurfaceView.Renderer{
         popup.show();
     }
 
-    public void save(Bitmap bitmap, Context context){
-        SaveThread saver = new SaveThread(context, bitmap);
-        saver.execute();
-        showToast("File Saved");
-    }
 
     public void setSliderProgress(){
         Overlay3.this.getmEffectView().post(new Runnable() {

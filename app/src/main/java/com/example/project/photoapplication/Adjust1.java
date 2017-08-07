@@ -189,13 +189,6 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
         popup.show();
     }
 
-    public void save(Bitmap bitmap, Context context){
-        SaveThread saver = new SaveThread(context, bitmap);
-        saver.execute();
-        showToast("File Saved!");
-
-    }
-
     public void setSliderProgress(){
         Adjust1.this.mEffectView.post(new Runnable() {
             @Override

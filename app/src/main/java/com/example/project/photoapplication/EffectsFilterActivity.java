@@ -48,15 +48,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         mCurrentEffect = R.id.none;
         context = this;
         history = new EditHistory();
-//
-//        try {
-//            image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-//            originalImage = image;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-        images = new Image(uri, context);
+        images = new Image(uri, this);
 
         if (!isEffectApplied()) {
             images.setPreviousImage();
@@ -296,13 +288,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
     @param bitmap - The image to save to a file.
     @param context - The context of the current activity.
      */
-    public void save( Bitmap bitmap,  Context context){
-        // create a new AsyncTask to save the image in the background to prevent UI lockup and executes it.
-        SaveThread saver = new SaveThread(context, bitmap);
-        saver.execute();
-        // Tell the user that the file is saved.
-        showToast("File Saved!");
-    }
+
 
     /*
     Set the slider back to the mid point.
