@@ -73,7 +73,7 @@
             android:weightSum="1">
 
             <ImageButton
-                android:id="@+id/topBut"
+                android:id="@+id/layers"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="start"
