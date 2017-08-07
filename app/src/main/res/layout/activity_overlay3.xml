@@ -8,6 +8,12 @@
         android:weightSum="1"
         tools:context="com.example.project.photoapplication.Overlay3">
 
+    <ImageView
+        android:id="@+id/hueView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

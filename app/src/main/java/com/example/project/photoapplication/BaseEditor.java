@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.effect.Effect;
 import android.media.effect.EffectContext;
 import android.net.Uri;
@@ -21,12 +22,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import java.io.File;
 import java.nio.IntBuffer;
-import java.util.ArrayList;
-import java.util.Stack;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -76,6 +74,8 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected SeekBar hueSlider;
     //hue imageview
     protected ImageView hueView;
+    protected android.os.Handler hueViewHandler;
+    protected boolean isChangedActivity = false;
     // The current activity context
     protected Context context;
     // The edit history
@@ -165,11 +165,9 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, effectParameter);
         }
         effect.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
-
-
     }
 
-    /*
+    /**
     Render a texture to the screen.
      */
     public void renderResult() {
@@ -184,7 +182,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         }
     }
 
-    /*
+    /**
     The actions taken when the canvas is drawn to.
      */
     @Override
@@ -203,6 +201,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             if (isAdjustableEffect(mCurrentEffect)) {
                 if (mCurrentEffect == R.id.hue) {
                     applyHue();
+                    renderHuePreview();
                 }
                 else {
                     loadPreviewTexture();
@@ -229,6 +228,21 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         renderResult();
         // Set the image to whatever has been rendered to the screen
         images.setImage(takeScreenshot(gl));
+
+        /*
+        update the hue imageView if in adjust/transform/brush/overlay activity, so
+        that it contains the latest image everytime an effect is applied.
+        isChangedActivity is set to true when switched to another activity.
+         */
+        if (isChangedActivity) {
+            //update the hueView on the UI thread
+            hueViewHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    hueView.setImageBitmap(images.getImage());
+                }
+            });
+        }
 
         // These two effects produce results inconsistent with the rest of the effects when using redo
         // Because of this we have to make sure redo is set to false at the end of the rendering cycle
@@ -364,14 +378,17 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                 }
             }
 
+    protected void applyHue() {
+        hueView.getDrawable().setColorFilter(effectHandler.adjustHue(hueSlider.getProgress()));
+    }
 
-    /* private void initHueEditor() {
-        hueView = (ImageView) findViewById(R.id.hueView);
-        hueView.setImageBitmap(images.getImage());
-    } */
-
-    private void applyHue() {
-        hueView.setColorFilter(effectHandler.adjustHue(177));
+    //hue bitmap needs to be moved to Images class
+    protected void renderHuePreview() {
+        Bitmap huePreview = ((BitmapDrawable) hueView.getDrawable()).getBitmap();
+        mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[1]);
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, huePreview, 0);
+        GLToolbox.initTexParams();
     }
 
     /**

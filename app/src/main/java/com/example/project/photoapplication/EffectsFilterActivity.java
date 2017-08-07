@@ -80,7 +80,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
             }
         });
 
-        //assign the hue slider and set its listener. Does nothing yet.
+        /*//assign the hue slider and set its listener. Does nothing yet.
         hueSlider = (SeekBar) findViewById(R.id.hueSlider);
         hueSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -101,7 +101,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
 
         //hue image view
         hueView = (ImageView) findViewById(R.id.hueView);
-        hueView.setImageBitmap(images.getImage());
+        hueView.setImageBitmap(images.getPreviousImage()); */
 
         // Set the onclick listeners for all the buttons in the activity.
         // All show the popups with relevant functionalities.

@@ -1,22 +1,17 @@
 package com.example.project.photoapplication;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
-import android.provider.MediaStore;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
-
-import java.io.IOException;
-import java.util.Stack;
 
 public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
 
@@ -25,6 +20,11 @@ public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_transform0);
+
+        hueViewHandler = new Handler();
+        //hue image view
+        hueView = (ImageView) findViewById(R.id.hueView);
+        isChangedActivity = true;
 
         //Initialise the renderer and tell it to only render when Explicit
         //requested with the RENDERMODE_WHEN_DIRTY option
@@ -45,7 +45,6 @@ public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
             images.setPreviousImage();
         }
 
-        //filterInitialiser = new Filter();
         effectHandler = new Effects();
 
         // Assign the slider to its XML counterpart and set its relevant listeners
@@ -76,7 +75,6 @@ public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
         findViewById(R.id.but01).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 showPopupTransform(view);
 
             }

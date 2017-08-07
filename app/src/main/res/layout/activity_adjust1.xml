@@ -8,12 +8,18 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
     android:weightSum="1"
     tools:context="com.example.project.photoapplication.Adjust1">
 
+    <ImageView
+        android:id="@+id/hueView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="bottom">
 
-    <include layout="@layout/gl_view"/>
+    <include layout="@layout/gl_view" />
 
     <HorizontalScrollView
         android:id="@+id/adjustBar"
@@ -114,9 +120,9 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/hueSlider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="360"
+            android:max="180"
             android:min="0"
-            android:progress="180"
+            android:progress="90"
             android:visibility="invisible" />
 
     </LinearLayout>
@@ -124,12 +130,5 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
     <include layout="@layout/top_bar"/>
 
 </FrameLayout>
-
-    <ImageView
-        android:id="@+id/hueView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-
 
 </LinearLayout>

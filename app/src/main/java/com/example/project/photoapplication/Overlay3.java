@@ -1,23 +1,17 @@
 package com.example.project.photoapplication;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Handler;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
-
-import java.io.IOException;
-import java.util.Stack;
 
 public class Overlay3 extends BaseEditor implements GLSurfaceView.Renderer{
 
@@ -26,6 +20,11 @@ public class Overlay3 extends BaseEditor implements GLSurfaceView.Renderer{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_overlay3);
+
+        hueViewHandler = new Handler();
+        //hue image view
+        hueView = (ImageView) findViewById(R.id.hueView);
+        isChangedActivity = true;
 
         //Initialise the renderer and tell it to only render when Explicit
         //requested with the RENDERMODE_WHEN_DIRTY option
@@ -47,7 +46,6 @@ public class Overlay3 extends BaseEditor implements GLSurfaceView.Renderer{
             images.setPreviousImage();
         }
 
-        //filterInitialiser = new Filter();
         effectHandler = new Effects();
 
         // Assign the slider to its XML counterpart and set its relevant listeners

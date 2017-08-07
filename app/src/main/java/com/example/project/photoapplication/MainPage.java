@@ -77,7 +77,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             }
         });
 
-        //assign the hue slider and set its listener. Does nothing yet.
+        /*//assign the hue slider and set its listener. Does nothing yet.
         hueSlider = (SeekBar) findViewById(R.id.hueSlider);
         hueSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -98,7 +98,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
 
         //hue image view
         hueView = (ImageView) findViewById(R.id.hueView);
-        hueView.setImageBitmap(images.getImage());
+        hueView.setImageBitmap(images.getPreviousImage()); */
 
         // BUTTONS...
 
