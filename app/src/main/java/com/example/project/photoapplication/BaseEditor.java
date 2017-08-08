@@ -21,13 +21,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
-import android.widget.Toast;
-
 import java.io.File;
 import java.nio.IntBuffer;
-import java.util.ArrayList;
-import java.util.Stack;
-
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
@@ -81,13 +76,10 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected Context context;
     // The edit history
     protected EditHistory history;
-
     protected Image images;
-
     protected boolean redo = false;
     protected boolean redoInit = false;
     protected int redoIndex;
-
     protected static final String TAG = "RedoTag";
 
     @Override
@@ -166,8 +158,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, effectParameter);
         }
         effect.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
-
-
     }
 
     /*
@@ -194,7 +184,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             //Only need to do this once
             mEffectContext = EffectContext.createWithCurrentGlContext();
             mTexRenderer.init();
-
             mInitialized = true;
         }
         loadTextures();
@@ -226,7 +215,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             loadTextures();
             applyEffect(0,1);
         }
-
         renderResult();
         // Set the image to whatever has been rendered to the screen
         images.setImage(takeScreenshot(gl));
@@ -236,9 +224,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         // when these two effects are in use.
         if(mCurrentEffect == R.id.brightness || mCurrentEffect == R.id.contrast){
             redo = false;
-
         }
-
     }
 
     /*
@@ -247,13 +233,12 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     @param context - the context of the activity calling the method
      */
     public void save( Bitmap bitmap,  Context context, int index, String type) {
-        SaveThread saver = new SaveThread(context, bitmap, index, type);
-        saver.execute();
+        FileManager fm = new FileManager(context);
+        fm.startSave(context, bitmap, index, type);
         if(type.equals("normal")) {
             showToast("File Saved");
         }
     }
-
 
     /*
     Take a screenshot of the canvas
@@ -263,11 +248,8 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         final int mHeight = mEffectView.getHeight();
         IntBuffer ib = IntBuffer.allocate(mWidth * mHeight);
         IntBuffer ibt = IntBuffer.allocate(mWidth * mHeight);
-        // Believe the suspected race condition within the undo method is caused by glreadpixels.
-        // Method is an 'incoherent' method in the OpenGL memory model and so does not guarantee that
-        // changes made to a variable will be visible by successor accesses
-        mGL.glReadPixels(0, 0, mWidth, mHeight, GL10.GL_RGBA, GL10.GL_UNSIGNED_BYTE, ib);
 
+        mGL.glReadPixels(0, 0, mWidth, mHeight, GL10.GL_RGBA, GL10.GL_UNSIGNED_BYTE, ib);
         // Convert upside down mirror-reversed image to right-side up normal
         // image.
         for (int i = 0; i < mHeight; i++) {
@@ -275,7 +257,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                 ibt.put((mHeight - i - 1) * mWidth + j, ib.get(i * mWidth + j));
             }
         }
-
         Bitmap mBitmap = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_8888);
         mBitmap.copyPixelsFromBuffer(ibt);
         return mBitmap;
@@ -333,7 +314,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                 mEffectView.requestRender();
                 images.setPreviousImage();
                 redoIndex++;
-
                 // For this method not to cause potential crashes or for it to actually work when used with the below two effects
                 // We have to set redo to false only in the ondraw frame method.
                 // However if you do that with other effects the redo doesn't work
@@ -345,12 +325,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                     redo = false;
                 }
             }
-
-
-    /* private void initHueEditor() {
-        hueView = (ImageView) findViewById(R.id.hueView);
-        hueView.setImageBitmap(images.getImage());
-    } */
 
     private void applyHue() {
         hueView.setColorFilter(effectHandler.adjustHue(177));
@@ -402,36 +376,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         return effectValue;
     }
 
-    // An AsyncTask to conduct saving on a seperate thread to ensure the UI does not lock up while the save is in progress.
-    protected class SaveThread extends AsyncTask<String, Void, Boolean> {
 
-        Context context;
-        Bitmap image;
-        int layerIndex;
-        String type;
-
-        public SaveThread(Context context, Bitmap image, int layerIndex, String type){
-            this.context = context;
-            this.image = image;
-            this.layerIndex = layerIndex;
-            this.type = type;
-        }
-
-        @Override
-        protected Boolean doInBackground(String... strings) {
-            FileManager fm = new FileManager(context);
-            switch (type) {
-                case "normal":
-                    fm.saveBitmap(image);
-                    break;
-
-                case "layer":
-                    fm.saveLayer(layerIndex, image);
-                    break;
-            }
-            return true;
-        }
-    }
 
     public void showOptions(View v){
         PopupMenu popup = new PopupMenu(this, v);
@@ -448,10 +393,8 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                         // tell the user when there are no effects to undo.
                         if(history.checkEmpty()) {
                             showToast("Nothing to Undo!");
-
                         }
                         undo();
-
                         slider.setVisibility(View.INVISIBLE);
                         setSliderProgress();
                         break;
@@ -472,7 +415,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                         prepLayers();
                         Intent intent = new Intent(context, Layers.class);
                         startActivity(intent);
-
                 }
                 return true;
             }
@@ -529,8 +471,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             // Iterate across the stack for the amount of objects within it.
             genLayers();
         }
-
-
         mCurrentEffect = R.id.none;
         // Done undoing so return undo to false
         undo = false;
@@ -568,10 +508,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         }
     }
 
-
-
-
-
     // Getters and setters:
 
     public void setCurrentEffect(int menuID) {
@@ -607,5 +543,4 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     public void setContext(Context context) {
         this.context = context;
     }
-
 }

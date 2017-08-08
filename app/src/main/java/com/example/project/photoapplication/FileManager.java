@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 
@@ -155,10 +156,48 @@ import java.util.Date;
             }
         }
 
-
-
-
-
+    public void startSave(Context context, Bitmap bitmap, int index, String type){
+        SaveThread saver = new SaveThread(context, bitmap, index, type);
+        saver.execute();
     }
+
+
+    //An AsyncTask to conduct saving on a seperate thread to ensure the UI does not lock up while the save is in progress.
+    protected class SaveThread extends android.os.AsyncTask<String, Void, Boolean> {
+
+        Context context;
+        Bitmap image;
+        int layerIndex;
+        String type;
+
+        public SaveThread(Context context, Bitmap image, int layerIndex, String type){
+            this.context = context;
+            this.image = image;
+            this.layerIndex = layerIndex;
+            this.type = type;
+        }
+
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            FileManager fm = new FileManager(context);
+            switch (type) {
+                case "normal":
+                    fm.saveBitmap(image);
+                    break;
+
+                case "layer":
+                    fm.saveLayer(layerIndex, image);
+                    break;
+            }
+            return true;
+        }
+    }
+
+
+
+
+
+
+}
 
 
