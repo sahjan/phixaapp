@@ -1,8 +1,10 @@
 package com.example.project.photoapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ public class CustomPagerAdapter extends PagerAdapter {
     Context mContext;
     LayoutInflater mLayoutInflater;
     File[] mResources;
+    File currentFile;
 
 
     public CustomPagerAdapter(Context context, File[] pics){
@@ -42,11 +45,18 @@ public class CustomPagerAdapter extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
         View itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false);
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
         imageView.setImageBitmap(getImage(mResources[position]));
+        currentFile = mResources[position];
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startEdit();
+            }
+        });
 
         container.addView(itemView);
 
@@ -61,6 +71,14 @@ public class CustomPagerAdapter extends PagerAdapter {
     public Bitmap getImage(File file){
         Bitmap b = BitmapFactory.decodeFile(file.getAbsolutePath());
         return b;
+    }
+
+
+    public void startEdit(){
+        Intent intent = new Intent(mContext, MainPage.class);
+        intent.putExtra("Image", Uri.fromFile(currentFile));
+        mContext.startActivity(intent);
+
     }
 
 
