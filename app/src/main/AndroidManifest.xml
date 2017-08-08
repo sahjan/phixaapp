@@ -48,9 +48,9 @@
         <!-- Overlay Tools Activity-->
         <activity android:name=".Overlay3"/>
         <!--Below left in for testing new functionality-->
-        <activity android:name=".EffectsFilterActivity">
+        <activity android:name=".EffectsFilterActivity"/>
+        <activity android:name=".Layers"/>
 
-        </activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

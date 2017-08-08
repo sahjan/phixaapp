@@ -60,6 +60,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected boolean isSliderVisible = false;
     // Whether the hue slider is visible
     protected boolean isHueSliderVisible = false;
+    protected boolean layers = false;
     // The URI of the loaded image
     protected Uri uri;
 //    // The current value the slider is set to.
@@ -307,32 +308,13 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         // Set undo to true so effects applied in the re-render process aren't added to the stack
         undo = true;
         // If both the effect and parameters stack have items within them pop an effect and its corresponding parameter.
-        if(!history.checkEmpty()) {
-            if(!redoInit){
-                history.initRedo();
-                redoInit = true;
-            }
-            history.popEffect();
-            history.popParam();
-            redoIndex = history.getEffects().size();
-        }
+        prepUndo();
         // Return the images to their original state so that effects will be applied to an unaltered image.
         images.initImages();
         // If the stack is empty then there are no effects to render so just render the original image.
         if (!history.getEffects().empty()) {
             // Iterate across the stack for the amount of objects within it.
-            for (int i = 0; i <= history.getEffects().size() - 1; i++) {
-                // Set the current effect and corresponding parameter to their values at the current index.
-                mCurrentEffect = history.getEffects().get(i);
-                effectParameter = history.getParam().get(i);
-                // Call a render
-                mEffectView.requestRender();
-                // Set the previous image to the most recent image.
-                images.setPreviousImage();
-                // temporary fix for race condition
-                android.os.SystemClock.sleep(600);
-
-            }
+            genLayers();
         } else {
             mCurrentEffect = R.id.none;
             mEffectView.requestRender();
@@ -531,37 +513,59 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     }
 
 
-    public void prepLayers(){
+    public void prepLayers() {
         FileManager fm = new FileManager(this);
         File[] files = fm.getFileList(getFilesDir().toString());
-        for (File file: files){
+        for (File file : files) {
             file.delete();
         }
         // Set undo to true so effects applied in the re-render process aren't added to the stack
         undo = true;
+        layers = true;
         // Return the images to their original state so that effects will be applied to an unaltered image.
         images.initImages();
         // If the stack is empty then there are no effects to render so just render the original image.
         if (!history.getEffects().empty()) {
             // Iterate across the stack for the amount of objects within it.
-            for (int i = 0; i <= history.getEffects().size() - 1; i++) {
-                // Set the current effect and corresponding parameter to their values at the current index.
-                mCurrentEffect = history.getEffects().get(i);
-                effectParameter = history.getParam().get(i);
-                // Call a render
-                mEffectView.requestRender();
-                // Set the previous image to the most recent image.
-                images.setPreviousImage();
-                // temporary fix for race condition
-                android.os.SystemClock.sleep(600);
-                save(images.getImage(), context, i, "layer");
-            }
+            genLayers();
         }
 
 
         mCurrentEffect = R.id.none;
         // Done undoing so return undo to false
         undo = false;
+        layers = false;
+    }
+
+
+    public void prepUndo(){
+        if (!history.checkEmpty()) {
+            if (!redoInit) {
+                history.initRedo();
+                redoInit = true;
+            }
+            history.popEffect();
+            history.popParam();
+            redoIndex = history.getEffects().size();
+        }
+    }
+
+    public void genLayers(){
+        for (int i = 0; i <= history.getEffects().size() - 1; i++) {
+            // Set the current effect and corresponding parameter to their values at the current index.
+            mCurrentEffect = history.getEffects().get(i);
+            effectParameter = history.getParam().get(i);
+            // Call a render
+            mEffectView.requestRender();
+            // Set the previous image to the most recent image.
+            images.setPreviousImage();
+            // temporary fix for race condition
+            android.os.SystemClock.sleep(600);
+            if (layers){
+                save(images.getImage(), context, i, "layer");
+            }
+
+        }
     }
 
 
