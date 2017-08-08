@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.effect.Effect;
 import android.media.effect.EffectContext;
@@ -146,7 +147,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         // If we aren't undoing we can init the effect using the current slider value and also add the parameter
         // to the stack of parameters.
         if(!undo && !redo) {
-            effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, calculateSliderValue(slider.getProgress()));
+                effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, calculateSliderValue(slider.getProgress()));
             // Only add to the stack if its an adjustable effect.
             if(isAdjustableEffect(mCurrentEffect)) {
                 // Check that there are the same amount of effects as parameters
@@ -162,9 +163,9 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         }
         // If we are undoing initialise the effect with the parameter set in the undo method.
         else {
-            effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, effectParameter);
+                effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, effectParameter);
         }
-        effect.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
+            effect.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
     }
 
     /**
@@ -191,7 +192,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             //Only need to do this once
             mEffectContext = EffectContext.createWithCurrentGlContext();
             mTexRenderer.init();
-
             mInitialized = true;
         }
         loadTextures();
@@ -201,7 +201,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             if (isAdjustableEffect(mCurrentEffect)) {
                 if (mCurrentEffect == R.id.hue) {
                     applyHue();
-                    renderHuePreview();
+                    loadHuePreview();
                 }
                 else {
                     loadPreviewTexture();
@@ -233,8 +233,8 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         update the hue imageView if in adjust/transform/brush/overlay activity, so
         that it contains the latest image everytime an effect is applied.
         isChangedActivity is set to true when switched to another activity.
-         */
-        if (isChangedActivity) {
+*/
+        if (isChangedActivity && mCurrentEffect != R.id.hue) {
             //update the hueView on the UI thread
             hueViewHandler.post(new Runnable() {
                 @Override
@@ -251,7 +251,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             redo = false;
 
         }
-
     }
 
     /*
@@ -357,7 +356,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     }
 
     public void redo(){
-
                 redo = true;
                 mCurrentEffect = history.getRedoEffects().get(redoIndex);
                 effectParameter = history.getRedoParams().get(redoIndex);
@@ -382,9 +380,20 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         hueView.getDrawable().setColorFilter(effectHandler.adjustHue(hueSlider.getProgress()));
     }
 
+    protected Bitmap getHuePreviewBitmap(final View hueImgView) {
+        int width = hueImgView.getWidth();
+        int height = hueImgView.getHeight();
+        Bitmap huePreview = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(huePreview);
+        hueImgView.layout(hueImgView.getLeft(), hueImgView.getTop(), hueImgView.getRight(), hueImgView.getBottom());
+        hueImgView.draw(c);
+        return huePreview;
+    }
+
     //hue bitmap needs to be moved to Images class
-    protected void renderHuePreview() {
-        Bitmap huePreview = ((BitmapDrawable) hueView.getDrawable()).getBitmap();
+    protected void loadHuePreview() {
+        Bitmap huePreview = getHuePreviewBitmap(hueView);
+        //Bitmap huePreview = ((BitmapDrawable) hueView.getDrawable()).getBitmap();
         mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[1]);
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, huePreview, 0);

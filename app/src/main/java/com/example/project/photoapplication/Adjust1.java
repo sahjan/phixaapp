@@ -5,6 +5,7 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -71,6 +72,10 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
             }
             });
 
+        //hue image view
+        hueView = (ImageView) findViewById(R.id.hueView);
+        hueView.setImageBitmap(images.getImage());
+
         //assign the hue slider and set its listener.
         hueSlider = (SeekBar) findViewById(R.id.hueSlider);
         hueSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -90,16 +95,12 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
                 mEffectView.queueEvent(new Runnable() {
                     public void run() {
                         applyHue();
-                        renderHuePreview();
+                        loadHuePreview();
                         mEffectView.requestRender();
                     }
                 });
             }
         });
-
-        //hue image view
-        hueView = (ImageView) findViewById(R.id.hueView);
-        hueView.setImageBitmap(images.getImage());
 
         findViewById(R.id.but11).setOnClickListener(new View.OnClickListener() {
             @Override
