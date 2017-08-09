@@ -61,7 +61,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected boolean isHueSliderVisible = false;
     // The URI of the loaded image
     protected Uri uri;
-//    // The current value the slider is set to.
+    // The current value the slider is set to.
     protected float sliderValue;
     // The effect parameter to use in the undo method
     protected float effectParameter;
@@ -81,18 +81,18 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected Context context;
     // The edit history
     protected EditHistory history;
-
     protected Image images;
-
     protected boolean redo = false;
     protected boolean redoInit = false;
     protected int redoIndex;
+    protected boolean layers = false;
 
-    protected static final String TAG = "RedoTag";
+    protected FileManager fm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fm = new FileManager(this);
     }
 
 
@@ -166,14 +166,12 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                 effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, effectParameter);
         }
         effect.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
-            effect.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
     }
 
     /**
     Render a texture to the screen.
      */
     public void renderResult() {
-        Log.e(TAG, Integer.toString(mCurrentEffect));
         if (mCurrentEffect != R.id.none) {
             // render the result of applyEffect()
             mTexRenderer.renderTexture(mTextures[1]);
@@ -422,36 +420,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         return effectValue;
     }
 
-    // An AsyncTask to conduct saving on a seperate thread to ensure the UI does not lock up while the save is in progress.
-    protected class SaveThread extends AsyncTask<String, Void, Boolean> {
 
-        Context context;
-        Bitmap image;
-        int layerIndex;
-        String type;
-
-        public SaveThread(Context context, Bitmap image, int layerIndex, String type){
-            this.context = context;
-            this.image = image;
-            this.layerIndex = layerIndex;
-            this.type = type;
-        }
-
-        @Override
-        protected Boolean doInBackground(String... strings) {
-            FileManager fm = new FileManager(context);
-            switch (type) {
-                case "normal":
-                    fm.saveBitmap(image);
-                    break;
-
-                case "layer":
-                    fm.saveLayer(layerIndex, image);
-                    break;
-            }
-            return true;
-        }
-    }
 
     public void showOptions(View v){
         PopupMenu popup = new PopupMenu(this, v);
@@ -468,10 +437,8 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                         // tell the user when there are no effects to undo.
                         if(history.checkEmpty()) {
                             showToast("Nothing to Undo!");
-
                         }
                         undo();
-
                         slider.setVisibility(View.INVISIBLE);
                         setSliderProgress();
                         break;
@@ -492,7 +459,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                         prepLayers();
                         Intent intent = new Intent(context, Layers.class);
                         startActivity(intent);
-
                 }
                 return true;
             }
@@ -533,42 +499,56 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     }
 
 
-    public void prepLayers(){
-        FileManager fm = new FileManager(this);
+    public void prepLayers() {
         File[] files = fm.getFileList(getFilesDir().toString());
         for (File file: files){
             file.delete();
         }
         // Set undo to true so effects applied in the re-render process aren't added to the stack
         undo = true;
+        layers = true;
         // Return the images to their original state so that effects will be applied to an unaltered image.
         images.initImages();
         // If the stack is empty then there are no effects to render so just render the original image.
         if (!history.getEffects().empty()) {
             // Iterate across the stack for the amount of objects within it.
-            for (int i = 0; i <= history.getEffects().size() - 1; i++) {
-                // Set the current effect and corresponding parameter to their values at the current index.
-                mCurrentEffect = history.getEffects().get(i);
-                effectParameter = history.getParam().get(i);
-                // Call a render
-                mEffectView.requestRender();
-                // Set the previous image to the most recent image.
-                images.setPreviousImage();
-                // temporary fix for race condition
-                android.os.SystemClock.sleep(600);
-                save(images.getImage(), context, i, "layer");
-            }
+            genLayers();
         }
-
-
         mCurrentEffect = R.id.none;
         // Done undoing so return undo to false
         undo = false;
+        layers = false;
     }
 
+    public void prepUndo(){
+        if (!history.checkEmpty()) {
+            if (!redoInit) {
+                history.initRedo();
+                redoInit = true;
+            }
+            history.popEffect();
+            history.popParam();
+            redoIndex = history.getEffects().size();
+        }
+    }
 
+    public void genLayers(){
+        for (int i = 0; i <= history.getEffects().size() - 1; i++) {
+            // Set the current effect and corresponding parameter to their values at the current index.
+            mCurrentEffect = history.getEffects().get(i);
+            effectParameter = history.getParam().get(i);
+            // Call a render
+            mEffectView.requestRender();
+            // Set the previous image to the most recent image.
+            images.setPreviousImage();
+            // temporary fix for race condition
+            android.os.SystemClock.sleep(600);
+            if (layers){
+                save(images.getImage(), context, i, "layer");
+            }
 
-
+        }
+    }
 
     // Getters and setters:
 
@@ -605,5 +585,4 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     public void setContext(Context context) {
         this.context = context;
     }
-
 }
