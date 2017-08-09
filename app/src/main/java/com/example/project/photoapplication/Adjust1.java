@@ -1,14 +1,11 @@
 package com.example.project.photoapplication;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -17,9 +14,6 @@ import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.util.Stack;
-
 public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
 
     @Override
@@ -27,6 +21,9 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_adjust1);
+
+        hueViewHandler = new Handler();
+        isChangedActivity = true;
 
         //Initialise the renderer and tell it to only render when Explicit
         //requested with the RENDERMODE_WHEN_DIRTY option
@@ -75,7 +72,11 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
             }
             });
 
-        //assign the hue slider and set its listener. Does nothing yet.
+        //hue image view
+        hueView = (ImageView) findViewById(R.id.hueView);
+        hueView.setImageBitmap(images.getImage());
+
+        //assign the hue slider and set its listener.
         hueSlider = (SeekBar) findViewById(R.id.hueSlider);
         hueSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -90,13 +91,16 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                //request a render of the hue change
+                mEffectView.queueEvent(new Runnable() {
+                    public void run() {
+                        applyHue();
+                        loadHuePreview();
+                        mEffectView.requestRender();
+                    }
+                });
             }
         });
-
-        //hue image view
-        hueView = (ImageView) findViewById(R.id.hueView);
-        hueView.setImageBitmap(images.getImage());
 
         findViewById(R.id.but11).setOnClickListener(new View.OnClickListener() {
             @Override

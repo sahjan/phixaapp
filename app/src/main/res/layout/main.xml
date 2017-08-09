@@ -16,6 +16,12 @@
 
             <include layout="@layout/gl_view"/>
 
+            <ImageView
+                android:id="@+id/hueView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible" />
+
             <HorizontalScrollView
                 android:id="@+id/mainBar"
                 android:layout_width="match_parent"
@@ -131,11 +137,5 @@
 
         </LinearLayout>
     </FrameLayout>
-
-    <ImageView
-        android:id="@+id/hueView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
 
 </LinearLayout>

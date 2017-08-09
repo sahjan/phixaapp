@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.effect.Effect;
 import android.media.effect.EffectContext;
 import android.net.Uri;
@@ -21,8 +23,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
+
 import java.io.File;
 import java.nio.IntBuffer;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
@@ -55,7 +59,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected boolean isSliderVisible = false;
     // Whether the hue slider is visible
     protected boolean isHueSliderVisible = false;
-    protected boolean layers = false;
     // The URI of the loaded image
     protected Uri uri;
 //    // The current value the slider is set to.
@@ -72,14 +75,19 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected SeekBar hueSlider;
     //hue imageview
     protected ImageView hueView;
+    protected android.os.Handler hueViewHandler;
+    protected boolean isChangedActivity = false;
     // The current activity context
     protected Context context;
     // The edit history
     protected EditHistory history;
+
     protected Image images;
+
     protected boolean redo = false;
     protected boolean redoInit = false;
     protected int redoIndex;
+
     protected static final String TAG = "RedoTag";
 
     @Override
@@ -139,7 +147,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         // If we aren't undoing we can init the effect using the current slider value and also add the parameter
         // to the stack of parameters.
         if(!undo && !redo) {
-            effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, calculateSliderValue(slider.getProgress()));
+                effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, calculateSliderValue(slider.getProgress()));
             // Only add to the stack if its an adjustable effect.
             if(isAdjustableEffect(mCurrentEffect)) {
                 // Check that there are the same amount of effects as parameters
@@ -155,12 +163,13 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         }
         // If we are undoing initialise the effect with the parameter set in the undo method.
         else {
-            effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, effectParameter);
+                effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, effectParameter);
         }
         effect.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
+            effect.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
     }
 
-    /*
+    /**
     Render a texture to the screen.
      */
     public void renderResult() {
@@ -175,7 +184,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         }
     }
 
-    /*
+    /**
     The actions taken when the canvas is drawn to.
      */
     @Override
@@ -193,6 +202,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             if (isAdjustableEffect(mCurrentEffect)) {
                 if (mCurrentEffect == R.id.hue) {
                     applyHue();
+                    loadHuePreview();
                 }
                 else {
                     loadPreviewTexture();
@@ -219,6 +229,21 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         // Set the image to whatever has been rendered to the screen
         images.setImage(takeScreenshot(gl));
 
+        /*
+        update the hue imageView if in adjust/transform/brush/overlay activity, so
+        that it contains the latest image everytime an effect is applied.
+        isChangedActivity is set to true when switched to another activity.
+*/
+        if (isChangedActivity && mCurrentEffect != R.id.hue) {
+            //update the hueView on the UI thread
+            hueViewHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    hueView.setImageBitmap(images.getImage());
+                }
+            });
+        }
+
         // These two effects produce results inconsistent with the rest of the effects when using redo
         // Because of this we have to make sure redo is set to false at the end of the rendering cycle
         // when these two effects are in use.
@@ -240,6 +265,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         }
     }
 
+
     /*
     Take a screenshot of the canvas
      */
@@ -257,6 +283,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                 ibt.put((mHeight - i - 1) * mWidth + j, ib.get(i * mWidth + j));
             }
         }
+
         Bitmap mBitmap = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_8888);
         mBitmap.copyPixelsFromBuffer(ibt);
         return mBitmap;
@@ -306,7 +333,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     }
 
     public void redo(){
-
                 redo = true;
                 mCurrentEffect = history.getRedoEffects().get(redoIndex);
                 effectParameter = history.getRedoParams().get(redoIndex);
@@ -326,8 +352,28 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                 }
             }
 
-    private void applyHue() {
-        hueView.setColorFilter(effectHandler.adjustHue(177));
+    protected void applyHue() {
+        hueView.getDrawable().setColorFilter(effectHandler.adjustHue(hueSlider.getProgress()));
+    }
+
+    protected Bitmap getHuePreviewBitmap(final View hueImgView) {
+        int width = hueImgView.getWidth();
+        int height = hueImgView.getHeight();
+        Bitmap huePreview = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(huePreview);
+        hueImgView.layout(hueImgView.getLeft(), hueImgView.getTop(), hueImgView.getRight(), hueImgView.getBottom());
+        hueImgView.draw(c);
+        return huePreview;
+    }
+
+    //hue bitmap needs to be moved to Images class
+    protected void loadHuePreview() {
+        Bitmap huePreview = getHuePreviewBitmap(hueView);
+        //Bitmap huePreview = ((BitmapDrawable) hueView.getDrawable()).getBitmap();
+        mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[1]);
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, huePreview, 0);
+        GLToolbox.initTexParams();
     }
 
     /**
@@ -376,7 +422,36 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         return effectValue;
     }
 
+    // An AsyncTask to conduct saving on a seperate thread to ensure the UI does not lock up while the save is in progress.
+    protected class SaveThread extends AsyncTask<String, Void, Boolean> {
 
+        Context context;
+        Bitmap image;
+        int layerIndex;
+        String type;
+
+        public SaveThread(Context context, Bitmap image, int layerIndex, String type){
+            this.context = context;
+            this.image = image;
+            this.layerIndex = layerIndex;
+            this.type = type;
+        }
+
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            FileManager fm = new FileManager(context);
+            switch (type) {
+                case "normal":
+                    fm.saveBitmap(image);
+                    break;
+
+                case "layer":
+                    fm.saveLayer(layerIndex, image);
+                    break;
+            }
+            return true;
+        }
+    }
 
     public void showOptions(View v){
         PopupMenu popup = new PopupMenu(this, v);
@@ -393,8 +468,10 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                         // tell the user when there are no effects to undo.
                         if(history.checkEmpty()) {
                             showToast("Nothing to Undo!");
+
                         }
                         undo();
+
                         slider.setVisibility(View.INVISIBLE);
                         setSliderProgress();
                         break;
@@ -415,6 +492,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                         prepLayers();
                         Intent intent = new Intent(context, Layers.class);
                         startActivity(intent);
+
                 }
                 return true;
             }
@@ -455,58 +533,42 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     }
 
 
-    public void prepLayers() {
+    public void prepLayers(){
         FileManager fm = new FileManager(this);
         File[] files = fm.getFileList(getFilesDir().toString());
-        for (File file : files) {
+        for (File file: files){
             file.delete();
         }
         // Set undo to true so effects applied in the re-render process aren't added to the stack
         undo = true;
-        layers = true;
         // Return the images to their original state so that effects will be applied to an unaltered image.
         images.initImages();
         // If the stack is empty then there are no effects to render so just render the original image.
         if (!history.getEffects().empty()) {
             // Iterate across the stack for the amount of objects within it.
-            genLayers();
+            for (int i = 0; i <= history.getEffects().size() - 1; i++) {
+                // Set the current effect and corresponding parameter to their values at the current index.
+                mCurrentEffect = history.getEffects().get(i);
+                effectParameter = history.getParam().get(i);
+                // Call a render
+                mEffectView.requestRender();
+                // Set the previous image to the most recent image.
+                images.setPreviousImage();
+                // temporary fix for race condition
+                android.os.SystemClock.sleep(600);
+                save(images.getImage(), context, i, "layer");
+            }
         }
+
+
         mCurrentEffect = R.id.none;
         // Done undoing so return undo to false
         undo = false;
-        layers = false;
     }
 
 
-    public void prepUndo(){
-        if (!history.checkEmpty()) {
-            if (!redoInit) {
-                history.initRedo();
-                redoInit = true;
-            }
-            history.popEffect();
-            history.popParam();
-            redoIndex = history.getEffects().size();
-        }
-    }
 
-    public void genLayers(){
-        for (int i = 0; i <= history.getEffects().size() - 1; i++) {
-            // Set the current effect and corresponding parameter to their values at the current index.
-            mCurrentEffect = history.getEffects().get(i);
-            effectParameter = history.getParam().get(i);
-            // Call a render
-            mEffectView.requestRender();
-            // Set the previous image to the most recent image.
-            images.setPreviousImage();
-            // temporary fix for race condition
-            android.os.SystemClock.sleep(600);
-            if (layers){
-                save(images.getImage(), context, i, "layer");
-            }
 
-        }
-    }
 
     // Getters and setters:
 
@@ -543,4 +605,5 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     public void setContext(Context context) {
         this.context = context;
     }
+
 }

@@ -1,135 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:visibility="visible"
     android:weightSum="1"
     tools:context="com.example.project.photoapplication.Adjust1">
 
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="bottom">
 
-    <include layout="@layout/gl_view"/>
-
-    <HorizontalScrollView
-        android:id="@+id/adjustBar"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_gravity="bottom|fill_horizontal"
-        android:background="@android:color/transparent">
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:visibility="visible">
+
+        <include
+            layout="@layout/gl_view"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/hueView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
+
+        <HorizontalScrollView
+            android:id="@+id/adjustBar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom|fill_horizontal"
+            android:background="@android:color/transparent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom">
+
+                <Button
+                    android:id="@+id/but11"
+                    android:layout_width="76dp"
+                    android:layout_height="40dp"
+                    android:text="Brightness" />
+
+                <Button
+                    android:id="@+id/but13"
+                    android:layout_width="76dp"
+                    android:layout_height="40dp"
+                    android:text="Saturation"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/but12"
+                    android:layout_width="78dp"
+                    android:layout_height="40dp"
+                    android:text="Contrast"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/but14"
+                    android:layout_width="76dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="Hue"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/but15"
+                    android:layout_width="78dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="Warmth"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/but16"
+                    android:layout_width="78dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="Highlights"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/but17"
+                    android:layout_width="78dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="Midtones"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/but18"
+                    android:layout_width="78dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="Shadows"
+                    android:textAlignment="center" />
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="bottom">
-
-            <Button
-                android:id="@+id/but11"
-                android:layout_width="76dp"
-                android:layout_height="40dp"
-                android:text="Brightness" />
-
-            <Button
-                android:id="@+id/but13"
-                android:layout_width="76dp"
-                android:layout_height="40dp"
-                android:text="Saturation"
-                android:textAlignment="center" />
-
-            <Button
-                android:id="@+id/but12"
-                android:layout_width="78dp"
-                android:layout_height="40dp"
-                android:text="Contrast"
-                android:textAlignment="center" />
-
-            <Button
-                android:id="@+id/but14"
-                android:layout_width="76dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="Hue"
-                android:textAlignment="center" />
-
-            <Button
-                android:id="@+id/but15"
-                android:layout_width="78dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="Warmth"
-                android:textAlignment="center" />
-
-            <Button
-                android:id="@+id/but16"
-                android:layout_width="78dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="Highlights"
-                android:textAlignment="center" />
-
-            <Button
-                android:id="@+id/but17"
-                android:layout_width="78dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="Midtones"
-                android:textAlignment="center" />
-
-            <Button
-                android:id="@+id/but18"
-                android:layout_width="78dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="Shadows"
-                android:textAlignment="center" />
-        </LinearLayout>
-    </HorizontalScrollView>
-
-    <LinearLayout
-        android:id="@+id/slidersBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:gravity="bottom"
-        android:orientation="vertical"
-        android:paddingBottom="40dp">
-
-        <SeekBar
-            android:id="@+id/adjustSlider"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_gravity="bottom"
-            android:layout_weight="0.02"
-            android:background="@android:color/transparent"
-            android:max="100"
-            android:min="0"
-            android:progress="50"
-            android:visibility="invisible" />
-
-        <SeekBar
-            android:id="@+id/hueSlider"
+            android:id="@+id/slidersBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="360"
-            android:min="0"
-            android:progress="180"
-            android:visibility="invisible" />
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:paddingBottom="40dp">
 
-    </LinearLayout>
+            <SeekBar
+                android:id="@+id/adjustSlider"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="0.02"
+                android:background="@android:color/transparent"
+                android:max="100"
+                android:min="0"
+                android:progress="50"
+                android:visibility="invisible" />
 
-    <include layout="@layout/top_bar"/>
+            <SeekBar
+                android:id="@+id/hueSlider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="180"
+                android:min="0"
+                android:progress="90"
+                android:visibility="invisible" />
 
-</FrameLayout>
+        </LinearLayout>
 
-    <ImageView
-        android:id="@+id/hueView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
+        <include
+            layout="@layout/top_bar"
+            android:visibility="visible" />
 
+    </FrameLayout>
 
 </LinearLayout>

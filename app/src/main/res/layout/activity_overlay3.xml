@@ -15,6 +15,12 @@
 
             <include layout="@layout/gl_view"/>
 
+            <ImageView
+                android:id="@+id/hueView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible" />
+
             <HorizontalScrollView
                 android:id="@+id/overlayBar"
                 android:layout_width="364dp"
@@ -80,6 +86,5 @@
             <include layout="@layout/top_bar"/>
 
         </FrameLayout>
-
 
     </LinearLayout>

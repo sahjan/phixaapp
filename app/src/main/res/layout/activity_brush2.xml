@@ -15,6 +15,12 @@
 
     <include layout="@layout/gl_view"/>
 
+    <ImageView
+        android:id="@+id/hueView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+
     <LinearLayout
         android:id="@+id/brushTools"
         android:layout_width="wrap_content"
@@ -160,6 +166,5 @@
     <include layout="@layout/top_bar"/>
 
 </FrameLayout>
-
 
 </LinearLayout>

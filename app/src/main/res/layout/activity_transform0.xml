@@ -15,6 +15,12 @@
 
         <include layout="@layout/gl_view" />
 
+        <ImageView
+            android:id="@+id/hueView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
+
         <HorizontalScrollView
             android:id="@+id/transformBar"
             android:layout_width="match_parent"
