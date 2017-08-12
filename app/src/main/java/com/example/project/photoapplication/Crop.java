@@ -32,9 +32,6 @@ public class Crop extends BaseEditor implements GLSurfaceView.Renderer {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.crop_activity);
 
-        hueViewHandler = new Handler();
-        //hue image view
-        hueView = (ImageView) findViewById(R.id.hueView);
         isChangedActivity = true;
 
         //Initialise the renderer and tell it to only render when Explicit

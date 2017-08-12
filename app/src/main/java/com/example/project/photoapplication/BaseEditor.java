@@ -26,6 +26,7 @@ import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.steelkiwi.cropiwa.CropIwaView;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
 import java.io.File;
@@ -83,8 +84,9 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected android.os.Handler hueViewHandler;
     protected boolean isChangedActivity = false;
     //for cropping
-    private static int REQUEST_PICTURE = 1;
-    private static int REQUEST_CROP_PICTURE = 2;
+    protected CropIwaView cropView;
+    //handler to access crop tool from renderer thread
+    protected android.os.Handler cropViewHandler;
     // The current activity context
     protected Context context;
     // The edit history
@@ -223,9 +225,13 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             //else if the effect is not 'none'
             else if (mCurrentEffect != R.id.none) {
                 if (mCurrentEffect == R.id.crop) {
-                    Intent intent = new Intent(this, Crop.class);
-                    intent.putExtra("Images", uri);
-                    startActivity(intent);
+                    //show cropper. Only accessible from UI thread
+                    cropViewHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            cropView.setVisibility(View.VISIBLE);
+                        }
+                    });
                 }
                 else {
                     loadTextures();
@@ -387,10 +393,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[1]);
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, huePreview, 0);
         GLToolbox.initTexParams();
-    }
-
-    protected void startCropImageActivity() {
-
     }
 
     /**

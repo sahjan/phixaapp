@@ -21,12 +21,6 @@
             android:layout_height="match_parent"
             android:visibility="visible" />
 
-        <ImageView
-            android:id="@+id/hueView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible" />
-
         <include layout="@layout/top_bar" />
 
     </FrameLayout>
