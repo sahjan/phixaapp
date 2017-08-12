@@ -8,15 +8,19 @@
     <item
         android:id="@+id/flipvert"
         compat:showAsAction="never"
-        android:title="flipvert"/>
+        android:title="Vertical flip"/>
     <item
         android:id="@+id/fliphor"
         compat:showAsAction="never"
-        android:title="fliphor"/>
+        android:title="Horizontal flip"/>
+    <item
+        android:id="@+id/crop"
+        compat:showAsAction="never"
+        android:title="Crop"/>
     <item
         android:id="@+id/rotate"
         compat:showAsAction="never"
-        android:title="rotate"/>
+        android:title="Rotate"/>
 
 
 </menu>

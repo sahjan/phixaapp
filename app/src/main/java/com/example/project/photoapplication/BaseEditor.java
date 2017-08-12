@@ -1,5 +1,6 @@
 package com.example.project.photoapplication;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,6 +24,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
+import android.widget.Toast;
+
+import com.steelkiwi.cropiwa.CropIwaView;
+import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
 import java.io.File;
 import java.nio.IntBuffer;
@@ -75,8 +80,13 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected SeekBar hueSlider;
     //hue imageview
     protected ImageView hueView;
+    //handler to update hue from UI thread
     protected android.os.Handler hueViewHandler;
     protected boolean isChangedActivity = false;
+    //for cropping
+    protected CropIwaView cropView;
+    //handler to access crop tool from renderer thread
+    protected android.os.Handler cropViewHandler;
     // The current activity context
     protected Context context;
     // The edit history
@@ -214,9 +224,20 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             }
             //else if the effect is not 'none'
             else if (mCurrentEffect != R.id.none) {
-                loadTextures();
-                applyEffect(0, 1);
-                effectApplied = true;
+                if (mCurrentEffect == R.id.crop) {
+                    //show cropper. Only accessible from UI thread
+                    cropViewHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            cropView.setVisibility(View.VISIBLE);
+                        }
+                    });
+                }
+                else {
+                    loadTextures();
+                    applyEffect(0, 1);
+                    effectApplied = true;
+                }
             }
         }
         else {

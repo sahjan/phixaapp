@@ -13,6 +13,8 @@ import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.steelkiwi.cropiwa.CropIwaView;
+
 public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
 
     @Override
@@ -20,6 +22,8 @@ public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_transform0);
+
+        cropViewHandler = new Handler();
 
         hueViewHandler = new Handler();
         //hue image view
@@ -40,6 +44,10 @@ public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
         context = this;
         history = new EditHistory();
         images = new Image(uri, context);
+
+        //set the crop tool
+        cropView = (CropIwaView) findViewById(R.id.crop_view);
+        cropView.setImageUri(uri);
 
         if (!isEffectApplied()) {
             images.setPreviousImage();
