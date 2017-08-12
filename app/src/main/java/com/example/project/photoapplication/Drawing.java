@@ -2,33 +2,33 @@ package com.example.project.photoapplication;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.provider.MediaStore;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
+import android.provider.MediaStore;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import java.io.IOException;
 
-public class Drawing extends AppCompatActivity {
+public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnColorChangedListener {
 
     private Bitmap image;
     private Uri path;
     private DrawableView view;
+    private Paint mPaint;
+    private ColourPickerDialog c;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_drawing);
         Intent intent = getIntent();
         path = intent.getParcelableExtra("Image");
@@ -39,6 +39,16 @@ public class Drawing extends AppCompatActivity {
         catch(IOException e){
             e.printStackTrace();
         }
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setDither(true);
+        mPaint.setColor(0xFFFF0000);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeJoin(Paint.Join.ROUND);
+        mPaint.setStrokeCap(Paint.Cap.ROUND);
+        mPaint.setStrokeWidth(12);
+
+        c = new ColourPickerDialog(this, this, mPaint.getColor());
 
         image = b.copy(Bitmap.Config.ARGB_8888, true);
          view = (DrawableView) findViewById(R.id.canvas);
@@ -51,6 +61,18 @@ public class Drawing extends AppCompatActivity {
         });
 
         view.setDrawingCacheEnabled(true);
+
+        Button butt = (Button) findViewById(R.id.but1);
+        butt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                c.show();
+                c.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+
+            }
+        });
+
 
     }
 
@@ -73,4 +95,10 @@ public class Drawing extends AppCompatActivity {
         view.setLayoutParams(lp);
         view.setBackground(new BitmapDrawable(getResources(), image));
     }
+
+    public void colorChanged(int color) {
+        mPaint.setColor(color);
+        Log.e("Colour", mPaint.toString());
+    }
+
 }
