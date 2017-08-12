@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,35 +41,16 @@ public class Drawing extends AppCompatActivity {
         }
 
         image = b.copy(Bitmap.Config.ARGB_8888, true);
-        view = (DrawableView) findViewById(R.id.canvas);
+         view = (DrawableView) findViewById(R.id.canvas);
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.activity_drawing);
         layout.post(new Runnable() {
             @Override
             public void run() {
-                int w = view.getMeasuredWidth();
-                int h = view.getMeasuredHeight();
-                Log.e("dimensions", h + " " + w);
-                int scaledHeight = w * image.getHeight()/image.getWidth();
-                int scaledWidth = w;
-                Log.e("dimensions", scaledHeight + " " + scaledWidth);
-                view.setLayoutParams(new RelativeLayout.LayoutParams(scaledWidth, scaledHeight));
-                view.setBackground(new BitmapDrawable(getResources(), image));
+                setView();
             }
         });
 
         view.setDrawingCacheEnabled(true);
-
-        Button butt = new Button(this);
-        butt.setLayoutParams(new RelativeLayout.LayoutParams(100, 100));
-        butt.setText("Save");
-        layout.addView(butt);
-
-        butt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                save();
-            }
-        });
 
     }
 
@@ -77,5 +59,18 @@ public class Drawing extends AppCompatActivity {
         Bitmap b = view.getDrawingCache();
         FileManager fm = new FileManager(this);
         fm.saveBitmap(b);
+    }
+
+    public void setView(){
+        int w = view.getWidth();
+        int h = view.getMeasuredHeight();
+        Log.e("dimensions", h + " " + w);
+        int scaledHeight = w * image.getHeight()/image.getWidth();
+        int scaledWidth = w;
+        Log.e("dimensions", scaledHeight + " " + scaledWidth);
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(scaledWidth, scaledHeight);
+        lp.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+        view.setLayoutParams(lp);
+        view.setBackground(new BitmapDrawable(getResources(), image));
     }
 }

@@ -28,6 +28,7 @@
         <!-- Splash Screen Activity -->
         <activity android:name=".SplashScreen">
             <intent-filter>
+
                 <!-- Main Page Activity -->
                 <action android:name="android.intent.action.MAIN" />
                 <!-- Launcher Activity -->
@@ -39,18 +40,18 @@
         <activity android:name=".Loader" />
         <!-- Recent Images Gallery Activity -->
         <activity android:name=".RecentImages" />
-         <!--Transform0 Tools Activity -->
+        <!-- Transform0 Tools Activity -->
         <activity android:name=".Transform0" />
-        <!-- Adjust Tools Activity-->
+        <!-- Adjust Tools Activity -->
         <activity android:name=".Adjust1" />
-        <!-- Brush Tools Activity-->
+        <!-- Brush Tools Activity -->
         <activity android:name=".Brush2" />
-        <!-- Overlay Tools Activity-->
-        <activity android:name=".Overlay3"/>
-        <!--Below left in for testing new functionality-->
-        <activity android:name=".EffectsFilterActivity"/>
-        <activity android:name=".Layers"/>
-
+        <!-- Overlay Tools Activity -->
+        <activity android:name=".Overlay3" />
+        <!-- Below left in for testing new functionality -->
+        <activity android:name=".EffectsFilterActivity" />
+        <activity android:name=".Layers" />
+        <activity android:name=".Drawing"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -61,6 +62,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
 
     </application>
 

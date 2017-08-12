@@ -52,7 +52,6 @@ public class DrawableView extends View {
         super.onSizeChanged(w, h, oldw, oldh);
         width = w;
         height = h;
-//        int scaledHeight = width * mbitmap.getHeight()/mbitmap.getWidth();
         mbitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         mcanvas = new Canvas(mbitmap);
     }

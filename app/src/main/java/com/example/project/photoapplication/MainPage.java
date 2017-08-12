@@ -131,7 +131,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
         findViewById(R.id.but3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainPage.this, Brush2.class);
+                Intent intent = new Intent(MainPage.this, Drawing.class);
                 intent.putExtra("Image", uri);
                 startActivity(intent);
                 images.recycle();
