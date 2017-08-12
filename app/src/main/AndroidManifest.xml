@@ -52,6 +52,7 @@
         <activity android:name=".EffectsFilterActivity" />
         <activity android:name=".Layers" />
         <activity android:name=".Drawing"/>
+        <activity android:name=".Crop" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
