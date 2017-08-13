@@ -10,6 +10,7 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.SweepGradient;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -184,6 +185,7 @@ public class ColourPickerDialog extends Dialog {
         OnColorChangedListener l = new OnColorChangedListener() {
             public void colorChanged(int color) {
                 mListener.colorChanged(color);
+                Log.e("Colour", Integer.toString(color));
                 dismiss();
             }
         };

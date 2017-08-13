@@ -98,6 +98,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
 
     public void colorChanged(int color) {
         mPaint.setColor(color);
+        view.setColour(color);
         Log.e("Colour", mPaint.toString());
     }
 

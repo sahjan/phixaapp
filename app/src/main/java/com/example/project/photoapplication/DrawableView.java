@@ -15,6 +15,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Created by Ed on 09/08/2017.
  */
@@ -33,6 +36,9 @@ public class DrawableView extends View {
     private Context context;
     private static final float Tolerance = 5;
     private Boolean bitmapSet = false;
+    private ArrayList<Path> paths;
+    private HashMap<Path, Integer> colours;
+    private int colour = Color.BLACK;
 
 
     public DrawableView(Context context, AttributeSet attrs) {
@@ -45,6 +51,8 @@ public class DrawableView extends View {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
         paint.setStrokeWidth(4f);
+        paths = new ArrayList<>();
+        colours = new HashMap<>();
     }
 
     @Override
@@ -61,6 +69,12 @@ public class DrawableView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawBitmap(mbitmap, 0, 0, paint);
+        for (Path p : paths)
+        {
+            paint.setColor(colours.get(p));
+            canvas.drawPath(p, paint);
+        }
+        paint.setColor(colour);
         canvas.drawPath(path,paint);
         super.onDraw(canvas);
     }
@@ -95,6 +109,9 @@ public class DrawableView extends View {
                 break ;
             case MotionEvent.ACTION_UP:
                 upTouch();
+                paths.add(path);
+                colours.put(path, colour);
+                path = new Path();
                 invalidate();
                 break ;
             case MotionEvent.ACTION_MOVE:
@@ -104,6 +121,11 @@ public class DrawableView extends View {
 
         }
         return true ;
+    }
+
+    public void setColour(int colour){
+//        paint.setColor(colour);
+        this.colour = colour;
     }
 
 }
