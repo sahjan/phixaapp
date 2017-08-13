@@ -19,7 +19,35 @@
             android:id="@+id/crop_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:ci_translation_enabled="false"
             android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/cropButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="1">
+
+            <ImageButton
+                android:id="@+id/confirmCrop"
+                android:layout_width="wrap_content"
+                android:layout_height="78dp"
+                android:layout_weight="0.06"
+                app:srcCompat="@android:drawable/ic_menu_crop" />
+
+            <ImageButton
+                android:id="@+id/cancelCrop"
+                android:layout_width="wrap_content"
+                android:layout_height="78dp"
+                android:layout_weight="0.06"
+                app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/hueView"

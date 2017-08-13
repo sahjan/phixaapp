@@ -1,6 +1,7 @@
 package com.example.project.photoapplication;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
@@ -11,12 +12,14 @@ import android.support.annotation.Nullable;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.steelkiwi.cropiwa.CropIwaView;
+import com.steelkiwi.cropiwa.config.CropIwaSaveConfig;
 
 /**
  * Created by Sahjan on 11/08/2017.
@@ -32,7 +35,31 @@ public class Crop extends BaseEditor implements GLSurfaceView.Renderer {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.crop_activity);
 
+        //hue image view
+        hueView = (ImageView) findViewById(R.id.hueView);
+        hueViewHandler = new Handler();
         isChangedActivity = true;
+
+        //confirm and cancel buttons
+        ImageButton confirmButton = (ImageButton) findViewById(R.id.confirmCrop);
+        ImageButton cancelButton = (ImageButton) findViewById(R.id.cancelCrop);
+
+        //button listeners
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cropView.crop(new CropIwaSaveConfig.Builder(uri)
+                        .setCompressFormat(Bitmap.CompressFormat.JPEG)
+                        .build());
+            }
+        });
 
         //Initialise the renderer and tell it to only render when Explicit
         //requested with the RENDERMODE_WHEN_DIRTY option
@@ -45,7 +72,7 @@ public class Crop extends BaseEditor implements GLSurfaceView.Renderer {
         Intent intent = getIntent();
         uri = intent.getParcelableExtra("Images");
 
-        //set the crop tool
+        //set up the crop tool
         cropView = (CropIwaView) findViewById(R.id.crop_view);
         cropView.setImageUri(uri);
 

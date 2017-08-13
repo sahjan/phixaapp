@@ -56,6 +56,17 @@ public class Image {
         previousImage = image;
     }
 
+    public void setCroppedImage (Uri croppedUri, Context context) {
+        Bitmap croppedImg = null;
+        try {
+            croppedImg = MediaStore.Images.Media.getBitmap(context.getContentResolver(), croppedUri);
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+        setImage(croppedImg);
+    }
+
     public void recycle(){
         image.recycle();
         previousImage.recycle();

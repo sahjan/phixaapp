@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -85,6 +86,9 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected boolean isChangedActivity = false;
     //for cropping
     protected CropIwaView cropView;
+    protected LinearLayout cropButtons;
+    protected CropIwaResultReceiver cropResultReciever;
+    protected boolean confirmedCrop = false;
     //handler to access crop tool from renderer thread
     protected android.os.Handler cropViewHandler;
     // The current activity context
@@ -225,13 +229,22 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             //else if the effect is not 'none'
             else if (mCurrentEffect != R.id.none) {
                 if (mCurrentEffect == R.id.crop) {
-                    //show cropper. Only accessible from UI thread
+                    //show crop tool. Access from UI thread
                     cropViewHandler.post(new Runnable() {
                         @Override
                         public void run() {
                             cropView.setVisibility(View.VISIBLE);
+                            cropButtons.setVisibility(View.VISIBLE);
                         }
                     });
+                    if (confirmedCrop) {
+                        loadTextures();
+                        mCurrentEffect = R.id.none;
+                        renderResult();
+                    }
+                    /*Intent intent = new Intent(this, Crop.class);
+                    intent.putExtra("Images", uri);
+                    startActivity(intent); */
                 }
                 else {
                     loadTextures();

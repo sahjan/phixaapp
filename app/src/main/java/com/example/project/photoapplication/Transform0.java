@@ -1,19 +1,31 @@
 package com.example.project.photoapplication;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
+import android.opengl.GLUtils;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.steelkiwi.cropiwa.CropIwaView;
+import com.steelkiwi.cropiwa.config.CropIwaSaveConfig;
+import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
+
+import java.io.IOException;
+
+import javax.microedition.khronos.opengles.GL;
 
 public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
 
@@ -45,9 +57,58 @@ public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
         history = new EditHistory();
         images = new Image(uri, context);
 
-        //set the crop tool
+        //set the crop tools
         cropView = (CropIwaView) findViewById(R.id.crop_view);
         cropView.setImageUri(uri);
+        cropResultReciever = new CropIwaResultReceiver();
+        cropResultReciever.register(this);
+        cropResultReciever.setListener(new CropIwaResultReceiver.Listener() {
+            @Override
+            public void onCropSuccess(Uri croppedUri) {
+                //set the new bitmap
+                images.setCroppedImage(croppedUri, context);
+                confirmedCrop = true;
+                Toast.makeText(context, "Successfully cropped!", Toast.LENGTH_SHORT).show();
+                cropResultReciever.unregister(context);
+                //can only crop once because it unregisters here
+                //need to unregister when going back to main activity
+            }
+
+            @Override
+            public void onCropFailed(Throwable e) {
+                Toast.makeText(context, "Crop failed! " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                cropResultReciever.unregister(context);
+            }
+        });
+
+        //confirm and cancel buttons
+        cropButtons = (LinearLayout) findViewById(R.id.cropButtons);
+        ImageButton confirmButton = (ImageButton) findViewById(R.id.confirmCrop);
+        ImageButton cancelButton = (ImageButton) findViewById(R.id.cancelCrop);
+
+        //button listeners
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //turns the screen black maybe because onDrawFrame screenshots
+                //the black screen? Check in debugger.
+                cropView.setVisibility(View.GONE);
+                cropButtons.setVisibility(View.GONE);
+            }
+        });
+
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cropView.crop(new CropIwaSaveConfig(uri));
+                cropView.setVisibility(View.GONE);
+                cropButtons.setVisibility(View.GONE);
+                //cropView.crop(new CropIwaSaveConfig(uri));
+                //crop the image
+                //set the cropped bitmap as the texture
+                //render the texture
+            }
+        });
 
         if (!isEffectApplied()) {
             images.setPreviousImage();
@@ -95,6 +156,19 @@ public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
             }
         });
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mEffectView.onPause();
+        //mEffectView.setPreserveEGLContextOnPause(true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mEffectView.onResume();
     }
 
     /**
