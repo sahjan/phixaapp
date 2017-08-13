@@ -380,7 +380,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
 
     public void applyCrop() {
         mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[1]);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, images.getImage(), 0);
         GLToolbox.initTexParams();
     }

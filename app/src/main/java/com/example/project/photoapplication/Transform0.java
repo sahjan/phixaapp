@@ -78,7 +78,14 @@ public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
                 images.setImage(croppedBitmap);
                 cropView.setVisibility(View.GONE);
                 cropButtons.setVisibility(View.GONE);
-                //confirmedCrop = true;
+                mCurrentEffect = R.id.none;
+                //REQUEST THE RENDER HERE
+                mEffectView.queueEvent(new Runnable() {
+                    public void run() {
+                        applyCrop();
+                        mEffectView.requestRender();
+                    }
+                });
             }
         });
 
