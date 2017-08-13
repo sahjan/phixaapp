@@ -241,6 +241,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                         loadTextures();
                         mCurrentEffect = R.id.none;
                         renderResult();
+                        confirmedCrop = false;
                     }
                     /*Intent intent = new Intent(this, Crop.class);
                     intent.putExtra("Images", uri);
