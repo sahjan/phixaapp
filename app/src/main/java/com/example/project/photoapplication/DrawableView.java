@@ -3,6 +3,7 @@ package com.example.project.photoapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -14,6 +15,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.SeekBar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +40,13 @@ public class DrawableView extends View {
     private Boolean bitmapSet = false;
     private ArrayList<Path> paths;
     private HashMap<Path, Integer> colours;
+    private HashMap<Path, Float> brushSize;
+    private HashMap<Path, Boolean> blurring;
     private int colour = Color.BLACK;
+    private float brushWidth = 4f;
+    private boolean blur = false;
+    private BlurMaskFilter blurFilter;
+
 
 
     public DrawableView(Context context, AttributeSet attrs) {
@@ -53,6 +61,8 @@ public class DrawableView extends View {
         paint.setStrokeWidth(4f);
         paths = new ArrayList<>();
         colours = new HashMap<>();
+        brushSize = new HashMap<>();
+        blurring = new HashMap<>();
     }
 
     @Override
@@ -72,9 +82,26 @@ public class DrawableView extends View {
         for (Path p : paths)
         {
             paint.setColor(colours.get(p));
+            paint.setStrokeWidth(brushSize.get(p));
+            if(blurring.get(p) == true){
+                paint.setXfermode(null);
+                paint.setAlpha(0xFF);
+                paint.setMaskFilter(blurFilter);
+            }
+            else {
+                paint.setMaskFilter(null);
+            }
             canvas.drawPath(p, paint);
         }
         paint.setColor(colour);
+        if(blur){
+            paint.setXfermode(null);
+            paint.setAlpha(0xFF);
+            paint.setMaskFilter(blurFilter);
+        }
+        else{
+            paint.setMaskFilter(null);
+        }
         canvas.drawPath(path,paint);
         super.onDraw(canvas);
     }
@@ -111,6 +138,8 @@ public class DrawableView extends View {
                 upTouch();
                 paths.add(path);
                 colours.put(path, colour);
+                brushSize.put(path, brushWidth);
+                blurring.put(path, blur);
                 path = new Path();
                 invalidate();
                 break ;
@@ -124,8 +153,24 @@ public class DrawableView extends View {
     }
 
     public void setColour(int colour){
-//        paint.setColor(colour);
         this.colour = colour;
     }
+
+    public void setStrokeWidth(float width){
+        paint.setStrokeWidth(width);
+        brushWidth = width;
+    }
+
+
+    public void setBlur(BlurMaskFilter filter){
+        if(blur){
+            blur = false;
+        }
+        else {
+            blur = true;
+        }
+        blurFilter = filter;
+    }
+
 
 }
