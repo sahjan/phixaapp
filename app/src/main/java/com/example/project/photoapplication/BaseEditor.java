@@ -229,7 +229,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             //else if the effect is not 'none'
             else if (mCurrentEffect != R.id.none) {
                 if (mCurrentEffect == R.id.crop) {
-                    //show crop tool. Access from UI thread
+                    /*show crop tool. Access from UI thread
                     cropViewHandler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -243,7 +243,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                         renderResult();
                         confirmedCrop = false;
                     }
-                    /*Intent intent = new Intent(this, Crop.class);
+                    /Intent intent = new Intent(this, Crop.class);
                     intent.putExtra("Images", uri);
                     startActivity(intent); */
                 }
