@@ -51,7 +51,8 @@
         <!-- Below left in for testing new functionality -->
         <activity android:name=".EffectsFilterActivity" />
         <activity android:name=".Layers" />
-        <activity android:name=".Drawing"/>
+        <activity android:name=".Drawing"
+            android:hardwareAccelerated="false"/>
         <activity android:name=".Crop" />
 
         <provider

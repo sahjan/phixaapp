@@ -63,6 +63,8 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         c = new ColourPickerDialog(this, this, mPaint.getColor());
 
         image = b.copy(Bitmap.Config.ARGB_8888, true);
+
+
          view = (DrawableView) findViewById(R.id.canvas);
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.activity_drawing);
         layout.post(new Runnable() {
@@ -115,7 +117,12 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
             @Override
             public void onClick(View view) {
                 setblur();
-                blur = true;
+                if(blur) {
+                    blur = false;
+                }
+                else {
+                    blur = true;
+                }
             }
         });
 
@@ -133,9 +140,12 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
                         view.getLocationOnScreen(viewCoords);
                         x = viewX - viewCoords[0];
                         y = viewY - (viewCoords[1] - 380);
+                        if (y > image.getHeight()) {
+                            y = image.getHeight() - 1;
+                        }
                         Log.e("Coords", Float.toString(x) + " " + Float.toString(y));
                         getBlurColour();
-                        return true;
+                        return false;
                     }
                 }
                 return false;
@@ -184,7 +194,9 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
     }
 
     public void getBlurColour() {
+        Log.e("coords", Integer.toString((int) y));
         int pix = image.getPixel((int) x, (int) y);
+
         int red = Color.red(pix);
         int green = Color.green(pix);
         int blue = Color.blue(pix);

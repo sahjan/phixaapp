@@ -45,7 +45,7 @@ public class DrawableView extends View {
     private int colour = Color.BLACK;
     private float brushWidth = 4f;
     private boolean blur = false;
-    private BlurMaskFilter blurFilter;
+    private BlurMaskFilter blurFilter = new BlurMaskFilter(8, BlurMaskFilter.Blur.NORMAL);;
 
 
 
@@ -79,6 +79,7 @@ public class DrawableView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawBitmap(mbitmap, 0, 0, paint);
+        // draws all previous paths
         for (Path p : paths)
         {
             paint.setColor(colours.get(p));
@@ -93,6 +94,7 @@ public class DrawableView extends View {
             }
             canvas.drawPath(p, paint);
         }
+        // draws the current path
         paint.setColor(colour);
         if(blur){
             paint.setXfermode(null);
@@ -169,7 +171,7 @@ public class DrawableView extends View {
         else {
             blur = true;
         }
-        blurFilter = filter;
+//        blurFilter = filter;
     }
 
 
