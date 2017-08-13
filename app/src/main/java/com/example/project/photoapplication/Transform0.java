@@ -19,11 +19,7 @@ import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-import com.steelkiwi.cropiwa.CropIwaView;
-import com.steelkiwi.cropiwa.config.CropIwaSaveConfig;
-import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
-
-import java.io.IOException;
+import com.lyft.android.scissors.CropView;
 
 import javax.microedition.khronos.opengles.GL;
 
@@ -57,29 +53,9 @@ public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
         history = new EditHistory();
         images = new Image(uri, context);
 
-        //set the crop tools
-        cropView = (CropIwaView) findViewById(R.id.crop_view);
-        cropView.setImageUri(uri);
-        cropResultReciever = new CropIwaResultReceiver();
-        cropResultReciever.register(this);
-        cropResultReciever.setListener(new CropIwaResultReceiver.Listener() {
-            @Override
-            public void onCropSuccess(Uri croppedUri) {
-                //set the new bitmap
-                images.setCroppedImage(croppedUri, context);
-                confirmedCrop = true;
-                Toast.makeText(context, "Successfully cropped!", Toast.LENGTH_SHORT).show();
-                cropResultReciever.unregister(context);
-                //can only crop once because it unregisters here
-                //need to unregister when going back to main activity
-            }
-
-            @Override
-            public void onCropFailed(Throwable e) {
-                Toast.makeText(context, "Crop failed! " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                cropResultReciever.unregister(context);
-            }
-        });
+        //set the crop tool
+        cropView = (CropView) findViewById(R.id.cropView);
+        cropView.setImageBitmap(images.getImage());
 
         //confirm and cancel buttons
         cropButtons = (LinearLayout) findViewById(R.id.cropButtons);
@@ -90,8 +66,6 @@ public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //turns the screen black maybe because onDrawFrame screenshots
-                //the black screen? Check in debugger.
                 cropView.setVisibility(View.GONE);
                 cropButtons.setVisibility(View.GONE);
             }
@@ -100,13 +74,11 @@ public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cropView.crop(new CropIwaSaveConfig(uri));
+                Bitmap croppedBitmap = cropView.crop();
+                images.setImage(croppedBitmap);
                 cropView.setVisibility(View.GONE);
                 cropButtons.setVisibility(View.GONE);
-                //cropView.crop(new CropIwaSaveConfig(uri));
-                //crop the image
-                //set the cropped bitmap as the texture
-                //render the texture
+                //confirmedCrop = true;
             }
         });
 

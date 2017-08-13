@@ -18,16 +18,12 @@ import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-import com.steelkiwi.cropiwa.CropIwaView;
-import com.steelkiwi.cropiwa.config.CropIwaSaveConfig;
-
 /**
  * Created by Sahjan on 11/08/2017.
  */
 
 public class Crop extends BaseEditor implements GLSurfaceView.Renderer {
 
-    private CropIwaView cropView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +51,7 @@ public class Crop extends BaseEditor implements GLSurfaceView.Renderer {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cropView.crop(new CropIwaSaveConfig.Builder(uri)
-                        .setCompressFormat(Bitmap.CompressFormat.JPEG)
-                        .build());
+
             }
         });
 
@@ -73,8 +67,7 @@ public class Crop extends BaseEditor implements GLSurfaceView.Renderer {
         uri = intent.getParcelableExtra("Images");
 
         //set up the crop tool
-        cropView = (CropIwaView) findViewById(R.id.crop_view);
-        cropView.setImageUri(uri);
+        //nothing yet...
 
         mCurrentEffect = R.id.none;
         context = this;

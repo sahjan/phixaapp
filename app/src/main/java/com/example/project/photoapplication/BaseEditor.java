@@ -27,8 +27,7 @@ import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-import com.steelkiwi.cropiwa.CropIwaView;
-import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
+import com.lyft.android.scissors.CropView;
 
 import java.io.File;
 import java.nio.IntBuffer;
@@ -85,10 +84,8 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected android.os.Handler hueViewHandler;
     protected boolean isChangedActivity = false;
     //for cropping
-    protected CropIwaView cropView;
+    protected CropView cropView;
     protected LinearLayout cropButtons;
-    protected CropIwaResultReceiver cropResultReciever;
-    protected boolean confirmedCrop = false;
     //handler to access crop tool from renderer thread
     protected android.os.Handler cropViewHandler;
     // The current activity context
@@ -229,23 +226,15 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             //else if the effect is not 'none'
             else if (mCurrentEffect != R.id.none) {
                 if (mCurrentEffect == R.id.crop) {
-                    /*show crop tool. Access from UI thread
+                    //show crop tool. Access from UI thread
                     cropViewHandler.post(new Runnable() {
                         @Override
                         public void run() {
                             cropView.setVisibility(View.VISIBLE);
                             cropButtons.setVisibility(View.VISIBLE);
+                            Toast.makeText(context, "Zoom in, and pan to choose your desired crop region.", Toast.LENGTH_LONG).show();
                         }
                     });
-                    if (confirmedCrop) {
-                        loadTextures();
-                        mCurrentEffect = R.id.none;
-                        renderResult();
-                        confirmedCrop = false;
-                    }
-                    /Intent intent = new Intent(this, Crop.class);
-                    intent.putExtra("Images", uri);
-                    startActivity(intent); */
                 }
                 else {
                     loadTextures();
@@ -387,6 +376,13 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
 
     protected void applyHue() {
         hueView.getDrawable().setColorFilter(effectHandler.adjustHue(hueSlider.getProgress()));
+    }
+
+    public void applyCrop() {
+        mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[1]);
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, images.getImage(), 0);
+        GLToolbox.initTexParams();
     }
 
     protected Bitmap getHuePreviewBitmap(final View hueImgView) {

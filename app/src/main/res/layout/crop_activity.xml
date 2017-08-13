@@ -16,13 +16,6 @@
 
         <include layout="@layout/gl_view" />
 
-        <com.steelkiwi.cropiwa.CropIwaView
-            android:id="@+id/crop_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible"
-            app:ci_translation_enabled="false" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
