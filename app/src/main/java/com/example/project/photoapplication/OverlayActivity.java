@@ -13,7 +13,7 @@ import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-public class Overlay3 extends BaseEditor implements GLSurfaceView.Renderer{
+public class OverlayActivity extends BaseEditor implements GLSurfaceView.Renderer{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,37 +48,10 @@ public class Overlay3 extends BaseEditor implements GLSurfaceView.Renderer{
 
         effectHandler = new Effects();
 
-        // Assign the slider to its XML counterpart and set its relevant listeners
-        slider = (SeekBar) findViewById(R.id.adjustSlider);
-        slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int sliderProgress, boolean b) {
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                //queueEvent ensures this occurs in the Renderer thread.
-                // When we stop tracking the touch on the slider apply the effect with its parameter and request a render.
-                mEffectView.queueEvent(new Runnable() {
-                    public void run() {
-                        applyEffect(0,1);
-                        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[1]);
-                        mEffectView.requestRender();
-                        sliderValue = calculateSliderValue(slider.getProgress());
-                    }
-                });
-            }
-        });
-
-        findViewById(R.id.but31).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.textButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 showPopupOverlay(view);
-
             }
         });
 
@@ -88,7 +61,6 @@ public class Overlay3 extends BaseEditor implements GLSurfaceView.Renderer{
                 showOptions(view);
             }
         });
-
     }
 
     /**
@@ -129,9 +101,20 @@ public class Overlay3 extends BaseEditor implements GLSurfaceView.Renderer{
         popup.show();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mEffectView.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mEffectView.onResume();
+    }
 
     public void setSliderProgress(){
-        Overlay3.this.getmEffectView().post(new Runnable() {
+        OverlayActivity.this.getmEffectView().post(new Runnable() {
             @Override
             public void run() {
                 slider.setProgress(50);
@@ -140,9 +123,9 @@ public class Overlay3 extends BaseEditor implements GLSurfaceView.Renderer{
     }
 
     public void showToast(final String toastString){
-        Overlay3.this.runOnUiThread(new Runnable() {
+        OverlayActivity.this.runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(Overlay3.this, toastString, Toast.LENGTH_SHORT).show();
+                Toast.makeText(OverlayActivity.this, toastString, Toast.LENGTH_SHORT).show();
             }
         });
     }

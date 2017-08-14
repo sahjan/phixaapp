@@ -40,14 +40,14 @@
         <activity android:name=".Loader" />
         <!-- Recent Images Gallery Activity -->
         <activity android:name=".RecentImages" />
-        <!-- Transform0 Tools Activity -->
-        <activity android:name=".Transform0" />
+        <!-- TransformActivity Tools Activity -->
+        <activity android:name=".TransformActivity" />
         <!-- Adjust Tools Activity -->
-        <activity android:name=".Adjust1" />
+        <activity android:name=".AdjustActivity" />
         <!-- Brush Tools Activity -->
-        <activity android:name=".Brush2" />
+        <activity android:name=".BrushActivity" />
         <!-- Overlay Tools Activity -->
-        <activity android:name=".Overlay3" />
+        <activity android:name=".OverlayActivity" />
         <!-- Below left in for testing new functionality -->
         <activity android:name=".EffectsFilterActivity" />
         <activity android:name=".Layers" />

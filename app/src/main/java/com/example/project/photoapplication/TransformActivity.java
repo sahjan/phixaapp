@@ -2,13 +2,10 @@ package com.example.project.photoapplication;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
-import android.opengl.GLUtils;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -21,9 +18,7 @@ import android.widget.Toast;
 
 import com.lyft.android.scissors.CropView;
 
-import javax.microedition.khronos.opengles.GL;
-
-public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
+public class TransformActivity extends BaseEditor implements GLSurfaceView.Renderer{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +51,10 @@ public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
         //set the crop tool
         cropView = (CropView) findViewById(R.id.cropView);
         cropView.setImageBitmap(images.getImage());
-
         //confirm and cancel buttons
         cropButtons = (LinearLayout) findViewById(R.id.cropButtons);
         ImageButton confirmButton = (ImageButton) findViewById(R.id.confirmCrop);
         ImageButton cancelButton = (ImageButton) findViewById(R.id.cancelCrop);
-
         //button listeners
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,36 +88,10 @@ public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
 
         effectHandler = new Effects();
 
-        // Assign the slider to its XML counterpart and set its relevant listeners
-        slider = (SeekBar) findViewById(R.id.adjustSlider);
-        slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int sliderProgress, boolean b) {
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                //queueEvent ensures this occurs in the Renderer thread.
-                // When we stop tracking the touch on the slider apply the effect with its parameter and request a render.
-                mEffectView.queueEvent(new Runnable() {
-                    public void run() {
-                        applyEffect(0,1);
-                        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[1]);
-                        mEffectView.requestRender();
-                        sliderValue = calculateSliderValue(slider.getProgress());
-                    }
-                });
-            }
-        });
-
-        findViewById(R.id.but01).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.cropButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showPopupTransform(view);
-
             }
         });
 
@@ -134,24 +101,10 @@ public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
                 showOptions(view);
             }
         });
-
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mEffectView.onPause();
-        //mEffectView.setPreserveEGLContextOnPause(true);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mEffectView.onResume();
     }
 
     /**
-     * Transform0 menu
+     * TransformActivity menu
      * @param v
      */
     public void showPopupTransform(View v) {
@@ -188,8 +141,21 @@ public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
         popup.show();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mEffectView.onPause();
+        //mEffectView.setPreserveEGLContextOnPause(true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mEffectView.onResume();
+    }
+
     public void setSliderProgress(){
-        Transform0.this.getmEffectView().post(new Runnable() {
+        TransformActivity.this.getmEffectView().post(new Runnable() {
             @Override
             public void run() {
                 slider.setProgress(50);
@@ -198,9 +164,9 @@ public class Transform0 extends BaseEditor implements GLSurfaceView.Renderer{
     }
 
     public void showToast(final String toastString){
-        Transform0.this.runOnUiThread(new Runnable() {
+        TransformActivity.this.runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(Transform0.this, toastString, Toast.LENGTH_SHORT).show();
+                Toast.makeText(TransformActivity.this, toastString, Toast.LENGTH_SHORT).show();
             }
         });
     }

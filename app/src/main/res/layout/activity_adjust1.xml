@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:visibility="visible"
     android:weightSum="1"
-    tools:context="com.example.project.photoapplication.Adjust1">
+    tools:context="com.example.project.photoapplication.AdjustActivity">
 
 
     <FrameLayout
@@ -27,7 +27,7 @@
             android:visibility="invisible" />
 
         <HorizontalScrollView
-            android:id="@+id/adjustBar"
+            android:id="@+id/menuBar"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="bottom|fill_horizontal"
@@ -39,27 +39,27 @@
                 android:layout_gravity="bottom">
 
                 <Button
-                    android:id="@+id/but11"
+                    android:id="@+id/brightnessButton"
                     android:layout_width="76dp"
                     android:layout_height="40dp"
                     android:text="Brightness" />
 
                 <Button
-                    android:id="@+id/but13"
+                    android:id="@+id/contrastButton"
                     android:layout_width="76dp"
-                    android:layout_height="40dp"
-                    android:text="Saturation"
-                    android:textAlignment="center" />
-
-                <Button
-                    android:id="@+id/but12"
-                    android:layout_width="78dp"
                     android:layout_height="40dp"
                     android:text="Contrast"
                     android:textAlignment="center" />
 
                 <Button
-                    android:id="@+id/but14"
+                    android:id="@+id/saturationButton"
+                    android:layout_width="78dp"
+                    android:layout_height="40dp"
+                    android:text="Saturation"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/hueButton"
                     android:layout_width="76dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"
@@ -67,15 +67,15 @@
                     android:textAlignment="center" />
 
                 <Button
-                    android:id="@+id/but15"
+                    android:id="@+id/temperatureButton"
                     android:layout_width="78dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"
-                    android:text="Warmth"
+                    android:text="Temperature"
                     android:textAlignment="center" />
 
                 <Button
-                    android:id="@+id/but16"
+                    android:id="@+id/highlightsButton"
                     android:layout_width="78dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"
@@ -83,15 +83,7 @@
                     android:textAlignment="center" />
 
                 <Button
-                    android:id="@+id/but17"
-                    android:layout_width="78dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:text="Midtones"
-                    android:textAlignment="center" />
-
-                <Button
-                    android:id="@+id/but18"
+                    android:id="@+id/shadowsButton"
                     android:layout_width="78dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"

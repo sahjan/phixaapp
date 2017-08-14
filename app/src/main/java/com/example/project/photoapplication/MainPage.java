@@ -1,28 +1,13 @@
 package com.example.project.photoapplication;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
-import android.widget.PopupMenu;
-import android.widget.SeekBar;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.util.Stack;
-
 public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
-
-
-// CREATE CANVAS
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,62 +37,13 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
 
         effectHandler = new Effects();
 
-        // Assign the slider to its XML counterpart and set its relevant listeners
-        slider = (SeekBar) findViewById(R.id.adjustSlider);
-        slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int sliderProgress, boolean b) {
-            }
+        // BUTTONS
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                //queueEvent ensures this occurs in the Renderer thread.
-                // When we stop tracking the touch on the slider apply the effect with its parameter and request a render.
-                mEffectView.queueEvent(new Runnable() {
-                    public void run() {
-                        applyEffect(0,1);
-                        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[1]);
-                        mEffectView.requestRender();
-                        sliderValue = calculateSliderValue(slider.getProgress());
-                    }
-                });
-            }
-        });
-
-        /*//assign the hue slider and set its listener. Does nothing yet.
-        hueSlider = (SeekBar) findViewById(R.id.hueSlider);
-        hueSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
-        //hue image view
-        hueView = (ImageView) findViewById(R.id.hueView);
-        hueView.setImageBitmap(images.getPreviousImage()); */
-
-        // BUTTONS...
-
-
-        // Transform0 Button, when clicked, moves to Transform0 Activity
-        findViewById(R.id.but1).setOnClickListener(new View.OnClickListener() {
+        // Transform Button, when clicked, moves to transform activity
+        findViewById(R.id.transformButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainPage.this, Transform0.class);
+                Intent intent = new Intent(MainPage.this, TransformActivity.class);
                 intent.putExtra("Image", uri);
                 startActivity(intent);
                 images.recycle();
@@ -115,11 +51,11 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             }
         });
 
-        // Adjust Button, when clicked, moves to Adjust Activity
-        findViewById(R.id.but2).setOnClickListener(new View.OnClickListener() {
+        // Adjust Button, when clicked, moves to adjust Activity
+        findViewById(R.id.adjustButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainPage.this, Adjust1.class);
+                Intent intent = new Intent(MainPage.this, AdjustActivity.class);
                 intent.putExtra("Image", uri);
                 startActivity(intent);
                 images.recycle();
@@ -127,8 +63,8 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             }
         });
 
-        // Brush Button, when clicked, moves to Brush Activity
-        findViewById(R.id.but3).setOnClickListener(new View.OnClickListener() {
+        // Brush Button, when clicked, moves to drawing Activity
+        findViewById(R.id.brushButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainPage.this, Drawing.class);
@@ -139,11 +75,11 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             }
         });
 
-        // Overlay Button, when clicked, moves to Overlay Activity
-        findViewById(R.id.but4).setOnClickListener(new View.OnClickListener() {
+        // Overlay button, when clicked, moves to overlay Activity
+        findViewById(R.id.overlayButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainPage.this, Overlay3.class);
+                Intent intent = new Intent(MainPage.this, OverlayActivity.class);
                 intent.putExtra("Image", uri);
                 startActivity(intent);
                 images.recycle();
@@ -157,24 +93,19 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                 showOptions(view);
             }
         });
-
     }
 
-//        // More FX Button, when clicked, shows More FX Options PopUp
-//        findViewById(R.id.but5).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                showPopup*OTHERFX*(view);
-//
-//            }
-//        });
-//
-//    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mEffectView.onPause();
+    }
 
-
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mEffectView.onResume();
+    }
 
     public void setSliderProgress(){
         MainPage.this.getmEffectView().post(new Runnable() {
@@ -192,7 +123,6 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             }
         });
     }
-
 
 }
 

@@ -5,7 +5,6 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -14,7 +13,7 @@ import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
+public class AdjustActivity extends BaseEditor implements GLSurfaceView.Renderer{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +74,6 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
         //hue image view
         hueView = (ImageView) findViewById(R.id.hueView);
         hueView.setImageBitmap(images.getImage());
-
         //assign the hue slider and set its listener.
         hueSlider = (SeekBar) findViewById(R.id.hueSlider);
         hueSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -102,7 +100,7 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
             }
         });
 
-        findViewById(R.id.but11).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.brightnessButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -144,19 +142,6 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
                 }
                 mEffectView.requestRender();
 
-                /*//show slider only when an adjustable effect chosen.
-                if (isAdjustableEffect(mCurrentEffect)) {
-                    slider.setVisibility(View.VISIBLE);
-                    isSliderVisible = true;
-                    setSliderProgress();
-                }
-                //else hide slider
-                else if (!isAdjustableEffect(mCurrentEffect) && isSliderVisible)
-                {
-                    slider.setVisibility(View.GONE);
-                    isSliderVisible = false;
-                } */
-
                 //show slider only when an adjustable effect chosen.
                 if (mCurrentEffect == R.id.hue) {
                     if(isSliderVisible) {
@@ -193,8 +178,20 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
         popup.show();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mEffectView.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mEffectView.onResume();
+    }
+
     public void setSliderProgress(){
-        Adjust1.this.mEffectView.post(new Runnable() {
+        AdjustActivity.this.mEffectView.post(new Runnable() {
             @Override
             public void run() {
                 slider.setProgress(50);
@@ -203,9 +200,9 @@ public class Adjust1 extends BaseEditor implements GLSurfaceView.Renderer{
     }
 
     public void showToast(final String toastString){
-        Adjust1.this.runOnUiThread(new Runnable() {
+        AdjustActivity.this.runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(Adjust1.this, toastString, Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdjustActivity.this, toastString, Toast.LENGTH_SHORT).show();
             }
         });
     }
