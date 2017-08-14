@@ -52,6 +52,7 @@ public class DrawableView extends View {
     private boolean blur = false;
     private BlurMaskFilter blurFilter = new BlurMaskFilter(20, BlurMaskFilter.Blur.NORMAL);
     private boolean selecting = false;
+    private HashMap<Path, BlurMaskFilter> pathAndFilters;
 
 
 
@@ -72,6 +73,7 @@ public class DrawableView extends View {
         colours = new HashMap<>();
         brushSize = new HashMap<>();
         blurring = new HashMap<>();
+        pathAndFilters = new HashMap<>();
 
     }
 
@@ -96,7 +98,7 @@ public class DrawableView extends View {
             if (blurring.get(p) == true) {
                 paint.setXfermode(null);
                 paint.setAlpha(0xFF);
-                paint.setMaskFilter(blurFilter);
+                paint.setMaskFilter(pathAndFilters.get(p));
             } else {
                 paint.setMaskFilter(null);
             }
@@ -156,6 +158,7 @@ public class DrawableView extends View {
                     colours.put(path, colour);
                     brushSize.put(path, brushWidth);
                     blurring.put(path, blur);
+                    pathAndFilters.put(path, blurFilter);
                     path = new Path();
                     invalidate();
                 }

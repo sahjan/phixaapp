@@ -244,12 +244,12 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
     }
 
     public void changeSize(float width){
-//        if(blur){
-//            view.createBlurFilter(seek.getProgress());
-//        }
-//        else {
+        if(blur){
+            view.createBlurFilter(seek.getProgress());
+        }
+        else {
             view.setStrokeWidth(width);
-//        }
+        }
     }
 
 
