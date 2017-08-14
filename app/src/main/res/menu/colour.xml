@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:compat="http://schemas.android.com/apk/res-auto" >
+
+    <item
+        android:id="@+id/ColourWheel"
+        compat:showAsAction="never"
+        android:title="Colour Wheel"/>
+    <item
+        android:id="@+id/ColourPicker"
+        compat:showAsAction="never"
+        android:title="Colour Picker"/>
+</menu>
