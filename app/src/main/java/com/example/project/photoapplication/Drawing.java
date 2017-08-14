@@ -17,6 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -32,7 +33,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
     private ColourPickerDialog c;
     private SeekBar seek;
     private BlurMaskFilter mBlur;
-    private float x,y;
+    private float x, y;
     private Button colour;
     private boolean blur = false;
     private boolean emboss = false;
@@ -52,8 +53,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         Bitmap b = null;
         try {
             b = MediaStore.Images.Media.getBitmap(this.getContentResolver(), path);
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         mPaint = new Paint();
@@ -91,7 +91,6 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
                 showPopupColour(view);
 
 
-
             }
         });
 
@@ -108,10 +107,9 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
             @Override
             public void onClick(View view) {
                 setblur();
-                if(blur) {
+                if (blur) {
                     blur = false;
-                }
-                else {
+                } else {
                     blur = true;
                 }
             }
@@ -139,6 +137,13 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         currentColourBut = (Button) findViewById(R.id.currentColour);
         currentColourBut.setBackgroundColor(currentColour);
 
+        ImageButton options = (ImageButton) findViewById(R.id.moreOpt);
+        options.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showOptions(view);
+            }
+        });
 
 
         seek = (SeekBar) findViewById(R.id.adjustSlider);
@@ -150,6 +155,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
+
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 changeSize(seek.getProgress());
@@ -157,13 +163,11 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         });
 
 
-
-
-        View.OnTouchListener image_Listener = new View.OnTouchListener(){
+        View.OnTouchListener image_Listener = new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(colourDropper) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (colourDropper) {
                         getSize();
                         float screenX = event.getX();
                         float screenY = event.getY();
@@ -176,7 +180,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
                         if (y > image.getHeight()) {
                             y = image.getHeight() - 1;
                         }
-                        if (y < 0){
+                        if (y < 0) {
                             y = 0;
                         }
                         Log.e("Coords", Float.toString(x) + " " + Float.toString(y));
@@ -199,7 +203,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
                     case R.id.ColourPicker:
                         colourDropper = true;
                         accept.setVisibility(View.VISIBLE);
@@ -218,17 +222,17 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
     }
 
 
-    public void save(){
+    public void save() {
         Bitmap b = view.getDrawingCache();
         FileManager fm = new FileManager(this);
         fm.saveBitmap(b);
     }
 
-    public void setView(){
+    public void setView() {
         int w = view.getWidth();
         int h = view.getMeasuredHeight();
         Log.e("dimensions", h + " " + w);
-        int scaledHeight = w * image.getHeight()/image.getWidth();
+        int scaledHeight = w * image.getHeight() / image.getWidth();
         int scaledWidth = w;
         Log.e("dimensions", scaledHeight + " " + scaledWidth);
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(scaledWidth, scaledHeight);
@@ -243,17 +247,16 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         Log.e("Colour", mPaint.toString());
     }
 
-    public void changeSize(float width){
-        if(blur){
+    public void changeSize(float width) {
+        if (blur) {
             view.createBlurFilter(seek.getProgress());
-        }
-        else {
+        } else {
             view.setStrokeWidth(width);
         }
     }
 
 
-    public void setblur(){
+    public void setblur() {
         view.setBlur();
         Log.e("Blur", "blurring");
     }
@@ -271,11 +274,11 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         currentColour = pixColour;
     }
 
-    public Bitmap getSize(){
+    public Bitmap getSize() {
         int w = view.getWidth();
         int h = view.getMeasuredHeight();
         Log.e("dimensions", h + " " + w);
-        int scaledHeight = w * image.getHeight()/image.getWidth();
+        int scaledHeight = w * image.getHeight() / image.getWidth();
         int scaledWidth = w;
 
         image = Bitmap.createScaledBitmap(image, scaledWidth, scaledHeight, false);
@@ -283,20 +286,62 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         return image;
     }
 
-    public void setViewColour(){
+    public void setViewColour() {
         view.setColour(currentColour);
     }
 
-    public void setSelecting(){
+    public void setSelecting() {
         view.setSelecting();
-        if (colourDropper){
+        if (colourDropper) {
             colourDropper = false;
-        }
-        else {
+        } else {
             colourDropper = true;
         }
     }
 
+    public void undo() {
+        view.undo();
+    }
 
 
+    public void showOptions(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.inflate(R.menu.more_options);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.save:
+                        save();
+                        break;
+
+                    case R.id.undo:
+                        // tell the user when there are no effects to undo.
+                        undo();
+                        break;
+
+                    case R.id.open:
+//                        createOpenAlert();
+                        break;
+
+                    case R.id.Redo:
+
+                        redo();
+                        break;
+                }
+                return true;
+            }
+        });
+        popup.show();
+    }
+
+
+    public void redo() {
+        view.redo();
+    }
 }
+
+
+
+
+

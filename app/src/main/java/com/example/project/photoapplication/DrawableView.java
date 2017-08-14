@@ -53,6 +53,8 @@ public class DrawableView extends View {
     private BlurMaskFilter blurFilter = new BlurMaskFilter(20, BlurMaskFilter.Blur.NORMAL);
     private boolean selecting = false;
     private HashMap<Path, BlurMaskFilter> pathAndFilters;
+    private ArrayList<Path> redoPaths = new ArrayList<>();
+    private boolean redoInit;
 
 
 
@@ -207,6 +209,29 @@ public class DrawableView extends View {
 
     public void createBlurFilter(float blurSize){
         blurFilter = new BlurMaskFilter(blurSize, BlurMaskFilter.Blur.NORMAL);
+
+    }
+
+    public void undo(){
+        if(!paths.isEmpty()) {
+            if(!redoInit) {
+                initRedo();
+            }
+            paths.remove(paths.size() - 1);
+            invalidate();
+        }
+    }
+
+    public void redo(){
+        if(!(redoPaths.size() == paths.size()) && !redoPaths.isEmpty()) {
+            paths.add(redoPaths.get(paths.size()));
+            invalidate();
+        }
+    }
+
+    public void initRedo(){
+        redoInit = true;
+        redoPaths = new ArrayList<>(paths);
 
     }
 
