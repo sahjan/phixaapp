@@ -12,10 +12,12 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
@@ -32,7 +34,13 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
     private BlurMaskFilter mBlur;
     private float x,y;
     private Button colour;
-    private Boolean blur = false;
+    private boolean blur = false;
+    private boolean emboss = false;
+    private Button type;
+    private boolean colourDropper = false;
+    private int currentColour = Color.BLACK;
+    private Button accept;
+    private Button currentColourBut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +64,6 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setStrokeWidth(12);
-
         mBlur = new BlurMaskFilter(8, BlurMaskFilter.Blur.NORMAL);
 
 
@@ -64,8 +71,10 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
 
         image = b.copy(Bitmap.Config.ARGB_8888, true);
 
+        view = (DrawableView) findViewById(R.id.canvas);
+        view.setDrawingCacheEnabled(true);
 
-         view = (DrawableView) findViewById(R.id.canvas);
+
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.activity_drawing);
         layout.post(new Runnable() {
             @Override
@@ -74,14 +83,13 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
             }
         });
 
-        view.setDrawingCacheEnabled(true);
 
         colour = (Button) findViewById(R.id.but2);
         colour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                c.show();
-                c.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                showPopupColour(view);
+
 
 
             }
@@ -94,6 +102,43 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
                 seek.setVisibility(View.VISIBLE);
             }
         });
+
+        type = (Button) findViewById(R.id.but3);
+        type.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setblur();
+                if(blur) {
+                    blur = false;
+                }
+                else {
+                    blur = true;
+                }
+            }
+        });
+
+        accept = (Button) findViewById(R.id.but4);
+        accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setViewColour();
+            }
+        });
+
+        accept = (Button) findViewById(R.id.but4);
+        accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setViewColour();
+                setSelecting();
+                accept.setVisibility(View.INVISIBLE);
+
+            }
+        });
+
+        currentColourBut = (Button) findViewById(R.id.currentColour);
+        currentColourBut.setBackgroundColor(currentColour);
+
 
 
         seek = (SeekBar) findViewById(R.id.adjustSlider);
@@ -112,25 +157,13 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         });
 
 
-        Button type = (Button) findViewById(R.id.but3);
-        type.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setblur();
-                if(blur) {
-                    blur = false;
-                }
-                else {
-                    blur = true;
-                }
-            }
-        });
+
 
         View.OnTouchListener image_Listener = new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(blur) {
+                    if(colourDropper) {
                         getSize();
                         float screenX = event.getX();
                         float screenY = event.getY();
@@ -143,6 +176,9 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
                         if (y > image.getHeight()) {
                             y = image.getHeight() - 1;
                         }
+                        if (y < 0){
+                            y = 0;
+                        }
                         Log.e("Coords", Float.toString(x) + " " + Float.toString(y));
                         getBlurColour();
                         return false;
@@ -154,7 +190,31 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
 
         view.setOnTouchListener(image_Listener);
 
+    }
 
+
+    public void showPopupColour(View v) {
+        final PopupMenu popup = new PopupMenu(this, v);
+        popup.inflate(R.menu.colour);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.ColourPicker:
+                        colourDropper = true;
+                        accept.setVisibility(View.VISIBLE);
+                        view.setSelecting();
+                        break;
+                    case R.id.ColourWheel:
+                        colourDropper = false;
+                        c.show();
+                        c.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                }
+                return true;
+            }
+
+        });
+        popup.show();
     }
 
 
@@ -184,14 +244,20 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
     }
 
     public void changeSize(float width){
-        view.setStrokeWidth(width);
+//        if(blur){
+//            view.createBlurFilter(seek.getProgress());
+//        }
+//        else {
+            view.setStrokeWidth(width);
+//        }
     }
 
 
     public void setblur(){
-        view.setBlur(mBlur);
+        view.setBlur();
         Log.e("Blur", "blurring");
     }
+
 
     public void getBlurColour() {
         Log.e("coords", Integer.toString((int) y));
@@ -201,10 +267,11 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         int green = Color.green(pix);
         int blue = Color.blue(pix);
         int pixColour = Color.rgb(red, green, blue);
-        view.setColour(pixColour);
+        currentColourBut.setBackgroundColor(pixColour);
+        currentColour = pixColour;
     }
 
-    public void getSize(){
+    public Bitmap getSize(){
         int w = view.getWidth();
         int h = view.getMeasuredHeight();
         Log.e("dimensions", h + " " + w);
@@ -213,6 +280,21 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
 
         image = Bitmap.createScaledBitmap(image, scaledWidth, scaledHeight, false);
         image = image.copy(Bitmap.Config.ARGB_8888, true);
+        return image;
+    }
+
+    public void setViewColour(){
+        view.setColour(currentColour);
+    }
+
+    public void setSelecting(){
+        view.setSelecting();
+        if (colourDropper){
+            colourDropper = false;
+        }
+        else {
+            colourDropper = true;
+        }
     }
 
 
