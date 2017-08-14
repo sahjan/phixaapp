@@ -53,7 +53,6 @@
         <activity android:name=".Layers" />
         <activity android:name=".Drawing"
             android:hardwareAccelerated="false"/>
-        <activity android:name=".Crop" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
