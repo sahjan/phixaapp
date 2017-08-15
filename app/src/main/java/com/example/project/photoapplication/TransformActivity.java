@@ -101,6 +101,31 @@ public class TransformActivity extends BaseEditor implements GLSurfaceView.Rende
                 showOptions(view);
             }
         });
+
+        slider = (SeekBar) findViewById(R.id.adjustSlider);
+        slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int sliderProgress, boolean b) {
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                //queueEvent ensures this occurs in the Renderer thread.
+                // When we stop tracking the touch on the slider apply the effect with its parameter and request a render.
+                mEffectView.queueEvent(new Runnable() {
+                    public void run() {
+                        applyEffect(0,1);
+                        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[1]);
+                        mEffectView.requestRender();
+                        sliderValue = calculateSliderValue(slider.getProgress());
+                    }
+                });
+            }
+        });
+
     }
 
     /**

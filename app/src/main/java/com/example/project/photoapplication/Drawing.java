@@ -1,5 +1,6 @@
 package com.example.project.photoapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BlurMaskFilter;
@@ -21,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -36,12 +38,12 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
     private float x, y;
     private Button colour;
     private boolean blur = false;
-    private boolean emboss = false;
     private Button type;
     private boolean colourDropper = false;
     private int currentColour = Color.BLACK;
     private Button accept;
     private Button currentColourBut;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +58,10 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         } catch (IOException e) {
             e.printStackTrace();
         }
-        mPaint = new Paint();
-        mPaint.setAntiAlias(true);
-        mPaint.setDither(true);
+        mPaint = new Paint();//
         mPaint.setColor(0xFFFF0000);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeJoin(Paint.Join.ROUND);
-        mPaint.setStrokeCap(Paint.Cap.ROUND);
-        mPaint.setStrokeWidth(12);
         mBlur = new BlurMaskFilter(8, BlurMaskFilter.Blur.NORMAL);
+        context = this;
 
 
         c = new ColourPickerDialog(this, this, mPaint.getColor());
@@ -129,6 +126,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
             public void onClick(View view) {
                 setViewColour();
                 setSelecting();
+                showToast("Colour Selected!");
                 accept.setVisibility(View.INVISIBLE);
 
             }
@@ -221,6 +219,37 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         popup.show();
     }
 
+    public void showOptions(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.inflate(R.menu.more_options);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.save:
+                        save();
+                        break;
+
+                    case R.id.undo:
+                        // tell the user when there are no effects to undo.
+                        undo();
+                        break;
+
+                    case R.id.open:
+                        OpenDialog.openDialog(context);
+                        break;
+
+                    case R.id.Redo:
+
+                        redo();
+                        break;
+                }
+                return true;
+            }
+        });
+        popup.show();
+    }
+
 
     public void save() {
         Bitmap b = view.getDrawingCache();
@@ -228,14 +257,13 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         fm.saveBitmap(b);
     }
 
+    public void open(){
+        Intent intent = new Intent(this, Loader.class);
+        startActivity(intent);
+    }
+
     public void setView() {
-        int w = view.getWidth();
-        int h = view.getMeasuredHeight();
-        Log.e("dimensions", h + " " + w);
-        int scaledHeight = w * image.getHeight() / image.getWidth();
-        int scaledWidth = w;
-        Log.e("dimensions", scaledHeight + " " + scaledWidth);
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(scaledWidth, scaledHeight);
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(getScaleSize()[1], getScaleSize()[0]);
         lp.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
         view.setLayoutParams(lp);
         view.setBackground(new BitmapDrawable(getResources(), image));
@@ -244,7 +272,6 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
     public void colorChanged(int color) {
         mPaint.setColor(color);
         view.setColour(color);
-        Log.e("Colour", mPaint.toString());
     }
 
     public void changeSize(float width) {
@@ -258,14 +285,11 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
 
     public void setblur() {
         view.setBlur();
-        Log.e("Blur", "blurring");
     }
 
 
     public void getBlurColour() {
-        Log.e("coords", Integer.toString((int) y));
         int pix = image.getPixel((int) x, (int) y);
-
         int red = Color.red(pix);
         int green = Color.green(pix);
         int blue = Color.blue(pix);
@@ -275,13 +299,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
     }
 
     public Bitmap getSize() {
-        int w = view.getWidth();
-        int h = view.getMeasuredHeight();
-        Log.e("dimensions", h + " " + w);
-        int scaledHeight = w * image.getHeight() / image.getWidth();
-        int scaledWidth = w;
-
-        image = Bitmap.createScaledBitmap(image, scaledWidth, scaledHeight, false);
+        image = Bitmap.createScaledBitmap(image, getScaleSize()[1], getScaleSize()[0], false);
         image = image.copy(Bitmap.Config.ARGB_8888, true);
         return image;
     }
@@ -303,45 +321,28 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         view.undo();
     }
 
-
-    public void showOptions(View v) {
-        PopupMenu popup = new PopupMenu(this, v);
-        popup.inflate(R.menu.more_options);
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.save:
-                        save();
-                        break;
-
-                    case R.id.undo:
-                        // tell the user when there are no effects to undo.
-                        undo();
-                        break;
-
-                    case R.id.open:
-//                        createOpenAlert();
-                        break;
-
-                    case R.id.Redo:
-
-                        redo();
-                        break;
-                }
-                return true;
-            }
-        });
-        popup.show();
-    }
-
-
     public void redo() {
         view.redo();
     }
+
+    public int[] getScaleSize(){
+        int w = view.getWidth();
+        int h = view.getMeasuredHeight();
+        Log.e("dimensions", h + " " + w);
+        int scaledHeight = w * image.getHeight() / image.getWidth();
+        int scaledWidth = w;
+        int[] scaledValues = {
+            scaledHeight, scaledWidth
+        };
+        return scaledValues;
+    }
+
+
+    public void showToast(final String toastString){
+        Drawing.this.runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(Drawing.this, toastString, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
-
-
-
-
-

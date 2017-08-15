@@ -439,11 +439,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         return false;
     }
 
-    // Start the loader activity to load a new photo.
-    public void open(){
-        Intent intent = new Intent(this, Loader.class);
-        startActivity(intent);
-    }
 
     // Convert the slider values of 0-100 to numbers that equate with the correct values for the effect parameters
     public float calculateSliderValue(int sliderValue){
@@ -475,7 +470,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                         break;
 
                     case R.id.open:
-                        createOpenAlert();
+                        OpenDialog.openDialog(context);
                         break;
 
                     case R.id.Redo:
@@ -486,10 +481,10 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                             redo();
                         }
                         break;
-                    case R.id.layer:
-                        prepLayers();
-                        Intent intent = new Intent(context, Layers.class);
-                        startActivity(intent);
+//                    case R.id.layer:
+//                        prepLayers();
+//                        Intent intent = new Intent(context, Layers.class);
+//                        startActivity(intent);
                 }
                 return true;
             }
@@ -505,29 +500,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     public abstract void showToast(String toastSting);
 
     public abstract void setSliderProgress();
-
-    public void createOpenAlert(){
-        AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
-        } else {
-            builder = new AlertDialog.Builder(context);
-        }
-        builder.setTitle("Open")
-                .setMessage("Opening a new image will discard all unsaved progress \n Do you want to continue?")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        open();
-                    }
-                })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
-    }
 
 
     public void prepLayers() {

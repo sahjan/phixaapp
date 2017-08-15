@@ -1,26 +1,16 @@
 package com.example.project.photoapplication;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.BitmapShader;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.EmbossMaskFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Rect;
-import android.graphics.Region;
-import android.graphics.Shader;
-import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.SeekBar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,7 +32,6 @@ public class DrawableView extends View {
     private float mX, mY;
     private Context context;
     private static final float Tolerance = 5;
-    private Boolean bitmapSet = false;
     private ArrayList<Path> paths;
     private HashMap<Path, Integer> colours;
     private HashMap<Path, Float> brushSize;
@@ -97,7 +86,7 @@ public class DrawableView extends View {
         for (Path p : paths) {
             paint.setColor(colours.get(p));
             paint.setStrokeWidth(brushSize.get(p));
-            if (blurring.get(p) == true) {
+            if (blurring.get(p)) {
                 paint.setXfermode(null);
                 paint.setAlpha(0xFF);
                 paint.setMaskFilter(pathAndFilters.get(p));
