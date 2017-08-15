@@ -104,13 +104,15 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
     @Override
     protected void onPause() {
         super.onPause();
-        mEffectView.onPause();
     }
 
     @Override
     protected void onResume() {
-        super.onResume();
+        if (images.getImage().isRecycled()) {
+            images = new Image(uri, context);
+        }
         mEffectView.onResume();
+        super.onResume();
     }
 
     public void setSliderProgress(){

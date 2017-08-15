@@ -169,14 +169,15 @@ public class TransformActivity extends BaseEditor implements GLSurfaceView.Rende
     @Override
     protected void onPause() {
         super.onPause();
-        mEffectView.onPause();
-        //mEffectView.setPreserveEGLContextOnPause(true);
     }
 
     @Override
     protected void onResume() {
-        super.onResume();
+        if (images.getImage().isRecycled()) {
+            images = new Image(uri, context);
+        }
         mEffectView.onResume();
+        super.onResume();
     }
 
     public void setSliderProgress(){

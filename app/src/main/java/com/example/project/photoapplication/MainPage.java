@@ -47,6 +47,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                 Intent intent = new Intent(MainPage.this, TransformActivity.class);
                 intent.putExtra("Image", uri);
                 startActivityForResult(intent, 1);
+                overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
                 images.recycle();
             }
         });
@@ -58,6 +59,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                 Intent intent = new Intent(MainPage.this, AdjustActivity.class);
                 intent.putExtra("Image", uri);
                 startActivityForResult(intent, 1);
+                overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
                 images.recycle();
             }
         });
@@ -69,6 +71,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                 Intent intent = new Intent(MainPage.this, Drawing.class);
                 intent.putExtra("Image", uri);
                 startActivity(intent);
+                overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
                 images.recycle();
             }
         });
@@ -80,6 +83,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                 Intent intent = new Intent(MainPage.this, OverlayActivity.class);
                 intent.putExtra("Image", uri);
                 startActivityForResult(intent, 1);
+                overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
                 images.recycle();
             }
         });
@@ -99,6 +103,11 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
 
     @Override
     protected void onResume() {
+        //keeps app from crashing when reopening after exiting or locking the device.
+        if (images.getImage().isRecycled()) {
+            images = new Image(uri, context);
+        }
+        mEffectView.onResume();
         super.onResume();
     }
 
