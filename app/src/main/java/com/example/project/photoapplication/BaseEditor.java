@@ -1,24 +1,18 @@
 package com.example.project.photoapplication;
 
-import android.content.ActivityNotFoundException;
+import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
 import android.media.effect.Effect;
 import android.media.effect.EffectContext;
 import android.net.Uri;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLUtils;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -113,11 +107,11 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         images.recycle();
     }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
-        images = new Image(uri, context);
-    }
+//    @Override
+//    protected void onResume(){
+//        super.onResume();
+//        images = new Image(uri, context);
+//    }
 
     /*
     Load the textures using the previous image. This method is for use with adjustable
@@ -278,8 +272,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         }
     }
 
-    /*
-    The save method, every subclass must implement a way of saving files.
+    /**
     @param bitmap - The image to save as a file
     @param context - the context of the activity calling the method
      */
@@ -555,6 +548,23 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             }
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        File[] files = fm.getFileList(getFilesDir().toString());
+        for (File file: files){
+            file.delete();
+        }
+        Intent data = new Intent();
+        save(images.getImage(), context, 17, "layer");
+        android.os.SystemClock.sleep(200);
+        File[] f = fm.getFileList(getFilesDir().toString());
+        Uri i = Uri.fromFile(f[0]);
+        data.putExtra("Image1", i);
+        // add data to Intent
+        setResult(Activity.RESULT_OK, data);
+        super.onBackPressed();
     }
 
     // Getters and setters:

@@ -1,6 +1,7 @@
 package com.example.project.photoapplication;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.View;
@@ -45,9 +46,8 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             public void onClick(View view) {
                 Intent intent = new Intent(MainPage.this, TransformActivity.class);
                 intent.putExtra("Image", uri);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
                 images.recycle();
-//                finish();
             }
         });
 
@@ -57,9 +57,8 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             public void onClick(View view) {
                 Intent intent = new Intent(MainPage.this, AdjustActivity.class);
                 intent.putExtra("Image", uri);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
                 images.recycle();
-//                finish();
             }
         });
 
@@ -71,7 +70,6 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                 intent.putExtra("Image", uri);
                 startActivity(intent);
                 images.recycle();
-//                finish();
             }
         });
 
@@ -81,9 +79,8 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             public void onClick(View view) {
                 Intent intent = new Intent(MainPage.this, OverlayActivity.class);
                 intent.putExtra("Image", uri);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
                 images.recycle();
-//                finish();
             }
         });
 
@@ -120,6 +117,18 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                 Toast.makeText(MainPage.this, toastString, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                Intent intent = data;
+                uri = intent.getParcelableExtra("Image1");
+                images = new Image(uri, context);
+                mEffectView.requestRender();
+            }
+        }
     }
 
 }
