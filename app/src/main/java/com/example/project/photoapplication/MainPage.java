@@ -47,7 +47,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                 intent.putExtra("Image", uri);
                 startActivity(intent);
                 images.recycle();
-                finish();
+//                finish();
             }
         });
 
@@ -59,7 +59,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                 intent.putExtra("Image", uri);
                 startActivity(intent);
                 images.recycle();
-                finish();
+//                finish();
             }
         });
 
@@ -71,7 +71,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                 intent.putExtra("Image", uri);
                 startActivity(intent);
                 images.recycle();
-                finish();
+//                finish();
             }
         });
 
@@ -83,7 +83,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                 intent.putExtra("Image", uri);
                 startActivity(intent);
                 images.recycle();
-                finish();
+//                finish();
             }
         });
 
@@ -98,13 +98,11 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
     @Override
     protected void onPause() {
         super.onPause();
-        mEffectView.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mEffectView.onResume();
     }
 
     public void setSliderProgress(){
