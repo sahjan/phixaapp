@@ -17,6 +17,7 @@ import java.util.HashMap;
 
 /**
  * Created by Ed on 09/08/2017.
+ * A view that allows us to draw upon its canvas with both painted lines and blur paint.
  */
 
 public class DrawableView extends View {
@@ -24,30 +25,26 @@ public class DrawableView extends View {
     public int height;
     private int scaledHeight;
     private int scaledWidth;
+    private int colour = Color.BLACK;
+    private float mX, mY;
+    private float brushWidth = 4f;
+    private static final float Tolerance = 5;
     private Matrix m;
     private Bitmap mbitmap;
     private Canvas mcanvas;
     private Path path;
     private Paint paint;
-    private float mX, mY;
     private Context context;
-    private static final float Tolerance = 5;
     private ArrayList<Path> paths;
     private HashMap<Path, Integer> colours;
     private HashMap<Path, Float> brushSize;
     private HashMap<Path, Boolean> blurring;
-    private int colour = Color.BLACK;
-    private float brushWidth = 4f;
-    private boolean blur = false;
-    private BlurMaskFilter blurFilter = new BlurMaskFilter(20, BlurMaskFilter.Blur.NORMAL);
-    private boolean selecting = false;
     private HashMap<Path, BlurMaskFilter> pathAndFilters;
     private ArrayList<Path> redoPaths = new ArrayList<>();
+    private boolean blur = false;
+    private boolean selecting = false;
     private boolean redoInit;
-
-
-
-
+    private BlurMaskFilter blurFilter = new BlurMaskFilter(20, BlurMaskFilter.Blur.NORMAL);
 
 
     public DrawableView(Context context, AttributeSet attrs) {
@@ -76,8 +73,6 @@ public class DrawableView extends View {
         mbitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         mcanvas = new Canvas(mbitmap);
     }
-
-
 
     @Override
     protected void onDraw(Canvas canvas) {
