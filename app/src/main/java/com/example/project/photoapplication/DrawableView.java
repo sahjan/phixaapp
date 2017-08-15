@@ -165,18 +165,27 @@ public class DrawableView extends View {
         return true ;
     }
 
+    /**
+     * Set the pen colour
+     * @param colour - the colour to set the pen to draw with
+     */
     public void setColour(int colour){
         this.colour = colour;
     }
 
+    /**
+     * Set the pens stroke width
+     * @param width - The width to set the pens stroke to
+     */
     public void setStrokeWidth(float width){
         paint.setStrokeWidth(width);
         brushWidth = width;
     }
 
 
-
-
+    /**
+     * Set the view to blur all paths drawn while blur is active.
+     */
     public void setBlur(){
         if(blur){
             blur = false;
@@ -186,6 +195,9 @@ public class DrawableView extends View {
         }
     }
 
+    /**
+     * Set the view to selecting colour from the image so it won't draw while we are.
+     */
     public void setSelecting(){
         if(selecting){
             selecting = false;
@@ -196,11 +208,18 @@ public class DrawableView extends View {
     }
 
 
+    /**
+     * Create a new blur filter with the specified blur radius
+     * @param blurSize - The blur radius to set
+     */
     public void createBlurFilter(float blurSize){
         blurFilter = new BlurMaskFilter(blurSize, BlurMaskFilter.Blur.NORMAL);
 
     }
 
+    /**
+     * Undo the most recent path drawn on the canvas
+     */
     public void undo(){
         if(!paths.isEmpty()) {
             if(!redoInit) {
@@ -211,6 +230,9 @@ public class DrawableView extends View {
         }
     }
 
+    /**
+     * Redo the previously undone path
+     */
     public void redo(){
         if(!(redoPaths.size() == paths.size()) && !redoPaths.isEmpty()) {
             paths.add(redoPaths.get(paths.size()));
@@ -218,6 +240,9 @@ public class DrawableView extends View {
         }
     }
 
+    /**
+     * Set redo to the current state of the paths list
+     */
     public void initRedo(){
         redoInit = true;
         redoPaths = new ArrayList<>(paths);
