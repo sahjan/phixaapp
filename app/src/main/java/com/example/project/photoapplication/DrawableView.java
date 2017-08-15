@@ -223,10 +223,4 @@ public class DrawableView extends View {
         redoPaths = new ArrayList<>(paths);
 
     }
-
-
-
-
-
-
 }

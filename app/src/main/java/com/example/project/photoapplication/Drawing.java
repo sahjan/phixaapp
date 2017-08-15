@@ -44,6 +44,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
     private Button accept;
     private Button currentColourBut;
     private Context context;
+    private EditHistory history;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         setContentView(R.layout.activity_drawing);
         Intent intent = getIntent();
         path = intent.getParcelableExtra("Image");
+//        history = intent.getParcelableExtra("History");
         Bitmap b = null;
         try {
             b = MediaStore.Images.Media.getBitmap(this.getContentResolver(), path);
@@ -106,17 +108,11 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
                 setblur();
                 if (blur) {
                     blur = false;
+                    showToast("Blur disabled");
                 } else {
                     blur = true;
+                    showToast("Blur enabled");
                 }
-            }
-        });
-
-        accept = (Button) findViewById(R.id.but4);
-        accept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setViewColour();
             }
         });
 
@@ -257,11 +253,8 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         fm.saveBitmap(b);
     }
 
-    public void open(){
-        Intent intent = new Intent(this, Loader.class);
-        startActivity(intent);
-    }
-
+    // Set the view to the size of the image, scaled to fit the view correctly. Then set the background to the regular image.
+    // This then prevents it from being stretched out of shape and we can get the touch coordinates actual value.
     public void setView() {
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(getScaleSize()[1], getScaleSize()[0]);
         lp.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
@@ -269,11 +262,13 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         view.setBackground(new BitmapDrawable(getResources(), image));
     }
 
+    // Set the colour in the centre of the colour wheel to the colour and set the colour to draw in the view to the selected colour
     public void colorChanged(int color) {
         mPaint.setColor(color);
         view.setColour(color);
     }
 
+    // Change the size of the brush
     public void changeSize(float width) {
         if (blur) {
             view.createBlurFilter(seek.getProgress());
@@ -283,6 +278,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
     }
 
 
+    // Activate blurring in the view
     public void setblur() {
         view.setBlur();
     }

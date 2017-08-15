@@ -1,7 +1,9 @@
 package com.example.project.photoapplication;
 
 import android.media.effect.Effect;
+import android.net.Uri;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 /**
@@ -14,6 +16,7 @@ public class EditHistory {
     private EditStack<Float> historyValues;
     private EditStack<Integer> redoEffects;
     private EditStack<Float> redoParams;
+    private ArrayList<Uri> images;
 
     public EditHistory(){
         history = new EditStack<>();
