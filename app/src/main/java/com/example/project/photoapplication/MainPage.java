@@ -1,5 +1,7 @@
 package com.example.project.photoapplication;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.opengl.GLSurfaceView;
@@ -9,6 +11,8 @@ import android.view.Window;
 import android.widget.Toast;
 
 public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
+
+    private AlertDialog dialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,24 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
         history = new EditHistory();
 
         images = new Image(uri, context);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(MainPage.this);
+        builder.setTitle("Exit editor")
+                .setMessage("All your changes will be lost. Are you sure you want to exit?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        images.recycle();
+                        finish();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialog.dismiss();
+                    }
+                });
+        dialog = builder.create();
 
         if (!isEffectApplied()) {
             images.setPreviousImage();
@@ -109,6 +131,11 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
         }
         mEffectView.onResume();
         super.onResume();
+    }
+
+    @Override
+    public void onBackPressed() {
+        dialog.show();
     }
 
     public void setSliderProgress(){
