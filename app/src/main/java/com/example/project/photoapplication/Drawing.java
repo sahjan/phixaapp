@@ -246,15 +246,20 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         popup.show();
     }
 
-
+    /**
+     * Save the image in the canvas
+     */
     public void save() {
         Bitmap b = view.getDrawingCache();
         FileManager fm = new FileManager(this);
         fm.saveBitmap(b);
     }
 
-    // Set the view to the size of the image, scaled to fit the view correctly. Then set the background to the regular image.
-    // This then prevents it from being stretched out of shape and we can get the touch coordinates actual value.
+    /**
+     * Set the view to the size of the image, scaled to fit the view correctly. Then set the background to the regular image.
+     * This then prevents it from being stretched out of shape and we can get the touch coordinates actual value.
+     */
+
     public void setView() {
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(getScaleSize()[1], getScaleSize()[0]);
         lp.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
@@ -262,13 +267,19 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         view.setBackground(new BitmapDrawable(getResources(), image));
     }
 
-    // Set the colour in the centre of the colour wheel to the colour and set the colour to draw in the view to the selected colour
+    /**
+     * Set the colour in the centre of the colour wheel to the colour and set the colour to draw in the view to the selected colour
+     * @param color - The colour to set
+     */
     public void colorChanged(int color) {
         mPaint.setColor(color);
         view.setColour(color);
     }
 
-    // Change the size of the brush
+    /**
+     * Change the size of the brush
+     * @param width - the width to set the brush or blur size to
+     */
     public void changeSize(float width) {
         if (blur) {
             view.createBlurFilter(seek.getProgress());
@@ -278,12 +289,17 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
     }
 
 
-    // Activate blurring in the view
+    /**
+     * Activate blurring in the view
+     */
     public void setblur() {
         view.setBlur();
     }
 
 
+    /**
+     * Get the colour at the pixel clicked
+     */
     public void getBlurColour() {
         int pix = image.getPixel((int) x, (int) y);
         int red = Color.red(pix);
@@ -294,16 +310,26 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         currentColour = pixColour;
     }
 
+    /**
+     * Create a scaled bitmap that fits the view properly
+     * @return - The mutable scaled bitmap
+     */
     public Bitmap getSize() {
         image = Bitmap.createScaledBitmap(image, getScaleSize()[1], getScaleSize()[0], false);
         image = image.copy(Bitmap.Config.ARGB_8888, true);
         return image;
     }
 
+    /**
+     * Set the drawing colour in the view to the selected colour
+     */
     public void setViewColour() {
         view.setColour(currentColour);
     }
 
+    /**
+     * Set selecting to true
+     */
     public void setSelecting() {
         view.setSelecting();
         if (colourDropper) {
@@ -313,14 +339,25 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         }
     }
 
+    /**
+     * Call the views undo method
+     */
     public void undo() {
         view.undo();
     }
 
+    /**
+     * Call the views redo method
+     */
     public void redo() {
         view.redo();
     }
 
+    /**
+     * Get the height and width values of the view and calculate the correct width and height
+     * for the image to be scaled to to maintain aspect ratio
+     * @return int[] - An array containing the width and height values
+     */
     public int[] getScaleSize(){
         int w = view.getWidth();
         int h = view.getMeasuredHeight();
@@ -334,6 +371,10 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
     }
 
 
+    /**
+     * Show a toast with the passed string
+     * @param toastString - The string to show in the toast
+     */
     public void showToast(final String toastString){
         Drawing.this.runOnUiThread(new Runnable() {
             public void run() {
