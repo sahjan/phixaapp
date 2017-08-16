@@ -8,6 +8,7 @@ import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
@@ -63,7 +64,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
         // BUTTONS
 
         // Transform Button, when clicked, moves to transform activity
-        findViewById(R.id.transformButton).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.transformImgButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainPage.this, TransformActivity.class);
@@ -75,7 +76,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
         });
 
         // Adjust Button, when clicked, moves to adjust Activity
-        findViewById(R.id.adjustButton).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.adjustImgButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainPage.this, AdjustActivity.class);
@@ -87,7 +88,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
         });
 
         // Brush Button, when clicked, moves to drawing Activity
-        findViewById(R.id.brushButton).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.brushImgButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainPage.this, Drawing.class);
@@ -99,7 +100,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
         });
 
         // Overlay button, when clicked, moves to overlay Activity
-        findViewById(R.id.overlayButton).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.overlayImgButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainPage.this, OverlayActivity.class);

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -22,68 +23,107 @@
                 android:layout_height="wrap_content"
                 android:visibility="invisible" />
 
-            <HorizontalScrollView
-                android:id="@+id/mainBar"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="bottom"
-                android:background="@android:color/transparent">
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:weightSum="4">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
+                <ImageButton
+                    android:id="@+id/transformImgButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:cropToPadding="false"
+                    android:outlineProvider="none"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/transform_selector" />
 
-                    <Button
-                        android:id="@+id/transformButton"
-                        android:layout_width="76dp"
-                        android:layout_height="40dp"
-                        android:text="Transform" />
+                <ImageButton
+                    android:id="@+id/adjustImgButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:outlineProvider="none"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/adjust_selector" />
 
-                    <Button
-                        android:id="@+id/adjustButton"
-                        android:layout_width="78dp"
-                        android:layout_height="40dp"
-                        android:text="Adjust" />
+                <ImageButton
+                    android:id="@+id/brushImgButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:outlineProvider="none"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/brush_selector" />
 
-                    <Button
-                        android:id="@+id/brushButton"
-                        android:layout_width="76dp"
-                        android:layout_height="40dp"
-                        android:text="Brush" />
+                <ImageButton
+                    android:id="@+id/overlayImgButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:outlineProvider="none"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/overlay_selector" />
 
-                    <Button
-                        android:id="@+id/overlayButton"
-                        android:layout_width="76dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="1"
-                        android:text="Overlay" />
+                <Button
+                    android:id="@+id/transformButton"
+                    android:layout_width="76dp"
+                    android:layout_height="40dp"
+                    android:text="Transform"
+                    android:visibility="gone" />
 
-                    <Button
-                        android:id="@+id/moreButton"
-                        android:layout_width="78dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="1"
-                        android:text="More" />
-                </LinearLayout>
-            </HorizontalScrollView>
+                <Button
+                    android:id="@+id/adjustButton"
+                    android:layout_width="78dp"
+                    android:layout_height="40dp"
+                    android:text="Adjust"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/brushButton"
+                    android:layout_width="76dp"
+                    android:layout_height="40dp"
+                    android:text="Brush"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/overlayButton"
+                    android:layout_width="76dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="Overlay"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
 
         </FrameLayout>
 
         <LinearLayout
             android:id="@+id/topBar"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@android:color/transparent"
+            android:layout_height="50dp"
+            android:background="@android:color/black"
             android:orientation="horizontal"
             android:visibility="visible"
             android:weightSum="1">
 
             <ImageButton
                 android:id="@+id/layers"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_gravity="start"
-                android:background="@drawable/layers_1"
+                android:background="@drawable/custom_button"
                 app:srcCompat="@drawable/layers_1" />
 
             <LinearLayout
@@ -97,10 +137,11 @@
                 <ImageButton
                     android:id="@+id/moreOpt"
                     android:layout_width="45dp"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="end"
                     android:layout_weight="0.04"
-                    android:background="@drawable/more_options_1" />
+                    android:background="@drawable/custom_button"
+                    app:srcCompat="@drawable/more_options_1" />
             </LinearLayout>
 
         </LinearLayout>

@@ -122,7 +122,7 @@ public class TextureRenderer {
         GLES20.glUniform1i(mTexSamplerHandle, 0);
 
         // Draw
-        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        GLES20.glClearColor(0.1f, 0.1f, 0.1f, 1.0f); //this is what sets the bg. Values: R, G, B, A
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4);
     }

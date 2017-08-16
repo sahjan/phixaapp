@@ -88,10 +88,15 @@ public class TransformActivity extends BaseEditor implements GLSurfaceView.Rende
 
         effectHandler = new Effects();
 
+        /*ImageButton cropButton = (ImageButton) findViewById(R.id.cropImgButton);
+        ImageButton horizFlipButton = (ImageButton) findViewById(R.id.horizflipImgButton);
+        ImageButton vertFlipButton = (ImageButton) findViewById(R.id.vertflipImgButton);
+        ImageButton rotateButton = (ImageButton) findViewById(R.id.rotateImgButton); */
+
         findViewById(R.id.cropButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopupTransform(view);
+                showPopupTransform(view); //crop button shows the transform menu
             }
         });
 
@@ -126,10 +131,66 @@ public class TransformActivity extends BaseEditor implements GLSurfaceView.Rende
             }
         });
 
+        //set onclick listeners for the buttons
+        findViewById(R.id.cropImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.crop);
+            }
+        });
+
+        findViewById(R.id.horizflipImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.fliphor);
+            }
+        });
+
+        findViewById(R.id.vertflipImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.flipvert);
+            }
+        });
+
+        findViewById(R.id.rotateImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.rotate);
+            }
+        });
     }
 
     /**
-     * TransformActivity menu
+     * sets the chosen effect depending on the button clicked
+     * @param chosenEffect the chosen effect
+     */
+    public void setChosenEffect(int chosenEffect) {
+        resetRedo();
+        if(!undo) {
+            // If its not an adjustable effect just push a no value float to the stack so that
+            // the parameters line up with the effect in the history
+            if (!isAdjustableEffect(chosenEffect)) {
+                history.pushParam(0.0f);
+            }
+        }
+        setCurrentEffect(chosenEffect);
+        if(!undo){
+            // Push the selected effect to the history stack
+            history.pushEffect(mCurrentEffect);
+        }
+        // render the requested effect.
+        mEffectView.requestRender();
+
+        //hide the slider upon choosing an option from here as it is not required.
+        if (isSliderVisible()) {
+            slider.setVisibility(View.GONE);
+            isSliderVisible = false;
+        }
+    }
+
+    /**
+     * Transform menu
      * @param v
      */
     public void showPopupTransform(View v) {
@@ -159,7 +220,6 @@ public class TransformActivity extends BaseEditor implements GLSurfaceView.Rende
                     slider.setVisibility(View.GONE);
                     isSliderVisible = false;
                 }
-
                 return true;
             }
         });
