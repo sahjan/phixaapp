@@ -29,7 +29,6 @@ public class DrawableView extends View {
     private float mX, mY;
     private float brushWidth = 4f;
     private static final float Tolerance = 5;
-    private Matrix m;
     private Bitmap mbitmap;
     private Canvas mcanvas;
     private Path path;

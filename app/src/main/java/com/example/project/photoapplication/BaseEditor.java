@@ -107,12 +107,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         images.recycle();
     }
 
-//    @Override
-//    protected void onResume(){
-//        super.onResume();
-//        images = new Image(uri, context);
-//    }
-
     /*
     Load the textures using the previous image. This method is for use with adjustable
     effects so that the same image is edited upon each change of value instead of applying
@@ -500,10 +494,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
 
 
     public void prepLayers() {
-        File[] files = fm.getFileList(getFilesDir().toString());
-        for (File file: files){
-            file.delete();
-        }
+        clearPrivateStorage();
         // Set undo to true so effects applied in the re-render process aren't added to the stack
         undo = true;
         layers = true;
@@ -550,12 +541,16 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         }
     }
 
-    @Override
-    public void onBackPressed() {
+    public void clearPrivateStorage(){
         File[] files = fm.getFileList(getFilesDir().toString());
         for (File file: files){
             file.delete();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        clearPrivateStorage();
         Intent data = new Intent();
         save(images.getImage(), context, 17, "layer");
         android.os.SystemClock.sleep(200);
@@ -566,6 +561,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         setResult(Activity.RESULT_OK, data);
         super.onBackPressed();
     }
+
 
     // Getters and setters:
 

@@ -60,6 +60,38 @@
                 </LinearLayout>
             </HorizontalScrollView>
 
+            <LinearLayout
+                android:id="@+id/slidersBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:orientation="vertical"
+                android:paddingBottom="40dp">
+
+                <SeekBar
+                    android:id="@+id/adjustSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="0.02"
+                    android:background="@android:color/transparent"
+                    android:max="100"
+                    android:min="0"
+                    android:progress="50"
+                    android:visibility="invisible" />
+
+                <SeekBar
+                    android:id="@+id/hueSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="180"
+                    android:min="0"
+                    android:progress="90"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+
             <include layout="@layout/top_bar"/>
 
         </FrameLayout>
