@@ -38,7 +38,7 @@ public class Brush2 extends BaseEditor implements GLSurfaceView.Renderer{
         uri = intent.getParcelableExtra("Image");
         mCurrentEffect = R.id.none;
         context = this;
-        history = new EditHistory();
+        history = new EditHistory(uri);
 
         images = new Image(uri, context);
 

@@ -38,7 +38,6 @@ subclasses must implement their own oncreate methods to complete set up of the c
  */
 public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceView.Renderer {
 
-
     // Fields relating to the open GL operations
     protected GLSurfaceView mEffectView;
     protected EffectContext mEffectContext;
@@ -91,7 +90,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected boolean redoInit = false;
     protected int redoIndex;
     protected boolean layers = false;
-
     protected FileManager fm;
 
     @Override

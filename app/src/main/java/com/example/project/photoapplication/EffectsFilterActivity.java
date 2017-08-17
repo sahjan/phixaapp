@@ -47,7 +47,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         uri = intent.getParcelableExtra("Image");
         mCurrentEffect = R.id.none;
         context = this;
-        history = new EditHistory();
+        history = new EditHistory(uri);
         images = new Image(uri, this);
 
         if (!isEffectApplied()) {

@@ -38,9 +38,9 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
         uri = intent.getParcelableExtra("Image");
         mCurrentEffect = R.id.none;
         context = this;
-        history = new EditHistory();
+        history = new EditHistory(uri);
 
-        images = new Image(uri, context);
+        images = new Image(uri, context, history);
 
         if (!isEffectApplied()) {
             images.setPreviousImage();

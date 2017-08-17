@@ -38,7 +38,7 @@ public class AdjustActivity extends BaseEditor implements GLSurfaceView.Renderer
         context = this;
         history = intent.getParcelableExtra("History");
 
-        images = new Image(uri, context);
+        images = new Image(uri, context, history);
 
         if (!isEffectApplied()) {
             images.setPreviousImage();

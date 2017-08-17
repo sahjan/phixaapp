@@ -46,7 +46,7 @@ public class TransformActivity extends BaseEditor implements GLSurfaceView.Rende
         mCurrentEffect = R.id.none;
         context = this;
         history = intent.getParcelableExtra("History");
-        images = new Image(uri, context);
+        images = new Image(uri, context, history);
 
         //set the crop tool
         cropView = (CropView) findViewById(R.id.cropView);

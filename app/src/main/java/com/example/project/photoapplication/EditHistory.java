@@ -6,6 +6,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Stack;
 
 /**
@@ -18,13 +19,15 @@ public class EditHistory implements Parcelable {
     private EditStack<Float> historyValues;
     private EditStack<Integer> redoEffects;
     private EditStack<Float> redoParams;
-    private ArrayList<Uri> images;
+    private HashMap<String, Uri> images;
 
-    public EditHistory(){
+    public EditHistory(Uri originalImage){
         history = new EditStack<>();
         historyValues = new EditStack<>();
         redoEffects = new EditStack<>();
         redoParams = new EditStack<>();
+        images = new HashMap<>();
+        images.put("OriginalImage", originalImage);
 
     }
 
@@ -77,6 +80,10 @@ public class EditHistory implements Parcelable {
         }
     }
 
+    public HashMap<String, Uri> getImages(){
+        return images;
+    }
+
     public EditStack<Integer> getEffects(){ return history; }
 
     public EditStack<Float> getParam(){ return historyValues;}
@@ -87,6 +94,7 @@ public class EditHistory implements Parcelable {
         out.writeParcelable(historyValues, flags);
         out.writeParcelable(redoEffects, flags);
         out.writeParcelable(redoParams, flags);
+        out.writeMap(images);
     }
 
     private EditHistory(Parcel in){
@@ -94,6 +102,7 @@ public class EditHistory implements Parcelable {
         historyValues = in.readParcelable(EditStack.class.getClassLoader());
         redoEffects = in.readParcelable(EditStack.class.getClassLoader());
         redoParams = in.readParcelable(EditStack.class.getClassLoader());
+        images = in.readHashMap(HashMap.class.getClassLoader());
     }
 
     @Override

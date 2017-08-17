@@ -19,12 +19,11 @@ public class Image {
     private final Bitmap originalImage;
 
 
-    public Image(Uri path, Context context){
+    public Image(Uri path, Context context) {
         Bitmap b = null;
         try {
             b = MediaStore.Images.Media.getBitmap(context.getContentResolver(), path);
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -32,7 +31,23 @@ public class Image {
         initImages();
     }
 
-    public void initImages(){
+    public Image(Uri path, Context context, EditHistory history){
+        Bitmap b = null;
+        Bitmap o = null;
+        try {
+            b = MediaStore.Images.Media.getBitmap(context.getContentResolver(), path);
+            o = MediaStore.Images.Media.getBitmap(context.getContentResolver(), history.getImages().get("OriginalImage"));
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+        originalImage = o;
+        image = b;
+        previousImage = b;
+    }
+
+
+    public void initImages() {
         image = originalImage;
         previousImage = originalImage;
     }
@@ -53,9 +68,10 @@ public class Image {
         previousImage = image;
     }
 
-    public void recycle(){
+    public void recycle() {
         image.recycle();
         previousImage.recycle();
         originalImage.recycle();
     }
+
 }
