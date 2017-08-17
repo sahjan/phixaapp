@@ -2,6 +2,8 @@ package com.example.project.photoapplication;
 
 import android.media.effect.Effect;
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -10,7 +12,7 @@ import java.util.Stack;
  * Created by Ed on 13/07/2017.
  */
 
-public class EditHistory {
+public class EditHistory implements Parcelable {
 
     private EditStack<Integer> history;
     private EditStack<Float> historyValues;
@@ -78,4 +80,44 @@ public class EditHistory {
     public EditStack<Integer> getEffects(){ return history; }
 
     public EditStack<Float> getParam(){ return historyValues;}
+
+    @Override
+    public void writeToParcel(Parcel out, int flags){
+        out.writeParcelable(history, flags);
+        out.writeParcelable(historyValues, flags);
+        out.writeParcelable(redoEffects, flags);
+        out.writeParcelable(redoParams, flags);
+    }
+
+    private EditHistory(Parcel in){
+        history = in.readParcelable(EditStack.class.getClassLoader());
+        historyValues = in.readParcelable(EditStack.class.getClassLoader());
+        redoEffects = in.readParcelable(EditStack.class.getClassLoader());
+        redoParams = in.readParcelable(EditStack.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents(){
+        return 0;
+    }
+
+    public static final Parcelable.Creator<EditHistory> CREATOR
+            = new Parcelable.Creator<EditHistory>() {
+
+        // This simply calls our new constructor (typically private) and
+        // passes along the unmarshalled `Parcel`, and then returns the new object!
+        @Override
+        public EditHistory createFromParcel(Parcel in) {
+            return new EditHistory(in);
+        }
+
+        // We just need to copy this and change the type to match our class.
+        @Override
+        public EditHistory[] newArray(int size) {
+            return new EditHistory[size];
+        }
+    };
 }
+
+
+

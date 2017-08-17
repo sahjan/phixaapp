@@ -1,0 +1,58 @@
+package com.example.project.photoapplication;
+
+import android.content.Context;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.PopupMenu;
+
+/**
+ * Created by Ed on 17/08/2017.
+ */
+
+public class EditUtils {
+
+
+    /**
+     * Check whether the effect passed to the method is a filter.
+     *
+     * @param chosenEffect - the id of the effect to be checked.
+     */
+    public static boolean isFilter(int chosenEffect) {
+        if (chosenEffect == R.id.alien ||
+                chosenEffect == R.id.intenseColours ||
+                chosenEffect == R.id.oldFilm) {
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * Check whether the effect passed to the method is an adjustable effect.
+     *
+     * @param chosenEffect - the id of the effect to be checked.
+     */
+    public static boolean isAdjustableEffect(int chosenEffect) {
+        if (chosenEffect == R.id.brightness ||
+                chosenEffect == R.id.contrast ||
+                chosenEffect == R.id.filllight ||
+                chosenEffect == R.id.fisheye ||
+                chosenEffect == R.id.grain ||
+                chosenEffect == R.id.hue ||
+                chosenEffect == R.id.saturate ||
+                chosenEffect == R.id.temperature ||
+                chosenEffect == R.id.shadows ||
+                chosenEffect == R.id.highlights ||
+                chosenEffect == R.id.vignette) {
+            return true;
+        }
+        return false;
+    }
+
+
+    // Convert the slider values of 0-100 to numbers that equate with the correct values for the effect parameters
+    public static float calculateSliderValue(int sliderValue) {
+        float effectValue = (float) sliderValue / 50;
+        return effectValue;
+    }
+}

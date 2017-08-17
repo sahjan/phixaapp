@@ -36,7 +36,7 @@ public class AdjustActivity extends BaseEditor implements GLSurfaceView.Renderer
         uri = intent.getParcelableExtra("Image");
         mCurrentEffect = R.id.none;
         context = this;
-        history = new EditHistory();
+        history = intent.getParcelableExtra("History");
 
         images = new Image(uri, context);
 
@@ -65,7 +65,7 @@ public class AdjustActivity extends BaseEditor implements GLSurfaceView.Renderer
                         applyEffect(0,1);
                         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[1]);
                         mEffectView.requestRender();
-                        sliderValue = calculateSliderValue(slider.getProgress());
+                        sliderValue = EditUtils.calculateSliderValue(slider.getProgress());
                     }
                 });
             }
@@ -129,7 +129,7 @@ public class AdjustActivity extends BaseEditor implements GLSurfaceView.Renderer
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 resetRedo();
-                if (!isAdjustableEffect(menuItem.getItemId())) {
+                if (!EditUtils.isAdjustableEffect(menuItem.getItemId())) {
                     history.pushParam(0.0f);
                 }
                 setCurrentEffect(menuItem.getItemId());
@@ -151,7 +151,7 @@ public class AdjustActivity extends BaseEditor implements GLSurfaceView.Renderer
                     hueSlider.setVisibility(View.VISIBLE);
                     isHueSliderVisible = true;
                 }
-                else if (isAdjustableEffect(mCurrentEffect)) {
+                else if (EditUtils.isAdjustableEffect(mCurrentEffect)) {
                     if (isHueSliderVisible) {
                         hueSlider.setVisibility(View.GONE);
                         isHueSliderVisible = false;
@@ -164,7 +164,7 @@ public class AdjustActivity extends BaseEditor implements GLSurfaceView.Renderer
                     }
                 }
                 //else hide slider
-                else if (!isAdjustableEffect(mCurrentEffect))
+                else if (!EditUtils.isAdjustableEffect(mCurrentEffect))
                 {
                     slider.setVisibility(View.GONE);
                     isSliderVisible = false;

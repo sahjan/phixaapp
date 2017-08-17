@@ -74,7 +74,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                         applyEffect(0,1);
                         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[1]);
                         mEffectView.requestRender();
-                        sliderValue = calculateSliderValue(slider.getProgress());
+                        sliderValue = EditUtils.calculateSliderValue(slider.getProgress());
                     }
                 });
             }
@@ -153,7 +153,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                 if(!undo) {
                     // If its not an adjustable effect just push a no value float to the stack so that
                     // the parameters line up with the effect in the history
-                    if (!isAdjustableEffect(menuItem.getItemId())) {
+                    if (!EditUtils.isAdjustableEffect(menuItem.getItemId())) {
                         history.pushParam(0.0f);
                     }
                 }
@@ -196,7 +196,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                 if(history.getRedoEffects().empty()){
                     Log.e("Tag", "empty");
                 }
-                if (!isAdjustableEffect(menuItem.getItemId())) {
+                if (!EditUtils.isAdjustableEffect(menuItem.getItemId())) {
                     history.pushParam(0.0f);
                 }
                 setCurrentEffect(menuItem.getItemId());
@@ -218,7 +218,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                     hueSlider.setVisibility(View.VISIBLE);
                     isHueSliderVisible = true;
                 }
-                else if (isAdjustableEffect(mCurrentEffect)) {
+                else if (EditUtils.isAdjustableEffect(mCurrentEffect)) {
                     if (isHueSliderVisible) {
                         hueSlider.setVisibility(View.GONE);
                         isHueSliderVisible = false;
@@ -231,7 +231,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                     }
                 }
                 //else hide slider
-                else if (!isAdjustableEffect(mCurrentEffect))
+                else if (!EditUtils.isAdjustableEffect(mCurrentEffect))
                 {
                     slider.setVisibility(View.GONE);
                     isSliderVisible = false;
@@ -255,8 +255,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-
-                if (!isAdjustableEffect(menuItem.getItemId())) {
+                if (!EditUtils.isAdjustableEffect(menuItem.getItemId())) {
                     history.pushParam(0.0f);
                 }
 

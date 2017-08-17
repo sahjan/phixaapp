@@ -81,7 +81,7 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
                         applyEffect(0,1);
                         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[1]);
                         mEffectView.requestRender();
-                        sliderValue = calculateSliderValue(slider.getProgress());
+                        sliderValue = EditUtils.calculateSliderValue(slider.getProgress());
                     }
                 });
             }
@@ -102,7 +102,7 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
                 if(!undo) {
                     // If its not an adjustable effect just push a no value float to the stack so that
                     // the parameters line up with the effect in the history
-                    if (!isAdjustableEffect(menuItem.getItemId())) {
+                    if (!EditUtils.isAdjustableEffect(menuItem.getItemId())) {
                         history.pushParam(0.0f);
                     }
                 }

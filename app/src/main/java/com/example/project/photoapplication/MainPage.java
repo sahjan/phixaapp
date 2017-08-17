@@ -69,6 +69,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             public void onClick(View view) {
                 Intent intent = new Intent(MainPage.this, TransformActivity.class);
                 intent.putExtra("Image", uri);
+                intent.putExtra("History", history);
                 startActivityForResult(intent, 1);
                 overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
                 images.recycle();
@@ -81,6 +82,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             public void onClick(View view) {
                 Intent intent = new Intent(MainPage.this, AdjustActivity.class);
                 intent.putExtra("Image", uri);
+                intent.putExtra("History", history);
                 startActivityForResult(intent, 1);
                 overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
                 images.recycle();
@@ -93,6 +95,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             public void onClick(View view) {
                 Intent intent = new Intent(MainPage.this, Drawing.class);
                 intent.putExtra("Image", uri);
+                intent.putExtra("History", history);
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
                 images.recycle();
@@ -105,6 +108,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             public void onClick(View view) {
                 Intent intent = new Intent(MainPage.this, OverlayActivity.class);
                 intent.putExtra("Image", uri);
+                intent.putExtra("History", history);
                 startActivityForResult(intent, 1);
                 overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
                 images.recycle();
@@ -162,6 +166,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             if(resultCode == RESULT_OK) {
                 Intent intent = data;
                 uri = intent.getParcelableExtra("Image1");
+                history = intent.getParcelableExtra("History");
                 images = new Image(uri, context);
                 mEffectView.requestRender();
             }

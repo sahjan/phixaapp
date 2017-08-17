@@ -150,17 +150,17 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         // If we aren't undoing we can init the effect using the current slider value and also add the parameter
         // to the stack of parameters.
         if(!undo && !redo) {
-                effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, calculateSliderValue(slider.getProgress()));
+                effect = effectHandler.initEffect(mEffectContext, mCurrentEffect, EditUtils.calculateSliderValue(slider.getProgress()));
             // Only add to the stack if its an adjustable effect.
-            if(isAdjustableEffect(mCurrentEffect)) {
+            if(EditUtils.isAdjustableEffect(mCurrentEffect)) {
                 // Check that there are the same amount of effects as parameters
                 if (history.getEffects().size() > history.getParam().size()) {
-                    history.pushParam(calculateSliderValue(slider.getProgress()));
+                    history.pushParam(EditUtils.calculateSliderValue(slider.getProgress()));
                     // If they aren't equal then we have changed the slider multiple times in the same effect.
                     // In this case remove the most recent value and replace it with the current value.
                 } else {
                     history.popParam();
-                    history.pushParam(calculateSliderValue(slider.getProgress()));
+                    history.pushParam(EditUtils.calculateSliderValue(slider.getProgress()));
                 }
             }
         }
@@ -200,7 +200,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
 
             //if adjustable effect
         if(!redo) {
-            if (isAdjustableEffect(mCurrentEffect)) {
+            if (EditUtils.isAdjustableEffect(mCurrentEffect)) {
                 if (mCurrentEffect == R.id.hue) {
                     applyHue();
                     loadHuePreview();
@@ -211,7 +211,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                 }
             }
             //else if filter
-            else if (isFilter(mCurrentEffect)) {
+            else if (EditUtils.isFilter(mCurrentEffect)) {
                 loadTextures();
                 filterInitialiser.applyFilter(mTextures, 0, 1, mCurrentEffect, mEffectContext, mImageWidth, mImageHeight);
             }
@@ -278,7 +278,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         }
     }
 
-
     /*
     Take a screenshot of the canvas
      */
@@ -296,7 +295,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                 ibt.put((mHeight - i - 1) * mWidth + j, ib.get(i * mWidth + j));
             }
         }
-
         Bitmap mBitmap = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_8888);
         mBitmap.copyPixelsFromBuffer(ibt);
         return mBitmap;
@@ -396,49 +394,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         GLToolbox.initTexParams();
     }
 
-    /**
-    Check whether the effect passed to the method is an adjustable effect.
-    @param chosenEffect - the id of the effect to be checked.
-     */
-    public boolean isAdjustableEffect(int chosenEffect) {
-        if (chosenEffect == R.id.brightness ||
-            chosenEffect == R.id.contrast ||
-            chosenEffect == R.id.filllight ||
-            chosenEffect == R.id.fisheye ||
-            chosenEffect == R.id.grain ||
-            chosenEffect == R.id.hue ||
-            chosenEffect == R.id.saturate ||
-            chosenEffect == R.id.temperature ||
-            chosenEffect == R.id.shadows ||
-            chosenEffect == R.id.highlights ||
-            chosenEffect == R.id.vignette) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     Check whether the effect passed to the method is a filter.
-     @param chosenEffect - the id of the effect to be checked.
-     */
-    public boolean isFilter (int chosenEffect) {
-        if (chosenEffect == R.id.alien ||
-            chosenEffect == R.id.intenseColours ||
-            chosenEffect == R.id.oldFilm) {
-            return true;
-        }
-        return false;
-    }
-
-
-    // Convert the slider values of 0-100 to numbers that equate with the correct values for the effect parameters
-    public float calculateSliderValue(int sliderValue){
-        float effectValue = (float) sliderValue/50;
-        return effectValue;
-    }
-
-
-
     public void showOptions(View v){
         PopupMenu popup = new PopupMenu(this, v);
         popup.inflate(R.menu.more_options);
@@ -491,7 +446,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     public abstract void showToast(String toastSting);
 
     public abstract void setSliderProgress();
-
 
     public void prepLayers() {
         clearPrivateStorage();
@@ -557,14 +511,13 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         File[] f = fm.getFileList(getFilesDir().toString());
         Uri i = Uri.fromFile(f[0]);
         data.putExtra("Image1", i);
+        data.putExtra("History", history);
         // add data to Intent
         setResult(Activity.RESULT_OK, data);
         super.onBackPressed();
     }
 
-
     // Getters and setters:
-
     public void setCurrentEffect(int menuID) {
         mCurrentEffect = menuID;
     }
@@ -573,11 +526,9 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         return mEffectView;
     }
 
-
     public int getmCurrentEffect() {
         return mCurrentEffect;
     }
-
 
     public Uri getUri() {
         return uri;
