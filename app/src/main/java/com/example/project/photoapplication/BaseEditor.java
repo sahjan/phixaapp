@@ -70,6 +70,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     // The slider
     protected SeekBar slider;
     //Hue slider
+    protected LinearLayout hueContainer;
     protected SeekBar hueSlider;
     //hue imageview
     protected ImageView hueView;

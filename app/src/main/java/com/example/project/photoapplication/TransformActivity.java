@@ -61,6 +61,12 @@ public class TransformActivity extends BaseEditor implements GLSurfaceView.Rende
             public void onClick(View view) {
                 cropView.setVisibility(View.GONE);
                 cropButtons.setVisibility(View.GONE);
+                mEffectView.queueEvent(new Runnable() {
+                    public void run() {
+                        loadTextures();
+                        mEffectView.requestRender();
+                    }
+                });
             }
         });
 
@@ -87,18 +93,6 @@ public class TransformActivity extends BaseEditor implements GLSurfaceView.Rende
         }
 
         effectHandler = new Effects();
-
-        /*ImageButton cropButton = (ImageButton) findViewById(R.id.cropImgButton);
-        ImageButton horizFlipButton = (ImageButton) findViewById(R.id.horizflipImgButton);
-        ImageButton vertFlipButton = (ImageButton) findViewById(R.id.vertflipImgButton);
-        ImageButton rotateButton = (ImageButton) findViewById(R.id.rotateImgButton); */
-
-        findViewById(R.id.cropButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPopupTransform(view); //crop button shows the transform menu
-            }
-        });
 
         findViewById(R.id.moreOpt).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,43 +181,6 @@ public class TransformActivity extends BaseEditor implements GLSurfaceView.Rende
             slider.setVisibility(View.GONE);
             isSliderVisible = false;
         }
-    }
-
-    /**
-     * Transform menu
-     * @param v
-     */
-    public void showPopupTransform(View v) {
-        PopupMenu popup = new PopupMenu(this, v);
-        popup.inflate(R.menu.transform);
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                resetRedo();
-                if(!undo) {
-                    // If its not an adjustable effect just push a no value float to the stack so that
-                    // the parameters line up with the effect in the history
-                    if (!EditUtils.isAdjustableEffect(menuItem.getItemId())) {
-                        history.pushParam(0.0f);
-                    }
-                }
-                setCurrentEffect(menuItem.getItemId());
-                if(!undo){
-                    // Push the selected effect to the history stack
-                    history.pushEffect(mCurrentEffect);
-                }
-                // render the requested effect.
-                mEffectView.requestRender();
-
-                //hide the slider upon choosing an option from here as it is not required.
-                if (isSliderVisible()) {
-                    slider.setVisibility(View.GONE);
-                    isSliderVisible = false;
-                }
-                return true;
-            }
-        });
-        popup.show();
     }
 
     @Override
