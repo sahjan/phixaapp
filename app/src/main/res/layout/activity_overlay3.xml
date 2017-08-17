@@ -21,44 +21,145 @@
                 android:layout_height="wrap_content"
                 android:visibility="invisible" />
 
-            <HorizontalScrollView
-                android:id="@+id/menuBar"
-                android:layout_width="364dp"
+
+
+            <LinearLayout
+                android:id="@+id/overlayMenu"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_horizontal"
-                android:background="@android:color/transparent">
+                android:layout_gravity="bottom|center"
+                android:weightSum="4">
 
-                <LinearLayout
+                <HorizontalScrollView
+                    android:id="@+id/filtersScrollView"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@android:color/black"
+                    android:visibility="gone">
 
-                    <Button
-                        android:id="@+id/textButton"
-                        android:layout_width="90dp"
-                        android:layout_height="40dp"
-                        android:text="Text" />
+                    <LinearLayout
+                        android:id="@+id/filtersList"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/clipartButton"
-                        android:layout_width="90dp"
-                        android:layout_height="40dp"
-                        android:text="ClipArt" />
+                        <ImageButton
+                            android:id="@+id/alienButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@android:drawable/btn_star_big_on" />
 
-                    <Button
-                        android:id="@+id/imageButton"
-                        android:layout_width="90dp"
-                        android:layout_height="40dp"
-                        android:text="Image" />
+                        <ImageButton
+                            android:id="@+id/crossprocessButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@android:drawable/btn_star_big_on" />
 
-                    <Button
-                        android:id="@+id/filtersButton"
-                        android:layout_width="90dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="1"
-                        android:text="Filters" />
+                        <ImageButton
+                            android:id="@+id/documentaryButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@android:drawable/btn_star_big_on" />
 
-                </LinearLayout>
-            </HorizontalScrollView>
+                        <ImageButton
+                            android:id="@+id/grayscaleButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+                        <ImageButton
+                            android:id="@+id/intenseColoursButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+                        <ImageButton
+                            android:id="@+id/lomoishButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+                        <ImageButton
+                            android:id="@+id/negativeButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+                        <ImageButton
+                            android:id="@+id/oldFilmButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+                        <ImageButton
+                            android:id="@+id/posterizeButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+                        <ImageButton
+                            android:id="@+id/sepiaButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+                        <ImageButton
+                            android:id="@+id/vignetteButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
+                <ImageButton
+                    android:id="@+id/textImgButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:outlineProvider="none"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/text_selector" />
+
+                <ImageButton
+                    android:id="@+id/clipartImgButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:outlineProvider="none"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/clipart_selector" />
+
+                <ImageButton
+                    android:id="@+id/imageImgButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:outlineProvider="none"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/image" />
+
+                <ImageButton
+                    android:id="@+id/filtersImgButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:cropToPadding="false"
+                    android:outlineProvider="none"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/filters_selector" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/slidersBar"

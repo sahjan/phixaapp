@@ -48,12 +48,36 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
 
         effectHandler = new Effects();
 
-        findViewById(R.id.textButton).setOnClickListener(new View.OnClickListener() {
+        //set onclick listeners for the buttons
+        findViewById(R.id.textImgButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopupOverlay(view);
+                //nothing yet
             }
         });
+
+        findViewById(R.id.clipartImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //nothing yet
+            }
+        });
+
+        findViewById(R.id.imageImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //nothing yet
+            }
+        });
+
+        findViewById(R.id.filtersImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                findViewById(R.id.filtersScrollView).setVisibility(View.VISIBLE);
+            }
+        });
+
+        setFilterButtons();
 
         findViewById(R.id.moreOpt).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,41 +113,121 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
     }
 
     /**
-     * Overlay menu
-     * @param v - The view to pass
+     * set mCurrent effect depending on the button pressed
+     * @param chosenEffect
      */
-    public void showPopupOverlay(View v) {
-        PopupMenu popup = new PopupMenu(this, v);
-        popup.inflate(R.menu.overlay);
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+    public void setChosenEffect(int chosenEffect) {
+        resetRedo();
+        if(!undo) {
+            // If its not an adjustable effect just push a no value float to the stack so that
+            // the parameters line up with the effect in the history
+            if (!EditUtils.isAdjustableEffect(chosenEffect)) {
+                history.pushParam(0.0f);
+            }
+        }
+        setCurrentEffect(chosenEffect);
+        if(!undo){
+            // Push the selected effect to the history stack
+            history.pushEffect(mCurrentEffect);
+        }
+        // render the requested effect.
+        mEffectView.requestRender();
+
+        //hide the slider upon choosing an option from here as it is not required.
+        if (isSliderVisible()) {
+            slider.setVisibility(View.GONE);
+            isSliderVisible = false;
+        }
+    }
+
+    private void setFilterButtons() {
+        findViewById(R.id.alienButton).setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                resetRedo();
-                if(!undo) {
-                    // If its not an adjustable effect just push a no value float to the stack so that
-                    // the parameters line up with the effect in the history
-                    if (!EditUtils.isAdjustableEffect(menuItem.getItemId())) {
-                        history.pushParam(0.0f);
-                    }
-                }
-                setCurrentEffect(menuItem.getItemId());
-                if(!undo){
-                    // Push the selected effect to the history stack
-                    history.pushEffect(mCurrentEffect);
-                }
-                // render the requested effect.
-                mEffectView.requestRender();
-
-                //hide the slider upon choosing an option from here as it is not required.
-                if (isSliderVisible()) {
-                    slider.setVisibility(View.GONE);
-                    isSliderVisible = false;
-                }
-
-                return true;
+            public void onClick(View view) {
+                setChosenEffect(R.id.alien);
+                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
             }
         });
-        popup.show();
+
+        findViewById(R.id.crossprocessButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.crossprocess);
+                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
+            }
+        });
+
+        findViewById(R.id.documentaryButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.documentary);
+                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
+            }
+        });
+
+        findViewById(R.id.grayscaleButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.grayscale);
+                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
+            }
+        });
+
+        findViewById(R.id.intenseColoursButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.intenseColours);
+                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
+            }
+        });
+
+        findViewById(R.id.lomoishButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.lomoish);
+                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
+            }
+        });
+
+        findViewById(R.id.negativeButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.negative);
+                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
+            }
+        });
+
+        findViewById(R.id.oldFilmButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.oldFilm);
+                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
+            }
+        });
+
+        findViewById(R.id.posterizeButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.posterize);
+                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
+            }
+        });
+
+        findViewById(R.id.sepiaButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.sepia);
+                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
+            }
+        });
+
+        findViewById(R.id.vignetteButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.vignette);
+                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
