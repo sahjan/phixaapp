@@ -108,14 +108,14 @@ public class AdjustActivity extends BaseEditor implements GLSurfaceView.Renderer
             }
         });
 
-        findViewById(R.id.brightnessButton).setOnClickListener(new View.OnClickListener() {
+        setButtons();
+
+        /*findViewById(R.id.brightnessButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 showPopupAdjust(view);
-
             }
-        });
+        }); */
 
         findViewById(R.id.moreOpt).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,13 +123,62 @@ public class AdjustActivity extends BaseEditor implements GLSurfaceView.Renderer
                 showOptions(view);
             }
         });
-
     }
 
     /**
+     * sets effect depending on button
+     * @param chosenEffect
+     */
+    private void setChosenEffect(int chosenEffect) {
+        resetRedo();
+        if (!EditUtils.isAdjustableEffect(chosenEffect)) {
+            history.pushParam(0.0f);
+        }
+        setCurrentEffect(chosenEffect);
+        // Set the previous image to the current image to ensure that multiple changes to the slider
+        // without changing effects only ever edit the last image from before selecting this effect.
+        images.setPreviousImage();
+
+        if(!undo){
+            history.pushEffect(mCurrentEffect);
+        }
+        mEffectView.requestRender();
+
+        //show slider only when an adjustable effect chosen.
+        if (mCurrentEffect == R.id.hue) {
+            if(isSliderVisible) {
+                slider.setVisibility(View.GONE);
+                isSliderVisible = false;
+            }
+            hueContainer.setVisibility(View.VISIBLE);
+            isHueSliderVisible = true;
+        }
+        else if (EditUtils.isAdjustableEffect(mCurrentEffect)) {
+            if (isHueSliderVisible) {
+                hueContainer.setVisibility(View.GONE);
+                isHueSliderVisible = false;
+            }
+            slider.setVisibility(View.VISIBLE);
+            setSliderProgress();
+            //only need to do this once if 2 adjustable effects chosen consecutively
+            if (!isSliderVisible) {
+                isSliderVisible = true;
+            }
+        }
+        //else hide slider
+        else if (!EditUtils.isAdjustableEffect(mCurrentEffect))
+        {
+            slider.setVisibility(View.GONE);
+            isSliderVisible = false;
+            hueContainer.setVisibility(View.GONE);
+            isHueSliderVisible = false;
+        }
+    }
+
+    /*
      * Adjust menu
      * @param v
-     */
+     *
     public void showPopupAdjust(View v) {
         PopupMenu popup = new PopupMenu(this, v);
         popup.inflate(R.menu.adjust);
@@ -179,11 +228,110 @@ public class AdjustActivity extends BaseEditor implements GLSurfaceView.Renderer
                     hueContainer.setVisibility(View.GONE);
                     isHueSliderVisible = false;
                 }
-
                 return true;
             }
         });
         popup.show();
+    } */
+
+    private void setButtons() {
+        findViewById(R.id.autofixImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.autofix);
+            }
+        });
+
+        findViewById(R.id.brightnessImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.brightness);
+            }
+        });
+
+        findViewById(R.id.contrastImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.contrast);
+            }
+        });
+
+        findViewById(R.id.hueImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.hue);
+            }
+        });
+
+        findViewById(R.id.saturationImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.saturate);
+            }
+        });
+
+        findViewById(R.id.sharpenImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.sharpen);
+            }
+        });
+
+        findViewById(R.id.highlightsImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.highlights);
+            }
+        });
+
+        findViewById(R.id.shadowsImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.shadows);
+            }
+        });
+
+        findViewById(R.id.filllightImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.filllight);
+            }
+        });
+
+        findViewById(R.id.fisheyeImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.fisheye);
+            }
+        });
+
+        findViewById(R.id.duotoneImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.duotone);
+            }
+        });
+
+        findViewById(R.id.grainImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.grain);
+            }
+        });
+
+        findViewById(R.id.temperatureImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.temperature);
+            }
+        });
+
+        findViewById(R.id.tintImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setChosenEffect(R.id.tint);
+            }
+        });
     }
 
     @Override

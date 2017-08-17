@@ -28,67 +28,225 @@
 
         <HorizontalScrollView
             android:id="@+id/menuBar"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="bottom|fill_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:background="@android:color/transparent">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="bottom">
+
+                <ImageButton
+                    android:id="@+id/autofixImgButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:cropToPadding="false"
+                    android:outlineProvider="none"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/autofix_selector" />
+
+                <ImageButton
+                    android:id="@+id/brightnessImgButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:cropToPadding="false"
+                    android:outlineProvider="none"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="3dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/brightness_selector" />
+
+                <ImageButton
+                    android:id="@+id/contrastImgButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:cropToPadding="false"
+                    android:outlineProvider="none"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="3dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/contrast_selector" />
+
+                <ImageButton
+                    android:id="@+id/hueImgButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:cropToPadding="false"
+                    android:outlineProvider="none"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="3dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/hue_selector" />
+
+                <ImageButton
+                    android:id="@+id/saturationImgButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:cropToPadding="false"
+                    android:outlineProvider="none"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/saturation_selector" />
+
+                <ImageButton
+                    android:id="@+id/sharpenImgButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:cropToPadding="false"
+                    android:outlineProvider="none"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/sharpen_selector" />
+
+                <ImageButton
+                    android:id="@+id/highlightsImgButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:cropToPadding="false"
+                    android:outlineProvider="none"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/highlights_selector" />
+
+                <ImageButton
+                    android:id="@+id/shadowsImgButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:cropToPadding="false"
+                    android:outlineProvider="none"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/shadows_selector" />
+
+                <ImageButton
+                    android:id="@+id/filllightImgButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:cropToPadding="false"
+                    android:outlineProvider="none"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/filllight_selector" />
+
+                <ImageButton
+                    android:id="@+id/fisheyeImgButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:cropToPadding="false"
+                    android:outlineProvider="none"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/fisheye_selector" />
+
+                <ImageButton
+                    android:id="@+id/duotoneImgButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:cropToPadding="false"
+                    android:outlineProvider="none"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/duotone_selector" />
+
+                <ImageButton
+                    android:id="@+id/grainImgButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:cropToPadding="false"
+                    android:outlineProvider="none"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/grain_selector" />
+
+                <ImageButton
+                    android:id="@+id/temperatureImgButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:cropToPadding="false"
+                    android:outlineProvider="none"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/temperature_selector" />
+
+                <ImageButton
+                    android:id="@+id/tintImgButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:cropToPadding="false"
+                    android:outlineProvider="none"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/tint_selector" />
 
                 <Button
                     android:id="@+id/brightnessButton"
                     android:layout_width="76dp"
                     android:layout_height="40dp"
-                    android:text="Brightness" />
+                    android:text="Brightness"
+                    android:visibility="gone" />
 
-                <Button
-                    android:id="@+id/contrastButton"
-                    android:layout_width="76dp"
-                    android:layout_height="40dp"
-                    android:text="Contrast"
-                    android:textAlignment="center" />
-
-                <Button
-                    android:id="@+id/saturationButton"
-                    android:layout_width="78dp"
-                    android:layout_height="40dp"
-                    android:text="Saturation"
-                    android:textAlignment="center" />
-
-                <Button
-                    android:id="@+id/hueButton"
-                    android:layout_width="76dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:text="Hue"
-                    android:textAlignment="center" />
-
-                <Button
-                    android:id="@+id/temperatureButton"
-                    android:layout_width="78dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:text="Temperature"
-                    android:textAlignment="center" />
-
-                <Button
-                    android:id="@+id/highlightsButton"
-                    android:layout_width="78dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:text="Highlights"
-                    android:textAlignment="center" />
-
-                <Button
-                    android:id="@+id/shadowsButton"
-                    android:layout_width="78dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:text="Shadows"
-                    android:textAlignment="center" />
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -99,7 +257,7 @@
             android:layout_gravity="bottom"
             android:gravity="bottom"
             android:orientation="vertical"
-            android:paddingBottom="40dp">
+            android:paddingBottom="60dp">
 
             <SeekBar
                 android:id="@+id/adjustSlider"
@@ -107,19 +265,19 @@
                 android:layout_height="0dp"
                 android:layout_gravity="bottom"
                 android:layout_weight="0.02"
-                android:background="@android:color/transparent"
+                android:background="@android:color/black"
                 android:max="100"
                 android:min="0"
                 android:progress="50"
                 android:splitTrack="false"
                 android:thumb="@drawable/thumb"
-                android:visibility="invisible" />
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/hueSliderContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/hue"
+                android:background="@drawable/hue_container_bg"
                 android:orientation="horizontal"
                 android:visibility="gone">
 

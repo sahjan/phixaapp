@@ -75,35 +75,6 @@
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/overlay_selector" />
 
-                <Button
-                    android:id="@+id/transformButton"
-                    android:layout_width="76dp"
-                    android:layout_height="40dp"
-                    android:text="Transform"
-                    android:visibility="gone" />
-
-                <Button
-                    android:id="@+id/adjustButton"
-                    android:layout_width="78dp"
-                    android:layout_height="40dp"
-                    android:text="Adjust"
-                    android:visibility="gone" />
-
-                <Button
-                    android:id="@+id/brushButton"
-                    android:layout_width="76dp"
-                    android:layout_height="40dp"
-                    android:text="Brush"
-                    android:visibility="gone" />
-
-                <Button
-                    android:id="@+id/overlayButton"
-                    android:layout_width="76dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:text="Overlay"
-                    android:visibility="gone" />
-
             </LinearLayout>
 
 
