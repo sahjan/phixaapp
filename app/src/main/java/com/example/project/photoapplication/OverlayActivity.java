@@ -5,6 +5,7 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Handler;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -74,6 +75,7 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
             @Override
             public void onClick(View view) {
                 findViewById(R.id.filtersScrollView).setVisibility(View.VISIBLE);
+                Toast.makeText(context, "Press 'back' to exit the filters menu.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -138,6 +140,31 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
             slider.setVisibility(View.GONE);
             isSliderVisible = false;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && findViewById(R.id.filtersScrollView).getVisibility() == View.VISIBLE) {
+                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
+                return false;
+        }
+        else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        if (images.getImage().isRecycled()) {
+            images = new Image(uri, context);
+        }
+        mEffectView.onResume();
+        super.onResume();
     }
 
     private void setFilterButtons() {
@@ -228,20 +255,6 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
                 findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
             }
         });
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        if (images.getImage().isRecycled()) {
-            images = new Image(uri, context);
-        }
-        mEffectView.onResume();
-        super.onResume();
     }
 
     public void setSliderProgress(){

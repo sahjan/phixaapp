@@ -11,6 +11,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         android:layout_gravity="bottom">
 
         <include layout="@layout/gl_view" />
@@ -33,6 +34,7 @@
             android:orientation="horizontal"
             android:translationZ="1dp"
             android:visibility="gone"
+            android:animateLayoutChanges="true"
             android:weightSum="2">
 
             <ImageButton

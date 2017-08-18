@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
+
         android:visibility="visible">
 
         <include
@@ -535,6 +536,7 @@
             android:layout_gravity="bottom"
             android:gravity="bottom"
             android:orientation="vertical"
+            android:animateLayoutChanges="true"
             android:paddingBottom="70dp">
 
             <SeekBar

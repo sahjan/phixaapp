@@ -27,87 +27,344 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
+                android:animateLayoutChanges="true"
                 android:weightSum="4">
 
                 <HorizontalScrollView
                     android:id="@+id/filtersScrollView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="bottom"
                     android:background="@android:color/black"
+                    android:paddingBottom="5dp"
                     android:visibility="gone">
 
                     <LinearLayout
                         android:id="@+id/filtersList"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="10dp">
 
-                        <ImageButton
-                            android:id="@+id/alienButton"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@android:drawable/btn_star_big_on" />
+                            android:layout_weight="1"
+                            android:background="@android:color/black"
+                            android:orientation="vertical"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp">
 
-                        <ImageButton
-                            android:id="@+id/crossprocessButton"
+                            <ImageButton
+                                android:id="@+id/alienButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@drawable/custom_filters_button"
+                                android:padding="1dp"
+                                app:srcCompat="@drawable/alien_icon" />
+
+                            <TextView
+                                android:id="@+id/alienText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:letterSpacing="0.2"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                android:text="ALIEN" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@android:drawable/btn_star_big_on" />
+                            android:layout_weight="1"
+                            android:background="@android:color/black"
+                            android:orientation="vertical"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp">
 
-                        <ImageButton
-                            android:id="@+id/documentaryButton"
+                            <ImageButton
+                                android:id="@+id/crossprocessButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@drawable/custom_filters_button"
+                                android:padding="1dp"
+                                app:srcCompat="@drawable/crossprocess_icon" />
+
+                            <TextView
+                                android:id="@+id/crossprocessText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:letterSpacing="0.2"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                android:text="CROSSPROCESS" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@android:drawable/btn_star_big_on" />
+                            android:layout_weight="1"
+                            android:background="@android:color/black"
+                            android:orientation="vertical"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp">
 
-                        <ImageButton
-                            android:id="@+id/grayscaleButton"
+                            <ImageButton
+                                android:id="@+id/intenseColoursButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@drawable/custom_filters_button"
+                                android:padding="1dp"
+                                app:srcCompat="@drawable/intensecolours_icon" />
+
+                            <TextView
+                                android:id="@+id/intenseColoursText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:letterSpacing="0.2"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                android:text="VIBRANT" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@android:drawable/btn_star_big_on" />
+                            android:layout_weight="1"
+                            android:background="@android:color/black"
+                            android:orientation="vertical"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp">
 
-                        <ImageButton
-                            android:id="@+id/intenseColoursButton"
+                            <ImageButton
+                                android:id="@+id/documentaryButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@drawable/custom_filters_button"
+                                android:padding="1dp"
+                                app:srcCompat="@drawable/documentary_icon" />
+
+                            <TextView
+                                android:id="@+id/documentaryText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:letterSpacing="0.2"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                android:text="DOCUMENTARY" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@android:drawable/btn_star_big_on" />
+                            android:layout_weight="1"
+                            android:background="@android:color/black"
+                            android:orientation="vertical"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp">
 
-                        <ImageButton
-                            android:id="@+id/lomoishButton"
+                            <ImageButton
+                                android:id="@+id/lomoishButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@drawable/custom_filters_button"
+                                android:padding="1dp"
+                                app:srcCompat="@drawable/lomoish_icon" />
+
+                            <TextView
+                                android:id="@+id/lomoishText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:letterSpacing="0.2"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                android:text="LOMOISH" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@android:drawable/btn_star_big_on" />
+                            android:layout_weight="1"
+                            android:background="@android:color/black"
+                            android:orientation="vertical"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp">
 
-                        <ImageButton
-                            android:id="@+id/negativeButton"
+                            <ImageButton
+                                android:id="@+id/grayscaleButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@drawable/custom_filters_button"
+                                android:padding="1dp"
+                                app:srcCompat="@drawable/grayscale_icon" />
+
+                            <TextView
+                                android:id="@+id/grayscaleText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:letterSpacing="0.2"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                android:text="GRAYSCALE" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@android:drawable/btn_star_big_on" />
+                            android:layout_weight="1"
+                            android:background="@android:color/black"
+                            android:orientation="vertical"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp">
 
-                        <ImageButton
-                            android:id="@+id/oldFilmButton"
+                            <ImageButton
+                                android:id="@+id/negativeButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@drawable/custom_filters_button"
+                                android:padding="1dp"
+                                app:srcCompat="@drawable/negative_icon" />
+
+                            <TextView
+                                android:id="@+id/negativeText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:letterSpacing="0.2"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                android:text="NEGATIVE" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@android:drawable/btn_star_big_on" />
+                            android:layout_weight="1"
+                            android:background="@android:color/black"
+                            android:orientation="vertical"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp">
 
-                        <ImageButton
-                            android:id="@+id/posterizeButton"
+                            <ImageButton
+                                android:id="@+id/oldFilmButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@drawable/custom_filters_button"
+                                android:padding="1dp"
+                                app:srcCompat="@drawable/oldfilm_icon" />
+
+                            <TextView
+                                android:id="@+id/oldFilmText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:letterSpacing="0.2"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                android:text="OLD FILM" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@android:drawable/btn_star_big_on" />
+                            android:layout_weight="1"
+                            android:background="@android:color/black"
+                            android:orientation="vertical"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp">
 
-                        <ImageButton
-                            android:id="@+id/sepiaButton"
+                            <ImageButton
+                                android:id="@+id/posterizeButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@drawable/custom_filters_button"
+                                android:padding="1dp"
+                                app:srcCompat="@drawable/posterise_icon" />
+
+                            <TextView
+                                android:id="@+id/posterizeText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:letterSpacing="0.2"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                android:text="POSTERIZE" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@android:drawable/btn_star_big_on" />
+                            android:layout_weight="1"
+                            android:background="@android:color/black"
+                            android:orientation="vertical"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp">
 
-                        <ImageButton
-                            android:id="@+id/vignetteButton"
+                            <ImageButton
+                                android:id="@+id/sepiaButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@drawable/custom_filters_button"
+                                android:padding="1dp"
+                                app:srcCompat="@drawable/sepia_icon" />
+
+                            <TextView
+                                android:id="@+id/sepiaText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:letterSpacing="0.2"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                android:text="SEPIA" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@android:drawable/btn_star_big_on" />
+                            android:layout_weight="1"
+                            android:background="@android:color/black"
+                            android:orientation="vertical"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp">
+
+                            <ImageButton
+                                android:id="@+id/vignetteButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@drawable/custom_filters_button"
+                                android:padding="1dp"
+                                app:srcCompat="@drawable/vignette_icon" />
+
+                            <TextView
+                                android:id="@+id/vignetteText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:letterSpacing="0.2"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                android:text="VIGNETTE" />
+                        </LinearLayout>
 
                     </LinearLayout>
 

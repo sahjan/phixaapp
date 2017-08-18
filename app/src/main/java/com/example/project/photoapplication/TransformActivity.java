@@ -50,7 +50,6 @@ public class TransformActivity extends BaseEditor implements GLSurfaceView.Rende
 
         //set the crop tool
         cropView = (CropView) findViewById(R.id.cropView);
-        cropView.setImageBitmap(images.getImage());
         //confirm and cancel buttons
         cropButtons = (LinearLayout) findViewById(R.id.cropButtons);
         ImageButton confirmButton = (ImageButton) findViewById(R.id.confirmCrop);
@@ -59,11 +58,12 @@ public class TransformActivity extends BaseEditor implements GLSurfaceView.Rende
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                images.setImage(cropView.getImageBitmap());
                 cropView.setVisibility(View.GONE);
                 cropButtons.setVisibility(View.GONE);
+                mCurrentEffect = R.id.none;
                 mEffectView.queueEvent(new Runnable() {
                     public void run() {
-                        loadTextures();
                         mEffectView.requestRender();
                     }
                 });
@@ -129,6 +129,7 @@ public class TransformActivity extends BaseEditor implements GLSurfaceView.Rende
         findViewById(R.id.cropImgButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                cropView.setImageBitmap(images.getImage());
                 setChosenEffect(R.id.crop);
             }
         });
