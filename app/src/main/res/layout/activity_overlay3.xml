@@ -22,7 +22,6 @@
                 android:visibility="invisible" />
 
 
-
             <LinearLayout
                 android:id="@+id/overlayMenu"
                 android:layout_width="match_parent"
@@ -114,50 +113,137 @@
 
                 </HorizontalScrollView>
 
-                <ImageButton
-                    android:id="@+id/textImgButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/custom_button"
-                    android:outlineProvider="none"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/text_selector" />
+                    android:background="@android:color/black"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp">
 
-                <ImageButton
-                    android:id="@+id/clipartImgButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/custom_button"
-                    android:outlineProvider="none"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/clipart_selector" />
+                    <ImageButton
+                        android:id="@+id/textImgButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
 
-                <ImageButton
-                    android:id="@+id/imageImgButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/custom_button"
-                    android:outlineProvider="none"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/image" />
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/custom_button"
+                        android:cropToPadding="false"
+                        android:outlineProvider="none"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/text_selector" />
 
-                <ImageButton
-                    android:id="@+id/filtersImgButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
+                    <TextView
+                        android:id="@+id/textText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:letterSpacing="0.2"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:text="TEXT" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/custom_button"
-                    android:cropToPadding="false"
-                    android:outlineProvider="none"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/filters_selector" />
+                    android:background="@android:color/black"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp">
+
+                    <ImageButton
+                        android:id="@+id/clipartImgButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/custom_button"
+                        android:cropToPadding="false"
+                        android:outlineProvider="none"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/clipart_selector" />
+
+                    <TextView
+                        android:id="@+id/clipartText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:letterSpacing="0.2"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:text="CLIP ART" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/black"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp">
+
+                    <ImageButton
+                        android:id="@+id/imageImgButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/custom_button"
+                        android:cropToPadding="false"
+                        android:outlineProvider="none"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/image" />
+
+                    <TextView
+                        android:id="@+id/imageText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:letterSpacing="0.2"
+                        android:text="IMAGE" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/black"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp">
+
+                    <ImageButton
+                        android:id="@+id/filtersImgButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/custom_button"
+                        android:cropToPadding="false"
+                        android:outlineProvider="none"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/filters_selector" />
+
+                    <TextView
+                        android:id="@+id/filtersText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:letterSpacing="0.2"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:text="FILTERS" />
+                </LinearLayout>
 
             </LinearLayout>
 

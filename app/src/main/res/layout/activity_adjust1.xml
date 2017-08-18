@@ -66,11 +66,12 @@
                         android:layout_gravity="center"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
+                        android:letterSpacing="0.2"
                         android:text="AUTOFIX" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/black"
                     android:orientation="vertical"
@@ -99,13 +100,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:letterSpacing="0.2"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="BRIGHTNESS" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/black"
                     android:orientation="vertical"
@@ -134,13 +136,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:letterSpacing="0.2"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="CONTRAST" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/black"
                     android:orientation="vertical"
@@ -169,13 +172,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:letterSpacing="0.2"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="HUE" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/black"
                     android:orientation="vertical"
@@ -202,13 +206,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:letterSpacing="0.2"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="SATURATION" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/black"
                     android:orientation="vertical"
@@ -235,13 +240,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:letterSpacing="0.2"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="SHARPEN" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/black"
                     android:orientation="vertical"
@@ -268,13 +274,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:letterSpacing="0.2"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="HIGHLIGHTS" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/black"
                     android:orientation="vertical"
@@ -301,13 +308,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:letterSpacing="0.2"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="SHADOWS" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/black"
                     android:orientation="vertical"
@@ -334,13 +342,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:letterSpacing="0.2"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="FILL LIGHT" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/black"
                     android:orientation="vertical"
@@ -367,13 +376,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:letterSpacing="0.2"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="FISHEYE" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/black"
                     android:orientation="vertical"
@@ -400,13 +410,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:letterSpacing="0.2"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="DUOTONE" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/black"
                     android:orientation="vertical"
@@ -433,13 +444,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:letterSpacing="0.2"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="GRAIN" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/black"
                     android:orientation="vertical"
@@ -466,13 +478,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:letterSpacing="0.2"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="TEMPERATURE" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/black"
                     android:orientation="vertical"
@@ -499,6 +512,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:letterSpacing="0.2"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="TINT" />
