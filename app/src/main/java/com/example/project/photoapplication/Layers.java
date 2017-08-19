@@ -1,5 +1,6 @@
 package com.example.project.photoapplication;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +10,6 @@ import java.io.File;
 
 public class Layers extends AppCompatActivity {
 
-    private EditHistory history;
     File[] mResources;
 
     @Override
@@ -17,7 +17,10 @@ public class Layers extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_layers);
         populateImages();
-        CustomPagerAdapter mCustomPagerAdapter = new CustomPagerAdapter(this, mResources);
+        Intent intent = getIntent();
+        EditHistory history = intent.getParcelableExtra("History");
+        CustomPagerAdapter mCustomPagerAdapter = new CustomPagerAdapter(this, mResources, history);
+
 
         ViewPager mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mCustomPagerAdapter);

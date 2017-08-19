@@ -24,12 +24,15 @@ public class CustomPagerAdapter extends PagerAdapter {
     LayoutInflater mLayoutInflater;
     File[] mResources;
     File currentFile;
+    EditHistory history;
+    int index;
 
 
-    public CustomPagerAdapter(Context context, File[] pics){
+    public CustomPagerAdapter(Context context, File[] pics, EditHistory history){
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mResources = pics;
+        this.history = history;
 
     }
 
@@ -49,6 +52,7 @@ public class CustomPagerAdapter extends PagerAdapter {
         View itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false);
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
+        index = position;
         imageView.setImageBitmap(getImage(mResources[position]));
         currentFile = mResources[position];
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -75,8 +79,10 @@ public class CustomPagerAdapter extends PagerAdapter {
 
 
     public void startEdit(){
-        Intent intent = new Intent(mContext, MainPage.class);
+        Intent intent = new Intent(mContext, LayerEditorMainPage.class);
         intent.putExtra("Image", Uri.fromFile(currentFile));
+        intent.putExtra("Index", index);
+        intent.putExtra("History", history);
         mContext.startActivity(intent);
 
     }

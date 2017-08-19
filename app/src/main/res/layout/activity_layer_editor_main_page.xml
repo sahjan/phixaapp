@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_layer_editor_main_page"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.project.photoapplication.LayerEditorMainPage">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/layerImageView"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:weightSum="4">
+
+            <Button
+                android:id="@+id/Delete"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:cropToPadding="false"
+                android:outlineProvider="none"
+                android:scaleType="fitCenter"
+                android:text="Delete"/>
+
+            <Button
+                android:id="@+id/Change"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:cropToPadding="false"
+                android:outlineProvider="none"
+                android:scaleType="fitCenter"
+                android:text="Change"/>
+
+            <Button
+                android:id="@+id/Add"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:cropToPadding="false"
+                android:outlineProvider="none"
+                android:scaleType="fitCenter"
+                android:text="Add"/>
+
+        </LinearLayout>
+        </FrameLayout>
+    </FrameLayout>
+</RelativeLayout>

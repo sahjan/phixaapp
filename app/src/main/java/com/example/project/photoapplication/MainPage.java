@@ -35,6 +35,17 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
         context = this;
         history = new EditHistory(uri);
 
+        ImageButton layers = (ImageButton) findViewById(R.id.layers);
+        layers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                prepLayers();
+                Intent layers = new Intent(MainPage.this, Layers.class);
+                layers.putExtra("History", history);
+                startActivity(layers);
+            }
+        });
+
         images = new Image(uri, context);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(MainPage.this);
@@ -167,7 +178,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                 Intent intent = data;
                 uri = intent.getParcelableExtra("Image1");
                 history = intent.getParcelableExtra("History");
-                images = new Image(uri, context);
+                images = new Image(uri, context, history);
                 mEffectView.requestRender();
             }
         }
