@@ -118,6 +118,7 @@ public class RecentImages extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), MainPage.class);
         intent.putExtra("Image", image);
         startActivity(intent);
+        finish();
     }
 
     public Boolean checkSize(int index){
