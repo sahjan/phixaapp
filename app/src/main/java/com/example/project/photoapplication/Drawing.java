@@ -82,8 +82,47 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
             }
         });
 
+        findViewById(R.id.sizeImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                seek.setVisibility(View.VISIBLE);
+            }
+        });
 
-        colour = (Button) findViewById(R.id.but2);
+        findViewById(R.id.colourPickerImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colourDropper = true;
+                accept.setVisibility(View.VISIBLE);
+                view.setSelecting();
+            }
+        });
+
+        findViewById(R.id.colourWheelImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colourDropper = false;
+                c.show();
+                c.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            }
+        });
+
+        findViewById(R.id.blurImgButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setblur();
+                if (blur) {
+                    blur = false;
+                    showToast("Blur disabled");
+                } else {
+                    blur = true;
+                    showToast("Blur enabled");
+                }
+            }
+        });
+
+
+        /* colour = (Button) findViewById(R.id.but2);
         colour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,7 +153,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
                     showToast("Blur enabled");
                 }
             }
-        });
+        }); */
 
         accept = (Button) findViewById(R.id.but4);
         accept.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +162,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
                 setViewColour();
                 setSelecting();
                 showToast("Colour Selected!");
-                accept.setVisibility(View.INVISIBLE);
+                accept.setVisibility(View.GONE);
 
             }
         });
@@ -191,7 +230,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
     }
 
 
-    public void showPopupColour(View v) {
+    /*public void showPopupColour(View v) {
         final PopupMenu popup = new PopupMenu(this, v);
         popup.inflate(R.menu.colour);
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -213,7 +252,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
 
         });
         popup.show();
-    }
+    } */
 
     public void showOptions(View v) {
         PopupMenu popup = new PopupMenu(this, v);
