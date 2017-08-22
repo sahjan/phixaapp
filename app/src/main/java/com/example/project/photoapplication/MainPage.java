@@ -141,8 +141,13 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
 
     @Override
     protected void onResume() {
+        //keeps app from crashing when pressing back button too soon
+        //after applying an effect (on my tablet)
+        if (images.getImage() == null) {
+            images = new Image(uri, context);
+        }
         //keeps app from crashing when reopening after exiting or locking the device.
-        if (images.getImage().isRecycled()) {
+        else if (images.getImage().isRecycled()) {
             images = new Image(uri, context);
         }
         mEffectView.onResume();
