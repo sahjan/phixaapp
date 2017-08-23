@@ -1,25 +1,17 @@
 package com.example.project.photoapplication;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.media.effect.EffectContext;
-import android.net.Uri;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
-
-import java.io.IOException;
-import java.util.Stack;
 
 
 /*
@@ -44,10 +36,11 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
 
         // Initialise all the activity fields to relevant values
         Intent intent = getIntent();
-        uri = intent.getParcelableExtra("Image");
         mCurrentEffect = R.id.none;
         context = this;
-        history = new EditHistory(uri);
+        history = intent.getParcelableExtra("History");
+        uri = history.getImages().get("OriginalImage");
+        String type = intent.getStringExtra("Type");
         images = new Image(uri, this);
 
         if (!isEffectApplied()) {
@@ -55,6 +48,20 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         }
 
         effectHandler = new Effects();
+
+
+        ImageButton a = (ImageButton) findViewById(R.id.transformImgButton);
+        a.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                prepLayers();
+                Intent i = new Intent(context, Layers.class);
+                i.putExtra("History", history);
+                startActivity(i);
+            }
+        });
+
+
 
         // Assign the slider to its XML counterpart and set its listener
         slider = (SeekBar) findViewById(R.id.adjustSlider);
@@ -80,60 +87,60 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
             }
         });
 
-        /*//assign the hue slider and set its listener. Does nothing yet.
-        hueSlider = (SeekBar) findViewById(R.id.hueSlider);
-        hueSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
-        //hue image view
-        hueView = (ImageView) findViewById(R.id.hueView);
-        hueView.setImageBitmap(images.getPreviousImage()); */
-
-        // Set the onclick listeners for all the buttons in the activity.
-        // All show the popups with relevant functionalities.
-        findViewById(R.id.but1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPopupTransform(view);
-
-            }
-        });
-
-        findViewById(R.id.but2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPopupAdjust(view);
-
-            }
-        });
-
-        findViewById(R.id.but3).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPopupBrush(view);
-
-            }
-        });
-        findViewById(R.id.moreOpt).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showOptions(view);
-            }
-        });
+//        /*//assign the hue slider and set its listener. Does nothing yet.
+//        hueSlider = (SeekBar) findViewById(R.id.hueSlider);
+//        hueSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//            @Override
+//            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+//
+//            }
+//
+//            @Override
+//            public void onStartTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//
+//            @Override
+//            public void onStopTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//        });
+//
+//        //hue image view
+//        hueView = (ImageView) findViewById(R.id.hueView);
+//        hueView.setImageBitmap(images.getPreviousImage()); */
+//
+//        // Set the onclick listeners for all the buttons in the activity.
+//        // All show the popups with relevant functionalities.
+//        findViewById(R.id.but1).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showPopupTransform(view);
+//
+//            }
+//        });
+//
+//        findViewById(R.id.but2).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showPopupAdjust(view);
+//
+//            }
+//        });
+//
+//        findViewById(R.id.but3).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showPopupBrush(view);
+//
+//            }
+//        });
+//        findViewById(R.id.moreOpt).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showOptions(view);
+//            }
+//        });
         
     }
 

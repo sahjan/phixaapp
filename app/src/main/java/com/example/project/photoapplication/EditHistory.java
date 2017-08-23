@@ -88,6 +88,11 @@ public class EditHistory implements Parcelable {
 
     public EditStack<Float> getParam(){ return historyValues;}
 
+    public void removeLayer(int index){
+        history.removeIndex(index);
+        historyValues.removeIndex(index);
+    }
+
     @Override
     public void writeToParcel(Parcel out, int flags){
         out.writeParcelable(history, flags);
