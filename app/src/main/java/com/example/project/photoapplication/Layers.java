@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -25,6 +26,7 @@ public class Layers extends AppCompatActivity {
     EditHistory history;
     ViewPager mViewPager;
     CustomPagerAdapter mCustomPagerAdapter;
+    Context context;
 
 
     @Override
@@ -33,11 +35,22 @@ public class Layers extends AppCompatActivity {
         setContentView(R.layout.activity_layers);
         populateImages();
         Intent intent = getIntent();
-        EditHistory history = intent.getParcelableExtra("History");
-         mCustomPagerAdapter = new CustomPagerAdapter(this, mResources, history);
+        final EditHistory history = intent.getParcelableExtra("History");
+        Log.e("History", Integer.toString(history.getEffects().size()));
+        context = this;
+
+        mCustomPagerAdapter = new CustomPagerAdapter(this, mResources, history);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mCustomPagerAdapter);
+
+        ImageButton back = (ImageButton) findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
     }
 
@@ -45,6 +58,11 @@ public class Layers extends AppCompatActivity {
         FileManager fm = new FileManager(this);
         mResources = fm.getFileList(getFilesDir().toString());
 
+    }
+
+    @Override
+    public void onBackPressed(){
+        //do nothing
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -136,7 +154,7 @@ public class Layers extends AppCompatActivity {
 
 
         public void startEdit(){
-            Intent intent = new Intent(mContext, LayerEditorMainPage.class);
+            Intent intent = new Intent(mContext, EffectsFilterActivity.class);
             intent.putExtra("Image", Uri.fromFile(currentFile));
             intent.putExtra("Index", index);
             Log.e("Index", Integer.toString(index));

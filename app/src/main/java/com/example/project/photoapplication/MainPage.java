@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
@@ -33,7 +34,13 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
         uri = intent.getParcelableExtra("Image");
         mCurrentEffect = R.id.none;
         context = this;
-        history = new EditHistory(uri);
+        if(intent.hasExtra("History")){
+            history = intent.getParcelableExtra("History");
+        }
+        else {
+            history = new EditHistory(uri);
+        }
+        Log.e("History", Integer.toString(history.getEffects().size()));
 
         ImageButton layers = (ImageButton) findViewById(R.id.layers);
         layers.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +48,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             public void onClick(View view) {
                 prepLayers();
                 Intent layers = new Intent(MainPage.this, Layers.class);
+                history.putImage("finalImage", uri);
                 layers.putExtra("History", history);
                 startActivity(layers);
             }

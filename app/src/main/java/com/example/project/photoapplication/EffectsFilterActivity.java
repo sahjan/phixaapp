@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -21,11 +21,14 @@ Will be broken apart into seperate activities in the future.
 
 public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.Renderer {
 
+
+    private int index;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.main);
+        setContentView(R.layout.layereditor);
 
          //Initialise the renderer and tell it to only render when Explicit
          //requested with the RENDERMODE_WHEN_DIRTY option
@@ -40,7 +43,8 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         context = this;
         history = intent.getParcelableExtra("History");
         uri = history.getImages().get("OriginalImage");
-        String type = intent.getStringExtra("Type");
+        index = intent.getIntExtra("Index", 0);
+
         images = new Image(uri, this);
 
         if (!isEffectApplied()) {
@@ -50,11 +54,13 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         effectHandler = new Effects();
 
 
-        ImageButton a = (ImageButton) findViewById(R.id.transformImgButton);
+        Button a = (Button) findViewById(R.id.Delete);
         a.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                history.removeLayer(index);
                 prepLayers();
+                Log.e("History", Integer.toString(history.getEffects().size()));
                 Intent i = new Intent(context, Layers.class);
                 i.putExtra("History", history);
                 startActivity(i);

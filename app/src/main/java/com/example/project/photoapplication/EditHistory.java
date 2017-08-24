@@ -80,6 +80,14 @@ public class EditHistory implements Parcelable {
         }
     }
 
+    public void putImage(String name, Uri image){
+        images.put(name, image);
+    }
+
+    public Uri getImage(String key){
+        return images.get(key);
+    }
+
     public HashMap<String, Uri> getImages(){
         return images;
     }

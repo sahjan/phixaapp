@@ -51,8 +51,9 @@
         <!-- Below left in for testing new functionality -->
         <activity android:name=".EffectsFilterActivity" />
         <activity android:name=".Layers" />
-        <activity android:name=".Drawing"
-            android:hardwareAccelerated="false"/>
+        <activity
+            android:name=".Drawing"
+            android:hardwareAccelerated="false" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -64,7 +65,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-
+        <activity android:name=".LayerEditorMainPage"></activity>
     </application>
 
 </manifest>
