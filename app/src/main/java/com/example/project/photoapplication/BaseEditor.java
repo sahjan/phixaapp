@@ -426,10 +426,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                             redo();
                         }
                         break;
-//                    case R.id.layer:
-//                        prepLayers();
-//                        Intent intent = new Intent(context, Layers.class);
-//                        startActivity(intent);
                 }
                 return true;
             }

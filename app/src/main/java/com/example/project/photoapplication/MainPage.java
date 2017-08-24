@@ -34,11 +34,15 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
         uri = intent.getParcelableExtra("Image");
         mCurrentEffect = R.id.none;
         context = this;
+        // If we have a history extra we are starting the activity from a layer and need to
+        // create the image with the original image stored in the edit history
         if(intent.hasExtra("History")){
             history = intent.getParcelableExtra("History");
+            images = new Image(uri, context, history);
         }
         else {
             history = new EditHistory(uri);
+            images = new Image(uri, context);
         }
         Log.e("History", Integer.toString(history.getEffects().size()));
 
@@ -54,7 +58,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             }
         });
 
-        images = new Image(uri, context);
+
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(MainPage.this);
         builder.setTitle("Exit editor")
