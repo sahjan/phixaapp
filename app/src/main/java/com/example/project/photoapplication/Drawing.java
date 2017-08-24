@@ -1,5 +1,6 @@
 package com.example.project.photoapplication;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.IOException;
 
 public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnColorChangedListener {
@@ -36,15 +38,14 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
     private SeekBar seek;
     private BlurMaskFilter mBlur;
     private float x, y;
-    private Button colour;
     private boolean blur = false;
-    private Button type;
     private boolean colourDropper = false;
     private int currentColour = Color.BLACK;
     private Button accept;
     private Button currentColourBut;
     private Context context;
     private EditHistory history;
+    private FileManager fm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         setContentView(R.layout.activity_drawing);
         Intent intent = getIntent();
         path = intent.getParcelableExtra("Image");
-//        history = intent.getParcelableExtra("History");
+        history = intent.getParcelableExtra("History");
         Bitmap b = null;
         try {
             b = MediaStore.Images.Media.getBitmap(this.getContentResolver(), path);
@@ -64,6 +65,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         mPaint.setColor(0xFFFF0000);
         mBlur = new BlurMaskFilter(8, BlurMaskFilter.Blur.NORMAL);
         context = this;
+        fm = new FileManager(context);
 
 
         c = new ColourPickerDialog(this, this, mPaint.getColor());
@@ -121,39 +123,6 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
             }
         });
 
-
-        /* colour = (Button) findViewById(R.id.but2);
-        colour.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPopupColour(view);
-
-
-            }
-        });
-
-        Button size = (Button) findViewById(R.id.but1);
-        size.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                seek.setVisibility(View.VISIBLE);
-            }
-        });
-
-        type = (Button) findViewById(R.id.but3);
-        type.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setblur();
-                if (blur) {
-                    blur = false;
-                    showToast("Blur disabled");
-                } else {
-                    blur = true;
-                    showToast("Blur enabled");
-                }
-            }
-        }); */
 
         accept = (Button) findViewById(R.id.but4);
         accept.setOnClickListener(new View.OnClickListener() {
@@ -230,30 +199,6 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
     }
 
 
-    /*public void showPopupColour(View v) {
-        final PopupMenu popup = new PopupMenu(this, v);
-        popup.inflate(R.menu.colour);
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.ColourPicker:
-                        colourDropper = true;
-                        accept.setVisibility(View.VISIBLE);
-                        view.setSelecting();
-                        break;
-                    case R.id.ColourWheel:
-                        colourDropper = false;
-                        c.show();
-                        c.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                }
-                return true;
-            }
-
-        });
-        popup.show();
-    } */
-
     public void showOptions(View v) {
         PopupMenu popup = new PopupMenu(this, v);
         popup.inflate(R.menu.more_options);
@@ -289,9 +234,19 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
      * Save the image in the canvas
      */
     public void save() {
-        Bitmap b = view.getDrawingCache();
-        FileManager fm = new FileManager(this);
-        fm.saveBitmap(b);
+        fm.saveBitmap(getBitmap());
+    }
+
+    /**
+     * @param bitmap  - The image to save as a file
+     * @param context - the context of the activity calling the method
+     */
+    public void save(Bitmap bitmap, Context context, int index, String type) {
+        FileManager fm = new FileManager(context);
+        fm.startSave(context, bitmap, index, type);
+        if (type.equals("normal")) {
+            showToast("File Saved");
+        }
     }
 
     /**
@@ -308,6 +263,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
 
     /**
      * Set the colour in the centre of the colour wheel to the colour and set the colour to draw in the view to the selected colour
+     *
      * @param color - The colour to set
      */
     public void colorChanged(int color) {
@@ -317,6 +273,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
 
     /**
      * Change the size of the brush
+     *
      * @param width - the width to set the brush or blur size to
      */
     public void changeSize(float width) {
@@ -351,6 +308,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
 
     /**
      * Create a scaled bitmap that fits the view properly
+     *
      * @return - The mutable scaled bitmap
      */
     public Bitmap getSize() {
@@ -395,16 +353,17 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
     /**
      * Get the height and width values of the view and calculate the correct width and height
      * for the image to be scaled to to maintain aspect ratio
+     *
      * @return int[] - An array containing the width and height values
      */
-    public int[] getScaleSize(){
+    public int[] getScaleSize() {
         int w = view.getWidth();
         int h = view.getMeasuredHeight();
         Log.e("dimensions", h + " " + w);
         int scaledHeight = w * image.getHeight() / image.getWidth();
         int scaledWidth = w;
         int[] scaledValues = {
-            scaledHeight, scaledWidth
+                scaledHeight, scaledWidth
         };
         return scaledValues;
     }
@@ -412,13 +371,35 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
 
     /**
      * Show a toast with the passed string
+     *
      * @param toastString - The string to show in the toast
      */
-    public void showToast(final String toastString){
+    public void showToast(final String toastString) {
         Drawing.this.runOnUiThread(new Runnable() {
             public void run() {
                 Toast.makeText(Drawing.this, toastString, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public Bitmap getBitmap() {
+        Bitmap b = view.getDrawingCache();
+        return b;
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        EditUtils.clearPrivateStorage(context);
+        Intent data = new Intent();
+        save(getBitmap(), context, 17, "layer");
+        android.os.SystemClock.sleep(200);
+        File[] f = fm.getFileList(getFilesDir().toString());
+        Uri i = Uri.fromFile(f[0]);
+        data.putExtra("Image1", i);
+        data.putExtra("History", history);
+        // add data to Intent
+        setResult(Activity.RESULT_OK, data);
+        super.onBackPressed();
     }
 }

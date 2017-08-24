@@ -119,7 +119,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                 Intent intent = new Intent(MainPage.this, Drawing.class);
                 intent.putExtra("Image", uri);
                 intent.putExtra("History", history);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
                 overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
                 images.recycle();
             }

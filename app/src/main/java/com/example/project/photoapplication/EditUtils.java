@@ -5,6 +5,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 
+import java.io.File;
+
 /**
  * Created by Ed on 17/08/2017.
  */
@@ -54,5 +56,13 @@ public class EditUtils {
     public static float calculateSliderValue(int sliderValue) {
         float effectValue = (float) sliderValue / 50;
         return effectValue;
+    }
+
+    public static void clearPrivateStorage(Context context){
+        FileManager fm = new FileManager(context);
+        File[] files = fm.getFileList(context.getFilesDir().toString());
+        for (File file: files){
+            file.delete();
+        }
     }
 }

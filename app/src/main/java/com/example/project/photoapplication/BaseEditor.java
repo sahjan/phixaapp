@@ -443,7 +443,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     public abstract void setSliderProgress();
 
     public void prepLayers() {
-        clearPrivateStorage();
+        EditUtils.clearPrivateStorage(context);
         // Set undo to true so effects applied in the re-render process aren't added to the stack
         undo = true;
         layers = true;
@@ -490,16 +490,10 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         }
     }
 
-    public void clearPrivateStorage(){
-        File[] files = fm.getFileList(getFilesDir().toString());
-        for (File file: files){
-            file.delete();
-        }
-    }
 
     @Override
     public void onBackPressed() {
-        clearPrivateStorage();
+        EditUtils.clearPrivateStorage(context);
         Intent data = new Intent();
         save(images.getImage(), context, 17, "layer");
         android.os.SystemClock.sleep(200);
