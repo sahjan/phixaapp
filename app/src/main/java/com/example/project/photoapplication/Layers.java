@@ -48,7 +48,11 @@ public class Layers extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent back = new Intent(context, MainPage.class);
+                back.putExtra("History", history);
+                Uri i = Uri.fromFile(mResources[mResources.length-1]);
+                back.putExtra("Image", i);
+                startActivity(back);
             }
         });
 
@@ -65,19 +69,6 @@ public class Layers extends AppCompatActivity {
         //do nothing
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
-            if(resultCode == Activity.RESULT_OK) {
-                Intent intent = data;
-                history = intent.getParcelableExtra("History");
-                int index = intent.getIntExtra("Index", 0);
-                mResources = removeItem(index);
-                mCustomPagerAdapter = new CustomPagerAdapter(this, mResources, history);
-                mViewPager.setAdapter(mCustomPagerAdapter);
-            }
-        }
-    }
 
     public File[] removeItem(int index){
         File[] newFiles = new File[mResources.length-1];
@@ -154,7 +145,7 @@ public class Layers extends AppCompatActivity {
 
 
         public void startEdit(){
-            Intent intent = new Intent(mContext, EffectsFilterActivity.class);
+            Intent intent = new Intent(mContext, LayerEditorMainPage.class);
             intent.putExtra("Image", Uri.fromFile(currentFile));
             intent.putExtra("Index", index);
             Log.e("Index", Integer.toString(index));

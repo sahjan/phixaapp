@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -52,6 +53,16 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         }
 
         effectHandler = new Effects();
+
+        ImageButton back = (ImageButton) findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent back = new Intent(context, MainPage.class);
+                back.putExtra("History", history);
+                startActivity(back);
+            }
+        });
 
 
         Button a = (Button) findViewById(R.id.Delete);
