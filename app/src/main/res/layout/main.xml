@@ -75,6 +75,13 @@
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/overlay_selector" />
 
+                <Button
+                    android:id="@+id/faceButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Face" />
+
             </LinearLayout>
 
 

@@ -12,6 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES" android:value="face"/>
+
         <style
             android:name="AppTheme"
             parent="@style/Theme.AppCompat.Light.NoActionBar">
@@ -42,6 +44,8 @@
         <activity android:name=".RecentImages" />
         <!-- TransformActivity Tools Activity -->
         <activity android:name=".TransformActivity" />
+        <!-- Face detector activity -->
+        <activity android:name=".FaceActivity" />
         <!-- Adjust Tools Activity -->
         <activity android:name=".AdjustActivity" />
         <!-- Brush Tools Activity -->
