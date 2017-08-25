@@ -4,12 +4,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
@@ -142,6 +144,30 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             @Override
             public void onClick(View view) {
                 showOptions(view);
+            }
+        });
+
+        slider = (SeekBar) findViewById(R.id.adjustSlider);
+        slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int sliderProgress, boolean b) {
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                //queueEvent ensures this occurs in the Renderer thread.
+                // When we stop tracking the touch on the slider apply the effect with its parameter and request a render.
+                mEffectView.queueEvent(new Runnable() {
+                    public void run() {
+                        applyEffect(0,1);
+                        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[1]);
+                        mEffectView.requestRender();
+                        sliderValue = EditUtils.calculateSliderValue(slider.getProgress());
+                    }
+                });
             }
         });
     }

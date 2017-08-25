@@ -70,6 +70,7 @@ public class Layers extends AppCompatActivity {
     }
 
 
+
     public File[] removeItem(int index){
         File[] newFiles = new File[mResources.length-1];
         for(int i = 0; i<mResources.length; i++ ){
@@ -117,10 +118,10 @@ public class Layers extends AppCompatActivity {
             View itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false);
 
             ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
-
+            index = position;
             imageView.setImageBitmap(getImage(mResources[position]));
             currentFile = mResources[position];
-            Log.e("Index", Integer.toString(position));
+            Log.e("Index", Integer.toString(index));
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
