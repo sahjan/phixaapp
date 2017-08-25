@@ -101,6 +101,11 @@ public class EditHistory implements Parcelable {
         historyValues.removeIndex(index);
     }
 
+    public void addLayer(int index, int effect, float param){
+        history.addAtIndex(index, effect);
+        historyValues.addAtIndex(index, param);
+    }
+
     @Override
     public void writeToParcel(Parcel out, int flags){
         out.writeParcelable(history, flags);

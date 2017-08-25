@@ -31,7 +31,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 
 /*
-Superclass for all editor activities. This activity provides all necessary methods for setup of the open gl canvas
+Superclass for all GLeditor activities. This activity provides all necessary methods for setup of the open gl canvas
 and utility methods needed for editing operations such as Undo. The save method is abstract as part of the method
 requires a class name that so far we have been unable to pass as a class name successfully.
 subclasses must implement their own oncreate methods to complete set up of the canvas and display an image.
@@ -312,15 +312,12 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
     }
 
-    /*
+    /**
     Undo algorithm for non destructive editing. Takes the stored stacks of effects and parameters
      removes the most recent one and sequentially reapplies them to get the image minus the most
      recent effect applied.
-     Known issue with this method with a potential race condition. When run in debugger works fine
-     but when run normally has unreliable results and appears to not update the image to use in rendering.
-     Believe I have pinpointed this to the takescreenshot methods (specifically the glreadpixels part)
-     results not being visible. Temporary fix in place by waiting for a fraction of a second at the end
-     of each loop.
+     Known issue with this method with a potential race condition. Hacky fix by waiting at the end of
+     the loop for the results to properly show up.
      */
     public void undo() {
         // Set undo to true so effects applied in the re-render process aren't added to the stack
@@ -332,9 +329,10 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         // If the stack is empty then there are no effects to render so just render the original image.
         if (!history.getEffects().empty()) {
             // Iterate across the stack for the amount of objects within it.
-            genLayers();
+             genLayers();
         } else {
             mCurrentEffect = R.id.none;
+
             mEffectView.requestRender();
         }
         mCurrentEffect = R.id.none;

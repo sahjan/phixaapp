@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/gl_view"/>
+
+            <ImageView
+                android:id="@+id/hueView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:weightSum="4">
+
+                <ImageButton
+                    android:id="@+id/transformImgButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:cropToPadding="false"
+                    android:outlineProvider="none"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/transform_selector" />
+
+                <ImageButton
+                    android:id="@+id/adjustImgButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:outlineProvider="none"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/adjust_selector" />
+
+                <ImageButton
+                    android:id="@+id/overlayImgButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:outlineProvider="none"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/overlay_selector" />
+
+                <Button
+                    android:id="@+id/Accept"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:outlineProvider="none"
+                    android:scaleType="fitCenter"
+                    android:text="Accept"/>
+
+            </LinearLayout>
+
+
+        </FrameLayout>
+        <LinearLayout
+            android:id="@+id/slidersBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="bottom|center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="40dp">
+
+            <SeekBar
+                android:id="@+id/adjustSlider"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="0.02"
+                android:background="@android:color/transparent"
+                android:max="100"
+                android:min="0"
+                android:progress="50"
+                android:visibility="invisible" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/black"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:weightSum="1">
+
+            <ImageButton
+                android:id="@+id/layers"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="start"
+                android:background="@drawable/custom_button"
+                app:srcCompat="@drawable/layers_1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:paddingRight="5dp"
+                android:weightSum="1">
+
+                <ImageButton
+                    android:id="@+id/moreOpt"
+                    android:layout_width="45dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="end"
+                    android:layout_weight="0.04"
+                    android:background="@drawable/custom_button"
+                    app:srcCompat="@drawable/more_options_1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/hueSliderContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/hue_container_bg"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <SeekBar
+                    android:id="@+id/hueSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="180"
+                    android:min="0"
+                    android:progress="90"
+                    android:progressDrawable="@android:color/transparent"
+                    android:thumb="@drawable/hue_thumb"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>
