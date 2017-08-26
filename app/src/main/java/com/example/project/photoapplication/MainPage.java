@@ -88,6 +88,18 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
 
         // BUTTONS
 
+        findViewById(R.id.faceButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainPage.this, FaceActivity.class);
+                intent.putExtra("Image", uri);
+                intent.putExtra("History", history);
+                startActivityForResult(intent, 1);
+                overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
+                images.recycle();
+            }
+        });
+
         // Transform Button, when clicked, moves to transform activity
         findViewById(R.id.transformImgButton).setOnClickListener(new View.OnClickListener() {
             @Override
