@@ -46,6 +46,7 @@ public class LayerEditorMainPage extends BaseEditor implements GLSurfaceView.Ren
         history = intent.getParcelableExtra("History");
         uri = intent.getParcelableExtra("Image");
         index = intent.getIntExtra("Index", 0);
+        Log.e("Layer Editor Main Page Index=", Integer.toString(index));
 
         images = new Image(uri, this, history);
 

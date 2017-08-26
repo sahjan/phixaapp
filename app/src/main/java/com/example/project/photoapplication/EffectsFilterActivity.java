@@ -54,11 +54,12 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         history.pushParam(0.0f);
         uri = intent.getParcelableExtra("Image");
         index = intent.getIntExtra("Index", 0);
+        Log.e("EffectsFilterActivityIndex=", Integer.toString(index));
         index ++;
         effect = new int[1];
         params = new float[1];
 
-        images = new Image(uri, this);
+        images = new Image(uri, this, history);
 
         if (!isEffectApplied()) {
             images.setPreviousImage();

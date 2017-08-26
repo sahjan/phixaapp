@@ -1,5 +1,6 @@
 package com.example.project.photoapplication;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +28,7 @@ public class Layers extends AppCompatActivity {
     ViewPager mViewPager;
     CustomPagerAdapter mCustomPagerAdapter;
     Context context;
+    int index;
 
 
     @Override
@@ -43,6 +45,24 @@ public class Layers extends AppCompatActivity {
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mCustomPagerAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Log.e("Current page", Integer.toString(mViewPager.getCurrentItem()));
+                index = mViewPager.getCurrentItem();
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         ImageButton back = (ImageButton) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +112,7 @@ public class Layers extends AppCompatActivity {
         File currentFile;
         EditHistory history;
         int index;
+        ImageView imageView;
 
 
         public CustomPagerAdapter(Context context, File[] pics, EditHistory history){
@@ -118,10 +139,10 @@ public class Layers extends AppCompatActivity {
             View itemView = mLayoutInflater.inflate(R.layout.pager_item, container, false);
 
             ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
-            index = position;
             imageView.setImageBitmap(getImage(mResources[position]));
-            currentFile = mResources[position];
-            Log.e("Index", Integer.toString(index));
+
+//            currentFile = mResources[position];
+//            Log.e("Index", Integer.toString(index));
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -133,6 +154,7 @@ public class Layers extends AppCompatActivity {
 
             return itemView;
         }
+
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
@@ -147,9 +169,11 @@ public class Layers extends AppCompatActivity {
 
         public void startEdit(){
             Intent intent = new Intent(mContext, LayerEditorMainPage.class);
+            currentFile = mResources[Layers.this.index];
             intent.putExtra("Image", Uri.fromFile(currentFile));
+            index = Layers.this.mViewPager.getCurrentItem();
             intent.putExtra("Index", index);
-            Log.e("Index", Integer.toString(index));
+            Log.e("LayersIndex at pass =", Integer.toString(index));
             intent.putExtra("History", history);
             Log.e("History", Integer.toString(history.getEffects().size()));
             startActivity(intent);
