@@ -69,7 +69,8 @@ public class FaceActivity extends AppCompatActivity {
         findViewById(R.id.redEyeButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //
+                dIV.setRedEye();
+                dIV.invalidate();
             }
         });
 
