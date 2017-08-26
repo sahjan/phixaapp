@@ -48,7 +48,6 @@ public class FaceActivity extends AppCompatActivity {
     };
     private Uri uri;
     private LinearLayout layout;
-    //private FaceDetectorView faceDetectorView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,7 +63,6 @@ public class FaceActivity extends AppCompatActivity {
                                                                           LinearLayout.LayoutParams.MATCH_PARENT);
 
         this.addContentView(layout, layoutP);
-        //setContentView(dIV, layoutP);
 
         findViewById(R.id.redEyeButton).setOnClickListener(new View.OnClickListener() {
             @Override

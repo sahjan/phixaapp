@@ -1,19 +1,12 @@
 package com.example.project.photoapplication;
 
 import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.LightingColorFilter;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
 import android.widget.ImageView;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 /**
  * Created by Sahjan on 24/08/2017.
@@ -63,43 +56,34 @@ class DetectorImageView extends ImageView {
     }
 
     public void setRedEye() {
-        redEye = true;
+        if(redEye) {
+            redEye = false;
+        }
+        else {
+            redEye = true;
+        }
     }
 
     public void setScaledEyeCircleSize(float eyesDistance) {
         scaledEyeCircleSize = eyesDistance / 4;
     }
 
-    private void initRedEyeFilter(int i) {
-        /*mPaint.setStyle(Paint.Style.FILL);
-        //mPaint.setColor(0xff000000);
-        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.MULTIPLY));
-
-            canvas.drawCircle(mPX[i], mPY[i], scaledEyeCircleSize, mPaint);
-
-        mPaint.setColorFilter(new PorterDuffColorFilter(0x7f990040,
-                PorterDuff.Mode.SRC_OVER)); */
-
+    private void applyRedEyeFix(int i) {
         for(int x = (mPX[i] - Math.round(scaledEyeCircleSize)); x < (mPX[i] + Math.round(scaledEyeCircleSize)); x++) {
             for(int y = (mPY[i] - Math.round(scaledEyeCircleSize)); y < (mPY[i] + Math.round(scaledEyeCircleSize)); y++) {
 
-                //int c = mBitmap.getColorSpace();
-                //int  red = (c & 0x00ff0000) >> 16;
-                //int  green = (c & 0x0000ff00) >> 8;
-                //int  blue = c & 0x000000ff;
                 int pixel = mBitmap.getPixel(x, y);
                 int red = Color.red(pixel);
                 int green = Color.green(pixel);
                 int blue = Color.blue(pixel);
 
                 float redIntensity = ((float)red / ((green + blue) / 2));
-                if (redIntensity > 2.2f) { //2.2f
-                    //Color newColor = new Color(90, green, blue);
-                    //mBitmap.setRGB(x, y, newColor.getRGB());
-                    mBitmap.setPixel(x, y, Color.rgb(45, green, blue)); //90
+                if (redIntensity > 2.2f) {
+                    mBitmap.setPixel(x, y, Color.rgb(45, green, blue));
                 }
             }
         }
+        redEye = false;
     }
 
     public Bitmap getBitmap() {
@@ -162,7 +146,7 @@ class DetectorImageView extends ImageView {
             if (mPX != null && mPY != null) {
                 for (int i = 0; i < mPX.length; i++) {
                     if (redEye) {
-                        initRedEyeFilter(i);
+                        applyRedEyeFix(i);
                     }
                     else if (mDisplayStyle == 1) {
                         canvas.drawCircle(mPX[i], mPY[i], scaledEyeCircleSize, mPaint);
