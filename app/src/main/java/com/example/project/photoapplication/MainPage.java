@@ -69,6 +69,8 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         images.recycle();
+                        Intent loader = new Intent(context, Loader.class);
+                        startActivity(loader);
                         finish();
                     }
                 })

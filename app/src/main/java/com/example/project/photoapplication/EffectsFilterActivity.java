@@ -29,6 +29,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
     private int index;
     private int[] effect;
     private float[] params;
+    private EditHistory fullHistory;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,19 +48,25 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         final Intent intent = getIntent();
         mCurrentEffect = R.id.none;
         context = this;
-        history = intent.getParcelableExtra("History");
+        fullHistory = intent.getParcelableExtra("History");
         // Add a null effect to the history stack so that we can increment the index
         // so that the next layer gets added to the rigth of the layer you clicked at and doesnt give us a null P E
-        history.pushEffect(R.id.none);
-        history.pushParam(0.0f);
+        fullHistory.pushEffect(R.id.none);
+        fullHistory.pushParam(0.0f);
         uri = intent.getParcelableExtra("Image");
+        history = new EditHistory(uri);
         index = intent.getIntExtra("Index", 0);
-        Log.e("EffectsFilterActivityIndex=", Integer.toString(index));
+        Log.e("EFAIndex=", Integer.toString(index));
         index ++;
         effect = new int[1];
         params = new float[1];
 
-        images = new Image(uri, this, history);
+        if(intent.getStringExtra("Type").equals("Change")) {
+            images = new Image(uri, this, fullHistory);
+        }
+        else {
+            images = new Image(uri, this, fullHistory);
+        }
 
         if (!isEffectApplied()) {
             images.setPreviousImage();
@@ -154,13 +161,23 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         findViewById(R.id.Accept).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("Effect", Integer.toString(effect[0]));
-                history.addLayer(index, effect[0], params[0]);
-                history.removeLayer(history.getEffects().size()-1);
+
+//                Log.e("Effect", Integer.toString(effect[0]));
+                if(intent.getStringExtra("Type").equals("Add")) {
+                    fullHistory.addLayer(index, effect[0], params[0]);
+
+                }
+                else if(intent.getStringExtra("Type").equals("Change")){
+                    fullHistory.removeLayer(index);
+                    fullHistory.addLayer(index-1, effect[0], params[0]);
+                }
+                fullHistory.removeLayer(fullHistory.getEffects().size() - 1);
+                history = fullHistory;
                 prepLayers();
                 Intent i = new Intent(context, Layers.class);
-                i.putExtra("History", history);
+                i.putExtra("History", fullHistory);
                 startActivity(i);
+                finish();
             }
         });
         
@@ -177,6 +194,9 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
+                if (!history.checkEmpty()) {
+                    undo();
+                }
                 history.clearRedo();
                 redoInit = false;
                 if(!undo) {
@@ -220,6 +240,9 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
+                if (!history.checkEmpty()) {
+                    undo();
+                }
                 history.clearRedo();
                 redoInit = false;
                 if(history.getRedoEffects().empty()){
@@ -284,6 +307,14 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
+                if (!history.checkEmpty()) {
+                    undo();
+                }
+                history.clearRedo();
+                redoInit = false;
+                if(history.getRedoEffects().empty()){
+                    Log.e("Tag", "empty");
+                }
                 if (!EditUtils.isAdjustableEffect(menuItem.getItemId())) {
                     params[0] = 0.0f;
                 }

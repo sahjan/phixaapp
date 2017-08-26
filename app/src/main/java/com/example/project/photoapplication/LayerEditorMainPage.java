@@ -13,6 +13,8 @@ import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import java.io.File;
+
 import static android.R.attr.button;
 
 
@@ -46,7 +48,7 @@ public class LayerEditorMainPage extends BaseEditor implements GLSurfaceView.Ren
         history = intent.getParcelableExtra("History");
         uri = intent.getParcelableExtra("Image");
         index = intent.getIntExtra("Index", 0);
-        Log.e("Layer Editor Main Page Index=", Integer.toString(index));
+        Log.e("LEMP Index=", Integer.toString(index));
 
         images = new Image(uri, this, history);
 
@@ -57,8 +59,8 @@ public class LayerEditorMainPage extends BaseEditor implements GLSurfaceView.Ren
         effectHandler = new Effects();
 
 
-        Button a = (Button) findViewById(R.id.Delete);
-        a.setOnClickListener(new View.OnClickListener() {
+        Button delete = (Button) findViewById(R.id.Delete);
+        delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 history.removeLayer(index);
@@ -70,16 +72,30 @@ public class LayerEditorMainPage extends BaseEditor implements GLSurfaceView.Ren
             }
         });
 
-        Button b = (Button) findViewById(R.id.Add);
-        b.setOnClickListener(new View.OnClickListener() {
+        Button add = (Button) findViewById(R.id.Add);
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(context, EffectsFilterActivity.class);
                 i.putExtra("History", history);
                 i.putExtra("Index", index);
                 i.putExtra("Image", uri);
+                i.putExtra("Type", "Add");
                 startActivity(i);
 
+            }
+        });
+
+        Button change = (Button) findViewById(R.id.Change);
+        change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(context, EffectsFilterActivity.class);
+                i.putExtra("History", history);
+                i.putExtra("Index", index);
+                i.putExtra("Image", uri);
+                i.putExtra("Type", "Change");
+                startActivity(i);
             }
         });
 
