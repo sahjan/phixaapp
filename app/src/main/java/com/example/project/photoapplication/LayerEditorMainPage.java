@@ -1,6 +1,7 @@
 package com.example.project.photoapplication;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
@@ -92,8 +93,15 @@ public class LayerEditorMainPage extends BaseEditor implements GLSurfaceView.Ren
             public void onClick(View view) {
                 Intent i = new Intent(context, EffectsFilterActivity.class);
                 i.putExtra("History", history);
+                File[] ims = fm.getFileList(getFilesDir().toString());
                 i.putExtra("Index", index);
-                i.putExtra("Image", uri);
+                int oneless = index - 1;
+                if(oneless < 0){
+                    i.putExtra("Image", history.getImage("OriginalImage"));
+                }
+                else {
+                    i.putExtra("Image", Uri.fromFile(ims[index - 1]));
+                }
                 i.putExtra("Type", "Change");
                 startActivity(i);
             }

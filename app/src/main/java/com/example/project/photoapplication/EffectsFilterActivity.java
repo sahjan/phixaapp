@@ -180,6 +180,12 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                 finish();
             }
         });
+
+//        if (intent.getStringExtra("Type").equals("Change")) {
+//            Log.e("change", "all fine");
+//            changeInit();
+//
+//        }
         
     }
 
@@ -367,6 +373,25 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                 Toast.makeText(EffectsFilterActivity.this, toastString, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void changeInit(){
+        mCurrentEffect = fullHistory.getEffects().get(index);
+        float param = fullHistory.getParam().get(index);
+        final int sliderparam = (int) param;
+        mEffectView.queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                slider.setProgress(sliderparam);
+            }
+        });
+        for (int i = 0; i<fullHistory.getEffects().size(); i++){
+            Log.e("Effect", Integer.toString(fullHistory.getEffects().get(i)));
+        }
+
+        Log.e("ce", Integer.toString(mCurrentEffect));
+        Log.e("param", Float.toString(EditUtils.calculateSliderValue(slider.getProgress())));
+        mEffectView.requestRender();
     }
 
 }
