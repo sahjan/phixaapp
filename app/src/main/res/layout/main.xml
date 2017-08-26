@@ -78,8 +78,12 @@
                 <Button
                     android:id="@+id/faceButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="55dp"
                     android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/custom_button"
+                    android:outlineProvider="none"
+                    android:scaleType="fitCenter"
                     android:text="Face" />
 
             </LinearLayout>
