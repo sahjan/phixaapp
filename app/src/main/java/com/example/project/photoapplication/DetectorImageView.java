@@ -12,7 +12,7 @@ import android.util.AttributeSet;
  * Created by Sahjan on 24/08/2017.
  */
 
-class DetectorImageView extends ImageView {
+public class DetectorImageView extends ImageView {
     private Bitmap mBitmap;
     private Bitmap scaledBitmap;
     private Canvas mCanvas;

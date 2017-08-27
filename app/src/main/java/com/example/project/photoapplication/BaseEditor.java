@@ -334,7 +334,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     public void undo() {
         // Set undo to true so effects applied in the re-render process aren't added to the stack
         undo = true;
-        hueView.setImageBitmap(images.getOriginalImage());
 
         // If both the effect and parameters stack have items within them pop an effect and its corresponding parameter.
         prepUndo();
@@ -448,13 +447,13 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                         }
                         break;
 
-                    case R.id.states:
-                        Log.e("EffectSize=", Integer.toString(history.getEffects().size()));
-                        Log.e("EffectSize=", Integer.toString(history.getParam().size()));
-                        for (int i = 0; i< history.getParam().size(); i++){
-                            Log.e("Effect ", Integer.toString(history.getEffects().get(i)));
-                            Log.e("Param ", Float.toString(history.getParam().get(i)));
-                        }
+//                    case R.id.states:
+//                        Log.e("EffectSize=", Integer.toString(history.getEffects().size()));
+//                        Log.e("EffectSize=", Integer.toString(history.getParam().size()));
+//                        for (int i = 0; i< history.getParam().size(); i++){
+//                            Log.e("Effect ", Integer.toString(history.getEffects().get(i)));
+//                            Log.e("Param ", Float.toString(history.getParam().get(i)));
+//                        }
                 }
                 return true;
             }
@@ -502,6 +501,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     }
 
     public void genLayers(){
+        hueView.setImageBitmap(images.getOriginalImage());
         for (int i = 0; i <= history.getEffects().size() - 1; i++) {
             // Set the current effect and corresponding parameter to their values at the current index.
             mCurrentEffect = history.getEffects().get(i);

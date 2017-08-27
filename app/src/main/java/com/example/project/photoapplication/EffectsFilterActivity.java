@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -36,6 +38,9 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.layouteffectseditor);
+
+        hueViewHandler = new Handler();
+        isChangedActivity = true;
 
          //Initialise the renderer and tell it to only render when Explicit
          //requested with the RENDERMODE_WHEN_DIRTY option
@@ -101,8 +106,12 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                 });
             }
         });
-
-        //assign the hue slider and set its listener. Does nothing yet.
+        //hue image view
+        hueView = (ImageView) findViewById(R.id.hueView);
+        hueView.setImageBitmap(images.getImage());
+        //hue container
+        hueContainer = (LinearLayout) findViewById(R.id.hueSliderContainer);
+        //assign the hue slider and set its listener.
         hueSlider = (SeekBar) findViewById(R.id.hueSlider);
         hueSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -152,12 +161,12 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
 
             }
         });
-//        findViewById(R.id.moreOpt).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                showOptions(view);
-//            }
-//        });
+        findViewById(R.id.moreOpt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showOptions(view);
+            }
+        });
         findViewById(R.id.Accept).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,12 +189,6 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                 finish();
             }
         });
-
-//        if (intent.getStringExtra("Type").equals("Change")) {
-//            Log.e("change", "all fine");
-//            changeInit();
-//
-//        }
         
     }
 

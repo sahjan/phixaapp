@@ -155,6 +155,12 @@ public class TransformActivity extends BaseEditor implements GLSurfaceView.Rende
             }
         });
 
+        //hue image view
+        hueView.setImageBitmap(images.getImage());
+        //hue container
+        hueContainer = (LinearLayout) findViewById(R.id.hueSliderContainer);
+        //assign the hue slider and set its listener.
+
         hueSlider = (SeekBar) findViewById(R.id.hueSlider);
         hueSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

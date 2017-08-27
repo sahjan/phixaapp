@@ -7,10 +7,13 @@ import android.net.Uri;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -23,6 +26,9 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
+
+        hueViewHandler = new Handler();
+        isChangedActivity = true;
 
         //Initialise the renderer and tell it to only render when Explicit
         //requested with the RENDERMODE_WHEN_DIRTY option
@@ -180,6 +186,37 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[1]);
                         mEffectView.requestRender();
                         sliderValue = EditUtils.calculateSliderValue(slider.getProgress());
+                    }
+                });
+            }
+        });
+
+        //hue image view
+        hueView = (ImageView) findViewById(R.id.hueView);
+        hueView.setImageBitmap(images.getImage());
+        //hue container
+        hueContainer = (LinearLayout) findViewById(R.id.hueSliderContainer);
+        //assign the hue slider and set its listener.
+        hueSlider = (SeekBar) findViewById(R.id.hueSlider);
+        hueSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                //request a render of the hue change
+                mEffectView.queueEvent(new Runnable() {
+                    public void run() {
+                        applyHue();
+                        loadHuePreview();
+                        mEffectView.requestRender();
                     }
                 });
             }

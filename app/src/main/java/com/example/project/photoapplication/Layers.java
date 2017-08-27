@@ -90,20 +90,6 @@ public class Layers extends AppCompatActivity {
     }
 
 
-
-    public File[] removeItem(int index){
-        File[] newFiles = new File[mResources.length-1];
-        for(int i = 0; i<mResources.length; i++ ){
-            if(i == index){
-                //Do nothing
-            }
-            else {
-                newFiles[i] = mResources[i];
-            }
-        }
-        return newFiles;
-    }
-
     public class CustomPagerAdapter extends PagerAdapter {
 
         Context mContext;

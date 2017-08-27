@@ -5,11 +5,14 @@ import android.net.Uri;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -93,7 +96,7 @@ public class LayerEditorMainPage extends BaseEditor implements GLSurfaceView.Ren
             public void onClick(View view) {
                 Intent i = new Intent(context, EffectsFilterActivity.class);
                 i.putExtra("History", history);
-                File[] ims = fm.getFileList(getFilesDir().toString());
+                File[] ims = fm.getFileList(getFilesDir().toString() + "/layers");
                 i.putExtra("Index", index);
                 int oneless = index - 1;
                 if(oneless < 0){
@@ -132,6 +135,14 @@ public class LayerEditorMainPage extends BaseEditor implements GLSurfaceView.Ren
                 });
             }
         });
+
+        hueViewHandler = new Handler();
+        isChangedActivity = true;
+        //hue image view
+        hueView = (ImageView) findViewById(R.id.hueView);
+        hueView.setImageBitmap(images.getImage());
+        //hue container
+        hueContainer = (LinearLayout) findViewById(R.id.hueSliderContainer);
 
     }
 
