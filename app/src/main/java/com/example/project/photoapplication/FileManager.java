@@ -143,7 +143,9 @@ import java.util.Date;
 
         public void saveLayer(int index, Bitmap image){
             String filename = "Layer" + index;
-            File file = new File(context.getFilesDir(), filename);
+            File folder = new File(context.getFilesDir(), "layers");
+            folder.mkdirs();
+            File file = new File(folder, filename);
             FileOutputStream out = null;
             try {
             out = new FileOutputStream(file);
@@ -155,6 +157,41 @@ import java.util.Date;
                 e.printStackTrace();
             }
         }
+
+        public void saveBack(int index, Bitmap image) {
+            String filename = "back" + index;
+            File folder = new File(context.getFilesDir(), "back");
+            folder.mkdirs();
+            File file = new File(folder, filename);
+            FileOutputStream out = null;
+            try {
+                out = new FileOutputStream(file);
+                image.compress(Bitmap.CompressFormat.JPEG, 50, out);
+                out.flush();
+                out.close();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+
+//        public void saveHue(int index, Bitmap image){
+//            String filename = "hue" + index;
+//            File folder = new File(context.getFilesDir(), "hue");
+//            folder.mkdirs();
+//            File file = new File(folder, filename);
+//            FileOutputStream out = null;
+//            try {
+//                out = new FileOutputStream(file);
+//                image.compress(Bitmap.CompressFormat.JPEG, 50, out);
+//                out.flush();
+//                out.close();
+//            }
+//            catch(Exception e){
+//                e.printStackTrace();
+//            }
+//        }
+
 
     public void startSave(Context context, Bitmap bitmap, int index, String type){
         SaveThread saver = new SaveThread(context, bitmap, index, type);
@@ -188,6 +225,14 @@ import java.util.Date;
                 case "layer":
                     fm.saveLayer(layerIndex, image);
                     break;
+
+                case "back":
+                    fm.saveBack(layerIndex, image);
+                    break;
+
+//                case "hue":
+//                    fm.saveHue(layerIndex, image);
+//                    break;
             }
             return true;
         }

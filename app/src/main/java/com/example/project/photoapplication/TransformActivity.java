@@ -154,6 +154,31 @@ public class TransformActivity extends BaseEditor implements GLSurfaceView.Rende
                 setChosenEffect(R.id.rotate);
             }
         });
+
+        hueSlider = (SeekBar) findViewById(R.id.hueSlider);
+        hueSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                //request a render of the hue change
+                mEffectView.queueEvent(new Runnable() {
+                    public void run() {
+                        applyHue();
+                        loadHuePreview();
+                        mEffectView.requestRender();
+                    }
+                });
+            }
+        });
     }
 
     /**

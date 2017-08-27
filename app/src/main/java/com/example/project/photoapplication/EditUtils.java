@@ -58,9 +58,18 @@ public class EditUtils {
         return effectValue;
     }
 
-    public static void clearPrivateStorage(Context context){
+    public static void clearPrivateStorage(Context context, String type){
         FileManager fm = new FileManager(context);
-        File[] files = fm.getFileList(context.getFilesDir().toString());
+        File[] files;
+        if(type.equals("layers")) {
+             files = fm.getFileList(context.getFilesDir().toString() + "/layers");
+        }
+        else if (type.equals("back")) {
+             files = fm.getFileList(context.getFilesDir().toString() + "/back");
+        }
+        else {
+            files = fm.getFileList(context.getFilesDir().toString() + "/hue");
+        }
         for (File file: files){
             file.delete();
         }

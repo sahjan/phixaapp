@@ -68,6 +68,10 @@ public class Image {
         previousImage = image;
     }
 
+    public Bitmap getOriginalImage(){
+        return originalImage;
+    }
+
     public void recycle() {
         image.recycle();
         previousImage.recycle();

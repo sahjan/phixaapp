@@ -12,6 +12,7 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLUtils;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 import com.lyft.android.scissors.CropView;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.IntBuffer;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -218,15 +220,17 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             //else if the effect is not 'none'
             else if (mCurrentEffect != R.id.none) {
                 if (mCurrentEffect == R.id.crop) {
-                    //show crop tool. Access from UI thread
-                    cropViewHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            cropView.setVisibility(View.VISIBLE);
-                            cropButtons.setVisibility(View.VISIBLE);
-                            Toast.makeText(context, "Zoom in, and pan to choose your desired crop region.", Toast.LENGTH_LONG).show();
-                        }
-                    });
+                    if (!undo) {
+                        //show crop tool. Access from UI thread
+                        cropViewHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                cropView.setVisibility(View.VISIBLE);
+                                cropButtons.setVisibility(View.VISIBLE);
+                                Toast.makeText(context, "Zoom in, and pan to choose your desired crop region.", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
                 }
                 else {
                     loadTextures();
@@ -236,8 +240,14 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             }
         }
         else {
-            loadTextures();
-            applyEffect(0,1);
+            if(mCurrentEffect == R.id.hue){
+                applyHue();
+                loadHuePreview();
+            }
+            else {
+                loadTextures();
+                applyEffect(0, 1);
+            }
         }
         renderResult();
         // Set the image to whatever has been rendered to the screen
@@ -253,6 +263,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             hueViewHandler.post(new Runnable() {
                 @Override
                 public void run() {
+
                     hueView.setImageBitmap(images.getImage());
                 }
             });
@@ -323,6 +334,8 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     public void undo() {
         // Set undo to true so effects applied in the re-render process aren't added to the stack
         undo = true;
+        hueView.setImageBitmap(images.getOriginalImage());
+
         // If both the effect and parameters stack have items within them pop an effect and its corresponding parameter.
         prepUndo();
         // Return the images to their original state so that effects will be applied to an unaltered image.
@@ -342,27 +355,36 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     }
 
     public void redo(){
-                redo = true;
-                mCurrentEffect = history.getRedoEffects().get(redoIndex);
-                effectParameter = history.getRedoParams().get(redoIndex);
-                history.pushRedo(mCurrentEffect, effectParameter);
-                mEffectView.requestRender();
-                images.setPreviousImage();
-                redoIndex++;
-                // For this method not to cause potential crashes or for it to actually work when used with the below two effects
-                // We have to set redo to false only in the ondraw frame method.
-                // However if you do that with other effects the redo doesn't work
-                // so for other effects redo has to be set to false here
-                if(mCurrentEffect == R.id.brightness || mCurrentEffect == R.id.contrast){
-                    //do nothing
-                }
-                else {
-                    redo = false;
-                }
-            }
+        redo = true;
+        mCurrentEffect = history.getRedoEffects().get(redoIndex);
+        effectParameter = history.getRedoParams().get(redoIndex);
+        history.pushRedo(mCurrentEffect, effectParameter);
+        // Call a render
+        mEffectView.requestRender();
+        images.setPreviousImage();
+        redoIndex++;
+        // For this method not to cause potential crashes or for it to actually work when used with the below two effects
+        // We have to set redo to false only in the ondraw frame method.
+        // However if you do that with other effects the redo doesn't work
+        // so for other effects redo has to be set to false here
+        if(mCurrentEffect == R.id.brightness || mCurrentEffect == R.id.contrast){
+            //do nothing
+        }
+        else {
+            redo = false;
+        }
+    }
 
     protected void applyHue() {
         hueView.getDrawable().setColorFilter(effectHandler.adjustHue(hueSlider.getProgress()));
+        if (history.getEffects().size() > history.getParam().size()) {
+            history.pushParam(EditUtils.calculateSliderValue(hueSlider.getProgress()));
+            // If they aren't equal then we have changed the slider multiple times in the same effect.
+            // In this case remove the most recent value and replace it with the current value.
+        } else {
+            history.popParam();
+            history.pushParam(EditUtils.calculateSliderValue(hueSlider.getProgress()));
+        }
     }
 
     public void applyCrop() {
@@ -425,6 +447,14 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                             redo();
                         }
                         break;
+
+                    case R.id.states:
+                        Log.e("EffectSize=", Integer.toString(history.getEffects().size()));
+                        Log.e("EffectSize=", Integer.toString(history.getParam().size()));
+                        for (int i = 0; i< history.getParam().size(); i++){
+                            Log.e("Effect ", Integer.toString(history.getEffects().get(i)));
+                            Log.e("Param ", Float.toString(history.getParam().get(i)));
+                        }
                 }
                 return true;
             }
@@ -442,7 +472,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     public abstract void setSliderProgress();
 
     public void prepLayers() {
-        EditUtils.clearPrivateStorage(context);
+        EditUtils.clearPrivateStorage(context, "layers");
         // Set undo to true so effects applied in the re-render process aren't added to the stack
         undo = true;
         layers = true;
@@ -492,11 +522,11 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
 
     @Override
     public void onBackPressed() {
-        EditUtils.clearPrivateStorage(context);
+        EditUtils.clearPrivateStorage(context, "back");
         Intent data = new Intent();
-        save(images.getImage(), context, 17, "layer");
+        save(images.getImage(), context, 17, "back");
         android.os.SystemClock.sleep(200);
-        File[] f = fm.getFileList(getFilesDir().toString());
+        File[] f = fm.getFileList(getFilesDir().toString() + "/back");
         Uri i = Uri.fromFile(f[0]);
         data.putExtra("Image1", i);
         data.putExtra("History", history);

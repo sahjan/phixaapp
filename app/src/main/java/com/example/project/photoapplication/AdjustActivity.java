@@ -1,6 +1,7 @@
 package com.example.project.photoapplication;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
+
+import java.io.File;
 
 public class AdjustActivity extends BaseEditor implements GLSurfaceView.Renderer{
 
@@ -103,13 +106,6 @@ public class AdjustActivity extends BaseEditor implements GLSurfaceView.Renderer
 
         setButtons();
 
-        /*findViewById(R.id.brightnessButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPopupAdjust(view);
-            }
-        }); */
-
         findViewById(R.id.moreOpt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -168,64 +164,6 @@ public class AdjustActivity extends BaseEditor implements GLSurfaceView.Renderer
         }
     }
 
-    /*
-     * Adjust menu
-     * @param v
-     *
-    public void showPopupAdjust(View v) {
-        PopupMenu popup = new PopupMenu(this, v);
-        popup.inflate(R.menu.adjust);
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                resetRedo();
-                if (!EditUtils.isAdjustableEffect(menuItem.getItemId())) {
-                    history.pushParam(0.0f);
-                }
-                setCurrentEffect(menuItem.getItemId());
-                // Set the previous image to the current image to ensure that multiple changes to the slider
-                // without changing effects only ever edit the last image from before selecting this effect.
-                images.setPreviousImage();
-
-                if(!undo){
-                    history.pushEffect(mCurrentEffect);
-                }
-                mEffectView.requestRender();
-
-                //show slider only when an adjustable effect chosen.
-                if (mCurrentEffect == R.id.hue) {
-                    if(isSliderVisible) {
-                        slider.setVisibility(View.GONE);
-                        isSliderVisible = false;
-                    }
-                    hueContainer.setVisibility(View.VISIBLE);
-                    isHueSliderVisible = true;
-                }
-                else if (EditUtils.isAdjustableEffect(mCurrentEffect)) {
-                    if (isHueSliderVisible) {
-                        hueContainer.setVisibility(View.GONE);
-                        isHueSliderVisible = false;
-                    }
-                    slider.setVisibility(View.VISIBLE);
-                    setSliderProgress();
-                    //only need to do this once if 2 adjustable effects chosen consecutively
-                    if (!isSliderVisible) {
-                        isSliderVisible = true;
-                    }
-                }
-                //else hide slider
-                else if (!EditUtils.isAdjustableEffect(mCurrentEffect))
-                {
-                    slider.setVisibility(View.GONE);
-                    isSliderVisible = false;
-                    hueContainer.setVisibility(View.GONE);
-                    isHueSliderVisible = false;
-                }
-                return true;
-            }
-        });
-        popup.show();
-    } */
 
     private void setButtons() {
         findViewById(R.id.autofixImgButton).setOnClickListener(new View.OnClickListener() {

@@ -390,7 +390,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
 
     @Override
     public void onBackPressed() {
-        EditUtils.clearPrivateStorage(context);
+        EditUtils.clearPrivateStorage(context, "back");
         Intent data = new Intent();
         save(getBitmap(), context, 17, "layer");
         android.os.SystemClock.sleep(200);

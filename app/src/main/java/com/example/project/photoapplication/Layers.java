@@ -80,7 +80,7 @@ public class Layers extends AppCompatActivity {
 
     private void populateImages(){
         FileManager fm = new FileManager(this);
-        mResources = fm.getFileList(getFilesDir().toString());
+        mResources = fm.getFileList(getFilesDir().toString() + "/layers");
 
     }
 
