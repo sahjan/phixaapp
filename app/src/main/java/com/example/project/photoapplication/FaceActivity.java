@@ -1,27 +1,19 @@
 package com.example.project.photoapplication;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.PointF;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.PersistableBundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.media.FaceDetector;
-
-//import com.google.android.gms.vision.face.FaceDetector;
 
 import java.io.IOException;
 
@@ -29,10 +21,10 @@ import java.io.IOException;
  * Created by Sahjan on 22/08/2017.
  */
 
-public class FaceActivity extends AppCompatActivity {
+public class FaceActivity extends BaseEditor {
 
     private DetectorImageView dIV;
-    private Bitmap mFaceBitmap;
+    private Bitmap img;
     private int mFaceWidth = 200;
     private int mFaceHeight = 200;
     private static final int MAX_FACES = 1;
@@ -46,43 +38,59 @@ public class FaceActivity extends AppCompatActivity {
             super.handleMessage(msg);
         }
     };
-    private Uri uri;
     private LinearLayout layout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_face);
-        dIV = new DetectorImageView(this);
+        //dIV = new DetectorImageView(this);
+        dIV = (DetectorImageView) findViewById(R.id.detectorIV);
         //dIV.setScaleType(ImageView.ScaleType.FIT_XY);
 
-        layout = new LinearLayout(this);
+        /*layout = new LinearLayout(this);
         layout.setGravity(Gravity.CENTER);
         layout.addView(dIV);
+        layout.setTranslationZ(0f);
         LinearLayout.LayoutParams layoutP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                                                                           LinearLayout.LayoutParams.MATCH_PARENT);
 
-        this.addContentView(layout, layoutP);
+        this.addContentView(layout, layoutP); */
 
         findViewById(R.id.redEyeButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dIV.setRedEye();
                 dIV.invalidate();
+                images.setImage(img);
             }
         });
 
-        // load the photo
+        //initialise fields
         Intent intent = getIntent();
         uri = intent.getParcelableExtra("Image");
+        history = intent.getParcelableExtra("History");
+        context = this;
+        images = new Image(uri, context, history);
+
+        //load the photo
         try {
             Bitmap image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-            mFaceBitmap = image.copy(Bitmap.Config.RGB_565, true);
+            img = image.copy(Bitmap.Config.RGB_565, true);
             image.recycle();
 
-            mFaceWidth = mFaceBitmap.getWidth();
-            mFaceHeight = mFaceBitmap.getHeight();
-            dIV.setImageBitmap(mFaceBitmap);
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            int scrHeight = displayMetrics.heightPixels;
+            int scrWidth = displayMetrics.widthPixels;
+
+            ((Activity) getContext()).getWindowManager()
+                    .getDefaultDisplay()
+                    .getMetrics(displayMetrics);
+
+            mFaceWidth = img.getWidth();
+            mFaceHeight = img.getHeight();
+            dIV.setImageBitmap(img, scrHeight, scrWidth);
         }
         catch(IOException e) {
             e.printStackTrace();
@@ -96,6 +104,16 @@ public class FaceActivity extends AppCompatActivity {
         dIV.invalidate();
     }
 
+    @Override
+    public void showToast(String toastSting) {
+
+    }
+
+    @Override
+    public void setSliderProgress() {
+
+    }
+
     public void setFace() {
         FaceDetector fd;
         FaceDetector.Face [] faces = new FaceDetector.Face[MAX_FACES];
@@ -107,7 +125,7 @@ public class FaceActivity extends AppCompatActivity {
 
         try {
             fd = new FaceDetector(mFaceWidth, mFaceHeight, MAX_FACES);
-            count = fd.findFaces(mFaceBitmap, faces);
+            count = fd.findFaces(img, faces);
         } catch (Exception e) {
             Log.e(TAG, "setFace(): " + e.toString());
             return;

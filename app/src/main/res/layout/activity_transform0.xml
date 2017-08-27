@@ -206,7 +206,8 @@
             android:layout_gravity="bottom"
             android:gravity="bottom|center_horizontal"
             android:orientation="vertical"
-            android:paddingBottom="40dp">
+            android:paddingBottom="40dp"
+            android:visibility="gone">
 
             <SeekBar
                 android:id="@+id/adjustSlider"

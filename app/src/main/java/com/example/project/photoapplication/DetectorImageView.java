@@ -14,6 +14,7 @@ import android.util.AttributeSet;
 
 class DetectorImageView extends ImageView {
     private Bitmap mBitmap;
+    private Bitmap scaledBitmap;
     private Canvas mCanvas;
     private int mBitmapWidth = 200;
     private int mBitmapHeight = 200;
@@ -56,12 +57,7 @@ class DetectorImageView extends ImageView {
     }
 
     public void setRedEye() {
-        if(redEye) {
-            redEye = false;
-        }
-        else {
-            redEye = true;
-        }
+        redEye = true;
     }
 
     public void setScaledEyeCircleSize(float eyesDistance) {
@@ -79,11 +75,10 @@ class DetectorImageView extends ImageView {
 
                 float redIntensity = ((float)red / ((green + blue) / 2));
                 if (redIntensity > 2.2f) {
-                    mBitmap.setPixel(x, y, Color.rgb(45, green, blue));
+                    mBitmap.setPixel(x, y, Color.rgb(25, green, blue));
                 }
             }
         }
-        redEye = false;
     }
 
     public Bitmap getBitmap() {
@@ -101,7 +96,23 @@ class DetectorImageView extends ImageView {
             mCanvas.drawBitmap(bm, 0, 0, null);
             //mCanvas.drawBitmap(bm, null, rect, null);
         }
-        super.setImageBitmap(bm);
+        //super.setImageBitmap(bm);
+    }
+
+    public void setImageBitmap(Bitmap bm, int height, int width) {
+        if (bm != null) {
+            mBitmapWidth = bm.getWidth();
+            mBitmapHeight = bm.getHeight();
+            int scale = Math.min(height/mBitmapHeight, width/mBitmapWidth);
+            mBitmap = Bitmap.createBitmap(mBitmapWidth, mBitmapHeight, Bitmap.Config.RGB_565);
+            //mBitmap.reconfigure(mBitmapWidth*scale, mBitmapHeight*scale, Bitmap.Config.RGB_565);
+            //scaledBitmap = Bitmap.createScaledBitmap(mBitmap, mBitmapWidth*scale, mBitmapHeight*scale, false);
+            mCanvas = new Canvas();
+            mCanvas.setBitmap(mBitmap);
+            mCanvas.drawBitmap(bm, 0, 0, null);
+            //mCanvas.drawBitmap(bm, null, rect, null);
+        }
+        //super.setImageBitmap(bm);
     }
 
     @Override
@@ -156,5 +167,6 @@ class DetectorImageView extends ImageView {
                 }
             }
         }
+        redEye = false;
     }
 }
