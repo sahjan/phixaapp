@@ -3,7 +3,6 @@ package com.example.project.photoapplication;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
@@ -152,11 +151,11 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             }
         });
 
-        // Overlay button, when clicked, moves to overlay Activity
+        // Filter button, when clicked, moves to Filter Activity
         findViewById(R.id.overlayImgButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainPage.this, OverlayActivity.class);
+                Intent intent = new Intent(MainPage.this, FilterActivity.class);
                 intent.putExtra("Image", uri);
                 intent.putExtra("History", history);
                 startActivityForResult(intent, 1);

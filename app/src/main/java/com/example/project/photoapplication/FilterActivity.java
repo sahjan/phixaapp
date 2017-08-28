@@ -6,21 +6,19 @@ import android.opengl.GLSurfaceView;
 import android.os.Handler;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-public class OverlayActivity extends BaseEditor implements GLSurfaceView.Renderer{
+public class FilterActivity extends BaseEditor implements GLSurfaceView.Renderer{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_overlay3);
+        setContentView(R.layout.activity_filters);
 
         hueViewHandler = new Handler();
         //hue image view
@@ -50,35 +48,6 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
         effectHandler = new Effects();
 
         //set onclick listeners for the buttons
-        findViewById(R.id.textImgButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //nothing yet
-            }
-        });
-
-        findViewById(R.id.clipartImgButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //nothing yet
-            }
-        });
-
-        findViewById(R.id.imageImgButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //nothing yet
-            }
-        });
-
-        findViewById(R.id.filtersImgButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                findViewById(R.id.filtersScrollView).setVisibility(View.VISIBLE);
-                Toast.makeText(context, "Press 'back' to exit the filters menu.", Toast.LENGTH_SHORT).show();
-            }
-        });
-
         setFilterButtons();
 
         findViewById(R.id.moreOpt).setOnClickListener(new View.OnClickListener() {
@@ -172,7 +141,6 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
             @Override
             public void onClick(View view) {
                 setChosenEffect(R.id.alien);
-                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
             }
         });
 
@@ -180,7 +148,6 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
             @Override
             public void onClick(View view) {
                 setChosenEffect(R.id.crossprocess);
-                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
             }
         });
 
@@ -188,7 +155,6 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
             @Override
             public void onClick(View view) {
                 setChosenEffect(R.id.documentary);
-                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
             }
         });
 
@@ -196,7 +162,6 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
             @Override
             public void onClick(View view) {
                 setChosenEffect(R.id.grayscale);
-                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
             }
         });
 
@@ -204,7 +169,6 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
             @Override
             public void onClick(View view) {
                 setChosenEffect(R.id.intenseColours);
-                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
             }
         });
 
@@ -212,7 +176,6 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
             @Override
             public void onClick(View view) {
                 setChosenEffect(R.id.lomoish);
-                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
             }
         });
 
@@ -220,7 +183,6 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
             @Override
             public void onClick(View view) {
                 setChosenEffect(R.id.negative);
-                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
             }
         });
 
@@ -228,7 +190,6 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
             @Override
             public void onClick(View view) {
                 setChosenEffect(R.id.oldFilm);
-                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
             }
         });
 
@@ -236,7 +197,6 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
             @Override
             public void onClick(View view) {
                 setChosenEffect(R.id.posterize);
-                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
             }
         });
 
@@ -244,7 +204,6 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
             @Override
             public void onClick(View view) {
                 setChosenEffect(R.id.sepia);
-                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
             }
         });
 
@@ -252,13 +211,12 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
             @Override
             public void onClick(View view) {
                 setChosenEffect(R.id.vignette);
-                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
             }
         });
     }
 
     public void setSliderProgress(){
-        OverlayActivity.this.getmEffectView().post(new Runnable() {
+        FilterActivity.this.getmEffectView().post(new Runnable() {
             @Override
             public void run() {
                 slider.setProgress(50);
@@ -267,9 +225,9 @@ public class OverlayActivity extends BaseEditor implements GLSurfaceView.Rendere
     }
 
     public void showToast(final String toastString){
-        OverlayActivity.this.runOnUiThread(new Runnable() {
+        FilterActivity.this.runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(OverlayActivity.this, toastString, Toast.LENGTH_SHORT).show();
+                Toast.makeText(FilterActivity.this, toastString, Toast.LENGTH_SHORT).show();
             }
         });
     }
