@@ -63,6 +63,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         index = intent.getIntExtra("Index", 0);
         Log.e("EFAIndex=", Integer.toString(index));
         index ++;
+        Log.e("EFAIndex=", Integer.toString(index));
         effect = new int[1];
         params = new float[1];
 
@@ -177,9 +178,13 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
 
                 }
                 else if(intent.getStringExtra("Type").equals("Change")){
-                    fullHistory.removeLayer(index);
-                    fullHistory.addLayer(index-1, effect[0], params[0]);
+                    index--;
+                    fullHistory.addLayer(index, effect[0], params[0]);
+                    fullHistory.removeLayer(index+1);
+
+                    Log.e("EFAIndex=", Integer.toString(index));
                 }
+                // remove the padded layer
                 fullHistory.removeLayer(fullHistory.getEffects().size() - 1);
                 history = fullHistory;
                 prepLayers();

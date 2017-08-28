@@ -98,6 +98,7 @@ public class LayerEditorMainPage extends BaseEditor implements GLSurfaceView.Ren
                 i.putExtra("History", history);
                 File[] ims = fm.getFileList(getFilesDir().toString() + "/layers");
                 i.putExtra("Index", index);
+                Log.e("Launching change = ", Integer.toString(index));
                 int oneless = index - 1;
                 if(oneless < 0){
                     i.putExtra("Image", history.getImage("OriginalImage"));
@@ -146,16 +147,7 @@ public class LayerEditorMainPage extends BaseEditor implements GLSurfaceView.Ren
 
     }
 
-
-    /*
-    Implements the abstract save method of the superclass. Saves the file passed to it in a background thread
-    then tells the user once this has been executed.
-    @param bitmap - The image to save to a file.
-    @param context - The context of the current activity.
-     */
-
-
-    /*
+    /**
     Set the slider back to the mid point.
      */
     public void setSliderProgress(){
