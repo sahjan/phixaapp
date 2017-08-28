@@ -175,22 +175,22 @@ import java.util.Date;
             }
         }
 
-//        public void saveHue(int index, Bitmap image){
-//            String filename = "hue" + index;
-//            File folder = new File(context.getFilesDir(), "hue");
-//            folder.mkdirs();
-//            File file = new File(folder, filename);
-//            FileOutputStream out = null;
-//            try {
-//                out = new FileOutputStream(file);
-//                image.compress(Bitmap.CompressFormat.JPEG, 50, out);
-//                out.flush();
-//                out.close();
-//            }
-//            catch(Exception e){
-//                e.printStackTrace();
-//            }
-//        }
+        public void saveBrush(int index, Bitmap image){
+            String filename = "brush" + index;
+            File folder = new File(context.getFilesDir(), "brush");
+            folder.mkdirs();
+            File file = new File(folder, filename);
+            FileOutputStream out = null;
+            try {
+                out = new FileOutputStream(file);
+                image.compress(Bitmap.CompressFormat.JPEG, 50, out);
+                out.flush();
+                out.close();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }
 
 
     public void startSave(Context context, Bitmap bitmap, int index, String type){
@@ -230,9 +230,9 @@ import java.util.Date;
                     fm.saveBack(layerIndex, image);
                     break;
 
-//                case "hue":
-//                    fm.saveHue(layerIndex, image);
-//                    break;
+                case "brush":
+                    fm.saveBrush(layerIndex, image);
+                    break;
             }
             return true;
         }

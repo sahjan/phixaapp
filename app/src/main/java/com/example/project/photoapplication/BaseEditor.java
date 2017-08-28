@@ -358,6 +358,18 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         mCurrentEffect = history.getRedoEffects().get(redoIndex);
         effectParameter = history.getRedoParams().get(redoIndex);
         history.pushRedo(mCurrentEffect, effectParameter);
+        if (mCurrentEffect == 111){
+            Uri brushimage = history.getImage("BrushIm");
+            Bitmap b = null;
+            try {
+                b = MediaStore.Images.Media.getBitmap(context.getContentResolver(), brushimage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            images.setImage(b);
+            mCurrentEffect = R.id.none;
+        }
+
         // Call a render
         mEffectView.requestRender();
         images.setPreviousImage();
@@ -506,6 +518,17 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             // Set the current effect and corresponding parameter to their values at the current index.
             mCurrentEffect = history.getEffects().get(i);
             effectParameter = history.getParam().get(i);
+            if (mCurrentEffect == 111){
+                Uri brushimage = history.getImage("BrushIm");
+                Bitmap b = null;
+                try {
+                    b = MediaStore.Images.Media.getBitmap(context.getContentResolver(), brushimage);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                images.setImage(b);
+                mCurrentEffect = R.id.none;
+            }
             // Call a render
             mEffectView.requestRender();
             // Set the previous image to the most recent image.

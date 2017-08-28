@@ -392,11 +392,19 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
     public void onBackPressed() {
         EditUtils.clearPrivateStorage(context, "back");
         Intent data = new Intent();
-        save(getBitmap(), context, 17, "layer");
+        save(getBitmap(), context, 17, "back");
+        save(getBitmap(), context, 1, "brush");
         android.os.SystemClock.sleep(200);
-        File[] f = fm.getFileList(getFilesDir().toString());
+        File[] f = fm.getFileList(getFilesDir().toString() + "/back");
         Uri i = Uri.fromFile(f[0]);
         data.putExtra("Image1", i);
+        File[] g = fm.getFileList(getFilesDir().toString() + "/brush");
+
+        Uri v = Uri.fromFile(g[0]);
+        Log.e("Brush Image", v.toString());
+        history.putImage("BrushIm", v);
+        history.pushEffect(111);
+        history.pushParam(0.0f);
         data.putExtra("History", history);
         // add data to Intent
         setResult(Activity.RESULT_OK, data);
