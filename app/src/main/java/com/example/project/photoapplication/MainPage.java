@@ -41,7 +41,12 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
         Intent intent = getIntent();
         uri = intent.getParcelableExtra("Image");
         mCurrentEffect = R.id.none;
+
         context = this;
+        if (!mInitialized){
+            EditUtils.clearPrivateStorage(context, "brush");
+        }
+
         // If we have a history extra we are starting the activity from a layer and need to
         // create the image with the original image stored in the edit history
         if(intent.hasExtra("History")){
@@ -141,6 +146,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                 Intent intent = new Intent(MainPage.this, Drawing.class);
                 intent.putExtra("Image", uri);
                 intent.putExtra("History", history);
+                intent.putExtra("BrushIndex", brushindex);
                 startActivityForResult(intent, 1);
                 overridePendingTransition(R.anim.enter_anim, R.anim.exit_anim);
                 images.recycle();
@@ -273,6 +279,9 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                 uri = intent.getParcelableExtra("Image1");
                 history = intent.getParcelableExtra("History");
                 images = new Image(uri, context, history);
+                if(intent.hasExtra("brushIndex")){
+                    brushindex = intent.getIntExtra("brushIndex", 0);
+                }
                 mEffectView.requestRender();
             }
         }

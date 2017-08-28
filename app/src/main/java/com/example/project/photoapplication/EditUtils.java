@@ -68,7 +68,7 @@ public class EditUtils {
              files = fm.getFileList(context.getFilesDir().toString() + "/back");
         }
         else {
-            files = fm.getFileList(context.getFilesDir().toString() + "/hue");
+            files = fm.getFileList(context.getFilesDir().toString() + "/brush");
         }
         for (File file: files){
             file.delete();

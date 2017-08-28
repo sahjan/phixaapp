@@ -46,6 +46,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
     private Context context;
     private EditHistory history;
     private FileManager fm;
+    private int brushIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         c = new ColourPickerDialog(this, this, mPaint.getColor());
 
         image = b.copy(Bitmap.Config.ARGB_8888, true);
+        brushIndex = intent.getIntExtra("BrushIndex", 0);
 
         view = (DrawableView) findViewById(R.id.canvas);
         view.setDrawingCacheEnabled(true);
@@ -390,22 +392,34 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
 
     @Override
     public void onBackPressed() {
+        //Clear out the back storage
         EditUtils.clearPrivateStorage(context, "back");
+
         Intent data = new Intent();
+        // find out how many images are already stored in the brush folder
+        File[] g = fm.getFileList(getFilesDir().toString() + "/brush");
+        // set the index to the size of the brushindex plus one
+        // save the image to the folders for back and brush
         save(getBitmap(), context, 17, "back");
-        save(getBitmap(), context, 1, "brush");
+
+        save(getBitmap(), context, brushIndex, "brush");
+        // wait to ensure the saving operation is complete
         android.os.SystemClock.sleep(200);
+        // get the file we want to pass back to the main page
         File[] f = fm.getFileList(getFilesDir().toString() + "/back");
         Uri i = Uri.fromFile(f[0]);
         data.putExtra("Image1", i);
-        File[] g = fm.getFileList(getFilesDir().toString() + "/brush");
 
-        Uri v = Uri.fromFile(g[0]);
-        Log.e("Brush Image", v.toString());
-        history.putImage("BrushIm", v);
+        g = fm.getFileList(getFilesDir().toString() + "/brush");
+        Uri v = Uri.fromFile(g[brushIndex]);
+        // put the brush image in side the history and pass it along
+        history.putImage("BrushIm" + brushIndex, v);
         history.pushEffect(111);
         history.pushParam(0.0f);
         data.putExtra("History", history);
+        brushIndex++;
+        Log.e("brushindexbackpressed", Integer.toString(brushIndex));
+        data.putExtra("brushIndex", brushIndex);
         // add data to Intent
         setResult(Activity.RESULT_OK, data);
         super.onBackPressed();
