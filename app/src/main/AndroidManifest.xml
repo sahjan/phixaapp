@@ -8,7 +8,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Phixa"
         android:supportsRtl="true"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
@@ -52,7 +52,7 @@
         <!-- Brush Tools Activity -->
         <activity android:name=".BrushActivity" />
         <!-- Overlay Tools Activity -->
-        <activity android:name=".OverlayActivity" />
+        <activity android:name=".FilterActivity" />
         <!-- Below left in for testing new functionality -->
         <activity android:name=".EffectsFilterActivity" />
         <activity android:name=".Layers" />
