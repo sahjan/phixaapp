@@ -78,6 +78,14 @@ public class DetectorImageView extends ImageView {
         eyeColour = hueValue;
     }
 
+    private boolean isIris(float red, float green, float blue) {
+        if (blue > red ||
+            green > red ) {
+            return true;
+        }
+        return false;
+    }
+
     private void applyChangeEyeColour(int i, float hue) {
         for(int x = (mPX[i] - Math.round(scaledEyeCircleSize)); x < (mPX[i] + Math.round(scaledEyeCircleSize)); x++) {
             for(int y = (mPY[i] - Math.round(scaledEyeCircleSize)); y < (mPY[i] + Math.round(scaledEyeCircleSize)); y++) {
@@ -91,7 +99,7 @@ public class DetectorImageView extends ImageView {
                 float redIntensity = ((float)red / ((green + blue) / 2));
                 float blueIntensity = ((float)blue / ((green + red) / 2));
                 float greenIntensity = ((float)green / ((red + blue) / 2));
-                if (blueIntensity > redIntensity || greenIntensity > redIntensity) {
+                if (isIris(redIntensity, greenIntensity, blueIntensity)) {
                     Color.colorToHSV(pixel,hsv);
                     hsv[0] = hue;
                     mBitmap.setPixel(x,y,Color.HSVToColor(Color.alpha(pixel),hsv));

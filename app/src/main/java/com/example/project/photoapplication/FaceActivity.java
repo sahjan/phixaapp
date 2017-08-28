@@ -43,7 +43,6 @@ public class FaceActivity extends BaseEditor {
         }
     };
     private LinearLayout layout;
-    private SeekBar eyeColourSlider;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,28 +76,7 @@ public class FaceActivity extends BaseEditor {
         findViewById(R.id.effectButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                eyeColourSlider.setVisibility(View.VISIBLE);
-                /*dIV.setChangeEyes();
-                dIV.invalidate();
-                images.setImage(dIV.getBitmap()); */
-            }
-        });
-
-        eyeColourSlider = (SeekBar) findViewById(R.id.eyeColourSlider);
-        eyeColourSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                dIV.setEyeColour((float) eyeColourSlider.getProgress());
+                dIV.setEyeColour(270f);
                 dIV.setChangeEyes();
                 dIV.invalidate();
                 images.setImage(dIV.getBitmap());
