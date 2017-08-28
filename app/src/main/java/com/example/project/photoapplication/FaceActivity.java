@@ -1,6 +1,5 @@
 package com.example.project.photoapplication;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PointF;
@@ -12,11 +11,9 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.media.FaceDetector;
-import android.widget.RelativeLayout;
-import android.widget.SeekBar;
 
 import java.io.IOException;
 
@@ -43,6 +40,7 @@ public class FaceActivity extends BaseEditor {
         }
     };
     private LinearLayout layout;
+    private HorizontalScrollView coloursList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +62,9 @@ public class FaceActivity extends BaseEditor {
                                                                           LinearLayout.LayoutParams.MATCH_PARENT);
         this.addContentView(layout, layoutP);
 
+        coloursList = (HorizontalScrollView) findViewById(R.id.coloursList);
+        setEyeColourButtons();
+
         findViewById(R.id.redEyeButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,13 +74,10 @@ public class FaceActivity extends BaseEditor {
             }
         });
 
-        findViewById(R.id.effectButton).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.eyeButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dIV.setEyeColour(270f);
-                dIV.setChangeEyes();
-                dIV.invalidate();
-                images.setImage(dIV.getBitmap());
+                coloursList.setVisibility(View.VISIBLE);
             }
         });
 
@@ -97,13 +95,8 @@ public class FaceActivity extends BaseEditor {
 
             scaledImg = Bitmap.createScaledBitmap(img, (int) (img.getWidth()*scale), (int) (img.getHeight()*scale), true);
 
-            /*((Activity) getContext()).getWindowManager()
-                    .getDefaultDisplay()
-                    .getMetrics(displayMetrics); */
-
             mFaceWidth = scaledImg.getWidth(); //img
             mFaceHeight = scaledImg.getHeight(); //img
-            //dIV.setScreenHeight((float) scrHeight);
             dIV.setImageBitmap(scaledImg); //img
             img.recycle();
         }
@@ -129,7 +122,80 @@ public class FaceActivity extends BaseEditor {
 
     }
 
-    public void setFace() {
+    private void setEyeColourButtons() {
+        findViewById(R.id.red).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dIV.setEyeColour(360f);
+                dIV.setChangeEyes();
+                dIV.invalidate();
+                images.setImage(dIV.getBitmap());
+                coloursList.setVisibility(View.GONE);
+            }
+        });
+        findViewById(R.id.orange).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dIV.setEyeColour(30f);
+                dIV.setChangeEyes();
+                dIV.invalidate();
+                images.setImage(dIV.getBitmap());
+                coloursList.setVisibility(View.GONE);
+            }
+        });
+        findViewById(R.id.yellow).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dIV.setEyeColour(60f);
+                dIV.setChangeEyes();
+                dIV.invalidate();
+                images.setImage(dIV.getBitmap());
+                coloursList.setVisibility(View.GONE);
+            }
+        });
+        findViewById(R.id.green).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dIV.setEyeColour(120f);
+                dIV.setChangeEyes();
+                dIV.invalidate();
+                images.setImage(dIV.getBitmap());
+                coloursList.setVisibility(View.GONE);
+            }
+        });
+        findViewById(R.id.blue).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dIV.setEyeColour(180f);
+                dIV.setChangeEyes();
+                dIV.invalidate();
+                images.setImage(dIV.getBitmap());
+                coloursList.setVisibility(View.GONE);
+            }
+        });
+        findViewById(R.id.purple).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dIV.setEyeColour(260f);
+                dIV.setChangeEyes();
+                dIV.invalidate();
+                images.setImage(dIV.getBitmap());
+                coloursList.setVisibility(View.GONE);
+            }
+        });
+        findViewById(R.id.pink).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dIV.setEyeColour(300f);
+                dIV.setChangeEyes();
+                dIV.invalidate();
+                images.setImage(dIV.getBitmap());
+                coloursList.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void setFace() {
         FaceDetector fd;
         FaceDetector.Face [] faces = new FaceDetector.Face[MAX_FACES];
         PointF eyescenter = new PointF();
@@ -155,7 +221,7 @@ public class FaceActivity extends BaseEditor {
                 try {
                     faces[i].getMidPoint(eyescenter);
                     eyesdist = faces[i].eyesDistance();
-                    dIV.setScaledEyeCircleSize(eyesdist);
+                    dIV.setScaledEyeCircleRadius(eyesdist);
 
                     // set up left eye location
                     fpx[2 * i] = (int)(eyescenter.x - eyesdist / 2);
