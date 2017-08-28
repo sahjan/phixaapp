@@ -21,6 +21,26 @@
         android:text="Fix red eye"
         android:translationZ="3dp" />
 
+    <Button
+        android:id="@+id/effectButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:gravity="center"
+        android:text="eye colour"
+        android:translationZ="3dp" />
+
+    <SeekBar
+        android:id="@+id/eyeColourSlider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_weight="0.02"
+        android:max="360"
+        android:min="0"
+        android:progress="0"
+        android:visibility="gone" />
+
     <LinearLayout
         android:id="@+id/slidersBar"
         android:layout_width="match_parent"

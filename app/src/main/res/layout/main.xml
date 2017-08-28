@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
-                android:weightSum="4">
+                android:weightSum="5">
 
                 <ImageButton
                     android:id="@+id/transformImgButton"
@@ -75,16 +75,16 @@
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/overlay_selector" />
 
-                <Button
-                    android:id="@+id/faceButton"
-                    android:layout_width="wrap_content"
+                <ImageButton
+                    android:id="@+id/faceImgButton"
+                    android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:background="@drawable/custom_button"
                     android:outlineProvider="none"
                     android:scaleType="fitCenter"
-                    android:text="Face" />
+                    app:srcCompat="@drawable/face_selector" />
 
             </LinearLayout>
 

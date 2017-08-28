@@ -99,7 +99,8 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
 
         // BUTTONS
 
-        findViewById(R.id.faceButton).setOnClickListener(new View.OnClickListener() {
+        //Face button, moves to face activity
+        findViewById(R.id.faceImgButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainPage.this, FaceActivity.class);

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.media.FaceDetector;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 
 import java.io.IOException;
 
@@ -42,6 +43,7 @@ public class FaceActivity extends BaseEditor {
         }
     };
     private LinearLayout layout;
+    private SeekBar eyeColourSlider;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,6 +74,37 @@ public class FaceActivity extends BaseEditor {
             }
         });
 
+        findViewById(R.id.effectButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                eyeColourSlider.setVisibility(View.VISIBLE);
+                /*dIV.setChangeEyes();
+                dIV.invalidate();
+                images.setImage(dIV.getBitmap()); */
+            }
+        });
+
+        eyeColourSlider = (SeekBar) findViewById(R.id.eyeColourSlider);
+        eyeColourSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                dIV.setEyeColour((float) eyeColourSlider.getProgress());
+                dIV.setChangeEyes();
+                dIV.invalidate();
+                images.setImage(dIV.getBitmap());
+            }
+        });
+
         //load the photo
         try {
             Bitmap image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
@@ -92,7 +125,7 @@ public class FaceActivity extends BaseEditor {
 
             mFaceWidth = scaledImg.getWidth(); //img
             mFaceHeight = scaledImg.getHeight(); //img
-            dIV.setScreenHeight((float) scrHeight);
+            //dIV.setScreenHeight((float) scrHeight);
             dIV.setImageBitmap(scaledImg); //img
             img.recycle();
         }

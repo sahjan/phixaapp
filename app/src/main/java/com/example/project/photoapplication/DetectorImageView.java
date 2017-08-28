@@ -1,14 +1,12 @@
 package com.example.project.photoapplication;
 
 import android.graphics.Color;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.widget.RelativeLayout;
 
 /**
  * Created by Sahjan on 24/08/2017.
@@ -21,11 +19,12 @@ public class DetectorImageView extends ImageView {
     private int mBitmapHeight = 200;
     private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private boolean redEye = false;
+    private boolean changeEyes = false;
     private int mDisplayStyle = 0;
     private int [] mPX = null;
     private int [] mPY = null;
     private float scaledEyeCircleSize;
-    private float screenHeight;
+    private float eyeColour;
 
     public DetectorImageView(Context c) {
         super(c);
@@ -66,6 +65,36 @@ public class DetectorImageView extends ImageView {
                 float redIntensity = ((float)red / ((green + blue) / 2));
                 if (redIntensity > 2.2f) {
                     mBitmap.setPixel(x, y, Color.rgb(45, green, blue));
+                }
+            }
+        }
+    }
+
+    public void setChangeEyes() {
+        changeEyes = true;
+    }
+
+    public void setEyeColour(float hueValue) {
+        eyeColour = hueValue;
+    }
+
+    private void applyChangeEyeColour(int i, float hue) {
+        for(int x = (mPX[i] - Math.round(scaledEyeCircleSize)); x < (mPX[i] + Math.round(scaledEyeCircleSize)); x++) {
+            for(int y = (mPY[i] - Math.round(scaledEyeCircleSize)); y < (mPY[i] + Math.round(scaledEyeCircleSize)); y++) {
+                //hue range 0-360
+                int pixel = mBitmap.getPixel(x, y);
+                int red = Color.red(pixel);
+                int green = Color.green(pixel);
+                int blue = Color.blue(pixel);
+                float [] hsv = new float[3];
+
+                float redIntensity = ((float)red / ((green + blue) / 2));
+                float blueIntensity = ((float)blue / ((green + red) / 2));
+                float greenIntensity = ((float)green / ((red + blue) / 2));
+                if (blueIntensity > redIntensity || greenIntensity > redIntensity) {
+                    Color.colorToHSV(pixel,hsv);
+                    hsv[0] = hue;
+                    mBitmap.setPixel(x,y,Color.HSVToColor(Color.alpha(pixel),hsv));
                 }
             }
         }
@@ -119,10 +148,6 @@ public class DetectorImageView extends ImageView {
         }
     }
 
-    public void setScreenHeight(float height) {
-        screenHeight = height;
-    }
-
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -135,6 +160,9 @@ public class DetectorImageView extends ImageView {
                     if (redEye) {
                         applyRedEyeFix(i);
                     }
+                    else if(changeEyes) {
+                        applyChangeEyeColour(i, eyeColour);
+                    }
                     else if (mDisplayStyle == 1) {
                         canvas.drawCircle(mPX[i], mPY[i], scaledEyeCircleSize, mPaint);
                     } else {
@@ -144,5 +172,33 @@ public class DetectorImageView extends ImageView {
             }
         }
         redEye = false;
+        changeEyes = false;
     }
 }
+
+/*int red, green, blue;
+        int a1, a2, a3, a4, a5, a6, a7, a8, a9;
+        for (int x = (mPX[i] - Math.round(scaledEyeCircleSize)); x < (mPX[i] + Math.round(scaledEyeCircleSize)); x++) {
+            for (int y = (mPY[i] - Math.round(scaledEyeCircleSize)); y < (mPY[i] + Math.round(scaledEyeCircleSize)); y++) {
+
+                a1 = mBitmap.getPixel(x - 1, y - 1);
+                a2 = mBitmap.getPixel(x - 1, y);
+                a3 = mBitmap.getPixel(x - 1, y + 1);
+                a4 = mBitmap.getPixel(x, y - 1);
+                a5 = mBitmap.getPixel(x, y);
+                a6 = mBitmap.getPixel(x, y + 1);
+                a7 = mBitmap.getPixel(x + 1, y - 1);
+                a8 = mBitmap.getPixel(x + 1, y);
+                a9 = mBitmap.getPixel(x + 1, y + 1);
+
+                red = (Color.red(a1) + Color.red(a2) + Color.red(a3) + Color.red(a4) + Color.red(a6) + Color.red(a7) + Color.red(a8) + Color.red(a9)) *(-1)   + Color.red(a5)*9 ;
+                green = (Color.green(a1) + Color.green(a2) + Color.green(a3) + Color.green(a4) + Color.green(a6) + Color.green(a7) + Color.green(a8) + Color.green(a9)) *(-1)  + Color.green(a5)*9 ;
+                blue = (Color.blue(a1) + Color.blue(a2) + Color.blue(a3) + Color.blue(a4) + Color.blue(a6) + Color.blue(a7) + Color.blue(a8) + Color.blue(a9)) *(-1)   + Color.blue(a5)*9 ;
+
+                red = red & 0xFF;
+                blue = blue & 0xFF;
+                green = green & 0xFF;
+
+                mBitmap.setPixel(x, y, Color.rgb(red, green, blue));
+            }
+        } */

@@ -112,17 +112,6 @@ public class FilterActivity extends BaseEditor implements GLSurfaceView.Renderer
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && findViewById(R.id.filtersScrollView).getVisibility() == View.VISIBLE) {
-                findViewById(R.id.filtersScrollView).setVisibility(View.GONE);
-                return false;
-        }
-        else {
-            return super.onKeyDown(keyCode, event);
-        }
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
     }
