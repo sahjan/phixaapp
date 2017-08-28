@@ -1,12 +1,14 @@
 package com.example.project.photoapplication;
 
 import android.graphics.Color;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.widget.RelativeLayout;
 
 /**
  * Created by Sahjan on 24/08/2017.
@@ -14,7 +16,6 @@ import android.util.AttributeSet;
 
 public class DetectorImageView extends ImageView {
     private Bitmap mBitmap;
-    private Bitmap scaledBitmap;
     private Canvas mCanvas;
     private int mBitmapWidth = 200;
     private int mBitmapHeight = 200;
@@ -24,32 +25,21 @@ public class DetectorImageView extends ImageView {
     private int [] mPX = null;
     private int [] mPY = null;
     private float scaledEyeCircleSize;
-    //float viewWidth;
-    //float viewHeight;
-    //float scale;
-    //Rect rect;
+    private float screenHeight;
 
     public DetectorImageView(Context c) {
         super(c);
-        //this.setScaleType(ImageView.ScaleType.FIT_XY);
         init();
     }
 
     public DetectorImageView(Context c, AttributeSet attrs) {
         super(c, attrs);
-        //this.setScaleType(ImageView.ScaleType.FIT_XY);
         init();
     }
 
     private void init() {
         mBitmap = Bitmap.createBitmap(mBitmapWidth, mBitmapHeight, Bitmap.Config.RGB_565);
         mCanvas = new Canvas(mBitmap);
-
-        //viewWidth = mCanvas.getWidth();
-        //viewHeight = mCanvas.getHeight();
-        //scale = Math.min(viewWidth/mBitmapWidth, viewHeight/mBitmapHeight);
-        //rect = new Rect(0,0,(int) (mBitmapWidth * scale), (int) (mBitmapHeight * scale));
-
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setColor(0x80ff0000);
@@ -75,7 +65,7 @@ public class DetectorImageView extends ImageView {
 
                 float redIntensity = ((float)red / ((green + blue) / 2));
                 if (redIntensity > 2.2f) {
-                    mBitmap.setPixel(x, y, Color.rgb(25, green, blue));
+                    mBitmap.setPixel(x, y, Color.rgb(45, green, blue));
                 }
             }
         }
@@ -94,25 +84,8 @@ public class DetectorImageView extends ImageView {
             mCanvas = new Canvas();
             mCanvas.setBitmap(mBitmap);
             mCanvas.drawBitmap(bm, 0, 0, null);
-            //mCanvas.drawBitmap(bm, null, rect, null);
         }
-        //super.setImageBitmap(bm);
-    }
-
-    public void setImageBitmap(Bitmap bm, int height, int width) {
-        if (bm != null) {
-            mBitmapWidth = bm.getWidth();
-            mBitmapHeight = bm.getHeight();
-            int scale = Math.min(height/mBitmapHeight, width/mBitmapWidth);
-            mBitmap = Bitmap.createBitmap(mBitmapWidth, mBitmapHeight, Bitmap.Config.RGB_565);
-            //mBitmap.reconfigure(mBitmapWidth*scale, mBitmapHeight*scale, Bitmap.Config.RGB_565);
-            //scaledBitmap = Bitmap.createScaledBitmap(mBitmap, mBitmapWidth*scale, mBitmapHeight*scale, false);
-            mCanvas = new Canvas();
-            mCanvas.setBitmap(mBitmap);
-            mCanvas.drawBitmap(bm, 0, 0, null);
-            //mCanvas.drawBitmap(bm, null, rect, null);
-        }
-        //super.setImageBitmap(bm);
+        super.setImageBitmap(bm);
     }
 
     @Override
@@ -146,13 +119,16 @@ public class DetectorImageView extends ImageView {
         }
     }
 
+    public void setScreenHeight(float height) {
+        screenHeight = height;
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         if (mBitmap != null) {
             canvas.drawBitmap(mBitmap, 0, 0, null);
-            //mCanvas.drawBitmap(mBitmap, null, rect, null);
 
             if (mPX != null && mPY != null) {
                 for (int i = 0; i < mPX.length; i++) {

@@ -12,8 +12,10 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.media.FaceDetector;
+import android.widget.RelativeLayout;
 
 import java.io.IOException;
 
@@ -25,6 +27,7 @@ public class FaceActivity extends BaseEditor {
 
     private DetectorImageView dIV;
     private Bitmap img;
+    private Bitmap scaledImg;
     private int mFaceWidth = 200;
     private int mFaceHeight = 200;
     private static final int MAX_FACES = 1;
@@ -44,27 +47,7 @@ public class FaceActivity extends BaseEditor {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_face);
-        //dIV = new DetectorImageView(this);
-        dIV = (DetectorImageView) findViewById(R.id.detectorIV);
-        //dIV.setScaleType(ImageView.ScaleType.FIT_XY);
-
-        /*layout = new LinearLayout(this);
-        layout.setGravity(Gravity.CENTER);
-        layout.addView(dIV);
-        layout.setTranslationZ(0f);
-        LinearLayout.LayoutParams layoutP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                                                                          LinearLayout.LayoutParams.MATCH_PARENT);
-
-        this.addContentView(layout, layoutP); */
-
-        findViewById(R.id.redEyeButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dIV.setRedEye();
-                dIV.invalidate();
-                images.setImage(img);
-            }
-        });
+        dIV = new DetectorImageView(this);
 
         //initialise fields
         Intent intent = getIntent();
@@ -72,6 +55,22 @@ public class FaceActivity extends BaseEditor {
         history = intent.getParcelableExtra("History");
         context = this;
         images = new Image(uri, context, history);
+
+        layout = new LinearLayout(this);
+        layout.setGravity(Gravity.CENTER);
+        layout.addView(dIV);
+        LinearLayout.LayoutParams layoutP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                                                                          LinearLayout.LayoutParams.MATCH_PARENT);
+        this.addContentView(layout, layoutP);
+
+        findViewById(R.id.redEyeButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dIV.setRedEye();
+                dIV.invalidate();
+                images.setImage(dIV.getBitmap());
+            }
+        });
 
         //load the photo
         try {
@@ -81,16 +80,21 @@ public class FaceActivity extends BaseEditor {
 
             DisplayMetrics displayMetrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-            int scrHeight = displayMetrics.heightPixels;
-            int scrWidth = displayMetrics.widthPixels;
+            double scrHeight = displayMetrics.heightPixels;
+            double scrWidth = displayMetrics.widthPixels;
+            double scale = Math.min(scrHeight/img.getHeight(), scrWidth/img.getWidth());
 
-            ((Activity) getContext()).getWindowManager()
+            scaledImg = Bitmap.createScaledBitmap(img, (int) (img.getWidth()*scale), (int) (img.getHeight()*scale), true);
+
+            /*((Activity) getContext()).getWindowManager()
                     .getDefaultDisplay()
-                    .getMetrics(displayMetrics);
+                    .getMetrics(displayMetrics); */
 
-            mFaceWidth = img.getWidth();
-            mFaceHeight = img.getHeight();
-            dIV.setImageBitmap(img, scrHeight, scrWidth);
+            mFaceWidth = scaledImg.getWidth(); //img
+            mFaceHeight = scaledImg.getHeight(); //img
+            dIV.setScreenHeight((float) scrHeight);
+            dIV.setImageBitmap(scaledImg); //img
+            img.recycle();
         }
         catch(IOException e) {
             e.printStackTrace();
@@ -125,7 +129,7 @@ public class FaceActivity extends BaseEditor {
 
         try {
             fd = new FaceDetector(mFaceWidth, mFaceHeight, MAX_FACES);
-            count = fd.findFaces(img, faces);
+            count = fd.findFaces(scaledImg, faces); //img
         } catch (Exception e) {
             Log.e(TAG, "setFace(): " + e.toString());
             return;
