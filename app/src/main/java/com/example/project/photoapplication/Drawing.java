@@ -13,7 +13,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -187,7 +186,6 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
                         if (y < 0) {
                             y = 0;
                         }
-                        Log.e("Coords", Float.toString(x) + " " + Float.toString(y));
                         getBlurColour();
                         return false;
                     }
@@ -361,7 +359,6 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
     public int[] getScaleSize() {
         int w = view.getWidth();
         int h = view.getMeasuredHeight();
-        Log.e("dimensions", h + " " + w);
         int scaledHeight = w * image.getHeight() / image.getWidth();
         int scaledWidth = w;
         int[] scaledValues = {
@@ -418,7 +415,6 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         history.pushParam(0.0f);
         data.putExtra("History", history);
         brushIndex++;
-        Log.e("brushindexbackpressed", Integer.toString(brushIndex));
         data.putExtra("brushIndex", brushIndex);
         // add data to Intent
         setResult(Activity.RESULT_OK, data);

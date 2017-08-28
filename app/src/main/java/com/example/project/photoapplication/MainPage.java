@@ -57,7 +57,6 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
             history = new EditHistory(uri);
             images = new Image(uri, context);
         }
-        Log.e("History", Integer.toString(history.getEffects().size()));
 
         ImageButton layers = (ImageButton) findViewById(R.id.layers);
         layers.setOnClickListener(new View.OnClickListener() {

@@ -14,7 +14,6 @@ import android.opengl.GLUtils;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -461,15 +460,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                         }
                         break;
 
-                    case R.id.states:
-                        Log.e("brushIndex", Integer.toString(brushindex));
-//                        Log.e("EffectSize=", Integer.toString(history.getEffects().size()));
-//                        Log.e("EffectSize=", Integer.toString(history.getParam().size()));
-//                        for (int i = 0; i< history.getParam().size(); i++){
-//                            Log.e("Effect ", Integer.toString(history.getEffects().get(i)));
-//                            Log.e("Param ", Float.toString(history.getParam().get(i)));
-//                        }
-
                 }
                 return true;
             }
@@ -525,7 +515,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             effectParameter = history.getParam().get(i);
             if (mCurrentEffect == 111){
                 Uri brushimage = history.getImage("BrushIm" + brushindex);
-                Log.e("uri", brushimage.toString());
                 brushRedoIndex = brushindex;
                 brushindex++;
                 Bitmap b = null;
@@ -543,7 +532,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             images.setPreviousImage();
             // temporary fix for race condition
             android.os.SystemClock.sleep(600);
-            Log.e("brushIndex", Integer.toString(brushindex));
             if (layers){
                 save(images.getImage(), context, i, "layer");
             }
