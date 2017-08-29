@@ -11,6 +11,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.media.FaceDetector;
@@ -18,7 +20,10 @@ import android.media.FaceDetector;
 import java.io.IOException;
 
 /**
- * Created by Sahjan on 22/08/2017.
+ * Base code by:
+ * [AUTHOR]: Chunyen Liu
+ * [SDK   ]: Android SDK 2.1 and up
+ * [NOTE  ]: developer.com tutorial, "Face Detection with Android APIs"
  */
 
 public class FaceActivity extends BaseEditor {
@@ -40,7 +45,10 @@ public class FaceActivity extends BaseEditor {
         }
     };
     private LinearLayout layout;
+    private LinearLayout buttons;
     private HorizontalScrollView coloursList;
+    private Button redEyeButton;
+    private Button eyeColourButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,10 +70,29 @@ public class FaceActivity extends BaseEditor {
                                                                           LinearLayout.LayoutParams.MATCH_PARENT);
         this.addContentView(layout, layoutP);
 
+        //buttonsBar = findViewById(R.id.buttonsBar);
+
+        //the buttons
+        redEyeButton = (Button) findViewById(R.id.redEyeButton);
+        eyeColourButton = (Button) findViewById(R.id.eyeButton);
+        ((ViewGroup) redEyeButton.getParent()).removeView(redEyeButton);
+        ((ViewGroup) eyeColourButton.getParent()).removeView(eyeColourButton);
+
         coloursList = (HorizontalScrollView) findViewById(R.id.coloursList);
+        ((ViewGroup) coloursList.getParent()).removeView(coloursList);
+
+        buttons = new LinearLayout(this);
+        layout.setGravity(Gravity.CENTER);
+        buttons.addView(redEyeButton);
+        buttons.addView(eyeColourButton);
+        buttons.addView(coloursList);
+        LinearLayout.LayoutParams buttonsP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        this.addContentView(buttons, buttonsP);
+
         setEyeColourButtons();
 
-        findViewById(R.id.redEyeButton).setOnClickListener(new View.OnClickListener() {
+        redEyeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dIV.setRedEye();
@@ -74,7 +101,7 @@ public class FaceActivity extends BaseEditor {
             }
         });
 
-        findViewById(R.id.eyeButton).setOnClickListener(new View.OnClickListener() {
+        eyeColourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 coloursList.setVisibility(View.VISIBLE);

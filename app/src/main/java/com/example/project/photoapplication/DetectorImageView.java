@@ -11,7 +11,10 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 
 /**
- * Created by Sahjan on 24/08/2017.
+ * Base code by:
+ * [AUTHOR]: Chunyen Liu
+ * [SDK   ]: Android SDK 2.1 and up
+ * [NOTE  ]: developer.com tutorial, "Face Detection with Android APIs"
  */
 
 public class DetectorImageView extends ImageView {
