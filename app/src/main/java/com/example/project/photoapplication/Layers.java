@@ -165,6 +165,7 @@ public class Layers extends AppCompatActivity {
             intent.putExtra("History", history);
             Log.e("History", Integer.toString(history.getEffects().size()));
             startActivity(intent);
+            finish();
 
         }
 

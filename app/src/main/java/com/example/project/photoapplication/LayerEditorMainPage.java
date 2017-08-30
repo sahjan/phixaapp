@@ -171,5 +171,13 @@ public class LayerEditorMainPage extends BaseEditor implements GLSurfaceView.Ren
         });
     }
 
+    @Override
+    protected void onResume() {
+        if (images.getImage().isRecycled()) {
+            images = new Image(uri, context);
+        }
+        super.onResume();
+    }
+
 }
 

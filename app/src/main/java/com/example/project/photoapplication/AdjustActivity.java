@@ -6,6 +6,7 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -275,9 +276,10 @@ public class AdjustActivity extends BaseEditor implements GLSurfaceView.Renderer
     @Override
     protected void onResume() {
         if (images.getImage().isRecycled()) {
+            Log.e("Recycled", "XX");
             images = new Image(uri, context);
         }
-        mEffectView.onResume();
+        mCurrentEffect = R.id.none;
         super.onResume();
     }
 

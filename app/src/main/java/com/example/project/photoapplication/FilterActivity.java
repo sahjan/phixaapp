@@ -5,6 +5,7 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Handler;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -121,9 +122,10 @@ public class FilterActivity extends BaseEditor implements GLSurfaceView.Renderer
     @Override
     protected void onResume() {
         if (images.getImage().isRecycled()) {
+            Log.e("Recycled", "XX");
             images = new Image(uri, context);
         }
-        mEffectView.onResume();
+        mCurrentEffect = R.id.none;
         super.onResume();
     }
 

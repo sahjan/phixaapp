@@ -198,7 +198,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         Log.e("Effect Array = ", Integer.toString(effect.length));
         Log.e("Param Array = ", Integer.toString(params.length));
 
-        findViewById(R.id.topBut).setVisibility(View.INVISIBLE);
+//        findViewById(R.id.layers).setVisibility(View.INVISIBLE);
 
     }
 
@@ -405,6 +405,14 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         Log.e("ce", Integer.toString(mCurrentEffect));
         Log.e("param", Float.toString(EditUtils.calculateSliderValue(slider.getProgress())));
         mEffectView.requestRender();
+    }
+
+    @Override
+    protected void onResume() {
+        if (images.getImage().isRecycled()) {
+            images = new Image(uri, context);
+        }
+        super.onResume();
     }
 
 }

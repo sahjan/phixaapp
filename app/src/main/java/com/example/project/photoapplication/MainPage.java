@@ -68,6 +68,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                 history.putImage("finalImage", uri);
                 layers.putExtra("History", history);
                 startActivity(layers);
+                images.recycle();
             }
         });
 

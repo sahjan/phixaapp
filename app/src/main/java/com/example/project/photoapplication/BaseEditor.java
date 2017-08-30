@@ -107,7 +107,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     @Override
     protected void onStop(){
         super.onStop();
-        images.recycle();
+//        images.recycle();
     }
 
     /*
@@ -525,7 +525,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                 }
                 images.setImage(b);
                 mCurrentEffect = R.id.none;
-                b.recycle();
             }
             // Call a render
             mEffectView.requestRender();
