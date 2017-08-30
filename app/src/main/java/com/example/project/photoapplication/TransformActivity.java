@@ -22,6 +22,9 @@ import com.lyft.android.scissors.CropView;
 
 import java.io.File;
 
+/**
+ * The editor activity that contains all transformation style effects
+ */
 public class TransformActivity extends BaseEditor implements GLSurfaceView.Renderer{
 
     @Override

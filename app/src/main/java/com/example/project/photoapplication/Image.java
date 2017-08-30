@@ -19,6 +19,11 @@ public class Image {
     private final Bitmap originalImage;
 
 
+    /**
+     * Constructor for creation of an entirely fresh Image object
+     * @param path
+     * @param context
+     */
     public Image(Uri path, Context context) {
         Bitmap b = null;
         try {
@@ -31,6 +36,13 @@ public class Image {
         initImages();
     }
 
+    /**
+     * Constructor for creating an Image object when effects have already been applied
+     * and we need to regain the original image
+     * @param path
+     * @param context
+     * @param history
+     */
     public Image(Uri path, Context context, EditHistory history){
         Bitmap b = null;
         Bitmap o = null;
@@ -47,10 +59,25 @@ public class Image {
     }
 
 
+    /**
+     * Initialise all images so that they are set to the base image
+     */
     public void initImages() {
         image = originalImage;
         previousImage = originalImage;
     }
+
+    /**
+     * Recycle all the images to regain memory
+     */
+    public void recycle() {
+        image.recycle();
+        previousImage.recycle();
+        originalImage.recycle();
+    }
+
+
+    // Getters and setters
 
     public Bitmap getImage() {
         return image;
@@ -72,10 +99,6 @@ public class Image {
         return originalImage;
     }
 
-    public void recycle() {
-        image.recycle();
-        previousImage.recycle();
-        originalImage.recycle();
-    }
+
 
 }

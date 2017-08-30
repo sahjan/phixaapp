@@ -7,6 +7,10 @@ import java.util.ArrayList;
 
 /**
  * Created by Ed on 05/08/2017.
+ * A special data structure for use in the EditHistory
+ * In effect the EditStack is a stack, in that, generally items are added and removed from the top of the stack
+ * However to allow for the special operations the EditHistory requires from a data structure,
+ * the edit stack allows a user to remove and add at an arbitrary location within the stack
  */
 
 public class EditStack<T> implements Cloneable, Parcelable {
@@ -73,6 +77,11 @@ public class EditStack<T> implements Cloneable, Parcelable {
         return items.get(index);
     }
 
+    /**
+     * The clone method allows us to conduct a full copy of the EditStack
+     * First conducts a shallow copy and then conducts a full deep copy
+     * @return
+     */
     @Override
     public EditStack<T> clone() {
         EditStack<T> clone = null;

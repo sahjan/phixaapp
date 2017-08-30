@@ -9,6 +9,7 @@ import java.io.File;
 
 /**
  * Created by Ed on 17/08/2017.
+ * Contains static methods for data processing that can be called from anywhere and are used my multiple activities/classes
  */
 
 public class EditUtils {
@@ -52,11 +53,19 @@ public class EditUtils {
     }
 
 
-    // Convert the slider values of 0-100 to numbers that equate with the correct values for the effect parameters
+    /**
+     * Convert the slider values of 0-100 to numbers that equate with the correct values for the effect parameters
+      */
     public static float calculateSliderValue(int sliderValue) {
         float effectValue = (float) sliderValue / 50;
         return effectValue;
     }
+
+    /**
+     * Clear the Apps private storage folders of all files stored there
+     * @param context
+     * @param type - The folder to clear of files
+     */
 
     public static void clearPrivateStorage(Context context, String type){
         FileManager fm = new FileManager(context);

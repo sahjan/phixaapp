@@ -28,6 +28,11 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * This activity contains all brush tools we need to edit the image.
+ * For example, we can draw on the canvas by touching the screen, change the colour of the paint,
+ * the size of the pen or set it to blur.
+ */
 public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnColorChangedListener {
 
     private Bitmap image;

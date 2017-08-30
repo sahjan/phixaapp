@@ -16,6 +16,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * This activity gets all the images in the apps public storage directory and loads the 6 most recent
+ * to image views that can be clicked on to load that image
+ */
 public class RecentImages extends AppCompatActivity {
     private FileManager fm = new FileManager(this);
     private File[] files;
@@ -95,10 +99,12 @@ public class RecentImages extends AppCompatActivity {
         catch (IOException e){
             e.printStackTrace();
         }
-
-
-
     }
+
+    /**
+     * Converts files in the files arraylist to their proper URI's
+     * @return
+     */
     public ArrayList<Uri> convertToUri(){
         ArrayList<Uri> f = new ArrayList<>();
         // iterate through all files in the array and convert the file to an official URI
@@ -114,6 +120,10 @@ public class RecentImages extends AppCompatActivity {
     }
 
 
+    /**
+     * Start the main page activity and send the selected image to it
+     * @param image
+     */
     public void startMainPage(Uri image){
         Intent intent = new Intent(getApplicationContext(), MainPage.class);
         intent.putExtra("Image", image);
@@ -121,6 +131,11 @@ public class RecentImages extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Checks if the uris array is bigger than the index passed to it
+     * @param index
+     * @return
+     */
     public Boolean checkSize(int index){
         if(uris.size() > index) {
             return true;

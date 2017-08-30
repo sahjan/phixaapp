@@ -69,6 +69,9 @@ public class Loader extends AppCompatActivity {
     }
 
 
+    /**
+     * Open the devices public picture gallery to select an image to use with the editor activities
+     */
     private void openGallery() {
         Intent gallery =
                 // open an intent to select some data
@@ -81,6 +84,9 @@ public class Loader extends AppCompatActivity {
     }
 
 
+    /**
+     * Start the camera to take a picture for use by the editor activities
+     */
     private void openCamera() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
@@ -105,6 +111,9 @@ public class Loader extends AppCompatActivity {
         }
     }
 
+    /**
+     * Open the recent images gallery
+     */
     private void openRecent(){
         Intent intent = new Intent(this, RecentImages.class);
         startActivity(intent);
@@ -127,7 +136,12 @@ public class Loader extends AppCompatActivity {
             startActivity(intent);
         }
     }
-        // Get permissions that are required if they are not in place already
+
+    /**
+     * Check permissions -
+     * Get permissions that are required if they are not in place already
+      */
+
         public  boolean isStoragePermissionGranted() {
             if (Build.VERSION.SDK_INT >= 23) {
                 if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)

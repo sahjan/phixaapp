@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import java.io.File;
 
+/**
+ * The editor activity that contains all adjustment style effects
+ */
 public class AdjustActivity extends BaseEditor implements GLSurfaceView.Renderer{
 
     @Override

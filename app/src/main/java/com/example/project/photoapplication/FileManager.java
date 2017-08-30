@@ -32,7 +32,7 @@ import java.util.Date;
 
         }
 
-        /*
+        /**
         Saves a bitmap to a file and then send it in an outputstream.
         Scan the system so that the image is available to the gallery
          */
@@ -59,7 +59,7 @@ import java.util.Date;
 
         }
 
-        /*
+        /**
         Generates a file with the correct directory to save to. If the directory does not exist then create it.
          */
         public File getAlbumStorageDir() {
@@ -73,7 +73,7 @@ import java.util.Date;
             return file;
         }
 
-        /*
+        /**
         Method used for loading an image via the camera
         @return File - The image file saved from the camera.
          */
@@ -93,7 +93,7 @@ import java.util.Date;
             return image;
         }
 
-        /*
+        /**
         Create a unique name for a file based on the time.
         @return filename - the string that will form the unique filename for a file.
          */
@@ -108,7 +108,7 @@ import java.util.Date;
             return mostRecentPath;
         }
 
-        /*
+        /**
         Scan the system so the image is available.
         @param file - the file to scan for
          */
@@ -125,7 +125,7 @@ import java.util.Date;
 
         }
 
-        /*
+        /**
         Get a list of files in the directory represented by the string path
         @return File[] - return an array of all files in the folder.
          */
@@ -139,25 +139,33 @@ import java.util.Date;
         }
 
 
-
-
+        /**
+         * Save a file to the private storage layer folder
+         * @param index - The index to name the file
+         * @param image - The image to save
+         */
         public void saveLayer(int index, Bitmap image){
-            String filename = "Layer" + index;
-            File folder = new File(context.getFilesDir(), "layers");
-            folder.mkdirs();
-            File file = new File(folder, filename);
-            FileOutputStream out = null;
-            try {
-            out = new FileOutputStream(file);
-                image.compress(Bitmap.CompressFormat.JPEG, 50, out);
-                out.flush();
-                out.close();
+                String filename = "Layer" + index;
+                File folder = new File(context.getFilesDir(), "layers");
+                folder.mkdirs();
+                File file = new File(folder, filename);
+                FileOutputStream out = null;
+                try {
+                out = new FileOutputStream(file);
+                    image.compress(Bitmap.CompressFormat.JPEG, 50, out);
+                    out.flush();
+                    out.close();
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
             }
-            catch(Exception e){
-                e.printStackTrace();
-            }
-        }
 
+        /**
+         * Save a file to the private storage back folder
+         * @param index - The index to name the file
+         * @param image - The image to save
+         */
         public void saveBack(int index, Bitmap image) {
             String filename = "back" + index;
             File folder = new File(context.getFilesDir(), "back");
@@ -175,6 +183,11 @@ import java.util.Date;
             }
         }
 
+        /**
+         * Save a file to the private storage brush folder
+         * @param index - The index to name the file
+         * @param image - The image to save
+         */
         public void saveBrush(int index, Bitmap image){
             String filename = "brush" + index;
             File folder = new File(context.getFilesDir(), "brush");
@@ -193,56 +206,60 @@ import java.util.Date;
         }
 
 
-    public void startSave(Context context, Bitmap bitmap, int index, String type){
-        SaveThread saver = new SaveThread(context, bitmap, index, type);
-        saver.execute();
-    }
-
-
-    //An AsyncTask to conduct saving on a seperate thread to ensure the UI does not lock up while the save is in progress.
-    protected class SaveThread extends android.os.AsyncTask<String, Void, Boolean> {
-
-        Context context;
-        Bitmap image;
-        int layerIndex;
-        String type;
-
-        public SaveThread(Context context, Bitmap image, int layerIndex, String type){
-            this.context = context;
-            this.image = image;
-            this.layerIndex = layerIndex;
-            this.type = type;
+        /**
+         * Create a new async task to save an image.
+         * @param context
+         * @param bitmap
+         * @param index
+         * @param type
+         */
+        public void startSave(Context context, Bitmap bitmap, int index, String type){
+            SaveThread saver = new SaveThread(context, bitmap, index, type);
+            saver.execute();
         }
 
-        @Override
-        protected Boolean doInBackground(String... strings) {
-            FileManager fm = new FileManager(context);
-            switch (type) {
-                case "normal":
-                    fm.saveBitmap(image);
-                    break;
 
-                case "layer":
-                    fm.saveLayer(layerIndex, image);
-                    break;
+        /**
+         * An AsyncTask to conduct saving on a seperate thread
+         * This ensures the UI does not lock up while the save is in progress.
+         */
+        protected class SaveThread extends android.os.AsyncTask<String, Void, Boolean> {
 
-                case "back":
-                    fm.saveBack(layerIndex, image);
-                    break;
+            Context context;
+            Bitmap image;
+            int layerIndex;
+            String type;
 
-                case "brush":
-                    fm.saveBrush(layerIndex, image);
-                    break;
+            public SaveThread(Context context, Bitmap image, int layerIndex, String type){
+                this.context = context;
+                this.image = image;
+                this.layerIndex = layerIndex;
+                this.type = type;
             }
-            return true;
+
+            @Override
+            protected Boolean doInBackground(String... strings) {
+                FileManager fm = new FileManager(context);
+                switch (type) {
+                    case "normal":
+                        fm.saveBitmap(image);
+                        break;
+
+                    case "layer":
+                        fm.saveLayer(layerIndex, image);
+                        break;
+
+                    case "back":
+                        fm.saveBack(layerIndex, image);
+                        break;
+
+                    case "brush":
+                        fm.saveBrush(layerIndex, image);
+                        break;
+                }
+                return true;
+            }
         }
-    }
-
-
-
-
-
-
 }
 
 

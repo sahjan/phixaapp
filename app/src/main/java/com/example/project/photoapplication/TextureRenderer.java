@@ -2,6 +2,8 @@ package com.example.project.photoapplication;
 
 /**
  * Created by Ed on 10/07/2017.
+ * Class with various static methods necessary for operating with OpenGL
+ * Adapted from a tutorial at http://grishma102.blogspot.co.uk/2013/10/apply-effects-on-image-using-effects.html
  */
 
 import android.opengl.GLES20;

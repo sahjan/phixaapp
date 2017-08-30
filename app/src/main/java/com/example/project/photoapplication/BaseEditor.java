@@ -34,8 +34,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 /*
 Superclass for all GLeditor activities. This activity provides all necessary methods for setup of the open gl canvas
-and utility methods needed for editing operations such as Undo. The save method is abstract as part of the method
-requires a class name that so far we have been unable to pass as a class name successfully.
+and utility methods needed for editing operations such as Undo.
 subclasses must implement their own oncreate methods to complete set up of the canvas and display an image.
  */
 public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceView.Renderer {
@@ -94,6 +93,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     protected int redoIndex;
     protected boolean layers = false;
     protected FileManager fm;
+    // indexes for use with handling the brush tools effects specially within undo/redo
     protected int brushindex = 0;
     protected int brushRedoIndex = 0;
 
@@ -107,7 +107,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
     @Override
     protected void onStop(){
         super.onStop();
-//        images.recycle();
     }
 
     /*
@@ -122,7 +121,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         GLToolbox.initTexParams();
     }
 
-    /*
+    /**
     Load the image and bind it to an OpenGL texture.
      */
     public void loadTextures() {
@@ -141,10 +140,10 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         GLToolbox.initTexParams();
     }
 
-    /*
+    /**
     This method creates an effect, initialises it to the desired effect and then applies it to the input texture.
     The output is then given in the output texture in mTextures
-    @param InputTexture - The texture to which the effect should be applied.
+    @param inputTexture - The texture to which the effect should be applied.
     @param outputTexture - The texture that results from applying to the input texture.
      */
     public void applyEffect(int inputTexture, int outputTexture) {
@@ -258,7 +257,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         update the hue imageView if in adjust/transform/brush/overlay activity, so
         that it contains the latest image everytime an effect is applied.
         isChangedActivity is set to true when switched to another activity.
-*/
+        */
         if (isChangedActivity && mCurrentEffect != R.id.hue) {
             //update the hueView on the UI thread
             hueViewHandler.post(new Runnable() {
@@ -290,7 +289,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         }
     }
 
-    /*
+    /**
     Take a screenshot of the canvas
      */
     public Bitmap takeScreenshot(GL10 mGL) {
@@ -312,7 +311,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         return mBitmap;
     }
 
-    //Renderer override
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         if (mTexRenderer != null) {
@@ -320,7 +318,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         }
     }
 
-    //Renderer override
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
     }
@@ -355,9 +352,13 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
 
     public void redo(){
         redo = true;
+        // set the effect to the effect in the redo stacks
         mCurrentEffect = history.getRedoEffects().get(redoIndex);
         effectParameter = history.getRedoParams().get(redoIndex);
+        //push the redone effect back to the history as the most recently applied
         history.pushRedo(mCurrentEffect, effectParameter);
+        // Special case for handling brush effects
+        // Effectively don't re render just change the image to a screenshot taken when we leave brush tools
         if (mCurrentEffect == 111){
             Uri brushimage = history.getImage("BrushIm" + brushRedoIndex);
             brushRedoIndex++;
@@ -426,6 +427,10 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         GLToolbox.initTexParams();
     }
 
+    /**
+     * Shows the options menu and initialises its on clicks
+     * @param v
+     */
     public void showOptions(View v){
         PopupMenu popup = new PopupMenu(this, v);
         popup.inflate(R.menu.more_options);
@@ -476,6 +481,9 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
 
     public abstract void setSliderProgress();
 
+    /**
+     * Generate all the layers for the layer editor
+     */
     public void prepLayers() {
         EditUtils.clearPrivateStorage(context, "layers");
         // Set undo to true so effects applied in the re-render process aren't added to the stack
@@ -494,6 +502,9 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         layers = false;
     }
 
+    /**
+     * prepare all relevant variables for undoing an effect
+     */
     public void prepUndo(){
         if (!history.checkEmpty()) {
             if (!redoInit) {
@@ -506,7 +517,11 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         }
     }
 
+    /**
+     * Generate an image by successively applying a list of effects
+     */
     public void genLayers(){
+        // update the hue view to the most recent image
         hueView.setImageBitmap(images.getOriginalImage());
         brushindex = 0;
         for (int i = 0; i <= history.getEffects().size() - 1; i++) {
@@ -541,6 +556,10 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
 
 
     @Override
+    /**
+     * Special handling for pressing the back button to ensure the relevant information
+     * is handed back to the previous activity
+     */
     public void onBackPressed() {
         EditUtils.clearPrivateStorage(context, "back");
         Intent data = new Intent();

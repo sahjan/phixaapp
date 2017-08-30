@@ -7,24 +7,19 @@ import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.io.File;
 
-import static android.R.attr.button;
 
-
-/*
-The main editor activity. Contains all current editor functionality including transform/adjust effects.
-Will be broken apart into seperate activities in the future.
+/**
+ * The main layer editor page from where we can make our decision on what we want to do with a selected layer
  */
 
 public class LayerEditorMainPage extends BaseEditor implements GLSurfaceView.Renderer {
@@ -62,6 +57,11 @@ public class LayerEditorMainPage extends BaseEditor implements GLSurfaceView.Ren
         effectHandler = new Effects();
 
 
+        /*
+        Delete a layer
+        Removes the effects at this index from the history
+        Then re render the layer stack
+         */
         Button delete = (Button) findViewById(R.id.Delete);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,11 +75,14 @@ public class LayerEditorMainPage extends BaseEditor implements GLSurfaceView.Ren
             }
         });
 
+
+        //Add a Layer
+
         Button add = (Button) findViewById(R.id.Add);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context, EffectsFilterActivity.class);
+                Intent i = new Intent(context, LayerEditorEffectsActivity.class);
                 i.putExtra("History", history);
                 i.putExtra("Index", index);
                 i.putExtra("Image", uri);
@@ -89,11 +92,15 @@ public class LayerEditorMainPage extends BaseEditor implements GLSurfaceView.Ren
             }
         });
 
+        /*
+        Change the layer.
+        Loads the prior image in the stack
+         */
         Button change = (Button) findViewById(R.id.Change);
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context, EffectsFilterActivity.class);
+                Intent i = new Intent(context, LayerEditorEffectsActivity.class);
                 i.putExtra("History", history);
                 File[] ims = fm.getFileList(getFilesDir().toString() + "/layers");
                 i.putExtra("Index", index);

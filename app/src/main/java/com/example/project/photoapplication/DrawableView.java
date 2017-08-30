@@ -34,6 +34,7 @@ public class DrawableView extends View {
     private Path path;
     private Paint paint;
     private Context context;
+    //Collections that store paths and their relevant colours, size, blurfilters etc
     private ArrayList<Path> paths;
     private HashMap<Path, Integer> colours;
     private HashMap<Path, Float> brushSize;
@@ -74,10 +75,14 @@ public class DrawableView extends View {
     }
 
     @Override
+    /**
+     * The actions to take when drawing the image to the view
+     */
     protected void onDraw(Canvas canvas) {
         canvas.drawBitmap(mbitmap, 0, 0, paint);
         // draws all previous paths
         for (Path p : paths) {
+            // iterate through the list of stored paths and draw them all with their colours, sizes, blurfilters etc
             paint.setColor(colours.get(p));
             paint.setStrokeWidth(brushSize.get(p));
             if (blurring.get(p)) {
@@ -111,7 +116,7 @@ public class DrawableView extends View {
         mX = x;
         mY = y ;
     }
-    public void moveTouche (float x,float y ) {
+    public void moveTouch (float x,float y ) {
         float dx = Math.abs(x - mX);
         float dy = Math.abs(y - mY);
         if(dx >= Tolerance || dy >= Tolerance){
@@ -126,6 +131,9 @@ public class DrawableView extends View {
     }
 
     @Override
+    /**
+     * What to do when the screen is touched
+     */
     public boolean onTouchEvent(MotionEvent event) {
         float x = event.getX();
         float y = event.getY();
@@ -150,7 +158,7 @@ public class DrawableView extends View {
                 break ;
             case MotionEvent.ACTION_MOVE:
                 if(!selecting) {
-                    moveTouche(x, y);
+                    moveTouch(x, y);
                     invalidate();
                 }
                 break ;

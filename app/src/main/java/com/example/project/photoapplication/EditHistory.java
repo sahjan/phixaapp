@@ -11,6 +11,7 @@ import java.util.Stack;
 
 /**
  * Created by Ed on 13/07/2017.
+ * Stores all necessary data regarding the history of editing an image
  */
 
 public class EditHistory implements Parcelable {
@@ -31,22 +32,36 @@ public class EditHistory implements Parcelable {
 
     }
 
+    /**
+     *  Clone the effects and params at the current time
+     *  to give you everything you can redo once you have undone something from that stack
+     */
     public void initRedo(){
         redoEffects = (EditStack<Integer>) history.clone();
         redoParams = (EditStack<Float>) historyValues.clone();
     }
 
+    /**
+     * Clear the redo stack of all objects
+     */
     public void clearRedo(){
         redoEffects.clear();
         redoParams.clear();
     }
 
+    /**
+     * Used for once you have redone an effect,
+     * push it back to the history stack so that you can undo it again
+     * @param effectID - The effect to push
+     * @param param - The parameter of the effect
+     */
     public void pushRedo(Integer effectID, Float param){
         history.push(effectID);
         historyValues.push(param);
 
     }
 
+    // Getters
     public EditStack<Integer> getRedoEffects(){
         return redoEffects;
     }
@@ -54,6 +69,20 @@ public class EditHistory implements Parcelable {
     public EditStack<Float> getRedoParams(){
         return redoParams;
     }
+
+    public HashMap<String, Uri> getImages(){
+        return images;
+    }
+
+    public EditStack<Integer> getEffects(){ return history; }
+
+    public EditStack<Float> getParam(){ return historyValues;}
+
+    public Uri getImage(String key){
+        return images.get(key);
+    }
+
+    // Add and remove methods
 
     public void pushEffect(Integer effectID){
         history.push(effectID);
@@ -71,6 +100,14 @@ public class EditHistory implements Parcelable {
         historyValues.pop();
     }
 
+    public void putImage(String name, Uri image){
+        images.put(name, image);
+    }
+
+    /**
+     * Checks whether either of the effects or values stacks are empty
+     * @return
+     */
     public boolean checkEmpty(){
         if (history.empty() || historyValues.empty()){
             return true;
@@ -80,31 +117,29 @@ public class EditHistory implements Parcelable {
         }
     }
 
-    public void putImage(String name, Uri image){
-        images.put(name, image);
-    }
-
-    public Uri getImage(String key){
-        return images.get(key);
-    }
-
-    public HashMap<String, Uri> getImages(){
-        return images;
-    }
-
-    public EditStack<Integer> getEffects(){ return history; }
-
-    public EditStack<Float> getParam(){ return historyValues;}
-
+    /**
+     * Remove an effect and its associated parameter from the stacks
+     * @param index
+     */
     public void removeLayer(int index){
         history.removeIndex(index);
         historyValues.removeIndex(index);
     }
 
+    /**
+     * Add an effect and its associated parameter to the stacks
+     * @param index
+     * @param effect
+     * @param param
+     */
     public void addLayer(int index, int effect, float param){
         history.addAtIndex(index, effect);
         historyValues.addAtIndex(index, param);
     }
+
+
+    // Methods for parcelable implementation
+
 
     @Override
     public void writeToParcel(Parcel out, int flags){

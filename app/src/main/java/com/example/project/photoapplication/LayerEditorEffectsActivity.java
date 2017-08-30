@@ -9,23 +9,19 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 
-
-/*
-The main editor activity. Contains all current editor functionality including transform/adjust effects.
-Will be broken apart into seperate activities in the future.
+/**
+ * The editor activity for layers.
+ * For ease of use contains all the editing operations contained across all 3 activities
  */
 
-public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.Renderer {
+public class LayerEditorEffectsActivity extends BaseEditor implements GLSurfaceView.Renderer {
 
 
     private int index;
@@ -42,7 +38,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         hueViewHandler = new Handler();
         isChangedActivity = true;
 
-         //Initialise the renderer and tell it to only render when Explicit
+         //Initialise the renderer and tell it to only render when called for
          //requested with the RENDERMODE_WHEN_DIRTY option
         mEffectView = (GLSurfaceView) findViewById(R.id.effectsview);
         mEffectView.setEGLContextClientVersion(2);
@@ -360,19 +356,11 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         popup.show();
     }
 
-    /*
-    Implements the abstract save method of the superclass. Saves the file passed to it in a background thread
-    then tells the user once this has been executed.
-    @param bitmap - The image to save to a file.
-    @param context - The context of the current activity.
-     */
-
-
-    /*
+    /**
     Set the slider back to the mid point.
      */
     public void setSliderProgress(){
-        EffectsFilterActivity.this.mEffectView.post(new Runnable() {
+        LayerEditorEffectsActivity.this.mEffectView.post(new Runnable() {
             @Override
             public void run() {
                 slider.setProgress(50);
@@ -380,31 +368,16 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         });
     }
 
+    /**
+     * Display a toast
+     * @param toastString
+     */
     public void showToast(final String toastString){
-        EffectsFilterActivity.this.runOnUiThread(new Runnable() {
+        LayerEditorEffectsActivity.this.runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(EffectsFilterActivity.this, toastString, Toast.LENGTH_SHORT).show();
+                Toast.makeText(LayerEditorEffectsActivity.this, toastString, Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    public void changeInit(){
-        mCurrentEffect = fullHistory.getEffects().get(index);
-        float param = fullHistory.getParam().get(index);
-        final int sliderparam = (int) param;
-        mEffectView.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                slider.setProgress(sliderparam);
-            }
-        });
-        for (int i = 0; i<fullHistory.getEffects().size(); i++){
-            Log.e("Effect", Integer.toString(fullHistory.getEffects().get(i)));
-        }
-
-        Log.e("ce", Integer.toString(mCurrentEffect));
-        Log.e("param", Float.toString(EditUtils.calculateSliderValue(slider.getProgress())));
-        mEffectView.requestRender();
     }
 
     @Override

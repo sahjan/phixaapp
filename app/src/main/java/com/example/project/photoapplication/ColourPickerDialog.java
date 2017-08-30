@@ -16,6 +16,7 @@ import android.view.View;
 
 /**
  * Taken from the Google Fingerpaint sample
+ * https://android.googlesource.com/platform/development/+/master/samples/ApiDemos/src/com/example/android/apis/graphics/FingerPaint.java
  */
 
 public class ColourPickerDialog extends Dialog {
