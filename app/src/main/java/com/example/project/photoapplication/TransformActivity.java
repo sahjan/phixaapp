@@ -2,6 +2,7 @@ package com.example.project.photoapplication;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.lyft.android.scissors.CropView;
+
+import java.io.File;
 
 public class TransformActivity extends BaseEditor implements GLSurfaceView.Renderer{
 
@@ -185,7 +188,11 @@ public class TransformActivity extends BaseEditor implements GLSurfaceView.Rende
                 });
             }
         });
+
+        findViewById(R.id.topBut).setVisibility(View.INVISIBLE);
     }
+
+
 
     /**
      * sets the chosen effect depending on the button clicked

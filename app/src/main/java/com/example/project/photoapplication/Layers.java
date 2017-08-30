@@ -73,8 +73,13 @@ public class Layers extends AppCompatActivity {
                 Uri i = Uri.fromFile(mResources[mResources.length-1]);
                 back.putExtra("Image", i);
                 startActivity(back);
+                finish();
             }
         });
+
+        Log.e("History = ", Integer.toString(history.getEffects().size()));
+        Log.e("mResources = ", Integer.toString(mResources.length));
+
 
     }
 
@@ -126,9 +131,6 @@ public class Layers extends AppCompatActivity {
 
             ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
             imageView.setImageBitmap(getImage(mResources[position]));
-
-//            currentFile = mResources[position];
-//            Log.e("Index", Integer.toString(index));
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

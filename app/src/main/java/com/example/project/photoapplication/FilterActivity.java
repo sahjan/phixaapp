@@ -37,7 +37,7 @@ public class FilterActivity extends BaseEditor implements GLSurfaceView.Renderer
         uri = intent.getParcelableExtra("Image");
         mCurrentEffect = R.id.none;
         context = this;
-        history = new EditHistory(uri);
+        history = intent.getParcelableExtra("History");
 
         images = new Image(uri, context, history);
 
@@ -81,6 +81,8 @@ public class FilterActivity extends BaseEditor implements GLSurfaceView.Renderer
                 });
             }
         });
+
+        findViewById(R.id.topBut).setVisibility(View.INVISIBLE);
     }
 
     /**

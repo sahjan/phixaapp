@@ -51,10 +51,12 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
         if(intent.hasExtra("History")){
             history = intent.getParcelableExtra("History");
             images = new Image(uri, context, history);
+            Log.e("Old", "xx");
         }
         else {
             history = new EditHistory(uri);
             images = new Image(uri, context);
+            Log.e("New", "xx");
         }
 
         ImageButton layers = (ImageButton) findViewById(R.id.layers);
@@ -80,6 +82,7 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
                         images.recycle();
                         Intent loader = new Intent(context, Loader.class);
                         startActivity(loader);
+                        images.recycle();
                         finish();
                     }
                 })

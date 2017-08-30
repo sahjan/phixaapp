@@ -52,7 +52,6 @@ public class LayerEditorMainPage extends BaseEditor implements GLSurfaceView.Ren
         history = intent.getParcelableExtra("History");
         uri = intent.getParcelableExtra("Image");
         index = intent.getIntExtra("Index", 0);
-        Log.e("LEMP Index=", Integer.toString(index));
 
         images = new Image(uri, this, history);
 
@@ -69,7 +68,7 @@ public class LayerEditorMainPage extends BaseEditor implements GLSurfaceView.Ren
             public void onClick(View view) {
                 history.removeLayer(index);
                 prepLayers();
-                Log.e("History", Integer.toString(history.getEffects().size()));
+                Log.e("Delete Size = ", Integer.toString(history.getEffects().size()));
                 Intent i = new Intent(context, Layers.class);
                 i.putExtra("History", history);
                 startActivity(i);
@@ -108,6 +107,8 @@ public class LayerEditorMainPage extends BaseEditor implements GLSurfaceView.Ren
                 }
                 i.putExtra("Type", "Change");
                 startActivity(i);
+                Log.e("History = ", Integer.toString(history.getEffects().size()));
+
             }
         });
 
@@ -144,6 +145,9 @@ public class LayerEditorMainPage extends BaseEditor implements GLSurfaceView.Ren
         hueView.setImageBitmap(images.getImage());
         //hue container
         hueContainer = (LinearLayout) findViewById(R.id.hueSliderContainer);
+
+        Log.e("History = ", Integer.toString(history.getEffects().size()));
+
 
     }
 

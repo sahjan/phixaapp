@@ -61,9 +61,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
         uri = intent.getParcelableExtra("Image");
         history = new EditHistory(uri);
         index = intent.getIntExtra("Index", 0);
-        Log.e("EFAIndex=", Integer.toString(index));
         index ++;
-        Log.e("EFAIndex=", Integer.toString(index));
         effect = new int[1];
         params = new float[1];
 
@@ -187,6 +185,7 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                 // remove the padded layer
                 fullHistory.removeLayer(fullHistory.getEffects().size() - 1);
                 history = fullHistory;
+                Log.e("History = ", Integer.toString(history.getEffects().size()));
                 prepLayers();
                 Intent i = new Intent(context, Layers.class);
                 i.putExtra("History", fullHistory);
@@ -194,7 +193,13 @@ public class EffectsFilterActivity extends BaseEditor implements GLSurfaceView.R
                 finish();
             }
         });
-        
+
+        Log.e("History = ", Integer.toString(fullHistory.getEffects().size()));
+        Log.e("Effect Array = ", Integer.toString(effect.length));
+        Log.e("Param Array = ", Integer.toString(params.length));
+
+        findViewById(R.id.topBut).setVisibility(View.INVISIBLE);
+
     }
 
 

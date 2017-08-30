@@ -263,6 +263,8 @@ public class AdjustActivity extends BaseEditor implements GLSurfaceView.Renderer
                 setChosenEffect(R.id.tint);
             }
         });
+
+        findViewById(R.id.topBut).setVisibility(View.INVISIBLE);
     }
 
     @Override

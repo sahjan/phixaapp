@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -196,6 +197,10 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
 
         view.setOnTouchListener(image_Listener);
 
+        Log.e("History = ", Integer.toString(history.getEffects().size()));
+
+        findViewById(R.id.topBut).setVisibility(View.INVISIBLE);
+
     }
 
 
@@ -234,7 +239,8 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
      * Save the image in the canvas
      */
     public void save() {
-        fm.saveBitmap(getBitmap());
+        fm.startSave(context, getBitmap(), 1, "normal");
+        showToast("Image saved!");
     }
 
     /**
@@ -420,4 +426,5 @@ public class Drawing extends AppCompatActivity implements ColourPickerDialog.OnC
         setResult(Activity.RESULT_OK, data);
         super.onBackPressed();
     }
+
 }

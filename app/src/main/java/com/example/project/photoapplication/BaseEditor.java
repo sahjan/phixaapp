@@ -525,6 +525,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
                 }
                 images.setImage(b);
                 mCurrentEffect = R.id.none;
+                b.recycle();
             }
             // Call a render
             mEffectView.requestRender();
@@ -552,6 +553,7 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         data.putExtra("History", history);
         // add data to Intent
         setResult(Activity.RESULT_OK, data);
+        images.recycle();
         super.onBackPressed();
     }
 
