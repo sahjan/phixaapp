@@ -207,13 +207,6 @@ public class AdjustActivity extends BaseEditor implements GLSurfaceView.Renderer
             }
         });
 
-        findViewById(R.id.sharpenImgButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setChosenEffect(R.id.sharpen);
-            }
-        });
-
         findViewById(R.id.highlightsImgButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -221,40 +221,6 @@
                     android:paddingRight="5dp">
 
                     <ImageButton
-                        android:id="@+id/sharpenImgButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="55dp"
-
-                        android:layout_gravity="center"
-                        android:adjustViewBounds="true"
-                        android:background="@drawable/custom_button"
-                        android:cropToPadding="false"
-                        android:outlineProvider="none"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/sharpen_selector" />
-
-                    <TextView
-                        android:id="@+id/sharpenText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:letterSpacing="0.2"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:text="SHARPEN" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/black"
-                    android:orientation="vertical"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp">
-
-                    <ImageButton
                         android:id="@+id/highlightsImgButton"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"

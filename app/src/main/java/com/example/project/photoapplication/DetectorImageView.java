@@ -140,6 +140,7 @@ public class DetectorImageView extends ImageView {
     /**
      * This method changes the hue of the iris pixels depending
      * on the value passed in the hue parameter.
+     * See https://stackoverflow.com/questions/10254630/android-how-to-change-hue-of-an-image
      * @param i face
      * @param hue the value of the hue to tint the eye colour to.
      */
