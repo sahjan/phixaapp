@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by Ed on 09/08/2017.
  * A view that allows us to draw upon its canvas with both painted lines and blur paint.
  */
 

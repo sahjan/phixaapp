@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 /**
- * Created by Ed on 05/08/2017.
  * A special data structure for use in the EditHistory
  * In effect the EditStack is a stack, in that, generally items are added and removed from the top of the stack
  * However to allow for the special operations the EditHistory requires from a data structure,

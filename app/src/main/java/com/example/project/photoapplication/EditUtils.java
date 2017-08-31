@@ -8,7 +8,6 @@ import android.widget.PopupMenu;
 import java.io.File;
 
 /**
- * Created by Ed on 17/08/2017.
  * Contains static methods for data processing that can be called from anywhere and are used my multiple activities/classes
  */
 

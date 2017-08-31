@@ -13,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+/**
+ * Editor activity that performs all Filter effects
+ */
 public class FilterActivity extends BaseEditor implements GLSurfaceView.Renderer{
 
     @Override

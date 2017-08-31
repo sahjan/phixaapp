@@ -16,6 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+/**
+ * The home page for all editing operations
+ */
 public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
 
     private AlertDialog dialog;

@@ -32,8 +32,9 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 
-/*
-Superclass for all GLeditor activities. This activity provides all necessary methods for setup of the open gl canvas
+/**
+Superclass for all GLeditor activities.
+ This activity provides all necessary methods for setup of the open gl canvas
 and utility methods needed for editing operations such as Undo.
 subclasses must implement their own oncreate methods to complete set up of the canvas and display an image.
  */

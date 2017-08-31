@@ -8,10 +8,8 @@ import android.provider.MediaStore;
 import java.io.IOException;
 
 /**
- * Created by Ed on 03/08/2017.
  * Stores all images used by the editors and handles operations to update them.
  */
-
 public class Image {
 
     private Bitmap image;

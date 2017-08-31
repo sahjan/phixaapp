@@ -7,8 +7,6 @@ import android.media.effect.EffectContext;
 import java.util.ArrayList;
 
 /**
- * Created by Sahjan on 18/07/2017.
- *
  * This class is responsible for creating the
  * filters and allowing the Base Editor to apply them.
  *

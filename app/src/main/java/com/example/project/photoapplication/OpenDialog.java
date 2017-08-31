@@ -7,8 +7,7 @@ import android.os.Build;
 import android.support.v7.app.AlertDialog;
 
 /**
- * Created by Ed on 15/08/2017.
- * This class creates a dialog to warn users they are leaving the editors and opening the loader
+ * An open dialog to warn users they are leaving the editors and opening the loader
  */
 
 public class OpenDialog {

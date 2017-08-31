@@ -17,7 +17,9 @@ import android.widget.ImageButton;
 import java.io.File;
 import java.io.IOException;
 
-
+/**
+ * An activity that performs loading operations
+ */
 public class Loader extends AppCompatActivity {
 
     private static final int PICK_IMAGE = 100;

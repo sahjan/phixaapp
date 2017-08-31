@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Stack;
 
 /**
- * Created by Ed on 13/07/2017.
  * Stores all necessary data regarding the history of editing an image
  */
 

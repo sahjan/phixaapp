@@ -21,6 +21,9 @@ import android.widget.LinearLayout;
 
 import java.io.File;
 
+/**
+ * An activity to display all the applied layers of a given image
+ */
 public class Layers extends AppCompatActivity {
 
     File[] mResources;
