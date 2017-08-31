@@ -63,12 +63,17 @@ public class MainPage extends BaseEditor implements GLSurfaceView.Renderer {
         layers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                prepLayers();
-                Intent layers = new Intent(MainPage.this, Layers.class);
-                history.putImage("finalImage", uri);
-                layers.putExtra("History", history);
-                startActivity(layers);
-                images.recycle();
+                if(history.checkEmpty()){
+                    showToast("No Effects Applied!");
+                }
+                else {
+                    prepLayers();
+                    Intent layers = new Intent(MainPage.this, Layers.class);
+                    history.putImage("finalImage", uri);
+                    layers.putExtra("History", history);
+                    startActivity(layers);
+                    images.recycle();
+                }
             }
         });
 
