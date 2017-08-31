@@ -109,10 +109,10 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         super.onStop();
     }
 
-    /*
-    Load the textures using the previous image. This method is for use with adjustable
-    effects so that the same image is edited upon each change of value instead of applying
-    different multipliers sequentially.
+    /**
+    * Load the textures using the previous image. This method is for use with adjustable
+    * effects so that the same image is edited upon each change of value instead of applying
+    * different multipliers sequentially.
      */
     public void loadPreviewTexture() {
         mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
@@ -263,7 +263,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
             hueViewHandler.post(new Runnable() {
                 @Override
                 public void run() {
-
                     hueView.setImageBitmap(images.getImage());
                 }
             });
@@ -388,6 +387,9 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         }
     }
 
+    /**
+     * Apply the hue colour filter onto the ImageView used for hue.
+     */
     protected void applyHue() {
         hueView.getDrawable().setColorFilter(effectHandler.adjustHue(hueSlider.getProgress()));
         if (history.getEffects().size() > history.getParam().size()) {
@@ -400,6 +402,10 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         }
     }
 
+    /**
+     * For use with the crop tool. Sets the texture
+     * to the cropped image.
+     */
     public void applyCrop() {
         mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[0]);
@@ -407,6 +413,12 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         GLToolbox.initTexParams();
     }
 
+    /**
+     * Retrieves the edited Bitmap from the ImageView
+     * used to change the hue of the image.
+     * @param hueImgView ImageView used to update hue of Bitmap
+     * @return the updated Bitmap
+     */
     protected Bitmap getHuePreviewBitmap(final View hueImgView) {
         int width = hueImgView.getWidth();
         int height = hueImgView.getHeight();
@@ -417,10 +429,12 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
         return huePreview;
     }
 
-    //hue bitmap needs to be moved to Images class
+    /**
+     * This method sets the texture to the image in the
+     * hue imageView, with the edited hue.
+     */
     protected void loadHuePreview() {
         Bitmap huePreview = getHuePreviewBitmap(hueView);
-        //Bitmap huePreview = ((BitmapDrawable) hueView.getDrawable()).getBitmap();
         mTexRenderer.updateTextureSize(mImageWidth, mImageHeight);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mTextures[1]);
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, huePreview, 0);
@@ -553,7 +567,6 @@ public abstract class BaseEditor extends AppCompatActivity implements GLSurfaceV
 
         }
     }
-
 
     @Override
     /**

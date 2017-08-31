@@ -79,6 +79,7 @@ public class DetectorImageView extends ImageView {
      * the area of the circle that is drawn around the eyes.
      * Checks red value of a pixel for a red intensity over a
      * specified threshold.
+     * see https://stackoverflow.com/questions/133675/red-eye-reduction-algorithm
      * @param i the face
      */
     private void applyRedEyeFix(int i) {

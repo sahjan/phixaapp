@@ -85,7 +85,6 @@ public class TransformActivity extends BaseEditor implements GLSurfaceView.Rende
                 cropView.setVisibility(View.GONE);
                 cropButtons.setVisibility(View.GONE);
                 mCurrentEffect = R.id.none;
-                //REQUEST THE RENDER HERE
                 mEffectView.queueEvent(new Runnable() {
                     public void run() {
                         applyCrop();
