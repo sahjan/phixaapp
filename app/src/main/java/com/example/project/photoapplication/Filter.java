@@ -114,38 +114,4 @@ public class Filter extends Effects {
             grayscale.apply(textures[inputTexture], imgWidth, imgHeight, textures[outputTexture]);
         }
     }
-
-    //this was in baseEditor. taken out for now.
-    /*
-    private void applyFilter(int inputTexture, int outputTexture) {
-        if (mCurrentEffect == R.id.alien) {
-            ArrayList<Effect> alien = filterInitialiser.getAlienFilter(mEffectContext);
-            Effect tint = alien.get(0);
-            tint.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
-            Effect fisheye = alien.get(1);
-            fisheye.apply(mTextures[outputTexture], mImageWidth, mImageHeight, mTextures[inputTexture]);
-            Effect contrast = alien.get(2);
-            contrast.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
-        }
-        else if (mCurrentEffect == R.id.intenseColours) {
-            ArrayList<Effect> intenseColours = filterInitialiser.getIntenseColoursFilter(mEffectContext);
-            Effect contrast = intenseColours.get(0);
-            contrast.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
-            Effect saturation = intenseColours.get(1);
-            saturation.apply(mTextures[outputTexture], mImageWidth, mImageHeight, mTextures[inputTexture]);
-            Effect brightness = intenseColours.get(2);
-            brightness.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
-        }
-        else if (mCurrentEffect == R.id.oldFilm) {
-            ArrayList<Effect> oldFilm = filterInitialiser.getOldFilmFilter(mEffectContext);
-            Effect grain = oldFilm.get(0);
-            grain.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
-            Effect vignette = oldFilm.get(1);
-            vignette.apply(mTextures[outputTexture], mImageWidth, mImageHeight, mTextures[inputTexture]);
-            Effect grayscale = oldFilm.get(2);
-            grayscale.apply(mTextures[inputTexture], mImageWidth, mImageHeight, mTextures[outputTexture]);
-        }
-    }
-     */
-
 }

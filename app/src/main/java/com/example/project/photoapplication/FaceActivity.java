@@ -20,16 +20,19 @@ import android.media.FaceDetector;
 import java.io.IOException;
 
 /**
+ * Activity for displaying the image and detected points
+ * using DetectorImageView.
+ *
  * Base code by:
  * [AUTHOR]: Chunyen Liu
  * [SDK   ]: Android SDK 2.1 and up
  * [NOTE  ]: developer.com tutorial, "Face Detection with Android APIs"
+ * http://www.developer.com/ws/android/programming/face-detection-with-android-apis.html
  */
 
 public class FaceActivity extends BaseEditor {
 
     private DetectorImageView dIV;
-    private Bitmap img;
     private Bitmap scaledImg;
     private int mFaceWidth = 200;
     private int mFaceHeight = 200;
@@ -70,9 +73,7 @@ public class FaceActivity extends BaseEditor {
                                                                           LinearLayout.LayoutParams.MATCH_PARENT);
         this.addContentView(layout, layoutP);
 
-        //buttonsBar = findViewById(R.id.buttonsBar);
-
-        //the buttons
+        //set the red-eye and eye colour buttons
         redEyeButton = (Button) findViewById(R.id.redEyeButton);
         eyeColourButton = (Button) findViewById(R.id.eyeButton);
         ((ViewGroup) redEyeButton.getParent()).removeView(redEyeButton);
@@ -111,20 +112,21 @@ public class FaceActivity extends BaseEditor {
         //load the photo
         try {
             Bitmap image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-            img = image.copy(Bitmap.Config.RGB_565, true);
+            Bitmap img = image.copy(Bitmap.Config.RGB_565, true);
             image.recycle();
 
+            //scale the image to fit the screen size, whilst
+            //also maintaining aspect ratio.
             DisplayMetrics displayMetrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
             double scrHeight = displayMetrics.heightPixels;
             double scrWidth = displayMetrics.widthPixels;
             double scale = Math.min(scrHeight/img.getHeight(), scrWidth/img.getWidth());
-
             scaledImg = Bitmap.createScaledBitmap(img, (int) (img.getWidth()*scale), (int) (img.getHeight()*scale), true);
 
-            mFaceWidth = scaledImg.getWidth(); //img
-            mFaceHeight = scaledImg.getHeight(); //img
-            dIV.setImageBitmap(scaledImg); //img
+            mFaceWidth = scaledImg.getWidth();
+            mFaceHeight = scaledImg.getHeight();
+            dIV.setImageBitmap(scaledImg);
             img.recycle();
         }
         catch(IOException e) {
@@ -132,10 +134,8 @@ public class FaceActivity extends BaseEditor {
         }
 
         // perform face detection in setFace() in a background thread
-        doLengthyCalc();
+        calculatePositionInBG();
 
-        // perform face detection and set the feature points
-        //setFace();
         dIV.invalidate();
     }
 
@@ -149,6 +149,10 @@ public class FaceActivity extends BaseEditor {
 
     }
 
+    /**
+     * Set onClickListeners for the eye colour
+     * option buttons.
+     */
     private void setEyeColourButtons() {
         findViewById(R.id.red).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,6 +226,11 @@ public class FaceActivity extends BaseEditor {
         });
     }
 
+    /**
+     * This method uses FaceDetector to detect the face
+     * and calculate the location of the midpoints of
+     * the eyes.
+     */
     private void setFace() {
         FaceDetector fd;
         FaceDetector.Face [] faces = new FaceDetector.Face[MAX_FACES];
@@ -233,7 +242,7 @@ public class FaceActivity extends BaseEditor {
 
         try {
             fd = new FaceDetector(mFaceWidth, mFaceHeight, MAX_FACES);
-            count = fd.findFaces(scaledImg, faces); //img
+            count = fd.findFaces(scaledImg, faces);
         } catch (Exception e) {
             Log.e(TAG, "setFace(): " + e.toString());
             return;
@@ -274,7 +283,11 @@ public class FaceActivity extends BaseEditor {
         dIV.setDisplayPoints(fpx, fpy, count * 2, 1);
     }
 
-    private void doLengthyCalc() {
+    /**
+     * Performs face and eye position calculation
+     * in the background.
+     */
+    private void calculatePositionInBG() {
         Thread t = new Thread() {
             Message m = new Message();
 

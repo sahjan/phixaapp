@@ -88,7 +88,7 @@ public class FilterActivity extends BaseEditor implements GLSurfaceView.Renderer
 
     /**
      * set mCurrent effect depending on the button pressed
-     * @param chosenEffect
+     * @param chosenEffect the effect chosen
      */
     public void setChosenEffect(int chosenEffect) {
         resetRedo();
@@ -129,6 +129,9 @@ public class FilterActivity extends BaseEditor implements GLSurfaceView.Renderer
         super.onResume();
     }
 
+    /**
+     * Set onClickListeners for the buttons.
+     */
     private void setFilterButtons() {
         findViewById(R.id.alienButton).setOnClickListener(new View.OnClickListener() {
             @Override

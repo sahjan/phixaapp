@@ -11,10 +11,14 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 
 /**
+ * Class that extends ImageView. Responsible for displaying
+ * the image, as well as displaying the detected points for the eyes.
+ *
  * Base code by:
  * [AUTHOR]: Chunyen Liu
  * [SDK   ]: Android SDK 2.1 and up
  * [NOTE  ]: developer.com tutorial, "Face Detection with Android APIs"
+ * http://www.developer.com/ws/android/programming/face-detection-with-android-apis.html
  */
 
 public class DetectorImageView extends ImageView {
@@ -29,10 +33,7 @@ public class DetectorImageView extends ImageView {
     private int [] mPX = null;
     private int [] mPY = null;
     private float scaledEyeCircleRadius;
-    //private float eyeCircleArea;
     private float eyeColour;
-    //private int xCoord, yCoord;
-    //private SurfaceHolder surfaceHolder;
 
     public DetectorImageView(Context c) {
         super(c);
@@ -44,6 +45,10 @@ public class DetectorImageView extends ImageView {
         init();
     }
 
+    /**
+     * initialises the DetectorImageView by setting
+     * up the canvas, paint and Bitmap.
+     */
     private void init() {
         mBitmap = Bitmap.createBitmap(mBitmapWidth, mBitmapHeight, Bitmap.Config.RGB_565);
         mCanvas = new Canvas(mBitmap);
@@ -57,32 +62,25 @@ public class DetectorImageView extends ImageView {
         redEye = true;
     }
 
+    /**
+     * Sets the size of the circle to be drawn on
+     * the Canvas, depending on the distance between
+     * the eyes. This ensures the circle is appropriately
+     * scaled for images with differently sized faces
+     * and eyes.
+     * @param eyesDistance the distance between the eyes
+     */
     public void setScaledEyeCircleRadius(float eyesDistance) {
         scaledEyeCircleRadius = eyesDistance / 4;
     }
 
-   /* private float calculateEyeCircleArea(float radius) {
-        //eyeCircleArea = Math.PI * square(radius);
-        return radius;
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (surfaceHolder.getSurface().isValid()) {
-                Canvas canvas = surfaceHolder.lockCanvas();
-                canvas.drawCircle(event.getX(), event.getY(), scaledEyeCircleRadius, mPaint);
-                surfaceHolder.unlockCanvasAndPost(canvas);
-            }
-        }
-        return false;
-    }
-
-    private void setEyePos(int x, int y) {
-        xCoord = x;
-        yCoord = y;
-    } */
-
+    /**
+     * Applies the red-eye filter by reading pixels within
+     * the area of the circle that is drawn around the eyes.
+     * Checks red value of a pixel for a red intensity over a
+     * specified threshold.
+     * @param i the face
+     */
     private void applyRedEyeFix(int i) {
         for(int x = (mPX[i] - Math.round(scaledEyeCircleRadius)); x < (mPX[i] + Math.round(scaledEyeCircleRadius)); x++) {
             for(int y = (mPY[i] - Math.round(scaledEyeCircleRadius)); y < (mPY[i] + Math.round(scaledEyeCircleRadius)); y++) {
@@ -92,8 +90,10 @@ public class DetectorImageView extends ImageView {
                 int green = Color.green(pixel);
                 int blue = Color.blue(pixel);
 
+                //calculate the red intensity by dividing the amount of red by the average of green and blue.
                 float redIntensity = ((float)red / ((green + blue) / 2));
                 if (redIntensity > 2.2f) {
+                    //set the pixel with a decreased red intensity.
                     mBitmap.setPixel(x, y, Color.rgb(45, green, blue));
                 }
             }
@@ -104,10 +104,30 @@ public class DetectorImageView extends ImageView {
         changeEyes = true;
     }
 
+    /**
+     * Sets eyeColour to a specified number between
+     * 0-360.
+     * @param hueValue
+     */
     public void setEyeColour(float hueValue) {
+        //guard against values outside 0-360.
+        if (hueValue < 0 || hueValue > 360) {
+            hueValue = 0;
+        }
         eyeColour = hueValue;
     }
 
+    /**
+     * This method detects the iris by checking a pixel for blue
+     * or green values higher than the red. Skin around the eyes
+     * is likely to have significantly more red than B or G so this
+     * method is useful for safegaurding against applying colour change
+     * to the area outside the eye.
+     * @param red the amount of red in the pixel
+     * @param green the amount of blue in the pixel
+     * @param blue the amount of green in the pixel
+     * @return true or false depending on the green or blue intensity
+     */
     private boolean isIris(float red, float green, float blue) {
         if (blue > red ||
             green > red) {
@@ -116,10 +136,15 @@ public class DetectorImageView extends ImageView {
         return false;
     }
 
+    /**
+     * This method changes the hue of the iris pixels depending
+     * on the value passed in the hue parameter.
+     * @param i face
+     * @param hue the value of the hue to tint the eye colour to.
+     */
     private void applyChangeEyeColour(int i, float hue) {
         for(int x = (mPX[i] - Math.round(scaledEyeCircleRadius)); x < (mPX[i] + Math.round(scaledEyeCircleRadius)); x++) {
             for(int y = (mPY[i] - Math.round(scaledEyeCircleRadius)); y < (mPY[i] + Math.round(scaledEyeCircleRadius)); y++) {
-                //hue range 0-360
                 int pixel = mBitmap.getPixel(x, y);
                 int red = Color.red(pixel);
                 int green = Color.green(pixel);
@@ -169,7 +194,13 @@ public class DetectorImageView extends ImageView {
         if (mBitmapHeight < h) mBitmapHeight = h;
     }
 
-    // set up detected face features for display
+    /**
+     * This method sets up detected face features for display
+     * @param xx x coordinates of each eye detected
+     * @param yy y coordinates of each eye detected
+     * @param total total number of faces detected
+     * @param style either 0 or 1. Sets to 1 when background calculation completed in calculatePositionInBG().
+     */
     public void setDisplayPoints(int [] xx, int [] yy, int total, int style) {
         mDisplayStyle = style;
         mPX = null;

@@ -13,7 +13,8 @@ import android.media.effect.EffectFactory;
  *
  * This class is responsible for initialising the chosen
  * effect and passing it back to the main activity to
- * apply and render.
+ * apply and render, or to a Filter instance, to store and
+ * apply when needed.
  */
 
 public class Effects {
@@ -25,6 +26,8 @@ public class Effects {
     }
 
     /**
+     * This method initialises an Effect using the specified
+     * parameter.
      * @param effectContext the EffectContext being used.
      * @param chosenEffect the chosen effect
      * @return the initialised effect
@@ -35,9 +38,8 @@ public class Effects {
         if (effect != null) {
             effect.release();
         }
-        /**
-         * Initialize the correct effect based on the selected menu/action item
-         */
+
+         //Initialize the correct effect based on the selected menu/action item
         switch (chosenEffect) {
             case R.id.none:
                 break;
@@ -46,7 +48,7 @@ public class Effects {
                         EffectFactory.EFFECT_AUTOFIX);
                 effect.setParameter("scale", sliderProgress);
                 break;
-            case R.id.bw: //this effect is not black & white, it only adjusts the shadows and highlights
+            case R.id.bw:
                 effect = effectFactory.createEffect(
                         EffectFactory.EFFECT_BLACKWHITE);
                 effect.setParameter("black", .1f);
@@ -168,12 +170,17 @@ public class Effects {
         return effect;
     }
 
+    /*
+    * The following three methods were obtained from:
+    * https://stackoverflow.com/questions/4354939/understanding-the-use-of-colormatrix-and-colormatrixcolorfilter-to-modify-a-draw
+     */
+
     /**
      * Creates a HUE adjustment ColorFilter
      * see http://groups.google.com/group/android-developers/browse_thread/thread/9e215c83c3819953
      * see http://gskinner.com/blog/archives/2007/12/colormatrix_cla.html
      * @param value degrees to shift the hue.
-     * @return
+     * @return a ColourFilter
      */
     public static ColorFilter adjustHue(float value ) {
         ColorMatrix cm = new ColorMatrix();
@@ -211,6 +218,12 @@ public class Effects {
         cm.postConcat(new ColorMatrix(mat));
     }
 
+    /**
+     * Safegaurds against nonsensical values.
+     * @param p_val the value passed
+     * @param p_limit -180
+     * @return the appropriate value
+     */
     protected static float cleanValue(float p_val, float p_limit)
     {
         return Math.min(p_limit, Math.max(-p_limit, p_val));

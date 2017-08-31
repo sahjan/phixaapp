@@ -119,8 +119,8 @@ public class AdjustActivity extends BaseEditor implements GLSurfaceView.Renderer
     }
 
     /**
-     * sets effect depending on button
-     * @param chosenEffect
+     * Sets effect depending on the button pressed
+     * @param chosenEffect the effect chosen, as int (menu ID)
      */
     private void setChosenEffect(int chosenEffect) {
         resetRedo();
@@ -168,7 +168,9 @@ public class AdjustActivity extends BaseEditor implements GLSurfaceView.Renderer
         }
     }
 
-
+    /**
+     * This method sets onClickListeners for each button.
+     */
     private void setButtons() {
         findViewById(R.id.autofixImgButton).setOnClickListener(new View.OnClickListener() {
             @Override
